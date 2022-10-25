@@ -1,0 +1,40 @@
+{
+  "engineName": "btc-engine-1",
+  "endpointBase": "https://my-test-es-deploy.ent.us-central1.gcp.cloud.es.io",
+  "searchKey": "search-bjqwxsgfhdnyyhe1arsfxtaq",
+  "resultFields": [
+    "additional_urls",
+    "created_at",
+    "title",
+    "meta_keywords",
+    "submission_id",
+    "popularity",
+    "links",
+    "url_host",
+    "url_path",
+    "url_path_dir3",
+    "reddit_data_type",
+    "body_content",
+    "redditor_username",
+    "domains",
+    "redditor_id",
+    "url",
+    "url_scheme",
+    "meta_description",
+    "user_id",
+    "headings",
+    "url_port",
+    "url_path_dir2",
+    "url_path_dir1",
+    "username",
+    "id"
+  ],
+  "sortFields": [
+
+  ],
+  "facets": [
+    "domains"
+  ],
+  "titleField": "title",
+  "urlField": "url"
+}
