@@ -53,3 +53,6 @@ We welcome contributors to the project. Before you begin, a couple notes...
 - Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/adamjonas/btc-engine-1-react-demo-ui/issues).
 - Please write simple code and concise documentation, when appropriate.
 
+## License 📗
+
+[Apache-2.0](https://github.com/adamjonas/btc-engine-1-react-demo-ui/blob/main/LICENSE.txt) 
