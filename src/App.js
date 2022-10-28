@@ -7,15 +7,17 @@ import {
   Facet,
   SearchProvider,
   SearchBox,
-  Results,
   PagingInfo,
   ResultsPerPage,
+  // Results,
   Paging,
   Sorting,
   WithSearch
 } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
+import "./App.css";
+import AllResults from "./Pages/AllResults";
 
 import {
   buildAutocompleteQueryConfig,
@@ -43,6 +45,7 @@ const config = {
   alwaysSearchOnInitialLoad: true
 };
 
+
 export default function App() {
   return (
     <SearchProvider config={config}>
@@ -61,18 +64,19 @@ export default function App() {
                           sortOptions={buildSortOptionsFromConfig()}
                         />
                       )}
-                      {getFacetFields().map(field => (
+                      {getFacetFields().map((field) => (
                         <Facet key={field} field={field} label={field} />
                       ))}
                     </div>
                   }
                   bodyContent={
-                    <Results
-                      titleField={getConfig().titleField}
-                      urlField={getConfig().urlField}
-                      thumbnailField={getConfig().thumbnailField}
-                      shouldTrackClickThrough={true}
-                    />
+                    // <Results
+                    //   titleField={getConfig().titleField}
+                    //   urlField={getConfig().urlField}
+                    //   thumbnailField={getConfig().thumbnailField}
+                    //   shouldTrackClickThrough={true}
+                    // />
+                    <AllResults></AllResults>
                   }
                   bodyHeader={
                     <React.Fragment>
