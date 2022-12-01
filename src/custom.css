@@ -1,0 +1,266 @@
+/* We selectedivly override base styles to create a red theme */
+.btc-search .sui-search-box__submit {
+  background: none;
+  background-color: rgb(29, 1, 189);
+}
+
+.btc-search .sui-layout-sidebar-toggle {
+  color: red;
+  border: 1px solid red;
+}
+
+.btc-search .sui-result__title,
+.btc-search .sui-result__title-link {
+  color: red;
+}
+
+.btc-search .sui-facet-view-more {
+  color: red;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: auto;
+    color: #3a56e4;
+    font-weight:400;
+    padding-top: 5%;
+}
+
+.logo {
+    width: 12rem;
+    margin: auto;
+}
+
+.btc-search {
+    background: #fcfcfc;
+}
+
+
+.sui-layout-header {
+    /* padding: 20% 20%; */
+    border-bottom: 0px;
+    margin: auto 0;
+}
+
+.sui-layout-header:focus {
+    /* padding: 32px 24px; */
+    border-bottom: 0px;
+    /* margin: 1px 0; */
+}
+
+.sui-search-box__wrapper {
+    width: 50%;
+}
+
+.sui-search-box__wrapper:focus {
+    padding: 32px 24px; 
+}
+
+.sui-search-box__text-input {
+    border-radius: 35px 0px 0px 35px;
+}
+
+.sui-search-box__text-input:focus .header {
+    padding-top: 0px;
+}
+
+
+.sui-search-box__submit {
+    /* padding-left: 0px; */
+    border-radius: 0 35px 35px 0px;
+    background: #4285F4;
+}
+
+.searchresult {
+    word-wrap: break-word; 
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 25px;
+}
+
+.searchresult h2 {
+    font-size: 19px;
+    line-height: 18px;
+    font-weight: normal;
+    color: rgb(29, 1, 189);
+    margin-bottom: 0px;
+    /* margin-top: 25px; */
+}
+
+.url-display {
+    font-size: 14px;
+    line-height: 14px;
+    color: green;
+    margin-bottom: 0px;
+}
+
+.searchresult button {
+    font-size: 10px;
+    line-height: 14px;
+    color: green;
+    margin-bottom: 0px;
+    padding: 0px;
+    border-width: 0px;
+    background-color: white;
+}
+
+
+#profileimage {
+    border-radius: 50px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 40px;
+    bottom: 12px;
+}
+
+#optionsbar {
+    width: 100%;
+    height: 50px;
+    border-width: 0px;
+    border-bottom: 1px;
+    border-color: lightgray;
+    border-style: solid;
+    display: flex;
+    align-items: flex-end;
+    font-family: 'Arial';
+    font-size: 13px;
+    color: rgb(112, 112, 112);
+    padding-top: 64px;
+}
+
+#optionsmenu1 {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 150px;
+}
+
+#optionsmenu1 li {
+    padding: 0px 10px 15px 20px;
+}
+
+#optionsmenuactive {
+    color: #4285F4;
+    font-weight: bold;
+    position: relative;
+    z-index: -1;
+}
+
+.searchresult p {
+    width: 625px;
+    font-size: 13px;
+    margin-top: 0px;
+    color: rgb(82, 82, 82);
+}
+
+.relatedsearches h3 {
+    font-weight: normal;
+    font-size: 19px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.relatedlists ul {
+    list-style: none;
+    color: rgb(29, 1, 189);
+    padding-left: 0px;
+    font-size: 14px;
+    margin-bottom: 50px;
+}
+
+.relatedlists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.relatedlists ul li {
+    margin-bottom: 8px;
+}
+
+.pagelist {
+    list-style: none;
+    color: rgb(29, 135, 255);
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    margin-bottom: 30px;
+    margin-left: 100px;
+}
+
+.pagelistprevious::before {
+    content: '<';
+    display: block;
+    position: absolute;
+    right: 12px;
+    top: -35px;
+    color: rgb(29, 135, 255);
+    font-size: 20px;
+    transform: scale(0.7, 1.2);
+}
+
+.pagelistfirst {
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.pagelistnumber::before, .pagelistfirst::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -2px;
+    top: -21px;
+    border-radius: 50px;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    z-index: 3;
+}
+
+.pagelistnumber::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -6px;
+    top: -25px;
+    border-radius: 50px;
+    width: 18px;
+    height: 18px;
+    background-color: rgb(255, 196, 0);
+    z-index: 2;
+}
+    .btc-search .sui-layout-sidebar-toggle {
+        display:none;
+    }
+
+@media only screen and (max-width: 640px) {
+
+.btc-search .sui-search-box__wrapper {
+    width: 90%;
+}
+.btc-search .header {
+    font-weight: 300;
+    font-size: small;
+}
+
+.btc-search .logo {
+    width: 8rem;
+}
+
+.searchresult h2 { 
+    font-size: 16px;
+}
+
+.url-display { 
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+}

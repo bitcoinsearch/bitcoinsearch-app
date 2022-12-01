@@ -1,5 +1,6 @@
-import React from "react";
-
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import * as React from "react";
+import { Parser } from "html-to-react";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
 import {
@@ -7,17 +8,18 @@ import {
   Facet,
   SearchProvider,
   SearchBox,
+  Results,
   PagingInfo,
   ResultsPerPage,
-  // Results,
   Paging,
   Sorting,
-  WithSearch
+  WithSearch,
 } from "@elastic/react-search-ui";
-import { Layout } from "@elastic/react-search-ui-views";
+import {
+  Layout,
+} from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
-import "./App.css";
-import AllResults from "./Pages/AllResults";
+import "./custom.css";
 
 import {
   buildAutocompleteQueryConfig,
@@ -25,26 +27,49 @@ import {
   buildSearchOptionsFromConfig,
   buildSortOptionsFromConfig,
   getConfig,
-  getFacetFields
+  getFacetFields,
 } from "./config/config-helper";
+import logo from "./btc.png";
 
+const htmlToReactParser = new Parser();
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
   searchKey,
   engineName,
   hostIdentifier,
-  endpointBase
+  endpointBase,
 });
 const config = {
   searchQuery: {
     facets: buildFacetConfigFromConfig(),
-    ...buildSearchOptionsFromConfig()
+    ...buildSearchOptionsFromConfig(),
   },
   autocompleteQuery: buildAutocompleteQueryConfig(),
   apiConnector: connector,
-  alwaysSearchOnInitialLoad: true
+  alwaysSearchOnInitialLoad: false,
 };
 
+const CustomPagingInfoView = ({ start, end }) => (
+  <div className="paging-info">
+    <strong>
+      {start} - {end}
+    </strong>
+  </div>
+);
+
+const CustomResultView = ({ result, onClickLink }) => (
+  <div className="searchresult">
+    <h2>
+      <a onClick={onClickLink} href={result.url.raw}>
+        {htmlToReactParser.parse(result.title.snippet)}
+      </a>
+    </h2>
+    <a className="url-display">
+      {result.url.raw} <button>▼</button>
+    </a>
+    <p>{htmlToReactParser.parse(result.body_content.snippet)}</p>
+  </div>
+);
 
 export default function App() {
   return (
@@ -52,12 +77,33 @@ export default function App() {
       <WithSearch mapContextToProps={({ wasSearched }) => ({ wasSearched })}>
         {({ wasSearched }) => {
           return (
-            <div className="App">
+            <div className="App btc-search">
               <ErrorBoundary>
+                <div className="header">
+                  <img src={logo} className="logo" alt="bitcoin logo" />
+                  <div>Search Bitcoin related publications</div>
+                </div>
                 <Layout
-                  header={<SearchBox autocompleteSuggestions={true} />}
+                  header={
+                    <SearchBox
+                      autocompleteMinimumCharacters={3}
+                      autocompleteResults={{
+                        linkTarget: "_blank",
+                        sectionTitle: "Results",
+                        titleField: "title",
+                        urlField: "nps_link",
+                        shouldTrackClickThrough: true,
+                        clickThroughTags: ["test"],
+                      }}
+                      autocompleteSuggestions={true}
+                      debounceLength={0}
+                    />
+                  }
                   sideContent={
                     <div>
+                      {/* <ClearFilters />
+                      <br /> */}
+                      {/* <br /> */}
                       {wasSearched && (
                         <Sorting
                           label={"Sort by"}
@@ -70,19 +116,24 @@ export default function App() {
                     </div>
                   }
                   bodyContent={
-                    // <Results
-                    //   titleField={getConfig().titleField}
-                    //   urlField={getConfig().urlField}
-                    //   thumbnailField={getConfig().thumbnailField}
-                    //   shouldTrackClickThrough={true}
-                    // />
-                    <AllResults></AllResults>
+                    <Results
+                      resultView={CustomResultView}
+                      // titleField="title"
+                      // urlField="nps_link"
+                      // thumbnailField="image_url"
+                      titleField={getConfig().titleField}
+                      urlField={getConfig().urlField}
+                      thumbnailField={getConfig().thumbnailField}
+                      shouldTrackClickThrough={true}
+                    />
                   }
                   bodyHeader={
-                    <React.Fragment>
-                      {wasSearched && <PagingInfo />}
+                    <>
+                      {wasSearched && (
+                        <PagingInfo view={CustomPagingInfoView} />
+                      )}
                       {wasSearched && <ResultsPerPage />}
-                    </React.Fragment>
+                    </>
                   }
                   bodyFooter={<Paging />}
                 />
