@@ -31,9 +31,9 @@ function toLowerCase(string) {
   if (string) return string.toLowerCase();
 }
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeFirstLetter(string) {
+//   return string.charAt(0).toUpperCase() + string.slice(1);
+// }
 
 export function getTitleField() {
   // If no title field configuration has been provided, we attempt

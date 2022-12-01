@@ -12,7 +12,6 @@ import {
   PagingInfo,
   ResultsPerPage,
   Paging,
-  Sorting,
   WithSearch,
 } from "@elastic/react-search-ui";
 import {
