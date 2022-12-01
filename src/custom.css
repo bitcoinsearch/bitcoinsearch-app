@@ -1,7 +1,7 @@
 /* We selectedivly override base styles to create a red theme */
 .btc-search .sui-search-box__submit {
   background: none;
-  background-color: rgb(29, 1, 189);
+  background-color: #FF9900
 }
 
 .btc-search .sui-layout-sidebar-toggle {
@@ -84,7 +84,7 @@
     font-size: 19px;
     line-height: 18px;
     font-weight: normal;
-    color: rgb(29, 1, 189);
+    color: #0969da;
     margin-bottom: 0px;
     /* margin-top: 25px; */
 }

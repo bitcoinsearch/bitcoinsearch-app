@@ -25,7 +25,6 @@ import {
   buildAutocompleteQueryConfig,
   buildFacetConfigFromConfig,
   buildSearchOptionsFromConfig,
-  buildSortOptionsFromConfig,
   getConfig,
   getFacetFields,
 } from "./config/config-helper";
@@ -81,7 +80,7 @@ export default function App() {
               <ErrorBoundary>
                 <div className="header">
                   <img src={logo} className="logo" alt="bitcoin logo" />
-                  <div>Search Bitcoin related publications</div>
+                  <div>Technical Bitcoin Search</div>
                 </div>
                 <Layout
                   header={
@@ -101,15 +100,7 @@ export default function App() {
                   }
                   sideContent={
                     <div>
-                      {/* <ClearFilters />
-                      <br /> */}
-                      {/* <br /> */}
-                      {wasSearched && (
-                        <Sorting
-                          label={"Sort by"}
-                          sortOptions={buildSortOptionsFromConfig()}
-                        />
-                      )}
+                      {wasSearched}
                       {getFacetFields().map((field) => (
                         <Facet key={field} field={field} label={field} />
                       ))}

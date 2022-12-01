@@ -163,29 +163,6 @@ export function buildFacetConfigFromConfig() {
   return facets;
 }
 
-export function buildSortOptionsFromConfig() {
-  const config = getConfig();
-  return [
-    {
-      name: "Relevance",
-      value: "",
-      direction: ""
-    },
-    ...(config.sortFields || []).reduce((acc, sortField) => {
-      acc.push({
-        name: `${capitalizeFirstLetter(sortField)} ASC`,
-        value: sortField,
-        direction: "asc"
-      });
-      acc.push({
-        name: `${capitalizeFirstLetter(sortField)} DESC`,
-        value: sortField,
-        direction: "desc"
-      });
-      return acc;
-    }, [])
-  ];
-}
 
 export function buildAutocompleteQueryConfig() {
   const querySuggestFields = getConfig().querySuggestFields;
