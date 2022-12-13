@@ -31,9 +31,9 @@ function toLowerCase(string) {
   if (string) return string.toLowerCase();
 }
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeFirstLetter(string) {
+//   return string.charAt(0).toUpperCase() + string.slice(1);
+// }
 
 export function getTitleField() {
   // If no title field configuration has been provided, we attempt
@@ -163,29 +163,6 @@ export function buildFacetConfigFromConfig() {
   return facets;
 }
 
-export function buildSortOptionsFromConfig() {
-  const config = getConfig();
-  return [
-    {
-      name: "Relevance",
-      value: "",
-      direction: ""
-    },
-    ...(config.sortFields || []).reduce((acc, sortField) => {
-      acc.push({
-        name: `${capitalizeFirstLetter(sortField)} ASC`,
-        value: sortField,
-        direction: "asc"
-      });
-      acc.push({
-        name: `${capitalizeFirstLetter(sortField)} DESC`,
-        value: sortField,
-        direction: "desc"
-      });
-      return acc;
-    }, [])
-  ];
-}
 
 export function buildAutocompleteQueryConfig() {
   const querySuggestFields = getConfig().querySuggestFields;
