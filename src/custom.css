@@ -17,9 +17,14 @@
     overflow-x: hidden;
 }
 
+.sui-facet {
+  overflow-wrap: break-word;
+  font-size: 0.5rem;
+}
+
 .btc-search .sui-layout-sidebar-toggle {
   color: red;
-  border: 1px solid red;
+  width: 24%;
 }
 
 .btc-search .sui-result__title,
