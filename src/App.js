@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as React from "react";
-import { Parser } from "html-to-react";
-import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
+import * as React from 'react';
+import { Parser } from 'html-to-react';
+import AppSearchAPIConnector from '@elastic/search-ui-app-search-connector';
 import sanitizeHtml from 'sanitize-html';
 
 import {
@@ -14,12 +14,10 @@ import {
   ResultsPerPage,
   Paging,
   WithSearch,
-} from "@elastic/react-search-ui";
-import {
-  Layout,
-} from "@elastic/react-search-ui-views";
-import "@elastic/react-search-ui-views/lib/styles/styles.css";
-import "./custom.css";
+} from '@elastic/react-search-ui';
+import { Layout } from '@elastic/react-search-ui-views';
+import '@elastic/react-search-ui-views/lib/styles/styles.css';
+import './custom.css';
 
 import {
   buildAutocompleteQueryConfig,
@@ -27,8 +25,8 @@ import {
   buildSearchOptionsFromConfig,
   getConfig,
   getFacetFields,
-} from "./config/config-helper";
-import logo from "./btc.png";
+} from './config/config-helper';
+import logo from './btc.png';
 
 const htmlToReactParser = new Parser();
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
@@ -63,9 +61,7 @@ const CustomResultView = ({ result, onClickLink }) => (
         {htmlToReactParser.parse(sanitizeHtml(result.title.snippet))}
       </a>
     </h2>
-    <a className="url-display">
-      {result.url.raw} <button>▼</button>
-    </a>
+    <a className="url-display">{result.url.raw}</a>
     <p>{htmlToReactParser.parse(sanitizeHtml(
       (result.body_type.raw === 'raw'
         ? result.body.raw
@@ -91,12 +87,12 @@ export default function App() {
                     <SearchBox
                       autocompleteMinimumCharacters={3}
                       autocompleteResults={{
-                        linkTarget: "_blank",
-                        sectionTitle: "Results",
-                        titleField: "title",
-                        urlField: "nps_link",
+                        linkTarget: '_blank',
+                        sectionTitle: 'Results',
+                        titleField: 'title',
+                        urlField: 'nps_link',
                         shouldTrackClickThrough: true,
-                        clickThroughTags: ["test"],
+                        clickThroughTags: ['test'],
                       }}
                       autocompleteSuggestions={true}
                       debounceLength={0}
