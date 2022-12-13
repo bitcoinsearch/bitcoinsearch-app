@@ -65,7 +65,7 @@ const CustomResultView = ({ result, onClickLink }) => (
     <a className="url-display">
       {result.url.raw} <button>▼</button>
     </a>
-    <p>{htmlToReactParser.parse(result.body_content.snippet)}</p>
+    <p>{htmlToReactParser.parse(result.body.snippet)}</p>
   </div>
 );
 
