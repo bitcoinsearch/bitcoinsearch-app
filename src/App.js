@@ -79,7 +79,7 @@ export default function App() {
               <ErrorBoundary>
                 <div className="header">
                   <img src={logo} className="logo" alt="bitcoin logo" />
-                  <div>Technical Bitcoin Search</div>
+                  <p className="description">Technical Bitcoin Search</p>
                 </div>
                 <Layout
                   header={

@@ -43,6 +43,10 @@
     padding-top: 5%;
 }
 
+.header .description {
+    font-weight: bold;
+}
+
 .logo {
     width: 12rem;
     margin: auto;
