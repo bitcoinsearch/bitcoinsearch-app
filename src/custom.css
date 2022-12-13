@@ -4,6 +4,14 @@
   background-color: #FF9900
 }
 
+.btc-search .sui-layout-sidebar{
+    width: 30%;
+}
+
+.btc-search .sui-layout-main {
+    width: 70%;
+}
+
 .btc-search .sui-layout-sidebar-toggle {
   color: red;
   border: 1px solid red;
