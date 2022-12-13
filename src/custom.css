@@ -1,7 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+
+* {
+    font-family: 'Rubik', sans-serif;
+}
+
 /* We selectedivly override base styles to create a red theme */
 .btc-search .sui-search-box__submit {
   background: none;
-  background-color: #FF9900
+  background-color: #FF9900;
+  margin-left: 0;
+  border-radius: 0 12px 12px 0;
+  padding: 13px 25px;
 }
 
 .btc-search .sui-layout-sidebar{
@@ -32,6 +41,10 @@
     color: #3a56e4;
     font-weight:400;
     padding-top: 5%;
+}
+
+.header .description {
+    font-weight: bold;
 }
 
 .logo {
@@ -66,6 +79,7 @@
 
 .sui-search-box__text-input {
     border-radius: 35px 0px 0px 35px;
+    border-right: none;
 }
 
 .sui-search-box__text-input:focus .header {
