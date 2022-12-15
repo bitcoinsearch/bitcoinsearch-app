@@ -1,24 +1,21 @@
 {
-  "engineName": "aurele",
+  "engineName": "bitcoin-search-engine",
   "endpointBase": "https://my-test-es-deploy.ent.us-central1.gcp.cloud.es.io",
   "searchKey": "search-bjqwxsgfhdnyyhe1arsfxtaq",
   "resultFields": [
-    "date",
-    "author",
+    "authors",
     "created_at",
-    "domains",
     "language",
     "media",
     "title",
     "body",
+    "body_type",
     "type",
     "url",
-    "url_scheme",
     "tags",
     "accepted_answer_id",
     "transcript_by",
     "domain",
-    "speakers",
     "categories",
     "id"
   ],
@@ -28,7 +25,7 @@
   "facets": [
     "domain",
     "tags",
-    "author"
+    "authors"
   ],
   "titleField": "title",
   "urlField": "url"
