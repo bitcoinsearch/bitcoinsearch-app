@@ -11,7 +11,8 @@
     "html-to-react": "^1.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.0",
+    "sanitize-html": "^2.8.0"
   },
   "devDependencies": {
     "rewire": "^6.0.0"
