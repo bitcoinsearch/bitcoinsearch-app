@@ -2,6 +2,7 @@
 import * as React from "react";
 import { Parser } from "html-to-react";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
+import sanitizeHtml from 'sanitize-html';
 
 import {
   ErrorBoundary,
@@ -59,13 +60,17 @@ const CustomResultView = ({ result, onClickLink }) => (
   <div className="searchresult">
     <h2>
       <a onClick={onClickLink} href={result.url.raw}>
-        {htmlToReactParser.parse(result.title.snippet)}
+        {htmlToReactParser.parse(sanitizeHtml(result.title.snippet))}
       </a>
     </h2>
     <a className="url-display">
       {result.url.raw} <button>▼</button>
     </a>
-    <p>{htmlToReactParser.parse(result.body.snippet)}</p>
+    <p>{htmlToReactParser.parse(sanitizeHtml(
+      (result.body_type.raw === 'raw'
+        ? result.body.raw
+        : JSON.parse(`[${result.body.raw}]`).map(i => i.text).join(' ')
+      ).replaceAll("\n", "")).substring(0, 300).trim())}</p>
   </div>
 );
 
