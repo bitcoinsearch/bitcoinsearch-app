@@ -64,7 +64,7 @@ const CustomResultView = ({ result, onClickLink }) => (
       </a>
     </h2>
     <a className="url-display">
-      {result.url.raw} <button>▼</button>
+      {result.url.raw}
     </a>
     <p>{htmlToReactParser.parse(sanitizeHtml(
       (result.body_type.raw === 'raw'

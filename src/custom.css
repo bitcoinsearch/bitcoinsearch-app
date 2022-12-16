@@ -18,7 +18,13 @@
 }
 
 .btc-search .sui-layout-main {
-    width: 70%;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+    .sui-layout-sidebar {
+        display: none;
+    }
 }
 
 .btc-search .sui-layout-sidebar-toggle {
@@ -174,7 +180,7 @@
 }
 
 .searchresult p {
-    width: 625px;
+    width: 90%;
     font-size: 13px;
     margin-top: 0px;
     color: rgb(82, 82, 82);
