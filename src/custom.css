@@ -18,8 +18,23 @@
 }
 
 .btc-search .sui-layout-main {
-    width: 70%;
+    width: 100%;
 }
+
+@media only screen and (max-width: 1200px) {
+    .sui-layout-sidebar {
+        display: none;
+    }
+
+    .sui-layout-main {
+        padding: 32px;
+    }
+
+    .searchresult p {
+        width: 100% !important;
+    }
+}
+
 
 .btc-search .sui-layout-sidebar-toggle {
   color: red;
@@ -174,7 +189,7 @@
 }
 
 .searchresult p {
-    width: 625px;
+    width: 90%;
     font-size: 13px;
     margin-top: 0px;
     color: rgb(82, 82, 82);
@@ -283,6 +298,10 @@
     font-size: 12px;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.sui-layout-main {
+    padding: 0px;
 }
 
 }
