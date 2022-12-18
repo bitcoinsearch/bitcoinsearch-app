@@ -25,7 +25,16 @@
     .sui-layout-sidebar {
         display: none;
     }
+
+    .sui-layout-main {
+        padding: 32px;
+    }
+
+    .searchresult p {
+        width: 100% !important;
+    }
 }
+
 
 .btc-search .sui-layout-sidebar-toggle {
   color: red;
@@ -289,6 +298,10 @@
     font-size: 12px;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.sui-layout-main {
+    padding: 0px;
 }
 
 }
