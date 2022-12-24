@@ -90,14 +90,14 @@ export default function App() {
                   header={
                     <SearchBox
                       autocompleteMinimumCharacters={3}
-                      autocompleteResults={{
-                        linkTarget: "_blank",
-                        sectionTitle: "Results",
-                        titleField: "title",
-                        urlField: "nps_link",
-                        shouldTrackClickThrough: true,
-                        clickThroughTags: ["test"],
-                      }}
+                      // autocompleteResults={{
+                      //   linkTarget: "_blank",
+                      //   sectionTitle: "Suggested Queries",
+                      //   titleField: "title",
+                      //   urlField: "nps_link",
+                      //   shouldTrackClickThrough: true,
+                      //   clickThroughTags: ["test"],
+                      // }}
                       autocompleteSuggestions={true}
                       debounceLength={0}
                     />
