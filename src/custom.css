@@ -191,7 +191,8 @@
 .searchresult p {
     width: 90%;
     font-size: 13px;
-    margin-top: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     color: rgb(82, 82, 82);
 }
 
@@ -304,4 +305,15 @@
     padding: 0px;
 }
 
+}
+
+.authors-label {
+    background: #6257e8;
+    color: white;
+    padding: 5px 8px;
+    display: inline-flex;
+    border: none;
+    border-radius: 12px;
+    font-size: 11px;
+    margin-right: 8px;
 }

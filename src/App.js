@@ -71,6 +71,12 @@ const CustomResultView = ({ result, onClickLink }) => (
         ? result.body.raw
         : JSON.parse(`[${result.body.raw}]`).map(i => i.text).join(' ')
       ).replaceAll("\n", "")).substring(0, 300).trim())}</p>
+
+      {result.authors && (
+        <div className="authors">
+          {result.authors.raw.map(a => <span className="authors-label">{a}</span>)}
+        </div>
+      )}
   </div>
 );
 
