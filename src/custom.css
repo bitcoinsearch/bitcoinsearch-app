@@ -317,3 +317,16 @@
     font-size: 11px;
     margin-right: 8px;
 }
+
+.paging-info {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+}
+.paging-info strong {
+    text-align: right;
+}
+.paging-info p {
+    margin: 0;
+    padding: 4px 0;
+}
