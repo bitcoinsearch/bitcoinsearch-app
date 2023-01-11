@@ -61,7 +61,6 @@ const CustomPagingInfoView = ({totalResults}) => {
         {totalResultsFormatted}
       </strong>
       <p>results</p>
-      {/* {console.log({props})} */}
     </div>
   )
 }
