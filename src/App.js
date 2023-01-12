@@ -11,7 +11,6 @@ import {
   SearchBox,
   Results,
   PagingInfo,
-  ResultsPerPage,
   Paging,
   WithSearch,
 } from "@elastic/react-search-ui";
@@ -48,13 +47,22 @@ const config = {
   alwaysSearchOnInitialLoad: false,
 };
 
-const CustomPagingInfoView = ({ start, end }) => (
-  <div className="paging-info">
-    <strong>
-      {start} - {end}
-    </strong>
-  </div>
-);
+const CustomPagingInfoView = ({totalResults}) => {
+  let totalResultsFormatted
+  try {
+    totalResultsFormatted = new Intl.NumberFormat().format(totalResults)
+  } catch (err) {
+    totalResultsFormatted = "N/A"
+  }
+  return (
+    <div className="paging-info">
+      <strong>
+        {totalResultsFormatted}
+      </strong>
+      <p>results</p>
+    </div>
+  )
+}
 
 const CustomResultView = ({ result, onClickLink }) => (
   <div className="searchresult">
@@ -133,7 +141,6 @@ export default function App() {
                       {wasSearched && (
                         <PagingInfo view={CustomPagingInfoView} />
                       )}
-                      {wasSearched && <ResultsPerPage />}
                     </>
                   }
                   bodyFooter={<Paging />}
