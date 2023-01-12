@@ -28,6 +28,7 @@ import {
   getFacetFields,
 } from "./config/config-helper";
 import logo from "./btc.png";
+import CustomMultiCheckboxFacet from "./components/CustomMultiCheckboxFacet";
 
 const htmlToReactParser = new Parser();
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
@@ -120,7 +121,7 @@ export default function App() {
                     <div>
                       {wasSearched}
                       {getFacetFields().map((field) => (
-                        <Facet key={field} field={field} label={field} />
+                        <Facet key={field} field={field} label={field} view={CustomMultiCheckboxFacet} />
                       ))}
                     </div>
                   }
