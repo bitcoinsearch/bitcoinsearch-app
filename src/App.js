@@ -11,7 +11,6 @@ import {
   SearchBox,
   Results,
   PagingInfo,
-  ResultsPerPage,
   Paging,
   WithSearch,
 } from "@elastic/react-search-ui";
