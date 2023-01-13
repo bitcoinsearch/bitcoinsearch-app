@@ -1,7 +1,7 @@
 import React from "react";
 // import { FacetViewProps } from "./types";
 // import type { FieldValue } from "@elastic/search-ui";
-import mapping from "../config/mapping.json"
+import mapping from "../config/mapping.json";
 
 function CustomMultiCheckboxFacet({
   className,
@@ -13,34 +13,39 @@ function CustomMultiCheckboxFacet({
   showMore,
   showSearch,
   onSearch,
-  searchPlaceholder
+  searchPlaceholder,
 }) {
+  // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
+  function getFilterValueDisplay(filterValue) {
+    if (filterValue === undefined || filterValue === null) {
+      return "";
+    }
+    if (Object.prototype.hasOwnProperty.call(filterValue, "name")) {
+      return filterValue.name;
+    }
+    if (mapping?.labels[filterValue]) {
+      return mapping?.labels[filterValue];
+    }
+    return String(filterValue);
+  }
 
-    function getFilterValueDisplay(filterValue) {
-        if (filterValue === undefined || filterValue === null)
-            return "";
-        if (Object.prototype.hasOwnProperty.call(filterValue, "name"))
-            return filterValue.name;
-        if (mapping?.labels[filterValue]) {
-            return mapping?.labels[filterValue]
-        }
-        return String(filterValue);
+  function getNewClassName(newClassName) {
+    if (!Array.isArray(newClassName)) return newClassName;
+    return newClassName.filter((name) => name).join(" ");
+  }
+  function appendClassName(baseClassName, newClassName) {
+    if (!newClassName) {
+      return (
+        (Array.isArray(baseClassName)
+          ? baseClassName.join(" ")
+          : baseClassName) || ""
+      );
     }
-
-    function getNewClassName(newClassName) {
-        if (!Array.isArray(newClassName))
-            return newClassName;
-        return newClassName.filter((name) => name).join(" ");
+    if (!baseClassName) {
+      return getNewClassName(newClassName) || "";
     }
-    function appendClassName(baseClassName, newClassName) {
-        if (!newClassName)
-            return ((Array.isArray(baseClassName)
-                ? baseClassName.join(" ")
-                : baseClassName) || "");
-        if (!baseClassName)
-            return getNewClassName(newClassName) || "";
-        return `${baseClassName} ${getNewClassName(newClassName)}`;
-    }
+    return `${baseClassName} ${getNewClassName(newClassName)}`;
+  }
   return (
     <fieldset className={appendClassName("sui-facet", className)}>
       <legend className="sui-facet__title">{label}</legend>
@@ -60,8 +65,7 @@ function CustomMultiCheckboxFacet({
 
       <div className="sui-multi-checkbox-facet">
         {options.length < 1 && <div>No matching options</div>}
-        {options.map((option) => {
-            console.log(option)
+        {options?.map((option) => {
           const checked = option.selected;
           const value = option.value;
           return (
