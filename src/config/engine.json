@@ -28,5 +28,8 @@
     "authors"
   ],
   "titleField": "title",
-  "urlField": "url"
+  "urlField": "url",
+  "facetSearch": [
+    "authors"
+  ]
 }

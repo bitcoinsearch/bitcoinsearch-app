@@ -2,6 +2,7 @@ import React from "react";
 // import { FacetViewProps } from "./types";
 // import type { FieldValue } from "@elastic/search-ui";
 import mapping from "../config/mapping.json";
+import styles from "./styles.module.scss";
 
 function CustomMultiCheckboxFacet({
   className,
@@ -74,9 +75,12 @@ function CustomMultiCheckboxFacet({
               htmlFor={`example_facet_${label}${getFilterValueDisplay(
                 option.value
               )}`}
-              className="sui-multi-checkbox-facet__option-label"
+              data-checkbox={getFilterValueDisplay(option.value)}
+              className={`${styles.checkboxLabel} 
+                ${checked ? styles.checked : ""}
+                sui-multi-checkbox-facet__option-label`}
             >
-              <div className="sui-multi-checkbox-facet__option-input-wrapper">
+              <div className={styles.checkbox_input_wrapper}>
                 <input
                   data-transaction-name={`facet - ${label}`}
                   id={`example_facet_${label}${getFilterValueDisplay(
@@ -87,11 +91,9 @@ function CustomMultiCheckboxFacet({
                   checked={checked}
                   onChange={() => (checked ? onRemove(value) : onSelect(value))}
                 />
-                <span className="sui-multi-checkbox-facet__input-text">
-                  {getFilterValueDisplay(option.value)}
-                </span>
+                <span className="">{getFilterValueDisplay(option.value)}</span>
               </div>
-              <span className="sui-multi-checkbox-facet__option-count">
+              <span className={styles.option_count}>
                 {option.count.toLocaleString("en")}
               </span>
             </label>
