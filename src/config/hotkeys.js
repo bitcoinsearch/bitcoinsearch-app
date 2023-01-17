@@ -8,6 +8,6 @@ const hotKeys = [
   },
 ];
 
-const getHotkeys = () => [...hotKeys]
+const getHotkeys = () => [...hotKeys];
 
 export default getHotkeys;

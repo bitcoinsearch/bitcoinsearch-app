@@ -35,7 +35,6 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
           if (currentCheckboxNavIndex === null) {
             currentCheckboxNavIndex = 0;
           } else {
-            // if (multiCheckboxList.length - 1 === currentCheckboxNavIndex) {
             if (currentCheckboxNavIndex > multiCheckboxList.length - 1) {
               currentCheckboxNavIndex = 0;
             } else {
