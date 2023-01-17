@@ -23,9 +23,9 @@
 
   ],
   "facets": [
+    "authors",
     "domain",
-    "tags",
-    "authors"
+    "tags"
   ],
   "titleField": "title",
   "urlField": "url",
