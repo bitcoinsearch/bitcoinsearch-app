@@ -1,0 +1,32 @@
+
+
+.checkboxLabel {
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-block: 2px;
+
+  .checkbox_input_wrapper {
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+  }
+
+  .option_count {
+    padding-inline: 2px;
+    font-size: 0.85em;
+  }
+}
+
+.currentNavigatedLabel {
+  background-color: #a2d2ff;
+}
+
+.checked {
+  background-color: #3a86ff;
+  color: white;
+
+  span {
+    color: white;
+  }
+}

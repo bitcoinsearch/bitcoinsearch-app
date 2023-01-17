@@ -26,6 +26,7 @@ import {
   buildSearchOptionsFromConfig,
   getConfig,
   getFacetFields,
+  getFacetWithSearch,
 } from "./config/config-helper";
 import logo from "./btc.png";
 import CustomMultiCheckboxFacet from "./components/CustomMultiCheckboxFacet";
@@ -121,7 +122,7 @@ export default function App() {
                     <div>
                       {wasSearched}
                       {getFacetFields().map((field) => (
-                        <Facet key={field} field={field} label={field} view={CustomMultiCheckboxFacet} />
+                        <Facet key={field} field={field} isFilterable={getFacetWithSearch().includes(field)} label={field} view={CustomMultiCheckboxFacet} />
                       ))}
                     </div>
                   }

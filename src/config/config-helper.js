@@ -35,6 +35,10 @@ function toLowerCase(string) {
 //   return string.charAt(0).toUpperCase() + string.slice(1);
 // }
 
+export function getFacetWithSearch() {
+  return getConfig().facetSearch || []
+}
+
 export function getTitleField() {
   // If no title field configuration has been provided, we attempt
   // to use a "title" field, if one exists
