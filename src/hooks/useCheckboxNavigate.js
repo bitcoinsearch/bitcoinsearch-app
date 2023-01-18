@@ -24,10 +24,19 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
     }
 
     let currentCheckboxNavIndex = checkboxNavIndex.current;
-    setcurrentNavigateCheckbox("");
+
     const handleOptionNavigation = (e) => {
       const charCode =
         e.keyCode || (typeof e.which === "number" && e.which) || null;
+
+      if (currentNavigateCheckbox && currentCheckboxNavIndex === null) {
+        const isPrevCheckInListIdx = multiCheckboxList.findIndex(
+          (label) => label?.dataset?.checkbox === currentNavigateCheckbox
+        );
+        if (isPrevCheckInListIdx !== -1) {
+          currentCheckboxNavIndex = isPrevCheckInListIdx;
+        }
+      }
 
       switch (charCode) {
         case 40:
@@ -35,7 +44,7 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
           if (currentCheckboxNavIndex === null) {
             currentCheckboxNavIndex = 0;
           } else {
-            if (currentCheckboxNavIndex > multiCheckboxList.length - 1) {
+            if (currentCheckboxNavIndex >= multiCheckboxList.length - 1) {
               currentCheckboxNavIndex = 0;
             } else {
               currentCheckboxNavIndex += 1;
@@ -57,12 +66,12 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
         case 13: {
           // Enter
           e.preventDefault();
-          if (currentCheckboxNavIndex === null) currentCheckboxNavIndex = 0;
           const input = multiCheckboxList[currentCheckboxNavIndex]
             ? multiCheckboxList[currentCheckboxNavIndex].querySelector("input")
             : null;
           if (input) {
-            savedNavIndex.current = currentCheckboxNavIndex;
+            savedNavIndex.current =
+              multiCheckboxList[currentCheckboxNavIndex].dataset?.checkbox;
             input.click();
           }
           break;
@@ -70,6 +79,7 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
         default:
           break;
       }
+
       const currentLabel = multiCheckboxList[currentCheckboxNavIndex];
       if (currentLabel) {
         const inViewPort = isInViewport(currentLabel);
@@ -86,11 +96,20 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
     searchInput &&
       searchInput.addEventListener("keydown", handleOptionNavigation);
 
+    searchInput &&
+      searchInput.addEventListener("focusout", () =>
+        setcurrentNavigateCheckbox("")
+      );
     return () => {
       searchInput &&
         searchInput.removeEventListener("keydown", handleOptionNavigation);
+
+      searchInput &&
+        searchInput.addEventListener("focusout", () =>
+          setcurrentNavigateCheckbox("")
+        );
     };
-  }, [options, checkboxContainer, searchEl]);
+  }, [options, checkboxContainer, searchEl, currentNavigateCheckbox]);
 
   return { currentNavigateCheckbox, toggleRefocus };
 };

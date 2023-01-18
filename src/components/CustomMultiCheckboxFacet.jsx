@@ -89,13 +89,12 @@ function CustomMultiCheckboxFacet({
               )}`}
               data-checkbox={getFilterValueDisplay(option.value)}
               className={`${styles.checkboxLabel} 
-                ${
-                  getFilterValueDisplay(option.value) ===
-                  currentNavigateCheckbox
-                    ? styles.currentNavigatedLabel
-                    : ""
-                } 
-                ${checked ? styles.checked : ""}
+              ${
+                getFilterValueDisplay(option.value) === currentNavigateCheckbox
+                  ? styles.currentNavigatedLabel
+                  : ""
+              } 
+              ${checked ? styles.checked : ""}
                 sui-multi-checkbox-facet__option-label`}
             >
               <div className={styles.checkbox_input_wrapper}>
