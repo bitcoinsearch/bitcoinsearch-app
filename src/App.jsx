@@ -27,8 +27,7 @@ import {
 } from "./config/config-helper";
 import logo from "./btc.png";
 import CustomMultiCheckboxFacet from "./components/CustomMultiCheckboxFacet";
-import useGlobalHotkey from "./hooks/useGlobalHotkey";
-import getHotkeys from "./config/hotkeys";
+import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
 
 const htmlToReactParser = new Parser();
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
@@ -97,7 +96,7 @@ const CustomResultView = ({ result, onClickLink }) => {
 };
 
 export default function App() {
-  useGlobalHotkey({ hotkeys: getHotkeys() });
+  useSearchFocusHotkey();
 
   return (
     <SearchProvider config={config}>

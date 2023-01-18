@@ -1,26 +1,12 @@
-import { useEffect } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
-const useGlobalHotkey = ({ callback = () => {}, hotkeys }) => {
-  useEffect(() => {
-    const hotkeyHandler = (e) => {
-      const isBody = e.target.localName === "body";
+export const useSearchFocusHotkey = () => {
+  const handler = () => {
+    const element = document.querySelector(".sui-search-box__text-input");
+    if (element) {
+      element.focus();
+    }
+  };
 
-      if (isBody) {
-        const isKey = hotkeys.find((keyConfig) => keyConfig.key === e.key);
-        if (isKey && isKey.elementIdentifier) {
-          const element = document.querySelector(isKey.elementIdentifier);
-          e.preventDefault();
-          element && isKey.callback(element);
-        }
-      }
-    };
-
-    document.body.addEventListener("keydown", hotkeyHandler);
-
-    return () => {
-      document.body.removeEventListener("keydown", hotkeyHandler);
-    };
-  }, [callback, hotkeys]);
+  return useHotkeys("/", handler);
 };
-
-export default useGlobalHotkey;
