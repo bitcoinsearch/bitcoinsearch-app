@@ -54,18 +54,19 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
             }
           }
           break;
-        case 13:
+        case 13: {
           // Enter
           e.preventDefault();
           if (currentCheckboxNavIndex === null) currentCheckboxNavIndex = 0;
-          const input =
-            multiCheckboxList[currentCheckboxNavIndex] &&
-            multiCheckboxList[currentCheckboxNavIndex].querySelector("input");
+          const input = multiCheckboxList[currentCheckboxNavIndex]
+            ? multiCheckboxList[currentCheckboxNavIndex].querySelector("input")
+            : null;
           if (input) {
             savedNavIndex.current = currentCheckboxNavIndex;
             input.click();
           }
           break;
+        }
         default:
           break;
       }

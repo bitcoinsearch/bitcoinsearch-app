@@ -50,7 +50,11 @@ function CustomMultiCheckboxFacet({
   const searchRef = useRef();
   const multiCheckboxRef = useRef();
 
-  const {currentNavigateCheckbox, toggleRefocus} = useCheckboxNavigate(multiCheckboxRef, searchRef, options)
+  const { currentNavigateCheckbox, toggleRefocus } = useCheckboxNavigate(
+    multiCheckboxRef,
+    searchRef,
+    options
+  );
 
   return (
     <fieldset className={appendClassName("sui-facet", className)}>
@@ -61,7 +65,9 @@ function CustomMultiCheckboxFacet({
           <input
             className="sui-facet-search__text-input"
             type="search"
-            placeholder={currentNavigateCheckbox || searchPlaceholder || "Search"}
+            placeholder={
+              currentNavigateCheckbox || searchPlaceholder || "Search"
+            }
             onChange={(e) => {
               onSearch(e.target.value);
             }}
@@ -117,12 +123,10 @@ function CustomMultiCheckboxFacet({
         <button
           type="button"
           className="sui-facet-view-more"
-          onClick={
-            () => {
-              onMoreClick()
-              toggleRefocus()
-            }
-          }
+          onClick={() => {
+            onMoreClick();
+            toggleRefocus();
+          }}
           aria-label="Show more options"
         >
           + More
