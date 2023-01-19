@@ -41,6 +41,7 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
       switch (charCode) {
         case 40:
           // downArrow
+          e.preventDefault();
           if (currentCheckboxNavIndex === null) {
             currentCheckboxNavIndex = 0;
           } else {
@@ -53,6 +54,7 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
           break;
         case 38:
           // upArrow
+          e.preventDefault();
           if (currentCheckboxNavIndex === null) {
             currentCheckboxNavIndex = multiCheckboxList.length - 1;
           } else {
