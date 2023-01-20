@@ -31,5 +31,9 @@
   "urlField": "url",
   "facetSearch": [
     "authors"
+  ],
+  "resultTags": [
+    "authors",
+    "tags"
   ]
 }

@@ -24,10 +24,12 @@ import {
   getConfig,
   getFacetFields,
   getFacetWithSearch,
+  getResultTags,
 } from "./config/config-helper";
 import logo from "./btc.png";
-import CustomMultiCheckboxFacet from "./components/CustomMultiCheckboxFacet";
+import CustomMultiCheckboxFacet from "./components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
+import FilterTags from "./components/filterTag/FilterTags";
 
 const htmlToReactParser = new Parser();
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
@@ -82,15 +84,10 @@ const CustomResultView = ({ result, onClickLink }) => {
         )}
       </p>
 
-      {result.authors && (
-        <div className="authors">
-          {result.authors.raw.map((a, idx) => (
-            <span key={`${a}_${idx}`} className="authors-label">
-              {a}
-            </span>
-          ))}
-        </div>
-      )}
+      {getResultTags().map((field) => {
+        if (result[field])
+          return <FilterTags field={field} options={result[field]} />;
+      })}
     </div>
   );
 };

@@ -38,6 +38,9 @@ function toLowerCase(string) {
 export function getFacetWithSearch() {
   return getConfig().facetSearch || [];
 }
+export function getResultTags() {
+  return getConfig().resultTags || [];
+}
 
 export function getTitleField() {
   // If no title field configuration has been provided, we attempt
