@@ -20,13 +20,29 @@
 
 .currentNavigatedLabel {
   background-color: #a2d2ff;
+
+  &.checked {
+    background-color: #a2d2ff;
+    color: #4f4f4f;
+    span {
+      color: #4f4f4f;
+    }
+  }
 }
 
 .checked {
   background-color: #3a86ff;
   color: white;
-
   span {
     color: white;
   }
+
+  &:only-child {
+    background-color: #3a86ff;
+    color: white;
+    span {
+      color: white;
+    }
+  }
+
 }

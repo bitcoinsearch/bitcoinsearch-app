@@ -36,7 +36,7 @@ function toLowerCase(string) {
 // }
 
 export function getFacetWithSearch() {
-  return getConfig().facetSearch || []
+  return getConfig().facetSearch || [];
 }
 
 export function getTitleField() {
@@ -106,8 +106,8 @@ export function buildSearchOptionsFromConfig() {
         raw: {},
         snippet: {
           size: 100,
-          fallback: true
-        }
+          fallback: true,
+        },
       };
       return acc;
     },
@@ -121,8 +121,8 @@ export function buildSearchOptionsFromConfig() {
       raw: {},
       snippet: {
         size: 100,
-        fallback: true
-      }
+        fallback: true,
+      },
     };
   }
 
@@ -131,8 +131,8 @@ export function buildSearchOptionsFromConfig() {
       raw: {},
       snippet: {
         size: 100,
-        fallback: true
-      }
+        fallback: true,
+      },
     };
   }
 
@@ -141,8 +141,8 @@ export function buildSearchOptionsFromConfig() {
       raw: {},
       snippet: {
         size: 100,
-        fallback: true
-      }
+        fallback: true,
+      },
     };
   }
 
@@ -159,14 +159,13 @@ export function buildFacetConfigFromConfig() {
     acc = acc || {};
     acc[n] = {
       type: "value",
-      size: 100
+      size: 100,
     };
     return acc;
   }, undefined);
 
   return facets;
 }
-
 
 export function buildAutocompleteQueryConfig() {
   const querySuggestFields = getConfig().querySuggestFields;
@@ -182,9 +181,9 @@ export function buildAutocompleteQueryConfig() {
     suggestions: {
       types: {
         documents: {
-          fields: getConfig().querySuggestFields
-        }
-      }
-    }
+          fields: getConfig().querySuggestFields,
+        },
+      },
+    },
   };
 }

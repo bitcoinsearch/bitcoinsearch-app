@@ -1,3 +1,4 @@
+import React from "react";
 import { withSearch } from "@elastic/react-search-ui";
 
 function ClearFilters({ filters, clearFilters }) {

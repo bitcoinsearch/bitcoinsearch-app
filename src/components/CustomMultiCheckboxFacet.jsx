@@ -1,7 +1,6 @@
-import React from "react";
-// import { FacetViewProps } from "./types";
-// import type { FieldValue } from "@elastic/search-ui";
+import React, { useRef } from "react";
 import mapping from "../config/mapping.json";
+import useCheckboxNavigate from "../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
 
 function CustomMultiCheckboxFacet({
@@ -47,6 +46,16 @@ function CustomMultiCheckboxFacet({
     }
     return `${baseClassName} ${getNewClassName(newClassName)}`;
   }
+
+  const searchRef = useRef();
+  const multiCheckboxRef = useRef();
+
+  const { currentNavigateCheckbox, toggleRefocus } = useCheckboxNavigate(
+    multiCheckboxRef,
+    searchRef,
+    options
+  );
+
   return (
     <fieldset className={appendClassName("sui-facet", className)}>
       <legend className="sui-facet__title">{label}</legend>
@@ -56,15 +65,18 @@ function CustomMultiCheckboxFacet({
           <input
             className="sui-facet-search__text-input"
             type="search"
-            placeholder={searchPlaceholder || "Search"}
+            placeholder={
+              currentNavigateCheckbox || searchPlaceholder || "Search"
+            }
             onChange={(e) => {
               onSearch(e.target.value);
             }}
+            ref={searchRef}
           />
         </div>
       )}
 
-      <div className="sui-multi-checkbox-facet">
+      <div className="sui-multi-checkbox-facet" ref={multiCheckboxRef}>
         {options.length < 1 && <div>No matching options</div>}
         {options?.map((option) => {
           const checked = option.selected;
@@ -77,7 +89,12 @@ function CustomMultiCheckboxFacet({
               )}`}
               data-checkbox={getFilterValueDisplay(option.value)}
               className={`${styles.checkboxLabel} 
-                ${checked ? styles.checked : ""}
+              ${
+                getFilterValueDisplay(option.value) === currentNavigateCheckbox
+                  ? styles.currentNavigatedLabel
+                  : ""
+              } 
+              ${checked ? styles.checked : ""}
                 sui-multi-checkbox-facet__option-label`}
             >
               <div className={styles.checkbox_input_wrapper}>
@@ -105,7 +122,10 @@ function CustomMultiCheckboxFacet({
         <button
           type="button"
           className="sui-facet-view-more"
-          onClick={onMoreClick}
+          onClick={() => {
+            onMoreClick();
+            toggleRefocus();
+          }}
           aria-label="Show more options"
         >
           + More
