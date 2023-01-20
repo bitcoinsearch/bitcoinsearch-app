@@ -3,7 +3,7 @@
   display: inline-flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   position: relative;
   margin-right: 10px;
   &::before {
@@ -50,6 +50,6 @@
 }
 
 .tag-selected {
-  background-color: #3a86ff;
+  background-color: var(--primary-blue);
   color: white;
 }

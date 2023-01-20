@@ -4,6 +4,10 @@
     font-family: 'Rubik', sans-serif;
 }
 
+:root {
+    --primary-blue: #3a86ff;
+    --secondary-blue: #a2d2ff;
+}
 /* We selectedivly override base styles to create a red theme */
 .btc-search .sui-search-box__submit {
   background: none;
@@ -30,8 +34,8 @@
         padding: 32px;
     }
 
-    .searchresult p {
-        width: 100% !important;
+    .searchresult .search-result-body {
+        width: 100%;
     }
 }
 
@@ -112,12 +116,22 @@
     word-wrap: break-word; 
     white-space: pre-wrap;
     word-break: break-word;
-    overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.searchresult h2 {
+.search-result-link {
+    text-decoration: none;
+}
+
+.search-result-link:hover > h2 {
+    text-decoration: underline;
+}
+
+.search-result-link h2 {
     font-size: 19px;
     line-height: 18px;
     font-weight: normal;
@@ -126,10 +140,10 @@
     /* margin-top: 25px; */
 }
 
-.searchresult .url-display {
+.search-result-link .url-display {
     font-size: 14px;
     line-height: 14px;
-    color: green;
+    color: #202124;
     margin-bottom: 0px;
 }
 
@@ -188,7 +202,7 @@
     z-index: -1;
 }
 
-.searchresult p {
+.search-result-body {
     width: 90%;
     font-size: 13px;
     margin-top: 5px;
