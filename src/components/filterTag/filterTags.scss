@@ -16,15 +16,10 @@
 
 .authors-result-container {
   @include result-container;
-  &::before {
-    content: "authors:";
-  }
+
 }
 .tags-result-container {
   @include result-container;
-  &::before {
-    content: "tags:";
-  }
 }
 
 

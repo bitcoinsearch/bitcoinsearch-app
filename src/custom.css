@@ -124,27 +124,23 @@
 }
 
 .search-result-link {
-    text-decoration: none;
-}
-
-.search-result-link:hover > h2 {
-    text-decoration: underline;
-}
-
-.search-result-link h2 {
     font-size: 19px;
     line-height: 18px;
     font-weight: normal;
     color: #0969da;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     /* margin-top: 25px; */
 }
 
-.search-result-link .url-display {
+.url-display {
     font-size: 14px;
     line-height: 14px;
-    color: #202124;
-    margin-bottom: 0px;
+    color: green;
+    margin: 0px;
+    text-decoration: none;
+}
+.url-display:hover {
+    text-decoration: underline;
 }
 
 .searchresult button {

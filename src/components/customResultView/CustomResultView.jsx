@@ -9,13 +9,13 @@ const htmlToReactParser = new Parser();
 const CustomResultView = ({ result, onClickLink }) => {
   return (
     <div className="searchresult">
-      <a
-        onClick={onClickLink}
-        href={result.url.raw}
-        className="search-result-link"
-      >
-        <h2>{htmlToReactParser.parse(sanitizeHtml(result.title.snippet))}</h2>
-        <p className="url-display">{result.url.raw}</p>
+      <h2 className="search-result-link">
+        <a onClick={onClickLink} href={result.url.raw}>
+          {htmlToReactParser.parse(sanitizeHtml(result.title.snippet))}
+        </a>
+      </h2>
+      <a onClick={onClickLink} href={result.url.raw} className="url-display">
+        {result.url.raw}
       </a>
       <p className="search-result-body">
         {htmlToReactParser.parse(
