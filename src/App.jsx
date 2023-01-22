@@ -1,7 +1,5 @@
 import * as React from "react";
-import { Parser } from "html-to-react";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
-import sanitizeHtml from "sanitize-html";
 
 import {
   ErrorBoundary,
@@ -26,10 +24,10 @@ import {
   getFacetWithSearch,
 } from "./config/config-helper";
 import logo from "./btc.png";
-import CustomMultiCheckboxFacet from "./components/CustomMultiCheckboxFacet";
+import CustomMultiCheckboxFacet from "./components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
+import CustomResultView from "./components/customResultView/CustomResultView";
 
-const htmlToReactParser = new Parser();
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
   searchKey,
@@ -54,43 +52,6 @@ const CustomPagingInfoView = ({ totalResults }) => {
     <div className="paging-info">
       <strong>{totalResultsFormatted}</strong>
       <p>results</p>
-    </div>
-  );
-};
-
-const CustomResultView = ({ result, onClickLink }) => {
-  return (
-    <div className="searchresult">
-      <h2>
-        <a onClick={onClickLink} href={result.url.raw}>
-          {htmlToReactParser.parse(sanitizeHtml(result.title.snippet))}
-        </a>
-      </h2>
-      <p className="url-display">{result.url.raw}</p>
-      <p>
-        {htmlToReactParser.parse(
-          sanitizeHtml(
-            (result.body_type.raw === "raw"
-              ? result.body.raw
-              : JSON.parse(`[${result.body.raw}]`)
-                  .map((i) => i.text)
-                  .join(" ")
-            ).replaceAll("\n", "")
-          )
-            .substring(0, 300)
-            .trim()
-        )}
-      </p>
-
-      {result.authors && (
-        <div className="authors">
-          {result.authors.raw.map((a, idx) => (
-            <span key={`${a}_${idx}`} className="authors-label">
-              {a}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
@@ -142,9 +103,6 @@ export default function App() {
                   bodyContent={
                     <Results
                       resultView={CustomResultView}
-                      // titleField="title"
-                      // urlField="nps_link"
-                      // thumbnailField="image_url"
                       titleField={getConfig().titleField}
                       urlField={getConfig().urlField}
                       thumbnailField={getConfig().thumbnailField}

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import mapping from "../config/mapping.json";
-import useCheckboxNavigate from "../hooks/useCheckboxNavigate";
+import mapping from "../../config/mapping.json";
+import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
 
 function CustomMultiCheckboxFacet({

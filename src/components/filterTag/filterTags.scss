@@ -1,0 +1,50 @@
+
+@mixin result-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  margin-right: 10px;
+  &::before {
+    font-size: 12px;
+    color: grey;
+    display: flex;
+    align-self: center;
+  }
+}
+
+.authors-result-container {
+  @include result-container;
+
+}
+.tags-result-container {
+  @include result-container;
+}
+
+
+.authors-result-tag {
+  background: #eaeaea;
+  color: black;
+  padding: 5px 8px;
+  display: inline-flex;
+  border: none;
+  border-radius: 12px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.tags-result-tag {
+  background: #eaeaea;
+  color: black;
+  padding: 5px 8px;
+  display: inline-flex;
+  border: none;
+  border-radius: 12px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.tag-selected {
+  background-color: var(--primary-blue);
+  color: white;
+}
