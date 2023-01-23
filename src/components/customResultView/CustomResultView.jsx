@@ -7,6 +7,21 @@ import FilterTags from "../filterTag/FilterTags";
 const htmlToReactParser = new Parser();
 
 const CustomResultView = ({ result, onClickLink }) => {
+  let dateString = null;
+  const createdDate = result.created_at?.raw || result.created_at?.snippet;
+  if (createdDate) {
+    try {
+      const date = new Date(createdDate);
+      const [month, day, year] = [
+        date.toLocaleString("default", { month: "short" }),
+        date.getDate(),
+        date.getFullYear(),
+      ];
+      dateString = `${day} ${month}, ${year}`;
+    } catch {
+      dateString = null;
+    }
+  }
   return (
     <div className="searchresult">
       <h2 className="search-result-link">
@@ -37,6 +52,7 @@ const CustomResultView = ({ result, onClickLink }) => {
           if (result[field])
             return <FilterTags field={field} options={result[field]} />;
         })}
+        {dateString && <span className="search-result-date">{dateString}</span>}
       </div>
     </div>
   );

@@ -206,6 +206,14 @@
     color: rgb(82, 82, 82);
 }
 
+.search-result-date {
+    font-size: 11px;  
+    border: 2px solid #eaeaea;
+    border-radius: 12px;
+    color: black;
+    padding: 5px 8px;
+}
+
 .relatedsearches h3 {
     font-weight: normal;
     font-size: 19px;
