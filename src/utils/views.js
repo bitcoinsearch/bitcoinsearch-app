@@ -7,7 +7,7 @@ export function parseYoutubeId(url) {
   return matches ? matches[1] : false;
 }
 
-export function getThumbnailUrl(url) {
+export function getYoutubeEmbedUrl(url) {
   if (!url) return null;
   const youtubeId = parseYoutubeId(url);
   if (youtubeId) {
