@@ -6,5 +6,8 @@
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "Lightning dev mailing list",
     "https://btctranscripts.com/": "BTC transcripts",
     "https://bitcoinops.org/en/": "Bitcoin Optech"
-  }
+  },
+  "media": [
+    "https://btctranscripts.com/"
+  ]
 }
