@@ -43,6 +43,7 @@ const config = {
   autocompleteQuery: buildAutocompleteQueryConfig(),
   apiConnector: connector,
   alwaysSearchOnInitialLoad: false,
+  initialState: { resultsPerPage: 50 },
 };
 
 const CustomPagingInfoView = ({ totalResults }) => {
