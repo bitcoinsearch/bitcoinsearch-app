@@ -8,6 +8,8 @@
     --primary-blue: #3a86ff;
     --secondary-blue: #a2d2ff;
     --primary-orange: #FF9900;
+    --number-of-lines: 4;
+    --number-of-lines-mobile: 5;
 }
 /* We selectedivly override base styles to create a red theme */
 .btc-search .sui-search-box__submit {
@@ -211,11 +213,14 @@
     font-size: 13px;
     color: rgb(82, 82, 82);
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--number-of-lines);
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
 }
 @media only screen and (max-width: 1200px) {
     .search-result-body p {
-        max-height: 78px;
-        overflow: hidden;
+        -webkit-line-clamp: var(--number-of-lines-mobile);
     }
 }
 
