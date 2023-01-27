@@ -11,6 +11,20 @@
     --number-of-lines: 4;
     --number-of-lines-mobile: 5;
 }
+
+/* reset button */
+button {
+    background-color: transparent;
+    border-width: 0;
+    width: auto;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    padding: 0;
+    margin: 0;
+  }
 /* We selectedivly override base styles to create a red theme */
 .btc-search .sui-search-box__submit {
   background: none;
@@ -115,12 +129,85 @@
     background: #4285F4;
 }
 
+#results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.results-collection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.other-results {
+    --other-results-gap: 5px;
+    padding-left: calc(10px + 5%);
+    display: flex;
+    flex-direction: column;
+    gap: var(--other-results-gap);
+    display: none;
+}
+
+.other-results.expanded {
+    display: block;
+}
+.other-results-dropdown {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    color: #36454F;
+    color: var(--primary-blue);
+    border-radius: 10px;
+    padding: 2px 4px 2px 2px;
+}
+.other-results-dropdown:hover {
+    color: white;
+    background-color: var(--primary-blue);
+}
+.other-results-dropdown.expanded {
+    color: white;
+    background-color: var(--primary-blue);
+}
+
+.other-results-dropdown>svg:first-of-type {
+    font-size: 24px;
+    transform: rotate(-90deg);
+    transition: transform ease-in 200ms ;
+}
+.other-results-dropdown>svg:nth-of-type(2) {
+    font-size: 20px;
+    transform: rotate(-90deg);
+}
+.other-results-dropdown>svg:first-of-type.rotate-down {
+    transform: rotate(0deg);
+}
+.other-results .searchresult::before {
+    position: absolute;
+    content: "";
+    width: 4px;
+    border-radius: 2px;
+    height: calc(100% - (var(--other-results-gap)* 2) - 20px);
+    background: var(--secondary-blue);
+    transform: translateX(-15px);
+}
+.other-results p {
+    margin: 0;
+    padding: 0;
+}
+.other-results h2 {
+    display: none;
+}
+
 .searchresult {
+    position: relative;
     word-wrap: break-word; 
     white-space: pre-wrap;
     word-break: break-word;
     text-overflow: ellipsis;
-    margin-top: 25px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -269,6 +356,7 @@
     border-radius: 12px;
     color: black;
     padding: 5px 8px;
+    white-space: nowrap;
 }
 
 .relatedsearches h3 {
