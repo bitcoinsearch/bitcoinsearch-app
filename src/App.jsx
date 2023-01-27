@@ -6,7 +6,6 @@ import {
   Facet,
   SearchProvider,
   SearchBox,
-  Results,
   PagingInfo,
   Paging,
   WithSearch,
@@ -26,7 +25,7 @@ import {
 import logo from "./btc.png";
 import CustomMultiCheckboxFacet from "./components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
-import CustomResultView from "./components/customResultView/CustomResultView";
+import CustomResults from "./components/customResults/CustomResults";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -100,15 +99,7 @@ export default function App() {
                       ))}
                     </div>
                   }
-                  bodyContent={
-                    <Results
-                      resultView={CustomResultView}
-                      titleField={getConfig().titleField}
-                      urlField={getConfig().urlField}
-                      thumbnailField={getConfig().thumbnailField}
-                      shouldTrackClickThrough={true}
-                    />
-                  }
+                  bodyContent={<CustomResults shouldTrackClickThrough={true} />}
                   bodyHeader={
                     <>
                       {wasSearched && (
