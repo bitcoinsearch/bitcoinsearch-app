@@ -19,7 +19,7 @@ const CustomResults = ({
   results.forEach((result) => {
     if (groupedDomains.includes(result.domain.raw)) {
       const idx = formattedResults.length;
-      const label = getDomainLabel();
+      const label = getDomainLabel(result.domain.raw, true);
       const locatorString = label
         ? `${result.title.raw}_${label}`
         : result.title.raw;
