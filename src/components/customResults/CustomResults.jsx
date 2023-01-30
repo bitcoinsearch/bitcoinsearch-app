@@ -2,6 +2,7 @@ import React from "react";
 import { withSearch } from "@elastic/react-search-ui";
 import ResultCollection from "./ResultCollection";
 import { getDomainGrouping, getDomainLabel } from "../../config/mapping-helper";
+import "./styles.results.scss";
 
 const CustomResults = ({
   results,
