@@ -33,6 +33,8 @@ import { useState } from "react";
 import CustomMultiCheckboxFacet from "./components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import CustomResults from "./components/customResults/CustomResults";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
+import NoResults from "./components/noResultsCard/NoResults";
+import FormModal from "./components/formModal/FormModal";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -65,6 +67,14 @@ const CustomPagingInfoView = ({ totalResults }) => {
 
 export default function App() {
   useSearchFocusHotkey();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openForm = () => {
+    setModalOpen(true);
+  };
+  const closeForm = () => {
+    setModalOpen(false);
+  };
 
   return (
     <ChakraProvider>
@@ -125,6 +135,10 @@ export default function App() {
                     }
                     bodyFooter={<Paging />}
                   />
+                  {wasSearched && !results.length && (
+                    <NoResults openForm={openForm} />
+                  )}
+                  <FormModal formOpen={modalOpen} closeForm={closeForm} />
                 </ErrorBoundary>
               </div>
             );
