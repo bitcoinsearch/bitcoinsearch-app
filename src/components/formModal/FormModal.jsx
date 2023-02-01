@@ -14,6 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { getFormURL } from "../../config/config-helper";
 
 const FormModal = ({ formOpen, closeForm }) => {
   const [urlValue, setUrlValue] = useState("");
@@ -23,8 +24,7 @@ const FormModal = ({ formOpen, closeForm }) => {
     success: null,
   });
 
-  const url =
-    "https://script.google.com/macros/s/AKfycbxDIo1xBFl6bMzt2t_sby5ZN88Wcx4qE49eu15HU4Uq/dev";
+  const url = getFormURL();
 
   const submitToSheet = async (data) => {
     const response = await fetch(url, {
