@@ -82,8 +82,13 @@ button {
     }
 }
 
-.btc-search .sui-layout-sidebar-toggle {
-  display: none;
+.btc-search { 
+    .sui-layout-sidebar-toggle {
+        display: none;
+    }
+    .sui-layout-body:after {
+        display: none;
+    }
 }
 
 .btc-search .sui-facet-view-more {
