@@ -24,7 +24,7 @@ const FormModal = ({ formOpen, closeForm }) => {
   });
 
   const url =
-    "https://script.google.com/macros/s/AKfycby7vNC0yvh0Aij-giI9MKZozNNhEiF2TWqTea8OmtWo9OwBnpp1xAmUHeYfEgHfi3P_1w/exec";
+    "https://script.google.com/macros/s/AKfycbxDIo1xBFl6bMzt2t_sby5ZN88Wcx4qE49eu15HU4Uq/dev";
 
   const submitToSheet = async (data) => {
     const response = await fetch(url, {
@@ -97,6 +97,7 @@ const FormModal = ({ formOpen, closeForm }) => {
                   placeholder="https://"
                   onChange={(e) => setUrlValue(e.target.value)}
                   value={urlValue}
+                  isRequired
                 />
                 <FormHelperText>
                   Enter a valid url, should contain http/https

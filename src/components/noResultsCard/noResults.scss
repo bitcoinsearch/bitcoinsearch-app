@@ -1,12 +1,8 @@
 
 .no-result {
-  // position: absolute;
-  // top: 50vh;
-  // left: 0%;
-  // // transform: translate(-50%, -50%);
   margin: 25px auto;
   width: MIN(70%, 600px);
-  padding: 10vh 15px;
+  padding: calc(min(5vh, 40px)) 15px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -15,11 +11,10 @@
   box-shadow: 0 0 20px 2px #0002;
   z-index: 2;
 
-  button {
-    background-color: var(--primary-blue);
-    width: auto;
-    padding: 5px 8px;
-    border-radius: 8px;
-    color: white;
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--chakra-colors-red-400);
+    margin-bottom: 30px;
   }
 }
