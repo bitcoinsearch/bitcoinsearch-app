@@ -190,3 +190,7 @@ export function buildAutocompleteQueryConfig() {
     },
   };
 }
+
+export function getFormURL() {
+  return getConfig().userContentFormURL;
+}

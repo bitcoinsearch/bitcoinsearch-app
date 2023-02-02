@@ -2,6 +2,7 @@
   "engineName": "bitcoin-search-engine",
   "endpointBase": "https://my-test-es-deploy.ent.us-central1.gcp.cloud.es.io",
   "searchKey": "search-bjqwxsgfhdnyyhe1arsfxtaq",
+  "userContentFormURL": "https://script.google.com/macros/s/AKfycbwSdGCfHerKSYtduulBLHY0OYsCFHeGNd5cBr1OWEzHRm114hyX9G3UCxsbcn6xszyQBQ/exec",
   "resultFields": [
     "authors",
     "created_at",

@@ -27,6 +27,11 @@
     font-weight: normal;
     color: #0969da;
     margin-bottom: 0;
+
+    a {
+      color: -webkit-link;
+      text-decoration: underline;
+    }
   }
 
   .url-display {

@@ -12,8 +12,13 @@ import {
 } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
-import "./custom.scss";
 
+// CSS/ASSETS //
+import "./custom.scss";
+import { ChakraProvider } from "@chakra-ui/react";
+import logo from "./btc.png";
+
+// CONFIG //
 import {
   buildAutocompleteQueryConfig,
   buildFacetConfigFromConfig,
@@ -22,10 +27,14 @@ import {
   getFacetFields,
   getFacetWithSearch,
 } from "./config/config-helper";
-import logo from "./btc.png";
+
+// COMPONENTS //
+import { useState } from "react";
 import CustomMultiCheckboxFacet from "./components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
-import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
 import CustomResults from "./components/customResults/CustomResults";
+import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
+import NoResults from "./components/noResultsCard/NoResults";
+import FormModal from "./components/formModal/FormModal";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -58,63 +67,84 @@ const CustomPagingInfoView = ({ totalResults }) => {
 
 export default function App() {
   useSearchFocusHotkey();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openForm = () => {
+    setModalOpen(true);
+  };
+  const closeForm = () => {
+    setModalOpen(false);
+  };
 
   return (
-    <SearchProvider config={config}>
-      <WithSearch mapContextToProps={({ wasSearched }) => ({ wasSearched })}>
-        {({ wasSearched }) => {
-          return (
-            <div className="App btc-search">
-              <ErrorBoundary>
-                <div className="header">
-                  <img src={logo} className="logo" alt="bitcoin logo" />
-                  <p className="description">Technical Bitcoin Search</p>
-                </div>
-                <Layout
-                  header={
-                    <SearchBox
-                      autocompleteMinimumCharacters={3}
-                      // autocompleteResults={{
-                      //   linkTarget: "_blank",
-                      //   sectionTitle: "Suggested Queries",
-                      //   titleField: "title",
-                      //   urlField: "nps_link",
-                      //   shouldTrackClickThrough: true,
-                      //   clickThroughTags: ["test"],
-                      // }}
-                      autocompleteSuggestions={true}
-                      debounceLength={0}
-                    />
-                  }
-                  sideContent={
-                    <div>
-                      {wasSearched}
-                      {getFacetFields().map((field) => (
-                        <Facet
-                          key={field}
-                          field={field}
-                          isFilterable={getFacetWithSearch().includes(field)}
-                          label={field}
-                          view={CustomMultiCheckboxFacet}
-                        />
-                      ))}
-                    </div>
-                  }
-                  bodyContent={<CustomResults shouldTrackClickThrough={true} />}
-                  bodyHeader={
-                    <>
-                      {wasSearched && (
-                        <PagingInfo view={CustomPagingInfoView} />
-                      )}
-                    </>
-                  }
-                  bodyFooter={<Paging />}
-                />
-              </ErrorBoundary>
-            </div>
-          );
-        }}
-      </WithSearch>
-    </SearchProvider>
+    <ChakraProvider>
+      <SearchProvider config={config}>
+        <WithSearch
+          mapContextToProps={({ wasSearched, results }) => ({
+            wasSearched,
+            results,
+          })}
+        >
+          {({ wasSearched, results }) => {
+            return (
+              <div className="App btc-search">
+                <ErrorBoundary>
+                  <div className="header">
+                    <img src={logo} className="logo" alt="bitcoin logo" />
+                    <p className="description">Technical Bitcoin Search</p>
+                  </div>
+                  <Layout
+                    header={
+                      <SearchBox
+                        autocompleteMinimumCharacters={3}
+                        // autocompleteResults={{
+                        //   linkTarget: "_blank",
+                        //   sectionTitle: "Suggested Queries",
+                        //   titleField: "title",
+                        //   urlField: "nps_link",
+                        //   shouldTrackClickThrough: true,
+                        //   clickThroughTags: ["test"],
+                        // }}
+                        autocompleteSuggestions={true}
+                        debounceLength={0}
+                      />
+                    }
+                    sideContent={
+                      <div>
+                        {wasSearched}
+                        {getFacetFields().map((field) => (
+                          <Facet
+                            key={field}
+                            field={field}
+                            isFilterable={getFacetWithSearch().includes(field)}
+                            label={field}
+                            view={CustomMultiCheckboxFacet}
+                          />
+                        ))}
+                      </div>
+                    }
+                    bodyContent={
+                      <CustomResults shouldTrackClickThrough={true} />
+                    }
+                    bodyHeader={
+                      <>
+                        {wasSearched && (
+                          <PagingInfo view={CustomPagingInfoView} />
+                        )}
+                      </>
+                    }
+                    bodyFooter={<Paging />}
+                  />
+                  {wasSearched && !results.length && (
+                    <NoResults openForm={openForm} />
+                  )}
+                  <FormModal formOpen={modalOpen} closeForm={closeForm} />
+                </ErrorBoundary>
+              </div>
+            );
+          }}
+        </WithSearch>
+      </SearchProvider>
+    </ChakraProvider>
   );
 }
