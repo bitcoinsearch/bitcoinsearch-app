@@ -50,9 +50,13 @@ button {
 
 .search-box-with-contribute {
     display: grid;
-    grid-template-columns: 90% auto;
+    grid-template-columns: 75% auto;
     width: 100%;
     place-content: center;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
 
     .search-box__contribute-wrapper {
         grid-column: 1/3;
