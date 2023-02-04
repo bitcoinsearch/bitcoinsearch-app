@@ -98,6 +98,7 @@ const FormModal = ({ formOpen, closeForm }) => {
                   onChange={(e) => setUrlValue(e.target.value)}
                   value={urlValue}
                   isRequired
+                  maxLength={255}
                 />
                 <FormHelperText>
                   Enter a valid url, should contain http/https

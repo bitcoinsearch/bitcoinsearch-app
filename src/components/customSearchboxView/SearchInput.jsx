@@ -15,7 +15,7 @@ function SearchInput({
       <input {...getButtonProps()} />
       <div className="search-box__contribute-wrapper">
         <span role={"button"} onClick={openForm}>
-          Contribute to source?
+          Add to source?
         </span>
       </div>
     </div>
