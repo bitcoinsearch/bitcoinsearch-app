@@ -35,6 +35,7 @@ import CustomResults from "./components/customResults/CustomResults";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
 import NoResults from "./components/noResultsCard/NoResults";
 import FormModal from "./components/formModal/FormModal";
+import SearchInput from "./components/customSearchboxView/SearchInput";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -76,6 +77,10 @@ export default function App() {
     setModalOpen(false);
   };
 
+  const SearchInputWrapper = ({ ...rest }) => {
+    return <SearchInput openForm={openForm} {...rest} />;
+  };
+
   return (
     <ChakraProvider>
       <SearchProvider config={config}>
@@ -107,6 +112,7 @@ export default function App() {
                         // }}
                         autocompleteSuggestions={true}
                         debounceLength={0}
+                        inputView={SearchInputWrapper}
                       />
                     }
                     sideContent={
