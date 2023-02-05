@@ -3,7 +3,7 @@ import { getResultTags } from "../../config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import { Thumbnail } from "../customResultView/Thumbnail";
+import { Thumbnail } from "./Thumbnail";
 import mapping from "../../config/mapping.json";
 
 const htmlToReactParser = new Parser();

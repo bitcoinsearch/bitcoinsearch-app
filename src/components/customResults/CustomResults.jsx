@@ -1,8 +1,9 @@
 import React from "react";
 import { withSearch } from "@elastic/react-search-ui";
 import ResultCollection from "./ResultCollection";
-import { getDomainGrouping, getDomainLabel } from "../../config/mapping-helper";
+import { getDomainGrouping } from "../../config/mapping-helper";
 import "./styles.results.scss";
+import { generateLocator } from "../../config/results-helper";
 
 const CustomResults = ({
   results,
@@ -17,19 +18,25 @@ const CustomResults = ({
   const formattedResults = [];
   const similarity = {};
   const groupedDomains = getDomainGrouping();
+
   results.forEach((result) => {
-    if (groupedDomains.includes(result.domain.raw)) {
+    const raw_domain = result?.domain?.raw ?? null;
+
+    if (groupedDomains.includes(raw_domain)) {
       const idx = formattedResults.length;
-      const label = getDomainLabel(result.domain.raw, true);
-      const locatorString = label
-        ? `${result.title.raw}_${label}`
-        : result.title.raw;
-      const isSimilarIdx = similarity[locatorString];
+
+      const locatorId = generateLocator(
+        raw_domain,
+        result.url.raw,
+        result.title.raw
+      );
+      const isSimilarIdx = similarity[locatorId];
+
       if (isSimilarIdx !== undefined) {
         formattedResults[isSimilarIdx].push({ ...result });
       } else {
         formattedResults.push([{ ...result }]);
-        similarity[locatorString] = idx;
+        similarity[locatorId] = idx;
       }
     } else {
       formattedResults.push([{ ...result }]);
