@@ -117,34 +117,37 @@ export default function App() {
                       />
                     }
                     sideContent={
-                      <div>
-                        <Sorting
-                          label="Sort by date"
-                          sortOptions={[
-                            { name: "-", value: "", direction: "" },
-                            {
-                              name: "Newest first",
-                              value: "created_at",
-                              direction: "desc",
-                            },
-                            {
-                              name: "Oldest first",
-                              value: "created_at",
-                              direction: "asc",
-                            },
-                          ]}
-                        />
-                        {wasSearched}
-                        {getFacetFields().map((field) => (
-                          <Facet
-                            key={field}
-                            field={field}
-                            isFilterable={getFacetWithSearch().includes(field)}
-                            label={field}
-                            view={CustomMultiCheckboxFacet}
+                      wasSearched && (
+                        <div>
+                          <Sorting
+                            label="Sort by date"
+                            sortOptions={[
+                              { name: "-", value: "", direction: "" },
+                              {
+                                name: "Newest first",
+                                value: "created_at",
+                                direction: "desc",
+                              },
+                              {
+                                name: "Oldest first",
+                                value: "created_at",
+                                direction: "asc",
+                              },
+                            ]}
                           />
-                        ))}
-                      </div>
+                          {getFacetFields().map((field) => (
+                            <Facet
+                              key={field}
+                              field={field}
+                              isFilterable={getFacetWithSearch().includes(
+                                field
+                              )}
+                              label={field}
+                              view={CustomMultiCheckboxFacet}
+                            />
+                          ))}
+                        </div>
+                      )
                     }
                     bodyContent={
                       <CustomResults shouldTrackClickThrough={true} />

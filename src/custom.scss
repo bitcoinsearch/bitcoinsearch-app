@@ -55,7 +55,7 @@ button {
     .sui-select__control {
         background-color: white;
         box-shadow: 0px 3px 4px 0px var(--chakra-colors-blackAlpha-300);
-
+        border: none;
         &--is-focused {
             border: none;
         }
