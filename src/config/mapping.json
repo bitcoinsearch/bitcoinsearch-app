@@ -13,6 +13,7 @@
   "collection": [
     "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/",
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/",
-    "https://bitcointalk.org"
+    "https://bitcointalk.org",
+    "https://bitcoin.stackexchange.com"
   ]
 }
