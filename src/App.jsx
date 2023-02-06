@@ -36,6 +36,8 @@ import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
 import NoResults from "./components/noResultsCard/NoResults";
 import FormModal from "./components/formModal/FormModal";
 import SearchInput from "./components/customSearchboxView/SearchInput";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -66,6 +68,18 @@ const CustomPagingInfoView = ({ totalResults }) => {
   );
 };
 
+const ScrollTop = ({ current }) => {
+  const initialRender = useRef(true);
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [current]);
+  return null;
+};
+
 export default function App() {
   useSearchFocusHotkey();
   const [modalOpen, setModalOpen] = useState(false);
@@ -85,15 +99,17 @@ export default function App() {
     <ChakraProvider>
       <SearchProvider config={config}>
         <WithSearch
-          mapContextToProps={({ wasSearched, results }) => ({
+          mapContextToProps={({ wasSearched, results, current }) => ({
             wasSearched,
             results,
+            current,
           })}
         >
-          {({ wasSearched, results }) => {
+          {({ wasSearched, results, current }) => {
             return (
               <div className="App btc-search">
                 <ErrorBoundary>
+                  <ScrollTop current={current} />
                   <div className="header">
                     <img src={logo} className="logo" alt="bitcoin logo" />
                     <p className="description">Technical Bitcoin Search</p>
