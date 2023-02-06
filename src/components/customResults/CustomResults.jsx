@@ -3,7 +3,10 @@ import { withSearch } from "@elastic/react-search-ui";
 import ResultCollection from "./ResultCollection";
 import { getDomainGrouping } from "../../config/mapping-helper";
 import "./styles.results.scss";
-import { generateLocator } from "../../config/results-helper";
+import {
+  generateLocator,
+  sortGroupedResults,
+} from "../../config/results-helper";
 
 const CustomResults = ({
   results,
@@ -17,6 +20,7 @@ const CustomResults = ({
 
   const formattedResults = [];
   const similarity = {};
+  const groupedIndices = new Set();
   const groupedDomains = getDomainGrouping();
 
   results.forEach((result) => {
@@ -34,6 +38,7 @@ const CustomResults = ({
 
       if (isSimilarIdx !== undefined) {
         formattedResults[isSimilarIdx].push({ ...result });
+        groupedIndices.add(isSimilarIdx);
       } else {
         formattedResults.push([{ ...result }]);
         similarity[locatorId] = idx;
@@ -42,6 +47,8 @@ const CustomResults = ({
       formattedResults.push([{ ...result }]);
     }
   });
+
+  sortGroupedResults(groupedIndices, formattedResults);
 
   const resultProps = {
     clickThroughTags,
