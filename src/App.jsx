@@ -119,6 +119,17 @@ export default function App() {
                     sideContent={
                       wasSearched && (
                         <div>
+                          {getFacetFields().map((field) => (
+                            <Facet
+                              key={field}
+                              field={field}
+                              isFilterable={getFacetWithSearch().includes(
+                                field
+                              )}
+                              label={field}
+                              view={CustomMultiCheckboxFacet}
+                            />
+                          ))}
                           <Sorting
                             label="Sort by date"
                             sortOptions={[
@@ -135,17 +146,6 @@ export default function App() {
                               },
                             ]}
                           />
-                          {getFacetFields().map((field) => (
-                            <Facet
-                              key={field}
-                              field={field}
-                              isFilterable={getFacetWithSearch().includes(
-                                field
-                              )}
-                              label={field}
-                              view={CustomMultiCheckboxFacet}
-                            />
-                          ))}
                         </div>
                       )
                     }
