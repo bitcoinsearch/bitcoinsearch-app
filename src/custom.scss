@@ -58,11 +58,58 @@ button {
     -webkit-touch-callout: none;
     user-select: none;
 
-    .search-box__contribute-wrapper {
-        grid-column: 1/3;
-        margin-left: auto;
-        margin-top: 10px;
+    &:has(.sui-search-box__text-input:focus) {
+        .search-box__keybindings {
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+    }
 
+    .search-box__info {
+        grid-column: 1/3;
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        margin: 5px;
+    }
+
+    .search-box__keybindings {
+        display: none;
+        color: var(--chakra-colors-gray-400);
+        font-size: 14px;
+        gap: 10px;
+        align-items: center;
+        line-height: 1;
+        transform: translateY(0);
+        opacity: 1;
+        transition: all ease-in 0.2s;
+
+        span:first-of-type {
+            font-size: 14px;
+        }
+
+        @media screen and (min-width: 640px) {
+            display: flex;
+        }
+        kbd {
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #b4b4b4;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+            display: inline-block;
+            font-weight: 700;
+            line-height: 1;
+            padding: 2px 6px;
+            white-space: nowrap;
+
+            &:first-of-type {
+                font-size: 1em;
+            }
+        }
+    }
+
+    .search-box__contribute-wrapper {
+        margin-left: auto;
         span {
             display: block;
             font-size: 12px;
