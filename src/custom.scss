@@ -48,6 +48,36 @@ button {
     margin-bottom: 10px;
 }
 
+.btc-search {
+    .sui-sorting {
+        margin-top: 2rem;
+    }
+    .sui-select {
+        color: #4f4f4f;
+    }
+    .sui-select__control {
+        background-color: white;
+        box-shadow: 0px 3px 4px 0px var(--chakra-colors-blackAlpha-300);
+        border: none;
+        &--is-focused {
+            border: none;
+        }
+    }
+    .sui-select__single-value {
+        font-weight: 400;
+    }
+    .sui-select__option {
+        &--is-selected {
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: 500;
+        }
+    }
+    .sui-select__dropdown-indicator {
+        color: #4f4f4f;
+    }
+}
+
 .search-box-with-contribute {
     display: grid;
     grid-template-columns: 75% auto;

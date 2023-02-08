@@ -9,6 +9,7 @@ import {
   PagingInfo,
   Paging,
   WithSearch,
+  Sorting,
 } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
@@ -116,18 +117,37 @@ export default function App() {
                       />
                     }
                     sideContent={
-                      <div>
-                        {wasSearched}
-                        {getFacetFields().map((field) => (
-                          <Facet
-                            key={field}
-                            field={field}
-                            isFilterable={getFacetWithSearch().includes(field)}
-                            label={field}
-                            view={CustomMultiCheckboxFacet}
+                      wasSearched && (
+                        <div>
+                          {getFacetFields().map((field) => (
+                            <Facet
+                              key={field}
+                              field={field}
+                              isFilterable={getFacetWithSearch().includes(
+                                field
+                              )}
+                              label={field}
+                              view={CustomMultiCheckboxFacet}
+                            />
+                          ))}
+                          <Sorting
+                            label="Sort by date"
+                            sortOptions={[
+                              { name: "-", value: "", direction: "" },
+                              {
+                                name: "Newest first",
+                                value: "created_at",
+                                direction: "desc",
+                              },
+                              {
+                                name: "Oldest first",
+                                value: "created_at",
+                                direction: "asc",
+                              },
+                            ]}
                           />
-                        ))}
-                      </div>
+                        </div>
+                      )
                     }
                     bodyContent={
                       <CustomResults shouldTrackClickThrough={true} />
