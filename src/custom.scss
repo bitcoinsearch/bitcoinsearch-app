@@ -13,19 +13,10 @@
     --number-of-lines-mobile: 5;
 }
 
-/* reset button */
-button {
-    background-color: transparent;
-    border-width: 0;
-    width: auto;
-    font-family: inherit;
-    font-size: inherit;
-    font-style: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    padding: 0;
-    margin: 0;
-  }
+.btc-search {
+    height: 100%; 
+ }
+
 /* We selectedivly override base styles to create a red theme */
 .btc-search .sui-search-box__submit {
   background: none;
@@ -211,12 +202,11 @@ button {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin: 12px 0 24px;
     text-align: center;
     margin-bottom: auto;
     color: #3a56e4;
     font-weight:400;
-    padding-top: 5%;
+    padding-top: 8%;
     padding-bottom: 16px;
 }
 
@@ -246,6 +236,7 @@ button {
 .sui-search-box__text-input {
     border-radius: 35px 0px 0px 35px;
     border-right: none;
+    color: #121212;
 }
 
 #profileimage {
