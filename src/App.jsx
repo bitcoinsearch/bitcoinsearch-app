@@ -100,13 +100,14 @@ export default function App() {
     <ChakraProvider>
       <SearchProvider config={config}>
         <WithSearch
-          mapContextToProps={({ wasSearched, results, current }) => ({
+          mapContextToProps={({ wasSearched, results, current, isLoading }) => ({
             wasSearched,
             results,
             current,
+            isLoading,
           })}
         >
-          {({ wasSearched, results, current }) => {
+          {({ wasSearched, results, current, isLoading }) => {
             return (
               <div className="App btc-search">
                 <ErrorBoundary>
@@ -170,6 +171,7 @@ export default function App() {
                     }
                     bodyHeader={
                       <>
+                        {<LoadingBar />}
                         {wasSearched && (
                           <PagingInfo view={CustomPagingInfoView} />
                         )}
@@ -190,3 +192,11 @@ export default function App() {
     </ChakraProvider>
   );
 }
+
+const LoadingBar = () => {
+  return (
+    <div className="loading-container">
+      <div className="loading-bar"></div>
+    </div>
+  );
+};

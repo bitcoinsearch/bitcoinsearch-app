@@ -356,3 +356,35 @@ button {
     margin: 0;
     padding: 4px 0;
 }
+.loading-container {
+    width: 100%;
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    @media screen and (min-width: 640px) {
+        width: 90%;
+    }
+}
+.loading-bar {
+    position: relative;
+    width: 15%;
+    // transform: scaleX(0, 0);
+    height: 6px;
+    border-radius: 2px;
+    background-color: var(--chakra-colors-gray-400);
+    opacity: 1;
+    animation: searching 3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+}
+@keyframes searching {
+//   0%,
+//   100% {
+//     left: 100%;
+//     width: 5%;
+//   }
+
+  50% {
+    background-color: var(--chakra-colors-gray-400);
+    opacity: 0.3;
+    width: 90%;
+  }
+}
