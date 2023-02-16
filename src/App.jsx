@@ -39,6 +39,7 @@ import FormModal from "./components/formModal/FormModal";
 import SearchInput from "./components/customSearchboxView/SearchInput";
 import { useEffect } from "react";
 import { useRef } from "react";
+import LoadingBar from "./components/loadingBar/LoadingBar";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -100,7 +101,12 @@ export default function App() {
     <ChakraProvider>
       <SearchProvider config={config}>
         <WithSearch
-          mapContextToProps={({ wasSearched, results, current, isLoading }) => ({
+          mapContextToProps={({
+            wasSearched,
+            results,
+            current,
+            isLoading,
+          }) => ({
             wasSearched,
             results,
             current,
@@ -112,6 +118,7 @@ export default function App() {
               <div className="App btc-search">
                 <ErrorBoundary>
                   <ScrollTop current={current} />
+                  {isLoading && <LoadingBar />}
                   <div className="header">
                     <img src={logo} className="logo" alt="bitcoin logo" />
                     <p className="description">Technical Bitcoin Search</p>
@@ -171,7 +178,6 @@ export default function App() {
                     }
                     bodyHeader={
                       <>
-                        {<LoadingBar />}
                         {wasSearched && (
                           <PagingInfo view={CustomPagingInfoView} />
                         )}
@@ -192,11 +198,3 @@ export default function App() {
     </ChakraProvider>
   );
 }
-
-const LoadingBar = () => {
-  return (
-    <div className="loading-container">
-      <div className="loading-bar"></div>
-    </div>
-  );
-};
