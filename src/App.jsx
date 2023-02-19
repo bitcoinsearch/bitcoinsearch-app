@@ -39,6 +39,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import LoadingBar from "./components/loadingBar/LoadingBar";
 import Header from "./layout/Header";
+import SideBar from "./layout/SideBar";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -120,39 +121,7 @@ export default function App() {
                   </div>
                   <Layout
                     header={<Header openForm={openForm} />}
-                    sideContent={
-                      wasSearched && Boolean(results.length) && (
-                        <div>
-                          {getFacetFields().map((field) => (
-                            <Facet
-                              key={field}
-                              field={field}
-                              isFilterable={getFacetWithSearch().includes(
-                                field
-                              )}
-                              label={field}
-                              view={CustomMultiCheckboxFacet}
-                            />
-                          ))}
-                          <Sorting
-                            label="Sort by date"
-                            sortOptions={[
-                              { name: "-", value: "", direction: "" },
-                              {
-                                name: "Newest first",
-                                value: "created_at",
-                                direction: "desc",
-                              },
-                              {
-                                name: "Oldest first",
-                                value: "created_at",
-                                direction: "asc",
-                              },
-                            ]}
-                          />
-                        </div>
-                      )
-                    }
+                    sideContent={<SideBar />}
                     bodyContent={
                       <CustomResults shouldTrackClickThrough={true} />
                     }
