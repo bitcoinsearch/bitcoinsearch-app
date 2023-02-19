@@ -5,7 +5,6 @@ import {
   ErrorBoundary,
   Facet,
   SearchProvider,
-  SearchBox,
   PagingInfo,
   Paging,
   WithSearch,
@@ -36,10 +35,10 @@ import CustomResults from "./components/customResults/CustomResults";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
 import NoResults from "./components/noResultsCard/NoResults";
 import FormModal from "./components/formModal/FormModal";
-import SearchInput from "./components/customSearchboxView/SearchInput";
 import { useEffect } from "react";
 import { useRef } from "react";
 import LoadingBar from "./components/loadingBar/LoadingBar";
+import Header from "./layout/Header";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -93,10 +92,6 @@ export default function App() {
     setModalOpen(false);
   };
 
-  const SearchInputWrapper = ({ ...rest }) => {
-    return <SearchInput openForm={openForm} {...rest} />;
-  };
-
   return (
     <ChakraProvider>
       <SearchProvider config={config}>
@@ -124,24 +119,9 @@ export default function App() {
                     <p className="description">Technical Bitcoin Search</p>
                   </div>
                   <Layout
-                    header={
-                      <SearchBox
-                        autocompleteMinimumCharacters={3}
-                        // autocompleteResults={{
-                        //   linkTarget: "_blank",
-                        //   sectionTitle: "Suggested Queries",
-                        //   titleField: "title",
-                        //   urlField: "nps_link",
-                        //   shouldTrackClickThrough: true,
-                        //   clickThroughTags: ["test"],
-                        // }}
-                        autocompleteSuggestions={true}
-                        debounceLength={0}
-                        inputView={SearchInputWrapper}
-                      />
-                    }
+                    header={<Header openForm={openForm} />}
                     sideContent={
-                      wasSearched && (
+                      wasSearched && Boolean(results.length) && (
                         <div>
                           {getFacetFields().map((field) => (
                             <Facet
