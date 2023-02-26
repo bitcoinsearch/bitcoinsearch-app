@@ -1,5 +1,4 @@
 import React from "react";
-import { withSearch } from "@elastic/react-search-ui";
 import ResultCollection from "./ResultCollection";
 import { getDomainGrouping } from "../../config/mapping-helper";
 import "./styles.results.scss";
@@ -7,14 +6,18 @@ import {
   generateLocator,
   sortGroupedResults,
 } from "../../config/results-helper";
+import useIsInitialStateWithoutFilter from "../../hooks/useIsInitialStateWithoutFilter";
+import useSearchContext from "../../hooks/useSearchContext";
 
-const CustomResults = ({
-  results,
-  clickThroughTags,
-  shouldTrackClickThrough,
-  trackClickThrough,
-}) => {
-  if (!results || !results.length) {
+const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
+  const {
+    state: { results },
+    trackClickThrough,
+  } = useSearchContext();
+  const { hiddenBody } = useIsInitialStateWithoutFilter();
+
+  // empty search string or initial page search without filters should not be displayed
+  if (hiddenBody) {
     return null;
   }
 
@@ -69,7 +72,4 @@ CustomResults.defaultProps = {
   shouldTrackClickThrough: true,
 };
 
-export default withSearch(({ results, trackClickThrough }) => ({
-  results,
-  trackClickThrough,
-}))(CustomResults);
+export default CustomResults;

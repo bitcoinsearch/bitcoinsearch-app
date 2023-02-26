@@ -1,26 +1,40 @@
-import { Facet, withSearch } from "@elastic/react-search-ui";
-import { Sorting } from "@elastic/react-search-ui-views";
+import { Facet, Sorting } from "@elastic/react-search-ui";
+
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 import CustomMultiCheckboxFacet from "../components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import { getFacetFields, getFacetWithSearch } from "../config/config-helper";
+import useIsInitialStateWithoutFilter from "../hooks/useIsInitialStateWithoutFilter";
 
-const SideBar = ({ results, wasSearched }) => {
-  const [searchParams] = useSearchParams();
-  const hasQuery = searchParams.get("q");
+const SideBar = () => {
+  const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
-  if (!hasQuery || !wasSearched || !results.length) return null;
+  if (hiddenBody) {
+    return null;
+  }
+
   return (
     <div>
-      {getFacetFields().map((field) => (
-        <Facet
-          key={field}
-          field={field}
-          isFilterable={getFacetWithSearch().includes(field)}
-          label={field}
-          view={CustomMultiCheckboxFacet}
-        />
-      ))}
+      {!hiddenHomeFacet
+        ? getFacetFields().map((field) => (
+            <Facet
+              key={field}
+              field={field}
+              isFilterable={getFacetWithSearch().includes(field)}
+              label={field}
+              view={CustomMultiCheckboxFacet}
+            />
+          ))
+        : getFacetFields()
+            .filter((field) => !getFacetWithSearch().includes(field))
+            .map((field) => (
+              <Facet
+                key={field}
+                field={field}
+                isFilterable={getFacetWithSearch().includes(field)}
+                label={field}
+                view={CustomMultiCheckboxFacet}
+              />
+            ))}
       <Sorting
         label="Sort by date"
         sortOptions={[
@@ -41,7 +55,4 @@ const SideBar = ({ results, wasSearched }) => {
   );
 };
 
-export default withSearch(({ results, wasSearched }) => ({
-  results,
-  wasSearched,
-}))(SideBar);
+export default SideBar;
