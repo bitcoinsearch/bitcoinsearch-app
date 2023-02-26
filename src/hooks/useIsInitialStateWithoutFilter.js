@@ -14,7 +14,7 @@ const useIsInitialStateWithoutFilter = () => {
       hiddenBody = false;
     }
     if (!state.resultSearchTerm.trim()) {
-      hiddenHomeFacet = true;
+      hiddenHomeFacet = false;
     }
   }
   return { hiddenBody, hiddenHomeFacet };

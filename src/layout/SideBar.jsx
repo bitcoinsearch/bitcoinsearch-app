@@ -14,7 +14,7 @@ const SideBar = () => {
 
   return (
     <div>
-      {!hiddenHomeFacet
+      {hiddenHomeFacet
         ? getFacetFields().map((field) => (
             <Facet
               key={field}
