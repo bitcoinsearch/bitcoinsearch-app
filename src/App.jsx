@@ -3,12 +3,8 @@ import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
 import {
   ErrorBoundary,
-  Facet,
   SearchProvider,
-  PagingInfo,
-  Paging,
   WithSearch,
-  Sorting,
 } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
@@ -24,13 +20,10 @@ import {
   buildFacetConfigFromConfig,
   buildSearchOptionsFromConfig,
   getConfig,
-  getFacetFields,
-  getFacetWithSearch,
 } from "./config/config-helper";
 
 // COMPONENTS //
 import { useState } from "react";
-import CustomMultiCheckboxFacet from "./components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import CustomResults from "./components/customResults/CustomResults";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
 import NoResults from "./components/noResultsCard/NoResults";
@@ -40,6 +33,9 @@ import { useRef } from "react";
 import LoadingBar from "./components/loadingBar/LoadingBar";
 import Header from "./layout/Header";
 import SideBar from "./layout/SideBar";
+import CustomPagingInfo from "./components/customPagingInfo/CustomPagingInfo";
+import Footer from "./components/footer/Footer";
+import theme from "./chakra/chakra-theme";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -57,17 +53,6 @@ const config = {
   apiConnector: connector,
   alwaysSearchOnInitialLoad: false,
   initialState: { resultsPerPage: 50 },
-};
-
-const CustomPagingInfoView = ({ totalResults }) => {
-  const totalResultsFormatted =
-    new Intl.NumberFormat().format(totalResults) ?? "N/A";
-  return (
-    <div className="paging-info">
-      <strong>{totalResultsFormatted}</strong>
-      <p>results</p>
-    </div>
-  );
 };
 
 const ScrollTop = ({ current }) => {
@@ -94,7 +79,7 @@ export default function App() {
   };
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <SearchProvider config={config}>
         <WithSearch
           mapContextToProps={({
@@ -102,11 +87,13 @@ export default function App() {
             results,
             current,
             isLoading,
+            filters,
           }) => ({
             wasSearched,
             results,
             current,
             isLoading,
+            filters,
           })}
         >
           {({ wasSearched, results, current, isLoading }) => {
@@ -120,19 +107,13 @@ export default function App() {
                     <p className="description">Technical Bitcoin Search</p>
                   </div>
                   <Layout
-                    header={<Header openForm={openForm} />}
+                    header={<Header key={results} openForm={openForm} />}
                     sideContent={<SideBar />}
                     bodyContent={
                       <CustomResults shouldTrackClickThrough={true} />
                     }
-                    bodyHeader={
-                      <>
-                        {wasSearched && (
-                          <PagingInfo view={CustomPagingInfoView} />
-                        )}
-                      </>
-                    }
-                    bodyFooter={<Paging />}
+                    bodyHeader={<CustomPagingInfo />}
+                    bodyFooter={<Footer />}
                   />
                   {wasSearched && !results.length && (
                     <NoResults openForm={openForm} />
