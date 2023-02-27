@@ -1,4 +1,4 @@
-import { Box, Button, Container, Heading } from "@chakra-ui/react";
+import { Button, Container, Heading } from "@chakra-ui/react";
 import { withSearch } from "@elastic/react-search-ui";
 import React, { useEffect, useRef, useState } from "react";
 import { buildSearchOptionsFromConfig } from "../../config/config-helper";
