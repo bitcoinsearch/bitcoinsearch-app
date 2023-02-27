@@ -1,5 +1,5 @@
 import { SearchBox } from "@elastic/react-search-ui";
-import React, { useCallback, useMemo } from "react";
+import React from "react";
 import SearchInput from "../components/customSearchboxView/SearchInput";
 import HomeFacetSelection from "../components/homeFacetSelection";
 
