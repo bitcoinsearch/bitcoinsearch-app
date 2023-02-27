@@ -1,4 +1,4 @@
-import { Box, Button, Heading } from "@chakra-ui/react";
+import { Box, Button, Container, Heading } from "@chakra-ui/react";
 import { withSearch } from "@elastic/react-search-ui";
 import React, { useEffect, useRef, useState } from "react";
 import { buildSearchOptionsFromConfig } from "../../config/config-helper";
@@ -64,7 +64,7 @@ const InitialFacetSection = ({
   return (
     <>
       {fieldData?.length ? (
-        <Box>
+        <Container maxW="1300px">
           <Heading
             textAlign="center"
             fontSize={[null, null, "14px", "18px", "20px"]}
@@ -91,7 +91,7 @@ const InitialFacetSection = ({
               );
             })}
           </div>
-        </Box>
+        </Container>
       ) : null}
     </>
   );
