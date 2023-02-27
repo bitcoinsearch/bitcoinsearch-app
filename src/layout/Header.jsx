@@ -1,5 +1,5 @@
 import { SearchBox } from "@elastic/react-search-ui";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import SearchInput from "../components/customSearchboxView/SearchInput";
 import HomeFacetSelection from "../components/homeFacetSelection";
 
@@ -7,6 +7,9 @@ const Header = ({ openForm }) => {
   const SearchInputWrapper = ({ ...rest }) => {
     return <SearchInput openForm={openForm} {...rest} />;
   };
+
+  // const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection)
+  const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection);
 
   return (
     <>
@@ -24,9 +27,9 @@ const Header = ({ openForm }) => {
         debounceLength={0}
         inputView={SearchInputWrapper}
       />
-      <HomeFacetSelection field={"authors"} />
+      <MemoizedHomeFacetSelection />
     </>
   );
 };
 
-export default Header;
+export default React.memo(Header);

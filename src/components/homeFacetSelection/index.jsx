@@ -8,7 +8,7 @@ const InitialFacetSection = ({
   filters,
   addFilter,
   removeFilter,
-  field,
+  field = "authors",
   resultSearchTerm,
 }) => {
   const { events } = useSearchContext();
@@ -60,10 +60,6 @@ const InitialFacetSection = ({
   if (resultSearchTerm?.trim()) {
     return null;
   }
-
-  // if (hiddenHomeFacet) {
-  //   return null;
-  // }
 
   return (
     <>
