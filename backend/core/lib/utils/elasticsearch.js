@@ -15,11 +15,12 @@ exports.connect = async function(mode='API') {
   if (state.client) return;
   
   let cloud_id = config.get('elasticsearch.cloud_id');
-  let elasticsearch_api_key = config.get('elasticsearch.api_key');
+  let username = config.get('elasticsearch.username');
+  let password = config.get('elasticsearch.password');
 
   const client = await new Client({
     cloud: { id: cloud_id },
-    auth: { apiKey: elasticsearch_api_key }
+    auth: { username, password }
   });
   
   state.client = client;

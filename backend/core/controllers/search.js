@@ -1,14 +1,26 @@
-async function _search(request, response){
-    try {
-        let documents = await search({
-            search: request.body
-        })
+const elasticsearch = require("@utils/elasticsearch");
+const client = elasticsearch.get()
+const logger = require("@utils/logger");
 
-        logger.info({
-            description: 'Search request completed successfullly'
-          });
+async function search(request, response){
+    try {
+        const result = await client.search({
+            index: 'bitcoin-search-index-revamped',
+            query: {
+              match: { authors: 'maxwell' }
+            }
+        });
         
-        
+        return response.status(200).json({
+            success: true,
+            data: {
+              result
+            }
+        });
+        // let documents = await ({
+        //     search: request.body
+        // })
+
     } catch (error) {
 
         logger.error({ description: 'Search request failed', error });
@@ -17,5 +29,7 @@ async function _search(request, response){
           success: false,
           message: error.errmsg || error.errors || error.message
         });
-      }
+    }
 }
+
+module.exports.search = search;
