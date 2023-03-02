@@ -1,14 +1,18 @@
 const elasticsearch = require("@utils/elasticsearch");
+const { buildQuery } = require("@utils/query_builder");
 const client = elasticsearch.get()
 const logger = require("@utils/logger");
+ 
 
 async function search(request, response){
     try {
+        let searchString = request.body.searchString;
+        let facets = request.body.facets
+        let searchQuery = buildQuery(searchString, facets);
+
         const result = await client.search({
             index: 'bitcoin-search-index-revamped',
-            query: {
-              match: { authors: 'maxwell' }
-            }
+            body: searchQuery,
         });
         
         return response.status(200).json({
@@ -17,9 +21,6 @@ async function search(request, response){
               result
             }
         });
-        // let documents = await ({
-        //     search: request.body
-        // })
 
     } catch (error) {
 

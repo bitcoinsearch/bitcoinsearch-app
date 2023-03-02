@@ -15,7 +15,7 @@
     "config": "^3.0.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
-    "dotenv": "^6.1.0",
+    "dotenv": "^16.0.3",
     "elasticsearch": "^16.7.3",
     "exceljs": "^3.9.0",
     "express": "^4.16.4",

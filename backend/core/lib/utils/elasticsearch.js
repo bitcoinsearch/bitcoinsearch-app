@@ -5,6 +5,8 @@
 
 const { Client } = require('@elastic/elasticsearch')
 const config = require('config'); // TODO: get pool info from config
+const dotenv = require('dotenv');
+const environment = dotenv.config();
 
 /* Connect to the Elasticsearch database */
 var state = {
@@ -14,9 +16,9 @@ var state = {
 exports.connect = async function(mode='API') {
   if (state.client) return;
   
-  let cloud_id = config.get('elasticsearch.cloud_id');
-  let username = config.get('elasticsearch.username');
-  let password = config.get('elasticsearch.password');
+  let cloud_id = environment.parsed.CLOUD_ID;
+  let username = environment.parsed.USERNAME;
+  let password = environment.parsed.PASSWORD;
 
   const client = await new Client({
     cloud: { id: cloud_id },
