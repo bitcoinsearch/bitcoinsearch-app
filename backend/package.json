@@ -7,6 +7,7 @@
     "dev": "NODE_ENV=development nodemon index.js"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^8.6.0",
     "aws-sdk": "^2.368.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -15,6 +16,7 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^6.1.0",
+    "elasticsearch": "^16.7.3",
     "exceljs": "^3.9.0",
     "express": "^4.16.4",
     "express-rate-limit": "^3.3.2",
