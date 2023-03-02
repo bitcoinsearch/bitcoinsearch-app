@@ -33,8 +33,6 @@ const buildQuery = (queryString, facets) => {
     }
   }
 
-  console.log(JSON.stringify(baseQuery, undefined, 4));
-
   return baseQuery;
 };
 

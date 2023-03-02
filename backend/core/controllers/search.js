@@ -2,7 +2,8 @@ const elasticsearch = require("@utils/elasticsearch");
 const { buildQuery } = require("@utils/query_builder");
 const client = elasticsearch.get()
 const logger = require("@utils/logger");
- 
+const environment = require("dotenv").config();
+const INDEX = environment.parsed.INDEX;
 
 async function search(request, response){
     try {
@@ -11,7 +12,7 @@ async function search(request, response){
         let searchQuery = buildQuery(searchString, facets);
 
         const result = await client.search({
-            index: 'bitcoin-search-index-revamped',
+            index: INDEX,
             body: searchQuery,
         });
         
