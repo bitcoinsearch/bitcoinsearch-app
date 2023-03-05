@@ -3,13 +3,13 @@ import React from "react";
 import SearchInput from "../components/customSearchboxView/SearchInput";
 import HomeFacetSelection from "../components/homeFacetSelection";
 
+// const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection)
+const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection);
+
 const Header = ({ openForm }) => {
   const SearchInputWrapper = ({ ...rest }) => {
     return <SearchInput openForm={openForm} {...rest} />;
   };
-
-  // const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection)
-  const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection);
 
   return (
     <>

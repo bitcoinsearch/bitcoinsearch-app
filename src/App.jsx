@@ -23,7 +23,7 @@ import {
 } from "./config/config-helper";
 
 // COMPONENTS //
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import CustomResults from "./components/customResults/CustomResults";
 import { useSearchFocusHotkey } from "./hooks/useGlobalHotkey";
 import NoResults from "./components/noResultsCard/NoResults";
@@ -71,9 +71,9 @@ export default function App() {
   useSearchFocusHotkey();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const openForm = () => {
+  const openForm = useCallback(() => {
     setModalOpen(true);
-  };
+  }, []);
   const closeForm = () => {
     setModalOpen(false);
   };
