@@ -1,8 +1,7 @@
 import { Button, Container, Heading } from "@chakra-ui/react";
 import { withSearch } from "@elastic/react-search-ui";
-import React, { useEffect, useRef, useState } from "react";
-import { buildSearchOptionsFromConfig } from "../../config/config-helper";
-import useSearchContext from "../../hooks/useSearchContext";
+import React from "react";
+import { getTopAuthors } from "../../config/config-helper";
 
 const InitialFacetSection = ({
   filters,
@@ -11,34 +10,6 @@ const InitialFacetSection = ({
   field = "authors",
   resultSearchTerm,
 }) => {
-  const { events } = useSearchContext();
-  const [fieldData, setFieldData] = useState([]);
-  const initialPageLoad = useRef(true);
-
-  useEffect(() => {
-    if (initialPageLoad.current) {
-      initialPageLoad.current = false;
-      events
-        .search(
-          {
-            searchTerm: "",
-          },
-          {
-            current: 1,
-            facets: { [field]: { type: "value", size: 20 } },
-            result_fields: buildSearchOptionsFromConfig().result_fields,
-          }
-        )
-        .then((res) => {
-          const data = res.facets[field]?.[0]?.data ?? [];
-          setFieldData(data);
-        });
-    }
-    return () => {
-      initialPageLoad.current = true;
-    };
-  }, [events, field]);
-
   const onRemove = (value) => {
     removeFilter(field, value, "any");
   };
@@ -63,7 +34,7 @@ const InitialFacetSection = ({
 
   return (
     <>
-      {fieldData?.length ? (
+      {getTopAuthors()?.length ? (
         <Container maxW="1300px">
           <Heading
             textAlign="center"
@@ -73,7 +44,7 @@ const InitialFacetSection = ({
             Top Authors
           </Heading>
           <div className={`home-facet-container`}>
-            {fieldData?.map((a, idx) => {
+            {getTopAuthors()?.map((a, idx) => {
               const selected = Boolean(
                 filterForField()?.values?.some((el) => el === a.value)
               );

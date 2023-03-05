@@ -2,6 +2,7 @@ import { SearchBox } from "@elastic/react-search-ui";
 import React from "react";
 import SearchInput from "../components/customSearchboxView/SearchInput";
 import HomeFacetSelection from "../components/homeFacetSelection";
+import KeywordsSelection from "../components/homeFacetSelection/KeywordsSelection";
 
 // const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection)
 const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection);
@@ -28,6 +29,7 @@ const Header = ({ openForm }) => {
         inputView={SearchInputWrapper}
       />
       <MemoizedHomeFacetSelection />
+      <KeywordsSelection />
     </>
   );
 };
