@@ -9,7 +9,14 @@ const InitialFacetSection = ({
   removeFilter,
   field = "authors",
   resultSearchTerm,
+  results,
+  isLoading,
 }) => {
+  const isSearched = Boolean(
+    results.length &&
+      (resultSearchTerm?.trim() || (filters.length && results?.length))
+  );
+
   const onRemove = (value) => {
     removeFilter(field, value, "any");
   };
@@ -17,18 +24,18 @@ const InitialFacetSection = ({
     addFilter(field, value, "any");
   };
   const handleToggleFilter = (filter, isSelected) => {
+    if (isLoading) return;
     if (isSelected) {
       onRemove(filter.value);
     } else {
       onAdd(filter.value);
     }
   };
-
   const filterForField = () => {
     return filters.find((filter) => filter.field === field);
   };
 
-  if (resultSearchTerm?.trim()) {
+  if (isSearched) {
     return null;
   }
 
@@ -69,10 +76,19 @@ const InitialFacetSection = ({
 };
 
 export default withSearch(
-  ({ filters, addFilter, removeFilter, resultSearchTerm }) => ({
+  ({
     filters,
     addFilter,
     removeFilter,
     resultSearchTerm,
+    results,
+    isLoading,
+  }) => ({
+    filters,
+    addFilter,
+    removeFilter,
+    resultSearchTerm,
+    results,
+    isLoading,
   })
 )(InitialFacetSection);

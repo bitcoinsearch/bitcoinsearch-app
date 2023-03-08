@@ -3,9 +3,21 @@ import { withSearch } from "@elastic/react-search-ui";
 import React, { useState } from "react";
 import { getTopKeywords } from "../../config/config-helper";
 
-const KeywordsSearchSelection = ({ resultSearchTerm, setSearchTerm }) => {
+const KeywordsSearchSelection = ({
+  resultSearchTerm,
+  setSearchTerm,
+  results,
+  filters,
+  isLoading,
+}) => {
   const [selectedWord, setSelectedWord] = useState("");
+  const isSearched = Boolean(
+    results.length &&
+      (resultSearchTerm?.trim() || (filters.length && results?.length))
+  );
+
   const handleToggleKeyword = (filter, isSelected) => {
+    if (isLoading) return;
     if (!isSelected) {
       setSearchTerm(filter.value);
       setSelectedWord(filter.value);
@@ -14,7 +26,7 @@ const KeywordsSearchSelection = ({ resultSearchTerm, setSearchTerm }) => {
     }
   };
 
-  if (resultSearchTerm?.trim()) {
+  if (isSearched) {
     return null;
   }
 
@@ -31,7 +43,7 @@ const KeywordsSearchSelection = ({ resultSearchTerm, setSearchTerm }) => {
           </Heading>
           <div className={`home-facet-container`}>
             {getTopKeywords()?.map((a, idx) => {
-              const selected = selectedWord === a.value;
+              const selected = selectedWord === a.value && isLoading;
               return (
                 <Button
                   variant="facet-pill"
@@ -52,7 +64,12 @@ const KeywordsSearchSelection = ({ resultSearchTerm, setSearchTerm }) => {
   );
 };
 
-export default withSearch(({ resultSearchTerm, setSearchTerm }) => ({
-  resultSearchTerm,
-  setSearchTerm,
-}))(KeywordsSearchSelection);
+export default withSearch(
+  ({ resultSearchTerm, setSearchTerm, results, filters, isLoading }) => ({
+    resultSearchTerm,
+    setSearchTerm,
+    results,
+    filters,
+    isLoading,
+  })
+)(KeywordsSearchSelection);
