@@ -39,7 +39,7 @@ const KeywordsSearchSelection = ({
             fontSize={[null, null, "14px", "18px", "20px"]}
             my={4}
           >
-            Top Keywords
+            Search by Keyword
           </Heading>
           <div className={`home-facet-container`}>
             {getTopKeywords()?.map((a, idx) => {

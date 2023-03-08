@@ -48,7 +48,7 @@ const InitialFacetSection = ({
             fontSize={[null, null, "14px", "18px", "20px"]}
             my={4}
           >
-            Top Authors
+            Search by Author
           </Heading>
           <div className={`home-facet-container`}>
             {getTopAuthors()?.map((a, idx) => {
