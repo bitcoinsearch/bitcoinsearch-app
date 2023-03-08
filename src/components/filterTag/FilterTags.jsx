@@ -5,10 +5,10 @@ import "./filterTags.scss";
 
 const FilterTags = ({ filters, addFilter, removeFilter, field, options }) => {
   const onRemove = (value) => {
-    removeFilter(field, value, "any");
+    removeFilter(field, value, "all");
   };
   const onAdd = (value) => {
-    addFilter(field, value, "any");
+    addFilter(field, value, "all");
   };
 
   const handleToggleFilter = (filter) => {
