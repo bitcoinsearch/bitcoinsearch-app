@@ -18,10 +18,10 @@ const InitialFacetSection = ({
   );
 
   const onRemove = (value) => {
-    removeFilter(field, value, "any");
+    removeFilter(field, value, "all");
   };
   const onAdd = (value) => {
-    addFilter(field, value, "any");
+    addFilter(field, value, "all");
   };
   const handleToggleFilter = (filter, isSelected) => {
     if (isLoading) return;
