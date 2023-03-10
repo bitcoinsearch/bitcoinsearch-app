@@ -194,3 +194,15 @@ export function buildAutocompleteQueryConfig() {
 export function getFormURL() {
   return getConfig().userContentFormURL;
 }
+
+export function getTopAuthors() {
+  const authors = getConfig().topAuthors;
+
+  return authors.map((value) => ({ count: 0, value }));
+}
+
+export function getTopKeywords() {
+  const keywords = getConfig().topKeywords;
+
+  return keywords.map((value) => ({ count: 0, value }));
+}

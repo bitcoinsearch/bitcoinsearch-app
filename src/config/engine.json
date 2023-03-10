@@ -20,19 +20,31 @@
     "categories",
     "id"
   ],
-  "sortFields": [
-
-  ],
-  "facets": [
-    "authors",
-    "domain"
-  ],
+  "sortFields": [],
+  "facets": ["authors", "domain"],
   "titleField": "title",
   "urlField": "url",
-  "facetSearch": [
-    "authors"
+  "facetSearch": ["authors"],
+  "resultTags": ["authors"],
+  "topAuthors": [
+    "Andrew Chow",
+    "Anthony Towns",
+    "Gregory Maxwell",
+    "Matt Corallo",
+    "Pieter Wuille",
+    "Rusty Russell",
+    "ZmnSCPxj"
   ],
-  "resultTags": [
-    "authors"
+  "topKeywords": [
+    "Adaptor signatures",
+    "Async payments",
+    "BIP324",
+    "Eclipse attacks",
+    "Just-in-time (JIT) routing",
+    "Miniscript",
+    "MuSig",
+    "Package relay",
+    "Transaction pinning",
+    "Vaults"
   ]
 }
