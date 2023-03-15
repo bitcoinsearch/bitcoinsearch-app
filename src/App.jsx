@@ -35,6 +35,7 @@ import Header from "./layout/Header";
 import SideBar from "./layout/SideBar";
 import CustomPagingInfo from "./components/customPagingInfo/CustomPagingInfo";
 import Footer from "./components/footer/Footer";
+import HomeFooter from "./components/footer/HomeFooter";
 import theme from "./chakra/chakra-theme";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
@@ -119,16 +120,7 @@ export default function App() {
                     <NoResults openForm={openForm} />
                   )}
                   <FormModal formOpen={modalOpen} closeForm={closeForm} />
-                  <div className="footer">
-                    <a
-                      href="https://chaincode.com"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="chaincode-link"
-                    >
-                      ❤️ Chaincode
-                    </a>
-                  </div>
+                  <HomeFooter />
                 </ErrorBoundary>
               </div>
             );
