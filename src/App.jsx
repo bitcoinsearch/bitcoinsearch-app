@@ -119,6 +119,16 @@ export default function App() {
                     <NoResults openForm={openForm} />
                   )}
                   <FormModal formOpen={modalOpen} closeForm={closeForm} />
+                  <div className="footer">
+                    <a
+                      href="https://chaincode.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="chaincode-link"
+                    >
+                      ❤️ Chaincode
+                    </a>
+                  </div>
                 </ErrorBoundary>
               </div>
             );
