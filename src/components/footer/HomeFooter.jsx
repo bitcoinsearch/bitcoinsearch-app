@@ -1,16 +1,14 @@
-import { Paging } from "@elastic/react-search-ui";
 import React from "react";
 import useIsInitialStateWithoutFilter from "../../hooks/useIsInitialStateWithoutFilter";
 import "./footer.scss";
 
-const Footer = () => {
+const HomeFooter = () => {
   const { hiddenBody } = useIsInitialStateWithoutFilter();
-  if (hiddenBody) {
+  if (!hiddenBody) {
     return null;
   }
   return (
-    <div className="footer-container">
-      <Paging />
+    <div className="home-footer">
       <a
         href="https://chaincode.com"
         target="_blank"
@@ -23,4 +21,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default HomeFooter;
