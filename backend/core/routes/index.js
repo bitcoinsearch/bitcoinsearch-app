@@ -7,7 +7,7 @@ function loadRoutes(app) {
     .sync(`${__dirname}/${config.get("api.version")}/*.js`)
     .forEach(function (file) {
       app.use(
-        "/api" + config.get("api.version") + "/",
+        "/api/" + config.get("api.version") + "/",
         require(path.resolve(file))
       );
     });
