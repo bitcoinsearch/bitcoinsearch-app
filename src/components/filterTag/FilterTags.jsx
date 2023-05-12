@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import { withSearch } from "@elastic/react-search-ui";
 import React from "react";
 import "./filterTags.scss";
@@ -32,13 +33,15 @@ const FilterTags = ({ filters, addFilter, removeFilter, field, options }) => {
   return (
     <div className={`${field}-result-container`}>
       {formattedOptions?.map((a, idx) => (
-        <span
+        <Button
+          variant="facet-pill"
+          size="no-size"
           key={`${a.value}_${idx}`}
           className={`${field}-result-tag ${a.selected ? "tag-selected" : ""}`}
           onClick={() => handleToggleFilter(a)}
         >
           {a.value}
-        </span>
+        </Button>
       ))}
     </div>
   );
