@@ -17,6 +17,8 @@ yarn.lock
 .env.development.local
 .env.test.local
 .env.production.local
+backend/.env
+backend/package-lock.json
 
 .netlify
 

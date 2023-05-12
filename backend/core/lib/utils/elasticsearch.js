@@ -17,12 +17,11 @@ exports.connect = async function(mode='API') {
   if (state.client) return;
   
   let cloud_id = environment.parsed.CLOUD_ID;
-  let username = environment.parsed.USERNAME;
-  let password = environment.parsed.PASSWORD;
+  let api_key = environment.parsed.API_KEY;
 
   const client = await new Client({
     cloud: { id: cloud_id },
-    auth: { username, password }
+    auth: { apiKey: api_key }
   });
   
   state.client = client;
