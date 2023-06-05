@@ -1,7 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { withSearch } from "@elastic/react-search-ui";
 import React from "react";
-import "./filterTags.scss";
 
 const FilterTags = ({ filters, addFilter, removeFilter, field, options }) => {
   const onRemove = (value) => {

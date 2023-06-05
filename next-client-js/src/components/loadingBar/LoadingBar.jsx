@@ -1,5 +1,4 @@
 import React from "react";
-import "./loadingBar.scss";
 
 const LoadingBar = () => {
   return (

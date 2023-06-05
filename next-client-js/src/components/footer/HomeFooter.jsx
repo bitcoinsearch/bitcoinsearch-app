@@ -1,6 +1,5 @@
 import React from "react";
 import useIsInitialStateWithoutFilter from "../../hooks/useIsInitialStateWithoutFilter";
-import "./footer.scss";
 
 const HomeFooter = () => {
   const { hiddenBody } = useIsInitialStateWithoutFilter();

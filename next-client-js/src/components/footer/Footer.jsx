@@ -1,7 +1,6 @@
 import { Paging } from "@elastic/react-search-ui";
 import React from "react";
 import useIsInitialStateWithoutFilter from "../../hooks/useIsInitialStateWithoutFilter";
-import "./footer.scss";
 
 const Footer = () => {
   const { hiddenBody } = useIsInitialStateWithoutFilter();

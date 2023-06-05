@@ -1,7 +1,6 @@
 import React from "react";
 import ResultCollection from "./ResultCollection";
 import { getDomainGrouping } from "../../config/mapping-helper";
-import "./styles.results.scss";
 import {
   generateLocator,
   sortGroupedResults,
