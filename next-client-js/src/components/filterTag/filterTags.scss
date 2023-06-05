@@ -1,0 +1,51 @@
+
+@mixin result-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  margin-right: 10px;
+  &::before {
+    font-size: 12px;
+    color: grey;
+    display: flex;
+    align-self: center;
+  }
+}
+
+@mixin default-result-tag {
+  -webkit-tap-highlight-color: transparent;
+  @media (hover:none) {
+      &:hover {
+          background-color: auto;
+          color: auto;
+      }
+  }
+  @media (pointer:fine) {
+      &:hover {
+          background-color: var(--chakra-colors-gray-600);
+          color: var(--chakra-colors-gray-100);
+      }
+  }
+}
+
+.authors-result-container {
+  @include result-container;
+
+}
+.tags-result-container {
+  @include result-container;
+}
+
+
+.authors-result-tag {
+  @include default-result-tag;
+}
+.tags-result-tag {
+  @include default-result-tag;
+}
+.tag-selected {
+  background-color: var(--primary-blue) !important;
+  color: white;
+}

@@ -1,0 +1,19 @@
+{
+  "labels": {
+    "https://bitcointalk.org": "bitcointalk",
+    "https://bitcoin.stackexchange.com": "Bitcoin StackExchange",
+    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin dev mailing list",
+    "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "Lightning dev mailing list",
+    "https://btctranscripts.com/": "BTC transcripts",
+    "https://bitcoinops.org/en/": "Bitcoin Optech"
+  },
+  "media": [
+    "https://btctranscripts.com/"
+  ],
+  "collection": [
+    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/",
+    "https://lists.linuxfoundation.org/pipermail/lightning-dev/",
+    "https://bitcointalk.org",
+    "https://bitcoin.stackexchange.com"
+  ]
+}
