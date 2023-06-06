@@ -7,6 +7,7 @@ function SearchInput({
   getInputProps,
   openForm,
 }) {
+  const isMacDevice = isMac();
   return (
     <div className="search-box-with-contribute">
       <div className="sui-search-box__wrapper">
@@ -19,7 +20,7 @@ function SearchInput({
         <div className="search-box__keybindings">
           <p>Search:</p>
           <p>
-            <kbd>{isMac() ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or <kbd>/</kbd>
+            <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or <kbd>/</kbd>
           </p>
         </div>
         <div className="search-box__contribute-wrapper">

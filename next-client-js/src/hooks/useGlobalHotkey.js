@@ -1,5 +1,6 @@
 import { useHotkeys } from "react-hotkeys-hook";
 import { isMac } from "../utils/userOS";
+// import useIsMac from "@/hooks/useIsMac";
 
 export const useSearchFocusHotkey = () => {
   const handler = (keyEvent, hkEvent) => {

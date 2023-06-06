@@ -11,7 +11,6 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
 // CSS/ASSETS //
 import { ChakraProvider } from "@chakra-ui/react";
-import logo from "/btc.png";
 
 // CONFIG //
 import {
@@ -36,14 +35,16 @@ import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
 import HomeFooter from "@/components/footer/HomeFooter";
 import theme from "@/chakra/chakra-theme";
+import { createCustomConnector, CustomConnector } from "./api/elasticSearchProxy/connector";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
-const connector = new AppSearchAPIConnector({
-  searchKey,
-  engineName,
-  hostIdentifier,
-  endpointBase,
-});
+// const connector = new AppSearchAPIConnector({
+//   searchKey,
+//   engineName,
+//   hostIdentifier,
+//   endpointBase,
+// });
+const connector = new CustomConnector();
 const config = {
   searchQuery: {
     facets: buildFacetConfigFromConfig(),
@@ -103,7 +104,7 @@ export default function App() {
                   <ScrollTop current={current} />
                   {isLoading && <LoadingBar />}
                   <div className="header">
-                    <img src={logo} className="logo" alt="bitcoin logo" />
+                    <img src="/btc.png" className="logo" alt="bitcoin logo" />
                     <p className="description">Technical Bitcoin Search</p>
                   </div>
                   <Layout
