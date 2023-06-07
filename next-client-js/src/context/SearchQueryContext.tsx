@@ -1,6 +1,7 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
+import { useRouter } from "next/router"
 
 export type QueryObject = Record<string, string>
 
@@ -14,9 +15,10 @@ export const SearchQueryContext = createContext<SearchQueryContextType | null>(n
 export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) => {
   // URL
   const router = useRouter();
-  const pathName = usePathname();
-  const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("search");
+  // const pathName = usePathname();
+  // const searchParams = useSearchParams();
+  const searchParams = router.query;
+  const searchQuery = searchParams.search as string;
 
   const [filter, setFilter] = useState([]);
   const [page, setPage] = useState(0);
@@ -27,12 +29,17 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   }
 
   const setSearchParams = useCallback((queryObject: QueryObject) => {
-    const params = new URLSearchParams(searchParams.toString());
     Object.keys(queryObject).map(objectKey => {
-      params.set(objectKey, queryObject[objectKey])
+      router.query[objectKey] = queryObject[objectKey]
     })
-    const paramsString = params.toString()
-  }, [searchParams, pathName])
+    console.log(router.query)
+    router.push(router)
+    // const params = new URLSearchParams(searchParams.toString());
+    // Object.keys(queryObject).map(objectKey => {
+    //   params.set(objectKey, queryObject[objectKey])
+    // })
+    // const paramsString = params.toString()
+  }, [searchParams])
 
   const buildQueryCall = async (searchQuery, filter, page) => {
     const body = {
@@ -45,7 +52,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
 
     const jsonBody = JSON.stringify(body);
 
-    return fetch("http://localhost:3000/api/v1/search", {
+    return fetch("/api/elasticSearchProxy/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +82,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     enabled: !!searchQuery?.trim(),
   });
 
-  const makeQuery = (queryString) => {
+  const makeQuery = (queryString: string) => {
     setSearchParams({ search: queryString });
   };
 
@@ -89,5 +96,3 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     </SearchQueryContext.Provider>
   );
 };
-
-export default SearchQueryContext;
