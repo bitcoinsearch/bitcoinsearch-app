@@ -38,13 +38,13 @@ import theme from "@/chakra/chakra-theme";
 import { createCustomConnector, CustomConnector } from "./api/elasticSearchProxy/connector";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
-// const connector = new AppSearchAPIConnector({
-//   searchKey,
-//   engineName,
-//   hostIdentifier,
-//   endpointBase,
-// });
-const connector = new CustomConnector();
+const connector = new AppSearchAPIConnector({
+  searchKey,
+  engineName,
+  hostIdentifier,
+  endpointBase,
+});
+// const connector = new CustomConnector();
 const config = {
   searchQuery: {
     facets: buildFacetConfigFromConfig(),
