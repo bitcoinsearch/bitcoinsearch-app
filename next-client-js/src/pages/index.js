@@ -35,7 +35,11 @@ import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
 import HomeFooter from "@/components/footer/HomeFooter";
 import theme from "@/chakra/chakra-theme";
-import { createCustomConnector, CustomConnector } from "./api/elasticSearchProxy/connector";
+import {
+  createCustomConnector,
+  CustomConnector,
+} from "./api/elasticSearchProxy/connector";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new AppSearchAPIConnector({
@@ -81,52 +85,54 @@ export default function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <SearchProvider config={config}>
-        <WithSearch
-          mapContextToProps={({
-            wasSearched,
-            results,
-            current,
-            isLoading,
-            filters,
-          }) => ({
-            wasSearched,
-            results,
-            current,
-            isLoading,
-            filters,
-          })}
-        >
-          {({ wasSearched, results, current, isLoading }) => {
-            return (
-              <div className="App btc-search">
-                <ErrorBoundary>
-                  <ScrollTop current={current} />
-                  {isLoading && <LoadingBar />}
-                  <div className="header">
-                    <img src="/btc.png" className="logo" alt="bitcoin logo" />
-                    <p className="description">Technical Bitcoin Search</p>
-                  </div>
-                  <Layout
-                    header={<Header key={results} openForm={openForm} />}
-                    sideContent={<SideBar />}
-                    bodyContent={
-                      <CustomResults shouldTrackClickThrough={true} />
-                    }
-                    bodyHeader={<CustomPagingInfo />}
-                    bodyFooter={<Footer />}
-                  />
-                  {wasSearched && !results.length && (
-                    <NoResults openForm={openForm} />
-                  )}
-                  <FormModal formOpen={modalOpen} closeForm={closeForm} />
-                  <HomeFooter />
-                </ErrorBoundary>
-              </div>
-            );
-          }}
-        </WithSearch>
-      </SearchProvider>
+      <QueryClientProvider client={queryClient}>
+        <SearchProvider config={config}>
+          <WithSearch
+            mapContextToProps={({
+              wasSearched,
+              results,
+              current,
+              isLoading,
+              filters,
+            }) => ({
+              wasSearched,
+              results,
+              current,
+              isLoading,
+              filters,
+            })}
+          >
+            {({ wasSearched, results, current, isLoading }) => {
+              return (
+                <div className="App btc-search">
+                  <ErrorBoundary>
+                    <ScrollTop current={current} />
+                    {isLoading && <LoadingBar />}
+                    <div className="header">
+                      <img src="/btc.png" className="logo" alt="bitcoin logo" />
+                      <p className="description">Technical Bitcoin Search</p>
+                    </div>
+                    <Layout
+                      header={<Header key={results} openForm={openForm} />}
+                      sideContent={<SideBar />}
+                      bodyContent={
+                        <CustomResults shouldTrackClickThrough={true} />
+                      }
+                      bodyHeader={<CustomPagingInfo />}
+                      bodyFooter={<Footer />}
+                    />
+                    {wasSearched && !results.length && (
+                      <NoResults openForm={openForm} />
+                    )}
+                    <FormModal formOpen={modalOpen} closeForm={closeForm} />
+                    <HomeFooter />
+                  </ErrorBoundary>
+                </div>
+              );
+            }}
+          </WithSearch>
+        </SearchProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }
