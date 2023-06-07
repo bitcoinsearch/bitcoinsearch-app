@@ -1,10 +1,10 @@
 import React from "react";
-import { getResultTags } from "../../config/config-helper";
+import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
 import { Thumbnail } from "./Thumbnail";
-import mapping from "../../config/mapping.json";
+import mapping from "@/config/mapping.json";
 
 const htmlToReactParser = new Parser();
 
@@ -15,7 +15,15 @@ const Result = ({
   trackClickThrough,
 }) => {
   let dateString = null;
-  const createdDate = result.created_at?.raw || result.created_at?.snippet;
+  const {url, title, body} = result;
+  // console.log({url, title, body})
+  // note, previously
+  // url: result.url.raw
+  // title: result.title.snippet
+  // body: result.body.raw
+
+  //PREV const createdDate = result.created_at?.raw || result.created_at?.snippet;
+  const createdDate = result.created_at;
   if (createdDate) {
     try {
       const date = new Date(createdDate);
@@ -30,6 +38,7 @@ const Result = ({
     }
   }
 
+  // removed onClickLink
   const onClickLink = () => {
     if (shouldTrackClickThrough) {
       result?.id?.raw && trackClickThrough(result.id.raw, clickThroughTags);
@@ -39,12 +48,14 @@ const Result = ({
   return (
     <div className="searchresult">
       <h2 className="search-result-link">
-        <a onClick={onClickLink} href={result.url.raw}>
-          {htmlToReactParser.parse(sanitizeHtml(result.title.snippet))}
+        {/* <a onClick={onClickLink} href={result.url.raw}> */}
+        <a href={url}>
+          {htmlToReactParser.parse(sanitizeHtml(title))}
         </a>
       </h2>
-      <a onClick={onClickLink} href={result.url.raw} className="url-display">
-        {result.url.raw}
+      {/* <a onClick={onClickLink} href={result.url.raw} className="url-display"> */}
+      <a href={url} className="url-display">
+        {url}
       </a>
       <div className="search-result-body">
         {mapping.media.includes(result?.domain?.raw) && (
@@ -53,9 +64,11 @@ const Result = ({
         <p>
           {htmlToReactParser.parse(
             sanitizeHtml(
-              (result.body_type.raw === "raw"
-                ? result.body.raw
-                : JSON.parse(`[${result.body.raw}]`)
+              (
+                // PREV result.body_type.raw === "raw"
+                result.body_type === "raw"
+                ? body
+                : JSON.parse(`[${body}]`)
                     .map((i) => i.text)
                     .join(" ")
               ).replaceAll("\n", "")
@@ -67,7 +80,7 @@ const Result = ({
       </div>
 
       <div className="search-result-filter">
-        {getResultTags().map((field, idx) => {
+        {/* {getResultTags().map((field, idx) => {
           if (result[field])
             return (
               <FilterTags
@@ -76,7 +89,7 @@ const Result = ({
                 options={result[field]}
               />
             );
-        })}
+        })} */}
         {dateString && <span className="search-result-date">{dateString}</span>}
       </div>
     </div>

@@ -83,6 +83,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   });
 
   const makeQuery = (queryString: string) => {
+    console.log({queryString})
     setSearchParams({ search: queryString });
   };
 
