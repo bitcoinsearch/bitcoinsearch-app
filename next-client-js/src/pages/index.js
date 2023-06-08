@@ -16,21 +16,13 @@ import SideBar from "@/layout/SideBar";
 import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
 import useSearchQuery from "@/hooks/useSearchQuery";
-
-const ScrollTop = ({ current }) => {
-  const initialRender = useRef(true);
-  useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-      return;
-    }
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [current]);
-  return null;
-};
+import useScrollTop from "@/hooks/useSearchQuery";
 
 export default function App() {
   useSearchFocusHotkey();
+  useScrollTop()
+  const { queryResult, makeQuery, pagingInfo } = useSearchQuery();
+  const isLoading = queryResult.isLoading;
   const [modalOpen, setModalOpen] = useState(false);
 
   const openForm = useCallback(() => {
@@ -43,8 +35,8 @@ export default function App() {
   return (
     <div className="App btc-search">
       <ErrorBoundary>
-        {/* <ScrollTop current={current} /> */}
-        {/* {isLoading && <LoadingBar />} */}
+        {/* <ScrollTop current={pagingInfo.current} /> */}
+        {isLoading && <LoadingBar />}
         <div className="header">
           <img src="/btc.png" className="logo" alt="bitcoin logo" />
           <p className="description">Technical Bitcoin Search</p>
