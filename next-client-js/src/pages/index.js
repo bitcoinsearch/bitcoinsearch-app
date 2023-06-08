@@ -1,23 +1,9 @@
-import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
-
 import {
   ErrorBoundary,
-  SearchProvider,
   WithSearch,
 } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
-
-// CSS/ASSETS //
-import { ChakraProvider } from "@chakra-ui/react";
-
-// CONFIG //
-import {
-  buildAutocompleteQueryConfig,
-  buildFacetConfigFromConfig,
-  buildSearchOptionsFromConfig,
-  getConfig,
-} from "@/config/config-helper";
 
 // COMPONENTS //
 import { useCallback, useState } from "react";
@@ -32,36 +18,8 @@ import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
 import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
-import HomeFooter from "@/components/footer/HomeFooter";
-import theme from "@/chakra/chakra-theme";
-import {
-  createCustomConnector,
-  CustomConnector,
-} from "./api/elasticSearchProxy/connector";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import useSearchQuery from "@/hooks/useSearchQuery";
-import { SearchQueryProvider } from "@/context/SearchQueryContext";
 
-const queryClient = new QueryClient();
-
-const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
-const connector = new AppSearchAPIConnector({
-  searchKey,
-  engineName,
-  hostIdentifier,
-  endpointBase,
-});
-// const connector = new CustomConnector();
-const config = {
-  searchQuery: {
-    facets: buildFacetConfigFromConfig(),
-    ...buildSearchOptionsFromConfig(),
-  },
-  autocompleteQuery: buildAutocompleteQueryConfig(),
-  apiConnector: connector,
-  alwaysSearchOnInitialLoad: false,
-  initialState: { resultsPerPage: 50 },
-};
 
 const ScrollTop = ({ current }) => {
   const initialRender = useRef(true);
@@ -87,68 +45,56 @@ export default function App() {
   };
 
   return (
-    <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <SearchQueryProvider>
-          <SearchProvider config={config}>
-            <WithSearch
-              mapContextToProps={({
-                wasSearched,
-                results,
-                current,
-                isLoading,
-                filters,
-              }) => ({
-                wasSearched,
-                results,
-                current,
-                isLoading,
-                filters,
-              })}
-            >
-              {({ wasSearched, results, current, isLoading }) => {
-                return (
-                  <div className="App btc-search">
-                    <ErrorBoundary>
-                      <ScrollTop current={current} />
-                      {isLoading && <LoadingBar />}
-                      <div className="header">
-                        <img
-                          src="/btc.png"
-                          className="logo"
-                          alt="bitcoin logo"
-                        />
-                        <p className="description">Technical Bitcoin Search</p>
-                      </div>
-                      <Layout
-                        header={<Header key={results} openForm={openForm} />}
-                        sideContent={<SideBar />}
-                        bodyContent={
-                          <CustomResults shouldTrackClickThrough={true} />
-                        }
-                        bodyHeader={<CustomPagingInfo />}
-                        bodyFooter={<Footer />}
-                      />
-                      {wasSearched && !results.length && (
-                        <NoResults openForm={openForm} />
-                      )}
-                      <FormModal formOpen={modalOpen} closeForm={closeForm} />
-                      <TestNewApi />
-                    </ErrorBoundary>
-                  </div>
-                );
-              }}
-            </WithSearch>
-          </SearchProvider>
-        </SearchQueryProvider>
-      </QueryClientProvider>
-    </ChakraProvider>
+    <WithSearch
+      mapContextToProps={({
+        wasSearched,
+        results,
+        current,
+        isLoading,
+        filters,
+      }) => ({
+        wasSearched,
+        results,
+        current,
+        isLoading,
+        filters,
+      })}
+    >
+      {({ wasSearched, results, current, isLoading }) => {
+        return (
+          <div className="App btc-search">
+            <ErrorBoundary>
+              <ScrollTop current={current} />
+              {isLoading && <LoadingBar />}
+              <div className="header">
+                <img src="/btc.png" className="logo" alt="bitcoin logo" />
+                <p className="description">Technical Bitcoin Search</p>
+              </div>
+              <Layout
+                header={<Header openForm={openForm} />}
+                sideContent={<SideBar />}
+                bodyContent={<CustomResults shouldTrackClickThrough={true} />}
+                bodyHeader={<CustomPagingInfo />}
+                bodyFooter={<Footer />}
+              />
+              {wasSearched && !results.length && (
+                <NoResults openForm={openForm} />
+              )}
+              {/* <FormModal formOpen={modalOpen} closeForm={closeForm} /> */}
+              <TestNewApi />
+            </ErrorBoundary>
+          </div>
+        );
+      }}
+    </WithSearch>
   );
 }
 
 export const TestNewApi = () => {
   const { queryResult, makeQuery } = useSearchQuery();
-  // console.log(queryResult);
+  useEffect(() => {
+    console.log("random");
+  }, []);
 
   // const testFetch = async () => {
   //   const res = await fetch("http://localhost:3000/api/v1/search", {
