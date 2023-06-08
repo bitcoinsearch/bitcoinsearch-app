@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
 import {
@@ -135,7 +134,6 @@ export default function App() {
                       )}
                       <FormModal formOpen={modalOpen} closeForm={closeForm} />
                       <TestNewApi />
-                      <HomeFooter />
                     </ErrorBoundary>
                   </div>
                 );
@@ -150,7 +148,7 @@ export default function App() {
 
 export const TestNewApi = () => {
   const { queryResult, makeQuery } = useSearchQuery();
-  console.log(queryResult);
+  // console.log(queryResult);
 
   // const testFetch = async () => {
   //   const res = await fetch("http://localhost:3000/api/v1/search", {

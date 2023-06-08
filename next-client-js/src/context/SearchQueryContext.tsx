@@ -2,12 +2,22 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "next/router"
+import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
 
 export type QueryObject = Record<string, string>
 
+export type PagingInfoType = {
+  resultsPerPage: number,
+  current: number,
+  totalResults: number | null
+}
+
 export type SearchQueryContextType = {
+  searchQuery: string,
   queryResult: UseQueryResult<any, unknown>,
   makeQuery: (queryString: any) => void,
+  handlePageChange: (page: number) => void,
+  pagingInfo: PagingInfoType,
 }
 
 export const SearchQueryContext = createContext<SearchQueryContextType | null>(null);
@@ -18,22 +28,32 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   // const pathName = usePathname();
   // const searchParams = useSearchParams();
   const searchParams = router.query;
-  const searchQuery = searchParams.search as string;
+  const rawSearchQuery = searchParams[URLSearchParamsKeyword.SEARCH] as string;
+  const pageQuery = searchParams[URLSearchParamsKeyword.PAGE] as string;
+  const sizeQuery = searchParams[URLSearchParamsKeyword.SIZE] as string;
 
   const [filter, setFilter] = useState([]);
-  const [page, setPage] = useState(0);
+  // const [page, setPage] = useState(0);
 
-  const test: QueryObject = {
-    "hds": "sdkj",
-    "dsd": "dss"
+  const searchQuery = useMemo(() => 
+    rawSearchQuery
+  , [rawSearchQuery])
+
+  const page = useMemo(() => {
+    
+    return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0
+
   }
+  , [pageQuery])
+
+  const resultsPerPage = sizeQuery ?? defaultParam[URLSearchParamsKeyword.SIZE]
 
   const setSearchParams = useCallback((queryObject: QueryObject) => {
     Object.keys(queryObject).map(objectKey => {
       router.query[objectKey] = queryObject[objectKey]
     })
     console.log(router.query)
-    router.push(router)
+    router.push(router, undefined, { shallow: true })
     // const params = new URLSearchParams(searchParams.toString());
     // Object.keys(queryObject).map(objectKey => {
     //   params.set(objectKey, queryObject[objectKey])
@@ -44,6 +64,8 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   const buildQueryCall = async (searchQuery, filter, page) => {
     const body = {
       searchString: searchQuery,
+      size: 2,
+      from: page
       // "facets": [
       //     // {"field": "tags", "value": "segwit"}
       //     {"field": "authors", "value": "pieter"}
@@ -79,6 +101,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     cacheTime: Infinity,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
+    keepPreviousData: true,
     enabled: !!searchQuery?.trim(),
   });
 
@@ -91,8 +114,18 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
 
   // };
 
+  const handlePageChange = (page: number) => {
+    setSearchParams({page: JSON.stringify(page)})
+  }
+
+  const pagingInfo = {
+    resultsPerPage,
+    current: page + 1,
+    totalResults: queryResult.data?.hits?.total?.value ?? null
+  }
+
   return (
-    <SearchQueryContext.Provider value={{ queryResult, makeQuery }} >
+    <SearchQueryContext.Provider value={{ searchQuery, queryResult, makeQuery, handlePageChange, pagingInfo }} >
       {children}
     </SearchQueryContext.Provider>
   );

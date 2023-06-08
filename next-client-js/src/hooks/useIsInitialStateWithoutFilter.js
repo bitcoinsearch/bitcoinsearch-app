@@ -1,22 +1,27 @@
 import useSearchContext from "./useSearchContext";
+import useSearchQuery from "./useSearchQuery";
 
 const useIsInitialStateWithoutFilter = () => {
   let hiddenBody = true;
   let hiddenHomeFacet = true;
-  const { state } = useSearchContext();
+  // const { state } = useSearchContext();
+  const { searchQuery, queryResult } = useSearchQuery()
 
-  if (state) {
-    if (
-      state.results.length &&
-      (state.resultSearchTerm?.trim() ||
-        (state.filters.length && state.results?.length))
-    ) {
-      hiddenBody = false;
-    }
-    if (!state.resultSearchTerm.trim()) {
-      hiddenHomeFacet = false;
-    }
-  }
+  const resultLength = queryResult.data?.hits?.total?.value
+
+  // if (state) {
+  //   if (
+  //     resultLength &&
+  //     (searchQuery ||
+  //       (state.filters.length && state.results?.length))
+  //   ) {
+  //     hiddenBody = false;
+  //   }
+  //   // hide facet if there is a searchquery
+  //   if (!searchQuery) {
+  //     hiddenHomeFacet = false;
+  //   }
+  // }
   return { hiddenBody, hiddenHomeFacet };
 };
 

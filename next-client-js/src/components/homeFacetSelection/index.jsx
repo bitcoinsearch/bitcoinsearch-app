@@ -1,6 +1,6 @@
 import { Button, Container, Heading } from "@chakra-ui/react";
 import { withSearch } from "@elastic/react-search-ui";
-import React from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { getTopAuthors } from "../../config/config-helper";
 
 const InitialFacetSection = ({
@@ -16,6 +16,18 @@ const InitialFacetSection = ({
     results.length &&
       (resultSearchTerm?.trim() || (filters.length && results?.length))
   );
+
+  const initRender = useRef(true)
+  useLayoutEffect(() => {
+    if (initRender.current) {
+      initRender.current = false
+      console.log(initRender)
+    }
+    return () => {
+      initRender.current = true
+    }
+  }, [])
+  
 
   const onRemove = (value) => {
     removeFilter(field, value, "all");
@@ -59,7 +71,7 @@ const InitialFacetSection = ({
                 <Button
                   variant="facet-pill"
                   size="no-size"
-                  style={{ animationDelay: `${idx * 60}ms` }}
+                  style={{ animationDelay: initRender.current ? `${idx * 60}ms` : '0ms' }}
                   key={`${a.value}_${idx}`}
                   className={`home-facet-tag ${selected ? "tag-selected" : ""}`}
                   onClick={() => handleToggleFilter(a, selected)}
