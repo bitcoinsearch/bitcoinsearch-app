@@ -1,7 +1,4 @@
-import {
-  ErrorBoundary,
-  WithSearch,
-} from "@elastic/react-search-ui";
+import { ErrorBoundary, WithSearch } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
@@ -19,7 +16,6 @@ import SideBar from "@/layout/SideBar";
 import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
 import useSearchQuery from "@/hooks/useSearchQuery";
-
 
 const ScrollTop = ({ current }) => {
   const initialRender = useRef(true);
@@ -45,48 +41,26 @@ export default function App() {
   };
 
   return (
-    <WithSearch
-      mapContextToProps={({
-        wasSearched,
-        results,
-        current,
-        isLoading,
-        filters,
-      }) => ({
-        wasSearched,
-        results,
-        current,
-        isLoading,
-        filters,
-      })}
-    >
-      {({ wasSearched, results, current, isLoading }) => {
-        return (
-          <div className="App btc-search">
-            <ErrorBoundary>
-              <ScrollTop current={current} />
-              {isLoading && <LoadingBar />}
-              <div className="header">
-                <img src="/btc.png" className="logo" alt="bitcoin logo" />
-                <p className="description">Technical Bitcoin Search</p>
-              </div>
-              <Layout
-                header={<Header openForm={openForm} />}
-                sideContent={<SideBar />}
-                bodyContent={<CustomResults shouldTrackClickThrough={true} />}
-                bodyHeader={<CustomPagingInfo />}
-                bodyFooter={<Footer />}
-              />
-              {wasSearched && !results.length && (
-                <NoResults openForm={openForm} />
-              )}
-              {/* <FormModal formOpen={modalOpen} closeForm={closeForm} /> */}
-              <TestNewApi />
-            </ErrorBoundary>
-          </div>
-        );
-      }}
-    </WithSearch>
+    <div className="App btc-search">
+      <ErrorBoundary>
+        {/* <ScrollTop current={current} /> */}
+        {/* {isLoading && <LoadingBar />} */}
+        <div className="header">
+          <img src="/btc.png" className="logo" alt="bitcoin logo" />
+          <p className="description">Technical Bitcoin Search</p>
+        </div>
+        <Layout
+          header={<Header openForm={openForm} />}
+          sideContent={<SideBar />}
+          bodyContent={<CustomResults shouldTrackClickThrough={true} />}
+          bodyHeader={<CustomPagingInfo />}
+          bodyFooter={<Footer />}
+        />
+        {/* {wasSearched && !results.length && <NoResults openForm={openForm} />} */}
+        <FormModal formOpen={modalOpen} closeForm={closeForm} />
+        <TestNewApi />
+      </ErrorBoundary>
+    </div>
   );
 }
 

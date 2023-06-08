@@ -1,5 +1,5 @@
 import { SearchBox } from "@elastic/react-search-ui";
-import React from "react";
+import React, { useEffect } from "react";
 import SearchInput from "../components/customSearchboxView/SearchInput";
 import HomeFacetSelection from "../components/homeFacetSelection";
 import KeywordsSelection from "../components/homeFacetSelection/KeywordsSelection";
@@ -8,7 +8,10 @@ import useSearchQuery from "../hooks/useSearchQuery";
 // const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection)
 const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection);
 
-const Header = ({ openForm }) => {
+const Header = ({openForm}) => {
+  useEffect(() => {
+    console.log("Header random");
+  }, [])
   const { makeQuery } = useSearchQuery();
   const SearchInputWrapper = ({ ...rest }) => {
     return <SearchInput openForm={openForm} {...rest} />;
