@@ -35,16 +35,13 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   const [filter, setFilter] = useState([]);
   // const [page, setPage] = useState(0);
 
-  const searchQuery = useMemo(() => 
-    rawSearchQuery
-  , [rawSearchQuery])
+  const searchQuery = useMemo(() => {
+    return rawSearchQuery
+  }, [rawSearchQuery])
 
   const page = useMemo(() => {
-    
     return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0
-
-  }
-  , [pageQuery])
+  }, [pageQuery])
 
   const resultsPerPage = sizeQuery ?? defaultParam[URLSearchParamsKeyword.SIZE]
 
@@ -64,7 +61,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   const buildQueryCall = async (searchQuery, filter, page) => {
     const body = {
       searchString: searchQuery,
-      size: 2,
+      size: resultsPerPage,
       from: page
       // "facets": [
       //     // {"field": "tags", "value": "segwit"}
@@ -107,7 +104,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
 
   const makeQuery = (queryString: string) => {
     console.log({queryString})
-    setSearchParams({ search: queryString });
+    setSearchParams({ search: queryString, page: "1" });
   };
 
   // const addFilter = () => {
@@ -123,6 +120,10 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     current: page + 1,
     totalResults: queryResult.data?.hits?.total?.value ?? null
   }
+
+  // useEffect(() => {
+  //   console.log("searchQ Eff", searchQuery)
+  // }, [searchQuery])
 
   return (
     <SearchQueryContext.Provider value={{ searchQuery, queryResult, makeQuery, handlePageChange, pagingInfo }} >
