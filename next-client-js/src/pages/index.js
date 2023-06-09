@@ -21,9 +21,13 @@ import useScrollTop from "@/hooks/useSearchQuery";
 export default function App() {
   useSearchFocusHotkey();
   useScrollTop()
-  const { queryResult, makeQuery, pagingInfo } = useSearchQuery();
-  const isLoading = queryResult.isLoading;
   const [modalOpen, setModalOpen] = useState(false);
+  const { queryResult, makeQuery, pagingInfo } = useSearchQuery();
+  console.log({queryResult})
+  
+  // INFERENCES
+  const isLoading = queryResult.isLoading || queryResult.isFetching;
+  const noResult = queryResult.isFetched && !queryResult.data?.hits?.total?.value
 
   const openForm = useCallback(() => {
     setModalOpen(true);
@@ -48,7 +52,7 @@ export default function App() {
           bodyHeader={<CustomPagingInfo />}
           bodyFooter={<Footer />}
         />
-        {/* {wasSearched && !results.length && <NoResults openForm={openForm} />} */}
+        {noResult && <NoResults openForm={openForm} />}
         <FormModal formOpen={modalOpen} closeForm={closeForm} />
         <TestNewApi />
       </ErrorBoundary>
@@ -58,9 +62,9 @@ export default function App() {
 
 export const TestNewApi = () => {
   const { queryResult, makeQuery } = useSearchQuery();
-  useEffect(() => {
-    console.log("random");
-  }, []);
+  // useEffect(() => {
+  //   console.log("random");
+  // }, []);
 
   // const testFetch = async () => {
   //   const res = await fetch("http://localhost:3000/api/v1/search", {
