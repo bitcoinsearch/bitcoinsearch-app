@@ -1,5 +1,5 @@
 // import { Paging } from "@elastic/react-search-ui";
-import React from "react";
+import React, { useEffect } from "react";
 import useIsInitialStateWithoutFilter from "../../hooks/useIsInitialStateWithoutFilter";
 import { Paging } from "@elastic/react-search-ui-views";
 import useSearchQuery from "../../hooks/useSearchQuery";
@@ -10,11 +10,13 @@ const Footer = () => {
   const { handlePageChange, pagingInfo } = useSearchQuery();
   const { totalResults, current, resultsPerPage } = pagingInfo;
   // const { hiddenBody } = useIsInitialStateWithoutFilter();
+  // useEffect(() => {
+  //   console.log("footer random");
+  // }, [])
   if (!totalResults) {
     return null;
   }
   const totalPages = Math.round(totalResults/resultsPerPage)
-  console.log({pagingInfo, totalPages})
   return (
     <div className="footer-container">
       <Paging onChange={handlePageChange} totalPages={totalPages} current={current} resultsPerPage={resultsPerPage}   />
