@@ -21,7 +21,7 @@ const InitialFacetSection = ({
   useLayoutEffect(() => {
     if (initRender.current) {
       initRender.current = false
-      console.log(initRender)
+      // console.log(initRender)
     }
     return () => {
       initRender.current = true
@@ -71,7 +71,7 @@ const InitialFacetSection = ({
                 <Button
                   variant="facet-pill"
                   size="no-size"
-                  style={{ animationDelay: initRender.current ? `${idx * 60}ms` : '0ms' }}
+                  style={{ animationDelay: `${idx * 60}ms` }}
                   key={`${a.value}_${idx}`}
                   className={`home-facet-tag ${selected ? "tag-selected" : ""}`}
                   onClick={() => handleToggleFilter(a, selected)}

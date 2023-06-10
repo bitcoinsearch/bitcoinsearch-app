@@ -36,8 +36,10 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   // const [page, setPage] = useState(0);
 
   const searchQuery = useMemo(() => {
-    return rawSearchQuery
+    return rawSearchQuery ?? ""
   }, [rawSearchQuery])
+
+  // const [searchTerm, setSearchTerm] = useState(searchQuery)
 
   const page = useMemo(() => {
     return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0

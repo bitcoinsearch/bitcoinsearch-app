@@ -5,10 +5,15 @@ const useIsInitialStateWithoutFilter = () => {
   let hiddenBody = true;
   let hiddenHomeFacet = true;
   // const { state } = useSearchContext();
-  const { searchQuery, queryResult } = useSearchQuery()
+  const { searchQuery, queryResult } = useSearchQuery();
 
-  const resultLength = queryResult.data?.hits?.total?.value
+  const resultLength = queryResult.data?.hits?.total?.value;
 
+  if (
+    resultLength && searchQuery
+  ) {
+    hiddenBody = false;
+  }
   // if (state) {
   //   if (
   //     resultLength &&

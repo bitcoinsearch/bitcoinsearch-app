@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import mapping from "../../config/mapping.json";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
+import appendClassName from "../../utils/elastic-search-ui-functions"
 
 function CustomMultiCheckboxFacet({
   className,
@@ -27,24 +28,6 @@ function CustomMultiCheckboxFacet({
       return mapping?.labels[filterValue];
     }
     return String(filterValue);
-  }
-
-  function getNewClassName(newClassName) {
-    if (!Array.isArray(newClassName)) return newClassName;
-    return newClassName.filter((name) => name).join(" ");
-  }
-  function appendClassName(baseClassName, newClassName) {
-    if (!newClassName) {
-      return (
-        (Array.isArray(baseClassName)
-          ? baseClassName.join(" ")
-          : baseClassName) || ""
-      );
-    }
-    if (!baseClassName) {
-      return getNewClassName(newClassName) || "";
-    }
-    return `${baseClassName} ${getNewClassName(newClassName)}`;
   }
 
   const searchRef = useRef();

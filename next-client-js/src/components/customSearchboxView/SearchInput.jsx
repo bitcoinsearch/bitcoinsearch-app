@@ -1,5 +1,6 @@
 import React from "react";
 import { isMac } from "../../utils/userOS";
+import useSearchQuery from "../../hooks/useSearchQuery";
 
 function SearchInput({
   getAutocomplete,
@@ -8,6 +9,7 @@ function SearchInput({
   openForm,
 }) {
   const isMacDevice = isMac();
+  const { searchQuery } = useSearchQuery();
   return (
     <div className="search-box-with-contribute">
       <div className="sui-search-box__wrapper">

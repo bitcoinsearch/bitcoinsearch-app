@@ -4,7 +4,7 @@ import SearchInput from "../components/customSearchboxView/SearchInput";
 import HomeFacetSelection from "../components/homeFacetSelection";
 import KeywordsSelection from "../components/homeFacetSelection/KeywordsSelection";
 import useSearchQuery from "../hooks/useSearchQuery";
-
+import SearchBoxView from "../components/customSearchboxView/SearchBoxView"
 // const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection)
 const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection);
 
@@ -38,6 +38,7 @@ const Header = ({openForm}) => {
         //   shouldTrackClickThrough: true,
         //   clickThroughTags: ["test"],
         // }}
+        view={SearchBoxView}
         autocompleteSuggestions={true}
         debounceLength={0}
         inputView={SearchInputWrapper}
