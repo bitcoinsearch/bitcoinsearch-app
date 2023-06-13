@@ -1,12 +1,18 @@
 const FIELDS_TO_SEARCH = ["authors", "title", "body"];
 
-export const buildQuery = (queryString, facets) => {
+export type FacetField = {
+  field: string;
+  value: string;
+}
+
+export const buildQuery = (queryString: string, facets: FacetField[]) => {
   
   let baseQuery = {
     query:{
       bool:{
         must: [],
-        should:[]
+        should:[],
+        filter: [],
       }
     },
     aggs: {
@@ -23,10 +29,10 @@ export const buildQuery = (queryString, facets) => {
   let shouldClause = buildShouldQueryClause(queryString);
   baseQuery.query.bool.should.push(shouldClause);
 
-  if(facets) {
+  if(facets.length) {
     for (let facet of facets) {
-      let mustClause = buildMustQueryClause(facet);
-      baseQuery.query.bool.must.push(mustClause);
+      let filterClause = buildFilterQueryClause(facet);
+      baseQuery.query.bool.filter.push(filterClause);
     }
   }
 
@@ -54,4 +60,15 @@ const buildMustQueryClause = (facet) => {
   }
 
   return mustQueryClause;
+}
+const buildFilterQueryClause = (facet: FacetField) => {
+  let filterQueryClause = {
+    term: {
+      [facet.field]: {
+        value: facet.value
+      } 
+    }
+  }
+
+  return filterQueryClause;
 }
