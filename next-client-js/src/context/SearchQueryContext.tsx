@@ -45,7 +45,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0
   }, [pageQuery])
 
-  const resultsPerPage = sizeQuery ?? defaultParam[URLSearchParamsKeyword.SIZE]
+  const resultsPerPage = parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]
 
   const setSearchParams = useCallback((queryObject: QueryObject) => {
     Object.keys(queryObject).map(objectKey => {

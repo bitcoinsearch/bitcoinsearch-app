@@ -16,7 +16,7 @@ const Footer = () => {
   if (!totalResults) {
     return null;
   }
-  const totalPages = Math.round(totalResults/resultsPerPage)
+  const totalPages = Math.ceil(totalResults/resultsPerPage)
   return (
     <div className="footer-container">
       <Paging onChange={handlePageChange} totalPages={totalPages} current={current} resultsPerPage={resultsPerPage}   />
