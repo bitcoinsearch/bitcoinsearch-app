@@ -18,21 +18,33 @@ export const buildQuery = (queryString: string, facets: FacetField[]) => {
     aggs: {
       authors: {
         terms: {
-          field: 'authors.analyzed',
+          field: 'authors.keyword',
+          size: 15
+        }
+      },
+      domains: {
+        terms: {
+          field: 'domain.keyword',
+          size: 15
+        }
+      },
+      tags: {
+        terms: {
+          field: 'tags.keyword',
           size: 15
         }
       }
-    }
+    },
   }
 
   //Add the clause to the should array
   let shouldClause = buildShouldQueryClause(queryString);
   baseQuery.query.bool.should.push(shouldClause);
 
-  if(facets.length) {
+  if(facets && facets.length) {
     for (let facet of facets) {
-      let filterClause = buildFilterQueryClause(facet);
-      baseQuery.query.bool.filter.push(filterClause);
+      let mustClause = buildFilterQueryClause(facet);
+      baseQuery.query.bool.must.push(mustClause);
     }
   }
 

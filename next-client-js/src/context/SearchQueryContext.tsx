@@ -45,8 +45,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0
   }, [pageQuery])
 
-  const resultsPerPage = parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]
-
+  const resultsPerPage = sizeQuery ? (parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]) : defaultParam[URLSearchParamsKeyword.SIZE]
   const setSearchParams = useCallback((queryObject: QueryObject) => {
     Object.keys(queryObject).map(objectKey => {
       router.query[objectKey] = queryObject[objectKey]
@@ -70,7 +69,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
       //     {"field": "authors", "value": "pieter"}
       // ]
     };
-
+    
     const jsonBody = JSON.stringify(body);
 
     return fetch("/api/elasticSearchProxy/search", {
