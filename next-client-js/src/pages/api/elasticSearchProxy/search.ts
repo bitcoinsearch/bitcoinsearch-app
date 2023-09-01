@@ -19,7 +19,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // let facets: Facet[] = [{field: "authors", value: "Matt Corallo"}]
 
   let searchQuery = buildQuery(searchString, facets);
-  console.log("🚀 ~ file: search.ts:22 ~ handler ~ searchQuery:", JSON.stringify(searchQuery))
 
   try {
     // Call the search method
