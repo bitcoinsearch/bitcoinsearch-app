@@ -1,4 +1,4 @@
-const AUTHOR = "author" as const
+const AUTHOR = "authors" as const
 const DOMAIN = "domain" as const
 const TAGS = "tags" as const
 
