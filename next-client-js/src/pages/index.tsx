@@ -17,6 +17,7 @@ import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import useScrollTop from "@/hooks/useSearchQuery";
+import useURLManager from "@/service/URLManager/useURLManager"
 
 export default function App() {
   useSearchFocusHotkey();
@@ -62,6 +63,10 @@ export default function App() {
 
 export const TestNewApi = () => {
   const { queryResult, makeQuery } = useSearchQuery();
+  const { addFilter, removeFilter } = useURLManager();
+  const testFunction = () => {
+    removeFilter({filterType: "authors", filterValue: "roasbeef"})
+  }
   // useEffect(() => {
   //   console.log("random");
   // }, []);
@@ -82,6 +87,6 @@ export const TestNewApi = () => {
 
   return (
     // <button onClick={testFetch}>
-    <button onClick={() => makeQuery("bip")}>Test me!</button>
+    <button onClick={testFunction}>Test me!</button>
   );
 };

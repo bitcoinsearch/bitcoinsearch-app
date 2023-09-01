@@ -26,7 +26,7 @@ export const SearchQueryContext = createContext<SearchQueryContextType | null>(n
 export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) => {
   // URL
   const router = useRouter();
-
+  console.log(router)
   const searchParams = router.query;
   const rawSearchQuery = searchParams[URLSearchParamsKeyword.SEARCH] as string;
   const pageQuery = searchParams[URLSearchParamsKeyword.PAGE] as string;
@@ -47,7 +47,6 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     Object.keys(queryObject).map(objectKey => {
       router.query[objectKey] = queryObject[objectKey]
     })
-    console.log(router.query)
     router.push(router, undefined, { shallow: true })
   }, [searchParams])
 
@@ -59,7 +58,6 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   })
   
   const makeQuery = (queryString: string) => {
-    console.log({queryString})
     setSearchParams({ search: queryString, page: "1" });
   };
 
