@@ -34,11 +34,6 @@ const buildQueryCall: BuildQuery = async (searchQuery, size, page, facet) => {
     });
 };
 
-type FilterOption = {
-  type: string;
-  value: string;
-}
-
 type SearchQuery = {
   searchQuery: string;
   size: number;
@@ -49,6 +44,7 @@ type SearchQuery = {
 export const useSearch = ({
   searchQuery, size, page, facet
 }: SearchQuery) => {
+  const hasFilters = Boolean(facet.length)
   const queryResult = useQuery({
     queryKey: ["query", searchQuery, facet, page],
     queryFn: () => buildQueryCall(searchQuery, size, page, facet),
@@ -56,7 +52,7 @@ export const useSearch = ({
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
-    enabled: !!searchQuery?.trim(),
+    enabled: !!searchQuery?.trim() || hasFilters,
   });
 
   return queryResult

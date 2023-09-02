@@ -20,6 +20,8 @@
     "categories",
     "id"
   ],
+  "searchFields": [],
+  "fields": [],
   "sortFields": [],
   "facets": ["authors", "domain"],
   "titleField": "title",
@@ -29,7 +31,7 @@
   "topAuthors": [
     "Andrew Chow",
     "Anthony Towns",
-    "Gregory Maxwell",
+    "Greg Maxwell",
     "Matt Corallo",
     "Pieter Wuille",
     "Rusty Russell",

@@ -1,4 +1,6 @@
-import config from "../config/engine.json";
+import { SearchResponse, SearchResponseBody } from "@elastic/elasticsearch/lib/api/types";
+import config from "./engine.json";
+import { FacetKeys } from "@/types";
 
 /**
  * This file abstracts most logic around the configuration of the Reference UI.
@@ -9,25 +11,25 @@ import config from "../config/engine.json";
  * that end, this file attempts to contain most of that logic to one place.
  */
 
-export function getConfig() {
+export function getConfig(): typeof config {
   if (process.env.NODE_ENV === "test") {
-    return {};
+    return {} as typeof config;
   }
 
   if (config.engineName) return config;
 
   if (
     typeof window !== "undefined" &&
-    window.appConfig &&
-    window.appConfig.engineName
+    window["appConfig"] &&
+    window["appConfig"].engineName
   ) {
-    return window.appConfig;
+    return window["appConfig"];
   }
 
-  return {};
+  return {} as typeof config;
 }
 
-function toLowerCase(string) {
+function toLowerCase(string: string) {
   if (string) return string.toLowerCase();
 }
 
@@ -52,12 +54,12 @@ export function getUrlField() {
   return getConfig().urlField;
 }
 
-export function getThumbnailField() {
-  return getConfig().thumbnailField;
-}
+// export function getThumbnailField() {
+//   return getConfig().thumbnailField;
+// }
 
 export function getFacetFields() {
-  return getConfig().facets || [];
+  return getConfig().facets as FacetKeys[] || [];
 }
 
 export function getSortFields() {
@@ -80,7 +82,7 @@ export function stripUnnecessaryResultFields(resultFields) {
         "id",
         toLowerCase(getTitleField()),
         toLowerCase(getUrlField()),
-        toLowerCase(getThumbnailField()),
+        // toLowerCase(getThumbnailField()),
       ].includes(toLowerCase(n))
     ) {
       return acc;
@@ -129,8 +131,8 @@ export function buildSearchOptionsFromConfig() {
     };
   }
 
-  if (config.thumbnailField) {
-    resultFields[config.thumbnailField] = {
+  if (config["thumbnailField"]) {
+    resultFields[config["thumbnailField"]] = {
       raw: {},
       snippet: {
         size: 100,
@@ -149,7 +151,10 @@ export function buildSearchOptionsFromConfig() {
     };
   }
 
-  const searchOptions = {};
+  const searchOptions = {
+    result_fields: [],
+    search_fields: []
+  };
   searchOptions.result_fields = resultFields;
   searchOptions.search_fields = searchFields;
   return searchOptions;
@@ -159,19 +164,19 @@ export function buildFacetConfigFromConfig() {
   const config = getConfig();
 
   const facets = (config.facets || []).reduce((acc, n) => {
-    acc = acc || {};
+    
     acc[n] = {
       type: "value",
       size: 100,
     };
     return acc;
-  }, undefined);
+  }, {});
 
   return facets;
 }
 
 export function buildAutocompleteQueryConfig() {
-  const querySuggestFields = getConfig().querySuggestFields;
+  const querySuggestFields = getConfig()["querySuggestFields"];
   if (
     !querySuggestFields ||
     !Array.isArray(querySuggestFields) ||
@@ -184,7 +189,7 @@ export function buildAutocompleteQueryConfig() {
     suggestions: {
       types: {
         documents: {
-          fields: getConfig().querySuggestFields,
+          fields: getConfig()["querySuggestFields"],
         },
       },
     },

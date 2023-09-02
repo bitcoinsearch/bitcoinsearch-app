@@ -68,6 +68,8 @@ const Result = ({
                 // PREV result.body_type.raw === "raw"
                 result.body_type === "raw"
                 ? body
+                : result.body_type === "markdown"
+                ? body
                 : JSON.parse(`[${body}]`)
                     .map((i) => i.text)
                     .join(" ")

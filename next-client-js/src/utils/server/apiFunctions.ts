@@ -1,11 +1,9 @@
+import { Facet } from "@/types";
+
 const FIELDS_TO_SEARCH = ["authors", "title", "body"];
 
-export type FacetField = {
-  field: string;
-  value: string;
-}
 
-export const buildQuery = (queryString: string, facets: FacetField[]) => {
+export const buildQuery = (queryString: string, facets: Facet[]) => {
   
   let baseQuery = {
     query:{
@@ -51,7 +49,7 @@ export const buildQuery = (queryString: string, facets: FacetField[]) => {
   return baseQuery;
 };
 
-const buildShouldQueryClause = (queryString) => {
+const buildShouldQueryClause = (queryString: string) => {
   let shouldQueryClause = {
     multi_match : {
       query: queryString, 
@@ -62,23 +60,10 @@ const buildShouldQueryClause = (queryString) => {
   return shouldQueryClause;
 }
 
-const buildMustQueryClause = (facet) => {
-  let mustQueryClause = {
-    term: {
-      [facet.field]: {
-        value: facet.value
-      } 
-    }
-  }
-
-  return mustQueryClause;
-}
-const buildFilterQueryClause = (facet: FacetField) => {
+const buildFilterQueryClause = ({field, value}: Facet) => {
   let filterQueryClause = {
     term: {
-      [facet.field]: {
-        value: facet.value
-      } 
+      [`${field}.keyword`]: {value} 
     }
   }
 

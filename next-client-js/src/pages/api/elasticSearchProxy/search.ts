@@ -15,8 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   let searchString = req.body.searchString;
   let size = req.body.size;
   let from = req.body.from;
-  let facets = req.body.facets;
-  // let facets: Facet[] = [{field: "authors", value: "Matt Corallo"}]
+  let facets = req.body.facet;
+  // let facets: Facet[] = [{field: "authors", value: "Gregory Maxwell"}]
 
   let searchQuery = buildQuery(searchString, facets);
 

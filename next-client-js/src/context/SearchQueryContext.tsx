@@ -4,6 +4,9 @@ import { useRouter } from "next/router"
 import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
 import { AggregationsAggregate, SearchResponse } from "@elastic/elasticsearch/lib/api/types";
 import { useSearch } from "@/service/api/search/useSearch";
+import { getFacetFields } from "@/config/config-helper";
+import { appendFilterName } from "@/service/URLManager/helper";
+import { Facet } from "@/types";
 
 export type QueryObject = Record<string, string>
 
@@ -32,7 +35,19 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   const pageQuery = searchParams[URLSearchParamsKeyword.PAGE] as string;
   const sizeQuery = searchParams[URLSearchParamsKeyword.SIZE] as string;
 
-  const [filter, setFilter] = useState([]);
+  const filterQuery = generateFilterQuery(router.asPath.slice(1))
+
+  function generateFilterQuery(searchParams: string) {
+    const filterList: Facet[] = [];
+    const urlParams = new URLSearchParams(searchParams)
+    getFacetFields().map(field => {
+      const name = appendFilterName(field)
+      urlParams.getAll(name).forEach(value => {
+        filterList.push({field, value})
+      })
+    })
+    return filterList
+  }
 
   const searchQuery = useMemo(() => {
     return rawSearchQuery ?? ""
@@ -54,7 +69,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     searchQuery,
     size: resultsPerPage,
     page,
-    facet: filter
+    facet: filterQuery
   })
   
   const makeQuery = (queryString: string) => {

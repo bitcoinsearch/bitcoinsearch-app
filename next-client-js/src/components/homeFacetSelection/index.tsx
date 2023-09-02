@@ -7,7 +7,7 @@ import useSearchQuery from "@/hooks/useSearchQuery";
 const InitialFacetSection = ({
   field = "authors" as const,
 }) => {
-  const { queryResult: {isLoading, data}, searchQuery} = useSearchQuery()
+  const { queryResult: { data }, searchQuery} = useSearchQuery()
   const { getFilter, addFilter: addFilterNew, removeFilter: removeFilterNew } = useURLManager();
   
   const filterForField = () => {
@@ -37,7 +37,7 @@ const InitialFacetSection = ({
     addFilterNew({filterType: field, filterValue: value});
   };
   const handleToggleFilter = (filter, isSelected: boolean) => {
-    if (isLoading) return;
+    // if (isLoading) return;
     if (isSelected) {
       onRemove(filter.value);
     } else {

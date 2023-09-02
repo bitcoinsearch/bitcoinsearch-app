@@ -1,20 +1,17 @@
 import { FacetKeys } from '@/types'
 import { useRouter } from 'next/router'
+import { appendFilterName } from './helper'
 
 const useURLManager = () => {
   const router = useRouter()
-  console.log("asPath", router.asPath.slice(1))
-  const urlParams = new URLSearchParams(router.asPath.slice(2))
-
-  const appendFilterName = (filterType: string) => {
-    return `filter_${filterType}`
-  }
+  const urlParams = new URLSearchParams(router.asPath.slice(1))
 
   const getFilter = (filterType: FacetKeys) => {
     return urlParams.getAll(appendFilterName(filterType))
   }
 
   const addFilter = ({filterType, filterValue}: {filterType: FacetKeys, filterValue: string}) => {
+    console.log("got here")
     const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
     if (currentFilterForType.length) {
       if (currentFilterForType.includes(filterValue)) return;
