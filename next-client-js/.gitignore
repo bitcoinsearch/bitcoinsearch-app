@@ -15,6 +15,9 @@
 # production
 /build
 
+# lock file
+yarn.lock
+
 # misc
 .DS_Store
 *.pem

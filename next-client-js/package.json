@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.8.9",
+    "@chakra-ui/react": "^2.0.0",
     "@elastic/elasticsearch": "^8.8.0",
     "@elastic/react-search-ui": "1.20.2",
     "@elastic/react-search-ui-views": "1.20.2",
