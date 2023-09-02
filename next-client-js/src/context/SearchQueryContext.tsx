@@ -15,7 +15,7 @@ export type PagingInfoType = {
 
 export type SearchQueryContextType = {
   searchQuery: string,
-  queryResult: UseQueryResult<any, unknown>,
+  queryResult: UseQueryResult<SearchResponse<unknown, Record<string, AggregationsAggregate>>, unknown>,
   makeQuery: (queryString: any) => void,
   handlePageChange: (page: number) => void,
   pagingInfo: PagingInfoType,
