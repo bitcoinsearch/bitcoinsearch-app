@@ -10,6 +10,10 @@ const useURLManager = () => {
     return urlParams.getAll(appendFilterName(filterType))
   }
 
+  const getSearchTerm = () => {
+    return urlParams.get("search")
+  }
+
   const addFilter = ({filterType, filterValue}: {filterType: FacetKeys, filterValue: string}) => {
     console.log("got here")
     const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
@@ -40,7 +44,7 @@ const useURLManager = () => {
     }
   }
   return (
-    { addFilter, removeFilter, getFilter, appendFilterName }
+    { addFilter, removeFilter, getFilter, getSearchTerm }
   )
 }
 

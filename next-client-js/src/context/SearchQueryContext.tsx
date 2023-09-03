@@ -19,7 +19,7 @@ export type PagingInfoType = {
 export type SearchQueryContextType = {
   searchQuery: string,
   queryResult: UseQueryResult<SearchResponse<unknown, Record<string, AggregationsAggregate>>, unknown>,
-  makeQuery: (queryString: any) => void,
+  makeQuery: (queryString: string) => void,
   handlePageChange: (page: number) => void,
   pagingInfo: PagingInfoType,
 }
@@ -73,7 +73,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   })
   
   const makeQuery = (queryString: string) => {
-    setSearchParams({ search: queryString, page: "1" });
+    setSearchParams({ search: queryString });
   };
 
   const handlePageChange = (page: number) => {

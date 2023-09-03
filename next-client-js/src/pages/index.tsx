@@ -28,7 +28,7 @@ export default function App() {
   
   // INFERENCES
   const isLoading = queryResult.isFetching;
-  const noResult = queryResult.isFetched && !queryResult.data?.hits?.total?.value
+  const noResult = queryResult.isFetched && !queryResult.data?.hits?.total["value"]
 
   const openForm = useCallback(() => {
     setModalOpen(true);
