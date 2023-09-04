@@ -29,7 +29,6 @@ export const SearchQueryContext = createContext<SearchQueryContextType | null>(n
 export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) => {
   // URL
   const router = useRouter();
-  console.log(router)
   const searchParams = router.query;
   const rawSearchQuery = searchParams[URLSearchParamsKeyword.SEARCH] as string;
   const pageQuery = searchParams[URLSearchParamsKeyword.PAGE] as string;

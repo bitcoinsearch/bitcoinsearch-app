@@ -24,7 +24,6 @@ export default function App() {
   useScrollTop()
   const [modalOpen, setModalOpen] = useState(false);
   const { queryResult, makeQuery, pagingInfo } = useSearchQuery();
-  console.log({queryResult})
   
   // INFERENCES
   const isLoading = queryResult.isFetching;
@@ -86,7 +85,8 @@ export const TestNewApi = () => {
   // };
 
   return (
+    null
     // <button onClick={testFetch}>
-    <button onClick={testFunction}>Test me!</button>
+    // <button onClick={testFunction}>Test me!</button>
   );
 };

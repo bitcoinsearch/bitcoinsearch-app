@@ -15,7 +15,6 @@ const useURLManager = () => {
   }
 
   const addFilter = ({filterType, filterValue}: {filterType: FacetKeys, filterValue: string}) => {
-    console.log("got here")
     const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
     if (currentFilterForType.length) {
       if (currentFilterForType.includes(filterValue)) return;

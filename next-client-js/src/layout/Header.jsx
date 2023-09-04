@@ -5,8 +5,6 @@ import HomeFacetSelection from "../components/homeFacetSelection";
 import KeywordsSelection from "../components/homeFacetSelection/KeywordsSelection";
 import useSearchQuery from "../hooks/useSearchQuery";
 import SearchBoxView from "../components/customSearchboxView/SearchBoxView"
-// const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection)
-const MemoizedHomeFacetSelection = React.memo(HomeFacetSelection);
 
 const Header = ({openForm}) => {
   useEffect(() => {
@@ -45,7 +43,7 @@ const Header = ({openForm}) => {
         onSubmit={handleSubmit}
         onSelectAutocomplete={handleAutoCompleteSelect}
       />
-      <MemoizedHomeFacetSelection />
+      <HomeFacetSelection />
       <KeywordsSelection />
     </>
   );
