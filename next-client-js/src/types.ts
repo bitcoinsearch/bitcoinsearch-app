@@ -9,3 +9,4 @@ export type Facet = {
   value: string
 }
 
+export type SortOption = "asc" | "desc";

@@ -7,3 +7,8 @@ export const URLSearchParamsKeyword = {
 export const defaultParam = {
   size: 10
 };
+
+export const urlParamsPrefix = {
+  FILTER: "filter",
+  SORT: "sort"
+}

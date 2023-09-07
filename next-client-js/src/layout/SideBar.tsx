@@ -1,10 +1,11 @@
-import { Sorting } from "@elastic/react-search-ui";
+import { Sorting } from "@elastic/react-search-ui-views"
 
 import React from "react";
 import CustomMultiCheckboxFacet from "../components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import { getFacetFields, getFacetWithSearch } from "../config/config-helper";
 import useIsInitialStateWithoutFilter from "../hooks/useIsInitialStateWithoutFilter";
 import Facet from "@/components/sidebarFacet/Facet";
+import SortingFacet from "@/components/sidebarFacet/SortingFacet";
 
 const SideBar = () => {
   const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
@@ -47,19 +48,21 @@ const SideBar = () => {
                 view={CustomMultiCheckboxFacet}
               />
             ))} */}
-      <Sorting
+      <SortingFacet
+        field="created_at"
         label="Sort by date"
+        view={Sorting}
         sortOptions={[
-          { name: "-", value: "", direction: "" },
+          { label: "-", value: " ", field: "created_at" },
           {
-            name: "Newest first",
-            value: "created_at",
-            direction: "desc",
+            label: "Newest first",
+            value: "desc",
+            field: "created_at",
           },
           {
-            name: "Oldest first",
-            value: "created_at",
-            direction: "asc",
+            label: "Oldest first",
+            value: "asc",
+            field: "created_at",
           },
         ]}
       />

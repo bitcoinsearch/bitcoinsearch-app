@@ -22,7 +22,7 @@
   ],
   "searchFields": [],
   "fields": [],
-  "sortFields": [],
+  "sortFields": ["created_at"],
   "facets": ["authors", "domain"],
   "titleField": "title",
   "urlField": "url",

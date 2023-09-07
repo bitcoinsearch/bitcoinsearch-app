@@ -74,8 +74,6 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
 
   const searchPlaceholder = `Filter ${label}`
 
-  console.log({baseOptions, selectedList})
-
   const viewProps = {onRemove, onSelect, onSearch, onMoreClick, showMore, options, field, showSearch: isFilterable, label, searchPlaceholder}
 
   return React.createElement<ViewProps>(view, Object.assign({}, viewProps));

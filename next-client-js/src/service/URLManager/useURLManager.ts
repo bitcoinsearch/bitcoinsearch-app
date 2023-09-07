@@ -1,6 +1,6 @@
 import { FacetKeys } from '@/types'
 import { useRouter } from 'next/router'
-import { appendFilterName } from './helper'
+import { appendFilterName, appendSortName } from './helper'
 
 const useURLManager = () => {
   const router = useRouter()
@@ -8,6 +8,21 @@ const useURLManager = () => {
 
   const getFilter = (filterType: FacetKeys) => {
     return urlParams.getAll(appendFilterName(filterType))
+  }
+
+  const getSort = (sortField: string) => {
+    return urlParams.get(appendSortName(sortField))
+  }
+
+  const addSort = (sortField: string, value: string) => {
+    urlParams.set(appendSortName(sortField), value)
+    router.push(router.pathname + "?" + urlParams.toString())
+  }
+
+  const removeSort = (sortField: string) => {
+    urlParams.delete(appendSortName(sortField))
+    const newUrl = urlParams.toString() ? `${router.pathname}"?"${urlParams.toString()}` : router.pathname 
+    router.push(newUrl)
   }
 
   const getSearchTerm = () => {
@@ -29,7 +44,6 @@ const useURLManager = () => {
     const appendedFilterName = appendFilterName(filterType)
     const currentFilterForType = urlParams.getAll(appendedFilterName)
     if (currentFilterForType.length) {
-      console.log(currentFilterForType)
       const filterValueIndex = currentFilterForType.findIndex(value => value === filterValue)
       if (filterValueIndex !== -1) {
         currentFilterForType.splice(filterValueIndex, 1)
@@ -43,7 +57,7 @@ const useURLManager = () => {
     }
   }
   return (
-    { addFilter, removeFilter, getFilter, getSearchTerm }
+    { addFilter, removeFilter, getFilter, getSearchTerm, getSort, addSort, removeSort }
   )
 }
 
