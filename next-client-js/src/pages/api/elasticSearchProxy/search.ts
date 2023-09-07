@@ -20,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const from = page * size;
   let searchQuery = buildQuery({queryString, filterFields, sortFields, from, size });
-  console.log("🚀 ~ file: search.ts:23 ~ handler ~ searchQuery:", JSON.stringify(searchQuery))
 
   try {
     // Call the search method

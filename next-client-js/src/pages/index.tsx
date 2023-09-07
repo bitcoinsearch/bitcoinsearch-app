@@ -54,39 +54,7 @@ export default function App() {
         />
         {noResult && <NoResults openForm={openForm} />}
         <FormModal formOpen={modalOpen} closeForm={closeForm} />
-        <TestNewApi />
       </ErrorBoundary>
     </div>
   );
 }
-
-export const TestNewApi = () => {
-  const { queryResult, makeQuery } = useSearchQuery();
-  const { addFilter, removeFilter } = useURLManager();
-  const testFunction = () => {
-    removeFilter({filterType: "authors", filterValue: "roasbeef"})
-  }
-  // useEffect(() => {
-  //   console.log("random");
-  // }, []);
-
-  // const testFetch = async () => {
-  //   const res = await fetch("http://localhost:3000/api/v1/search", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       searchString: "bip",
-  //     }),
-  //   });
-  //   const ss = await res.json();
-  //   console.log("fin", ss);
-  // };
-
-  return (
-    null
-    // <button onClick={testFetch}>
-    // <button onClick={testFunction}>Test me!</button>
-  );
-};

@@ -103,7 +103,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
   // sync autocomplete
   useEffect(() => {
     if (!searchQuery) return
-    console.log("ran search eff")
     setSearchTerm(searchQuery)
   }, [searchQuery])
 
