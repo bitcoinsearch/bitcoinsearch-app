@@ -12,21 +12,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Invalid request method. The endpoint only supports POST requests.' });
   }
 
-  let searchString = req.body.searchString;
+  let queryString = req.body.queryString as string;
   let size = req.body.size;
-  let from = req.body.from;
-  let facets = req.body.facet;
-  // let facets: Facet[] = [{field: "authors", value: "Gregory Maxwell"}]
+  let page = req.body.page;
+  let filterFields = req.body.filterFields;
+  let sortFields = req.body.sortFields;
 
-  let searchQuery = buildQuery(searchString, facets);
+  const from = page * size;
+  let searchQuery = buildQuery({queryString, filterFields, sortFields, from, size });
 
   try {
     // Call the search method
     const result = await client.search({
       index: process.env.INDEX,
       ...searchQuery,
-      size,
-      from: from * size,
     });
     
     console.log("🚀 ~ file: search.ts:37 ~ handler ~ result:", result.hits.total)

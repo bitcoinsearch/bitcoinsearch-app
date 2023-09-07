@@ -21,7 +21,7 @@ const useURLManager = () => {
 
   const removeSort = (sortField: string) => {
     urlParams.delete(appendSortName(sortField))
-    const newUrl = urlParams.toString() ? `${router.pathname}"?"${urlParams.toString()}` : router.pathname 
+    const newUrl = urlParams.toString() ? `${router.pathname}?${urlParams.toString()}` : router.pathname 
     router.push(newUrl)
   }
 

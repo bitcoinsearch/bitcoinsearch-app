@@ -10,3 +10,11 @@ export type Facet = {
 }
 
 export type SortOption = "asc" | "desc";
+
+export type SearchQuery = {
+  queryString: string;
+  size: number;
+  page: number;
+  filterFields: Facet[];
+  sortFields: any[];
+}

@@ -1,15 +1,16 @@
-import { Facet } from "@/types";
+import { SearchQuery } from "@/types";
 import { AggregationsAggregate, SearchResponse } from "@elastic/elasticsearch/lib/api/types";
 import { useQuery } from "@tanstack/react-query";
 
-type BuildQuery = (searchQuery: string, size: number, page: number, facet: Facet[]) => Promise<SearchResponse<unknown, Record<string, AggregationsAggregate>>>
+type BuildQuery = ({queryString, size, page, filterFields, sortFields}: SearchQuery) => Promise<SearchResponse<unknown, Record<string, AggregationsAggregate>>>
 
-const buildQueryCall: BuildQuery = async (searchQuery, size, page, facet) => {
+const buildQueryCall: BuildQuery = async ({queryString, size, page, filterFields, sortFields}) => {
   const body = {
-    searchString: searchQuery,
+    queryString,
     size,
-    from: page,
-    facet
+    page,
+    filterFields,
+    sortFields,
   };
   
   const jsonBody = JSON.stringify(body);
@@ -34,25 +35,18 @@ const buildQueryCall: BuildQuery = async (searchQuery, size, page, facet) => {
     });
 };
 
-type SearchQuery = {
-  searchQuery: string;
-  size: number;
-  page: number;
-  facet: Facet[];
-}
-
 export const useSearch = ({
-  searchQuery, size, page, facet
+  queryString, size, page, filterFields, sortFields
 }: SearchQuery) => {
-  const hasFilters = Boolean(facet.length)
+  const hasFilters = Boolean(filterFields.length)
   const queryResult = useQuery({
-    queryKey: ["query", searchQuery, facet, page],
-    queryFn: () => buildQueryCall(searchQuery, size, page, facet),
+    queryKey: ["query", queryString, filterFields, page, sortFields],
+    queryFn: () => buildQueryCall({queryString, size, page, filterFields, sortFields}),
     cacheTime: Infinity,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
-    enabled: !!searchQuery?.trim() || hasFilters,
+    enabled: !!queryString?.trim() || hasFilters,
   });
 
   return queryResult

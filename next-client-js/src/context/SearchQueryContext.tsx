@@ -4,8 +4,8 @@ import { useRouter } from "next/router"
 import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
 import { AggregationsAggregate, SearchResponse } from "@elastic/elasticsearch/lib/api/types";
 import { useSearch } from "@/service/api/search/useSearch";
-import { getFacetFields } from "@/config/config-helper";
-import { appendFilterName } from "@/service/URLManager/helper";
+import { getFacetFields, getSortFields } from "@/config/config-helper";
+import { appendFilterName, generateFilterQuery, generateSortFields } from "@/service/URLManager/helper";
 import { Facet } from "@/types";
 
 export type QueryObject = Record<string, string>
@@ -34,19 +34,8 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   const pageQuery = searchParams[URLSearchParamsKeyword.PAGE] as string;
   const sizeQuery = searchParams[URLSearchParamsKeyword.SIZE] as string;
 
-  const filterQuery = generateFilterQuery(router.asPath.slice(1))
-
-  function generateFilterQuery(searchParams: string) {
-    const filterList: Facet[] = [];
-    const urlParams = new URLSearchParams(searchParams)
-    getFacetFields().map(field => {
-      const name = appendFilterName(field)
-      urlParams.getAll(name).forEach(value => {
-        filterList.push({field, value})
-      })
-    })
-    return filterList
-  }
+  const filterFields = generateFilterQuery(router.asPath.slice(1))
+  const sortFields = generateSortFields(router.asPath.slice(1))
 
   const searchQuery = useMemo(() => {
     return rawSearchQuery ?? ""
@@ -65,10 +54,11 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   }, [searchParams])
 
   const queryResult = useSearch({
-    searchQuery,
+    queryString: searchQuery,
     size: resultsPerPage,
     page,
-    facet: filterQuery
+    filterFields,
+    sortFields,
   })
   
   const makeQuery = (queryString: string) => {

@@ -1,9 +1,12 @@
-import { Facet } from "@/types";
+import type { Facet, SearchQuery } from "@/types";
 
 const FIELDS_TO_SEARCH = ["authors", "title", "body"];
 
+type BuildQueryForElaSticClient = Omit<SearchQuery, "page"> & {
+  from: number
+}
 
-export const buildQuery = (queryString: string, facets: Facet[]) => {
+export const buildQuery = ({queryString, size, from, filterFields, sortFields}: BuildQueryForElaSticClient) => {
   
   let baseQuery = {
     query:{
@@ -13,6 +16,7 @@ export const buildQuery = (queryString: string, facets: Facet[]) => {
         filter: [],
       }
     },
+    sort: [],
     aggs: {
       authors: {
         terms: {
@@ -33,16 +37,25 @@ export const buildQuery = (queryString: string, facets: Facet[]) => {
         }
       }
     },
+    size,
+    from,
   }
 
   //Add the clause to the should array
   let shouldClause = buildShouldQueryClause(queryString);
   baseQuery.query.bool.should.push(shouldClause);
 
-  if(facets && facets.length) {
-    for (let facet of facets) {
+  if(filterFields && filterFields.length) {
+    for (let facet of filterFields) {
       let mustClause = buildFilterQueryClause(facet);
       baseQuery.query.bool.must.push(mustClause);
+    }
+  }
+
+  if (sortFields && sortFields.length) {
+    for (let field of sortFields) {
+      const sortClause = buildSortClause(field)
+      baseQuery.sort.push(sortClause)
     }
   }
 
@@ -68,4 +81,10 @@ const buildFilterQueryClause = ({field, value}: Facet) => {
   }
 
   return filterQueryClause;
+}
+
+const buildSortClause = ({field, value}: {field: any, value: any}) => {
+  return {
+    [field]: value
+  }
 }
