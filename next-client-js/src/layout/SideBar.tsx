@@ -10,24 +10,13 @@ import SortingFacet from "@/components/sidebarFacet/SortingFacet";
 const SideBar = () => {
   const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
-  // if (hiddenBody) {
-  //   return null;
-  // }
+  if (hiddenBody) {
+    return null;
+  }
 
   return (
     <div>
-      {
-        
-          <Facet
-            key={"authors"}
-            field={"authors"}
-            isFilterable={getFacetWithSearch().includes("authors")}
-            label={"authors"}
-            view={CustomMultiCheckboxFacet}
-          />
-        
-      }
-      {/* {hiddenHomeFacet
+      {hiddenHomeFacet
         ? getFacetFields().map((field) => (
             <Facet
               key={field}
@@ -47,7 +36,7 @@ const SideBar = () => {
                 label={field}
                 view={CustomMultiCheckboxFacet}
               />
-            ))} */}
+            ))}
       <SortingFacet
         field="created_at"
         label="Sort by date"

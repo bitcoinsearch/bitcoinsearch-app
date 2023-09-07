@@ -1,18 +1,27 @@
+import { useRouter } from "next/router";
 import useSearchContext from "./useSearchContext";
 import useSearchQuery from "./useSearchQuery";
+import { generateFilterQuery } from "@/service/URLManager/helper";
 
 const useIsInitialStateWithoutFilter = () => {
   let hiddenBody = true;
   let hiddenHomeFacet = true;
-  // const { state } = useSearchContext();
+
   const { searchQuery, queryResult } = useSearchQuery();
+  const router = useRouter()
 
+  const hasFilters = generateFilterQuery(router.asPath.slice(1)).length
+  
   const resultLength = queryResult.data?.hits?.total?.value;
-
+  
   if (
-    resultLength && searchQuery
+    resultLength && (searchQuery || hasFilters)
   ) {
     hiddenBody = false;
+  }
+
+  if (searchQuery) {
+    hiddenHomeFacet = false;
   }
   // if (state) {
   //   if (
