@@ -38,7 +38,7 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
   const [searchTermFacet, setSearchTermFacet] = useState("")
   const { searchQuery, queryResult: { data } } = useSearchQuery()
   // temporary conditional
-  const fieldAggregate: FacetAggregateBucket = field === "domain" ? data?.aggregations?.["domains"]?.["buckets"] ?? [] : data?.aggregations?.[field]?.["buckets"] ?? []
+  const fieldAggregate: FacetAggregateBucket = field === "domain" ? (data?.aggregations?.["domains"]?.["buckets"] ?? []) : (data?.aggregations?.[field]?.["buckets"] ?? [])
   const { getFilter, addFilter, removeFilter } = useURLManager()
   
   const selectedList = getFilter(field);

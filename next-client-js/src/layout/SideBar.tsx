@@ -16,7 +16,18 @@ const SideBar = () => {
 
   return (
     <div>
-      {hiddenHomeFacet
+      {
+        getFacetFields().map((field) => (
+          <Facet
+            key={field}
+            field={field}
+            isFilterable={getFacetWithSearch().includes(field)}
+            label={field}
+            view={CustomMultiCheckboxFacet}
+          />
+        ))
+      }
+      {/* {hiddenHomeFacet
         ? getFacetFields().map((field) => (
             <Facet
               key={field}
@@ -36,7 +47,7 @@ const SideBar = () => {
                 label={field}
                 view={CustomMultiCheckboxFacet}
               />
-            ))}
+            ))} */}
       <SortingFacet
         field="created_at"
         label="Sort by date"
