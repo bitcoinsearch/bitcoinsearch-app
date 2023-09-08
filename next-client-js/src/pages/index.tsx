@@ -18,17 +18,21 @@ import Footer from "@/components/footer/Footer";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import useScrollTop from "@/hooks/useSearchQuery";
 import useURLManager from "@/service/URLManager/useURLManager"
+import { useRouter } from "next/router";
+import { generateFilterQuery } from "@/service/URLManager/helper";
 
 export default function App() {
   useSearchFocusHotkey();
   useScrollTop()
   const [modalOpen, setModalOpen] = useState(false);
-  const { queryResult, makeQuery, pagingInfo } = useSearchQuery();
+  const { searchQuery, queryResult, makeQuery, pagingInfo } = useSearchQuery();
+  const router = useRouter()
   
   // INFERENCES
+  const hasFilters = Boolean(generateFilterQuery(router.asPath.slice(1)).length)
+  const hasQueryString = Boolean(searchQuery?.trim())
   const isLoading = queryResult.isFetching;
-  const noResult = queryResult.isFetched && !queryResult.data?.hits?.total["value"]
-
+  const noResult = (hasFilters || hasQueryString) && !isLoading && !queryResult.data?.hits?.total["value"]
   const openForm = useCallback(() => {
     setModalOpen(true);
   }, []);

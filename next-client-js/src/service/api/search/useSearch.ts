@@ -46,7 +46,8 @@ export const useSearch = ({
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
-    enabled: !!queryString?.trim() || hasFilters,
+    enabled: true,
+    // enabled: !!queryString?.trim() || hasFilters,
   });
 
   return queryResult
