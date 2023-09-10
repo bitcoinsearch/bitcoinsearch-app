@@ -6,7 +6,10 @@
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "Lightning dev mailing list",
     "https://btctranscripts.com/": "BTC transcripts",
     "https://bitcoinops.org/en/": "Bitcoin Optech",
-    "https://bitcoincore.org": "Bitcoin Core"
+    "https://bitcoincore.org": "Bitcoin Core",
+    "https://github.com/bitcoin/bips": "Bitcoin BIPs",
+    "https://bluematt.bitcoin.ninja": "BlueMatt's Blog",
+    "https://github.com": "Github"
   },
   "media": [
     "https://btctranscripts.com/"
