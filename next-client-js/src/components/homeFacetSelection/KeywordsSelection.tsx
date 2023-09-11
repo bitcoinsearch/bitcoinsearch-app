@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { getTopKeywords } from "../../config/config-helper";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import useURLManager from "@/service/URLManager/useURLManager";
+import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 const KeywordsSearchSelection = ({}) => {
   const {
@@ -11,7 +12,8 @@ const KeywordsSearchSelection = ({}) => {
     makeQuery,
   } = useSearchQuery();
   const { getSearchTerm } = useURLManager();
-  const isSearched = Boolean(data?.hits?.hits?.length && searchQuery?.trim());
+
+  const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
   const searchTerm = getSearchTerm();
   const topKeywords = getTopKeywords();
@@ -25,7 +27,7 @@ const KeywordsSearchSelection = ({}) => {
     }
   };
 
-  if (isSearched || !topKeywords.length) {
+  if (hiddenHomeFacet || !topKeywords.length) {
     return null;
   }
 

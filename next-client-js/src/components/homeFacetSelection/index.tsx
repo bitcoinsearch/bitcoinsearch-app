@@ -3,21 +3,19 @@ import React, { useLayoutEffect, useRef } from "react";
 import { getTopAuthors } from "../../config/config-helper";
 import useURLManager from "@/service/URLManager/useURLManager";
 import useSearchQuery from "@/hooks/useSearchQuery";
+import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 const InitialFacetSection = ({
   field = "authors" as const,
 }) => {
   const { queryResult: { data }, searchQuery} = useSearchQuery()
   const { getFilter, addFilter: addFilterNew, removeFilter: removeFilterNew } = useURLManager();
+  const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
   
   const filterForField = () => {
     return getFilter(field);
   };
   
-  const isSearched = Boolean(
-    data?.hits?.hits?.length &&
-      (searchQuery?.trim() || (filterForField.length))
-  );
   const topAuthors = getTopAuthors();
 
   const initRender = useRef(true);
@@ -45,11 +43,7 @@ const InitialFacetSection = ({
     }
   };
 
-  if (isSearched) {
-    return null;
-  }
-
-  if (!topAuthors?.length) return null;
+  if (hiddenHomeFacet || !topAuthors?.length) return null;
 
   return (
     <>

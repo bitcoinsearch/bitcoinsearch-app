@@ -14,15 +14,16 @@ const useIsInitialStateWithoutFilter = () => {
   
   const resultLength = queryResult.data?.hits?.total?.value;
   
+  // visible if
   if (
     resultLength && (searchQuery || hasFilters)
   ) {
     hiddenBody = false;
+  } else {
+    hiddenHomeFacet = false
   }
 
-  if (searchQuery) {
-    hiddenHomeFacet = false;
-  }
+  
   // if (state) {
   //   if (
   //     resultLength &&

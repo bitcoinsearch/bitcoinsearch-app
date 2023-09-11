@@ -1,4 +1,4 @@
-import { Sorting } from "@elastic/react-search-ui-views"
+import { Sorting } from "@elastic/react-search-ui-views";
 
 import React from "react";
 import CustomMultiCheckboxFacet from "../components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
@@ -16,28 +16,8 @@ const SideBar = () => {
 
   return (
     <div>
-      {
-        getFacetFields().map((field) => (
-          <Facet
-            key={field}
-            field={field}
-            isFilterable={getFacetWithSearch().includes(field)}
-            label={field}
-            view={CustomMultiCheckboxFacet}
-          />
-        ))
-      }
-      {/* {hiddenHomeFacet
-        ? getFacetFields().map((field) => (
-            <Facet
-              key={field}
-              field={field}
-              isFilterable={getFacetWithSearch().includes(field)}
-              label={field}
-              view={CustomMultiCheckboxFacet}
-            />
-          ))
-        : getFacetFields()
+      {hiddenHomeFacet
+        ? getFacetFields()
             .filter((field) => !getFacetWithSearch().includes(field))
             .map((field) => (
               <Facet
@@ -47,7 +27,16 @@ const SideBar = () => {
                 label={field}
                 view={CustomMultiCheckboxFacet}
               />
-            ))} */}
+            ))
+        : getFacetFields().map((field) => (
+            <Facet
+              key={field}
+              field={field}
+              isFilterable={getFacetWithSearch().includes(field)}
+              label={field}
+              view={CustomMultiCheckboxFacet}
+            />
+          ))}
       <SortingFacet
         field="created_at"
         label="Sort by date"
