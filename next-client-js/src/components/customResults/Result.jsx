@@ -58,8 +58,8 @@ const Result = ({
         {url}
       </a>
       <div className="search-result-body">
-        {mapping.media.includes(result?.domain?.raw) && (
-          <Thumbnail url={result?.media?.raw} />
+        {mapping.media.includes(result?.domain) && (
+          <Thumbnail url={result?.media} />
         )}
         <p>
           {htmlToReactParser.parse(
@@ -69,6 +69,8 @@ const Result = ({
                 result.body_type === "raw"
                 ? body
                 : result.body_type === "markdown"
+                ? body
+                : result.body_type === "html"
                 ? body
                 : JSON.parse(`[${body}]`)
                     .map((i) => i.text)

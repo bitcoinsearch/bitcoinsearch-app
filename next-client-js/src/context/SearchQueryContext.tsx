@@ -46,6 +46,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   }, [pageQuery])
 
   const resultsPerPage = sizeQuery ? (parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]) : defaultParam[URLSearchParamsKeyword.SIZE]
+  
   const setSearchParams = useCallback((queryObject: QueryObject) => {
     Object.keys(queryObject).map(objectKey => {
       router.query[objectKey] = queryObject[objectKey]
@@ -60,9 +61,18 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     filterFields,
     sortFields,
   })
+
+  // const resetQueryParams = () => {
+  //   router.query = {}
+  //   router.replace(router, undefined, { shallow: true })
+  // }
   
   const makeQuery = (queryString: string) => {
-    setSearchParams({ search: queryString });
+    router.query = {}
+    if (queryString.trim()) {
+      router.query[URLSearchParamsKeyword.SEARCH] = queryString.trim()
+    }
+    router.push(router, undefined, { shallow: true })
   };
 
   const handlePageChange = (page: number) => {
