@@ -43,7 +43,7 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
 
   //Add the clause to the should array
   let shouldClause = buildShouldQueryClause(queryString);
-  baseQuery.query.bool.should.push(shouldClause);
+  baseQuery.query.bool.must.push(shouldClause);
 
   if(filterFields && filterFields.length) {
     for (let facet of filterFields) {

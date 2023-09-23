@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ...searchQuery,
     });
     
-    console.log("🚀 ~ file: search.ts:37 ~ handler ~ result:", result.hits.total)
+    // console.log("🚀 ~ file: search.ts:37 ~ handler ~ result:", result.hits.total)
     
     return res.status(200).json({
       success: true,
