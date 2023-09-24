@@ -1,6 +1,7 @@
 import { FacetKeys } from '@/types'
 import { useRouter } from 'next/router'
 import { appendFilterName, appendSortName } from './helper'
+import { URLSearchParamsKeyword } from '@/config/config'
 
 const useURLManager = () => {
   const router = useRouter()
@@ -31,19 +32,17 @@ const useURLManager = () => {
 
   const addFilter = ({filterType, filterValue}: {filterType: FacetKeys, filterValue: string}) => {
     const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
-    if (currentFilterForType.length) {
-      if (currentFilterForType.includes(filterValue)) return;
-      urlParams.append(appendFilterName(filterType), filterValue)
-      router.push(router.pathname + "?" + urlParams.toString())
-    } else {
-      urlParams.append(appendFilterName(filterType), filterValue)
-      router.push(router.pathname + "?" + urlParams.toString())
-    }
+    if (currentFilterForType.includes(filterValue)) return;
+    removePageQuery()
+    urlParams.append(appendFilterName(filterType), filterValue)
+    router.push(router.pathname + "?" + urlParams.toString())
   }
+
   const removeFilter = ({filterType, filterValue}) => {
     const appendedFilterName = appendFilterName(filterType)
     const currentFilterForType = urlParams.getAll(appendedFilterName)
     if (currentFilterForType.length) {
+      removePageQuery()
       const filterValueIndex = currentFilterForType.findIndex(value => value === filterValue)
       if (filterValueIndex !== -1) {
         currentFilterForType.splice(filterValueIndex, 1)
@@ -56,6 +55,11 @@ const useURLManager = () => {
       }
     }
   }
+
+  const removePageQuery = () => {
+    urlParams.delete(URLSearchParamsKeyword["PAGE"])
+  }
+
   return (
     { addFilter, removeFilter, getFilter, getSearchTerm, getSort, addSort, removeSort }
   )
