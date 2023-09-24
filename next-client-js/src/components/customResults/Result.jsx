@@ -84,7 +84,7 @@ const Result = ({
       </div>
 
       <div className="search-result-filter">
-        {/* {getResultTags().map((field, idx) => {
+        {getResultTags().map((field, idx) => {
           if (result[field])
             return (
               <FilterTags
@@ -93,7 +93,7 @@ const Result = ({
                 options={result[field]}
               />
             );
-        })} */}
+        })}
         {dateString && <span className="search-result-date">{dateString}</span>}
       </div>
     </div>
