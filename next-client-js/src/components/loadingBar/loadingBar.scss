@@ -1,12 +1,15 @@
 .loading-container {
-  position: absolute;
+  position: fixed;
   width: 100%;
   align-self: flex-start;
   display: flex;
   justify-content: center;
+  z-index: 99;
+  backdrop-filter: blur(10px);
 }
 .loading-bar {
   margin-top: 2px;
+  margin-bottom: 4px;
   position: relative;
   box-shadow: 0 2px 12px 0px #38f3;
   width: 15%;
