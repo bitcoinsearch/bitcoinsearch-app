@@ -16,16 +16,17 @@ import SideBar from "@/layout/SideBar";
 import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
 import useSearchQuery from "@/hooks/useSearchQuery";
-import useScrollTop from "@/hooks/useSearchQuery";
+import useScrollTop from "@/hooks/useScrollTop";
 import useURLManager from "@/service/URLManager/useURLManager"
 import { useRouter } from "next/router";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 
 export default function App() {
   useSearchFocusHotkey();
-  useScrollTop()
+  
   const [modalOpen, setModalOpen] = useState(false);
   const { searchQuery, queryResult, makeQuery, pagingInfo } = useSearchQuery();
+  useScrollTop({current: pagingInfo.current})
   const router = useRouter()
   
   // INFERENCES
@@ -43,7 +44,6 @@ export default function App() {
   return (
     <div className="App btc-search">
       <ErrorBoundary>
-        {/* <ScrollTop current={pagingInfo.current} /> */}
         {isLoading && <LoadingBar />}
         <div className="header">
           <img src="/btc.png" className="logo" alt="bitcoin logo" />
