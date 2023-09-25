@@ -17,6 +17,7 @@ import {
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
 import theme from "@/chakra/chakra-theme";
+import { SearchDriverOptions } from "@elastic/search-ui";
 
 const queryClient = new QueryClient();
 
@@ -28,11 +29,11 @@ const connector = new AppSearchAPIConnector({
   endpointBase,
 });
 // const connector = new CustomConnector();
-const config = {
-  searchQuery: {
-    facets: buildFacetConfigFromConfig(),
-    ...buildSearchOptionsFromConfig(),
-  },
+const config: SearchDriverOptions = {
+  // searchQuery: {
+  //   facets: buildFacetConfigFromConfig(),
+  //   ...buildSearchOptionsFromConfig(),
+  // },
   autocompleteQuery: buildAutocompleteQueryConfig(),
   apiConnector: connector,
   alwaysSearchOnInitialLoad: false,

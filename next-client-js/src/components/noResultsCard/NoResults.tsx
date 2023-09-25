@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-const NoResults = ({ openForm }) => {
+const NoResults = ({ openForm }: { openForm: () => void }) => {
   return (
     <div className="no-result">
       <h2>No results found</h2>
