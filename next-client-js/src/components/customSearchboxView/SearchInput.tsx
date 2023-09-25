@@ -9,7 +9,6 @@ function SearchInput({
   openForm,
 }) {
   const isMacDevice = isMac();
-  const { searchQuery } = useSearchQuery();
   return (
     <div className="search-box-with-contribute">
       <div className="sui-search-box__wrapper">
