@@ -8,7 +8,6 @@ import SearchBoxView from "../components/customSearchboxView/SearchBoxView"
 
 const Header = ({openForm}) => {
   useEffect(() => {
-    console.log("Header random");
   }, [])
   const { makeQuery } = useSearchQuery();
   const SearchInputWrapper = ({ ...rest }) => {

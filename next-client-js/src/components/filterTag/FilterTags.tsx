@@ -1,7 +1,6 @@
 import useURLManager from "@/service/URLManager/useURLManager";
 import { FacetKeys } from "@/types";
 import { Button } from "@chakra-ui/react";
-import { withSearch } from "@elastic/react-search-ui";
 import React from "react";
 
 type FilterTagProps = {

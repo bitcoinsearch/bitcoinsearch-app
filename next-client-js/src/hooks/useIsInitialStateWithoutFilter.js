@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import useSearchContext from "./useSearchContext";
 import useSearchQuery from "./useSearchQuery";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 

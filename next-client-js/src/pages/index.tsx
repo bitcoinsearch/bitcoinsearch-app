@@ -1,4 +1,4 @@
-import { ErrorBoundary, WithSearch } from "@elastic/react-search-ui";
+import { ErrorBoundary } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
@@ -8,8 +8,6 @@ import CustomResults from "@/components/customResults/CustomResults";
 import { useSearchFocusHotkey } from "@/hooks/useGlobalHotkey";
 import NoResults from "@/components/noResultsCard/NoResults";
 import FormModal from "@/components/formModal/FormModal";
-import { useEffect } from "react";
-import { useRef } from "react";
 import LoadingBar from "@/components/loadingBar/LoadingBar";
 import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
@@ -17,7 +15,6 @@ import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import Footer from "@/components/footer/Footer";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import useScrollTop from "@/hooks/useScrollTop";
-import useURLManager from "@/service/URLManager/useURLManager"
 import { useRouter } from "next/router";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 
@@ -43,7 +40,6 @@ export default function App() {
 
   return (
     <div className="App btc-search">
-      <ErrorBoundary>
         {isLoading && <LoadingBar />}
         <div className="header">
           <img src="/btc.png" className="logo" alt="bitcoin logo" />
@@ -58,7 +54,6 @@ export default function App() {
         />
         {noResult && <NoResults openForm={openForm} />}
         <FormModal formOpen={modalOpen} closeForm={closeForm} />
-      </ErrorBoundary>
     </div>
   );
 }

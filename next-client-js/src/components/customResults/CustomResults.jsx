@@ -1,24 +1,23 @@
 import React from "react";
 import ResultCollection from "./ResultCollection";
 import { getDomainGrouping } from "@/config/mapping-helper";
-// import "./styles.results.scss";
 import {
   generateLocator,
   sortGroupedResults,
 } from "@/config/results-helper";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
-import useSearchContext from "@/hooks/useSearchContext";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import Result from "./Result";
 
 const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
-  const {
-    state: { results },
-    trackClickThrough,
-  } = useSearchContext();
-  const { hiddenBody } = useIsInitialStateWithoutFilter();
+
+  // const { hiddenBody } = useIsInitialStateWithoutFilter();
 
   const { queryResult } = useSearchQuery();
+
+  const trackClickThrough = () => {
+
+  }
 
   // empty search string or initial page search without filters should not be displayed
   // if (hiddenBody) {
