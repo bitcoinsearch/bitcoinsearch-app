@@ -13,7 +13,7 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { getFormURL } from "../../config/config-helper";
 
 const FormModal = ({ formOpen, closeForm }) => {
@@ -26,7 +26,7 @@ const FormModal = ({ formOpen, closeForm }) => {
 
   const url = getFormURL();
 
-  const submitToSheet = async (data) => {
+  const submitToSheet = async (data: FormData) => {
     const response = await fetch(url, {
       method: "POST",
       body: data,
@@ -34,7 +34,7 @@ const FormModal = ({ formOpen, closeForm }) => {
     return response.json();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const data = new FormData();
     data.append("URL", urlValue);
