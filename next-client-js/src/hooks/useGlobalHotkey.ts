@@ -12,7 +12,7 @@ export const useSearchFocusHotkey = () => {
     }
 
     keyEvent.preventDefault();
-    const element = document.querySelector(".sui-search-box__text-input");
+    const element: HTMLElement = document.querySelector(".sui-search-box__text-input");
     if (element) {
       element.focus();
     }

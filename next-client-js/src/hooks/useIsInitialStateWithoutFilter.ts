@@ -11,7 +11,7 @@ const useIsInitialStateWithoutFilter = () => {
 
   const hasFilters = generateFilterQuery(router.asPath.slice(1)).length
   
-  const resultLength = queryResult.data?.hits?.total?.value;
+  const resultLength = queryResult.data?.hits?.total["value"];
   
   // visible if
   if (
