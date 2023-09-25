@@ -16,7 +16,6 @@ import {
 } from "@/config/config-helper";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
-import { CustomConnector } from "./api/elasticSearchProxy/connector";
 import theme from "@/chakra/chakra-theme";
 
 const queryClient = new QueryClient();

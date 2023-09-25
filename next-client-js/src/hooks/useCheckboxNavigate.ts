@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { isInViewport } from "../utils/navigation";
 
-const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
-  const checkboxNavIndex = useRef(null);
-  const savedNavIndex = useRef(0);
+type ChekboxNavigateProps = {
+  checkboxContainer: React.MutableRefObject<HTMLDivElement>;
+  searchEl: React.MutableRefObject<HTMLInputElement>;
+  options: any[];
+}
+
+const useCheckboxNavigate = ({checkboxContainer, searchEl, options}: ChekboxNavigateProps) => {
+  const checkboxNavIndex = useRef<number>(null);
+  // const savedNavIndex = useRef(0);
   const [currentNavigateCheckbox, setcurrentNavigateCheckbox] = useState("");
 
   const refocus = useRef(false);
@@ -15,7 +21,7 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
   useEffect(() => {
     const multiCheckboxWrapper = checkboxContainer.current;
     const multiCheckboxList =
-      multiCheckboxWrapper && Array.from(multiCheckboxWrapper?.children);
+      multiCheckboxWrapper && Array.from(multiCheckboxWrapper?.children) as HTMLElement[];
     const searchInput = searchEl.current;
     // focus back to search when options changes
     if (refocus.current) {
@@ -72,8 +78,8 @@ const useCheckboxNavigate = (checkboxContainer, searchEl, options) => {
             ? multiCheckboxList[currentCheckboxNavIndex].querySelector("input")
             : null;
           if (input) {
-            savedNavIndex.current =
-              multiCheckboxList[currentCheckboxNavIndex].dataset?.checkbox;
+            // savedNavIndex.current =
+            //   multiCheckboxList[currentCheckboxNavIndex].dataset?.checkbox;
             input.click();
           }
           break;

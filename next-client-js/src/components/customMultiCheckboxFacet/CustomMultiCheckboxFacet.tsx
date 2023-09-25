@@ -30,13 +30,15 @@ function CustomMultiCheckboxFacet({
     return String(filterValue);
   }
 
-  const searchRef = useRef();
-  const multiCheckboxRef = useRef();
+  const searchRef = useRef<HTMLInputElement>();
+  const multiCheckboxRef = useRef<HTMLDivElement>();
 
   const { currentNavigateCheckbox, toggleRefocus } = useCheckboxNavigate(
-    multiCheckboxRef,
-    searchRef,
-    options
+    {
+      checkboxContainer: multiCheckboxRef,
+      searchEl: searchRef,
+      options
+    }
   );
 
   return (
