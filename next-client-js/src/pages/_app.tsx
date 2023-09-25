@@ -18,6 +18,7 @@ import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
 import theme from "@/chakra/chakra-theme";
 import { SearchDriverOptions } from "@elastic/search-ui";
+import Head from "next/head";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,17 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <SearchQueryProvider>
           <SearchProvider config={config}>
+            <Head>
+              <meta charSet="utf-8" />
+              <link rel="shortcut icon" href="./favicon.ico" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>Bitcoin Search</title>
+              <link rel="manifest" href="./manifest.json" />
+              <meta name="twitter:card" content="summary_large_image" />
+              <meta name="twitter:image" content="https://bitcoinsearch.xyz/btc_book_2_1.jpg?v1"/>
+              <meta name="twitter:title" content="Technical ₿itcoin Search"/>
+              <meta name="twitter:description" content="The bitcoin technical search we deserve"/>
+            </Head>
             <Component {...pageProps} />
           </SearchProvider>
         </SearchQueryProvider>
