@@ -1,38 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+BTC TECHNICAL MATERIALS SEARCH
 
-## Getting Started
+This project will serve as a search engine for searching Bitcoin technical related materials. It will aggregate all Bitcoin related materials and performs search on those materials instead of going through thousands of unrelated Google search results. 
 
-First, run the development server:
+It will classify materials according to:
+
+- Relevance
+- Domains
+- Tags
+- Authors
+
+
+---
+
+## Getting started 
+The search engine is built using NextJS and Python. Dependencies include `Node v16.13.0`.
+
+
+## Installation
+
+One can leverage [NVM](https://github.com/nvm-sh/nvm) to install Node before proceeding to start the application by running the following commands:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# Run this to install Node 16.13.0
+nvm install 16.13.0
+
+# Run this to use the installed Node version 
+nvm use 16.13.0
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The README assumes that you have generated this code from within the App Search dashboard.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Run the following commands to start this application:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```bash
+git clone git@github.com:adamjonas/btc-engine-1-react-demo-ui.git
+# Run the `cd` command to change the current directory to the
+# location of your downloaded project directory. Replace the path
+# below with the actual path of your project.
+cd ~/Projects/btc-engine-1-react-demo-ui.git
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Run this to set everything up
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Run this to start your application and open it up in a new browser window
+npm start
+```
 
-## Learn More
+## Contribute 🚀
 
-To learn more about Next.js, take a look at the following resources:
+We welcome contributors to the project. Before you begin, a couple notes...
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/adamjonas/btc-engine-1-react-demo-ui/issues).
+- Please write simple code and concise documentation, when appropriate.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License 📗
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[Apache-2.0](https://github.com/adamjonas/btc-engine-1-react-demo-ui/blob/main/LICENSE.txt) 
