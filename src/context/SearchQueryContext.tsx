@@ -37,6 +37,10 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   const filterFields = generateFilterQuery(router.asPath.slice(1))
   const sortFields = generateSortFields(router.asPath.slice(1))
 
+  const urlParams = useMemo(() => {
+    return new URLSearchParams(router.asPath.slice(1))
+  }, [router])
+
   const searchQuery = useMemo(() => {
     return rawSearchQuery ?? ""
   }, [rawSearchQuery])
@@ -49,10 +53,10 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   
   const setSearchParams = useCallback((queryObject: QueryObject) => {
     Object.keys(queryObject).map(objectKey => {
-      router.query[objectKey] = queryObject[objectKey]
+      urlParams.set(objectKey, queryObject[objectKey])
     })
-    router.push(router, undefined, { shallow: true })
-  }, [searchParams])
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true })
+  }, [router, urlParams])
 
   const queryResult = useSearch({
     queryString: searchQuery,
@@ -62,17 +66,11 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     sortFields,
   })
 
-  // const resetQueryParams = () => {
-  //   router.query = {}
-  //   router.replace(router, undefined, { shallow: true })
-  // }
-  
   const makeQuery = (queryString: string) => {
     router.query = {}
-    if (queryString.trim()) {
-      router.query[URLSearchParamsKeyword.SEARCH] = queryString.trim()
-    }
-    router.push(router, undefined, { shallow: true })
+    urlParams.delete(URLSearchParamsKeyword.PAGE)
+    urlParams.set(URLSearchParamsKeyword.SEARCH, queryString.trim())
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true })
   };
 
   const handlePageChange = (page: number) => {
