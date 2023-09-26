@@ -54,7 +54,7 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
 
   const options = useMemo(() => {
     return baseOptions.filter(item => searchTermFacet.trim() ? item.value.includes(searchTermFacet) : true).slice(0, itemsToShow)
-  }, [searchTermFacet, baseOptions])
+  }, [searchTermFacet, baseOptions, itemsToShow])
 
   const showMore = itemsToShow < baseOptions.length
 

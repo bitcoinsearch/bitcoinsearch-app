@@ -17,6 +17,7 @@ import useSearchQuery from "@/hooks/useSearchQuery";
 import useScrollTop from "@/hooks/useScrollTop";
 import { useRouter } from "next/router";
 import { generateFilterQuery } from "@/service/URLManager/helper";
+import Image from "next/image";
 
 export default function App() {
   useSearchFocusHotkey();
@@ -42,7 +43,7 @@ export default function App() {
     <div className="App btc-search">
         {isLoading && <LoadingBar />}
         <div className="header">
-          <img src="/btc.png" className="logo" alt="bitcoin logo" />
+          <Image src="/btc.png" className="logo" alt="bitcoin logo" width={140} height={140} />
           <p className="description">Technical Bitcoin Search</p>
         </div>
         <Layout

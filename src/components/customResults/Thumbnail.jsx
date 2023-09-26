@@ -1,5 +1,6 @@
 import React from "react";
 import { parseYoutubeId } from "../../utils/views";
+import Image from "next/image";
 
 export const Thumbnail = ({ url }) => {
   if (!url) return null;
@@ -11,7 +12,7 @@ export const Thumbnail = ({ url }) => {
   return (
     <a href={url} target="_blank" rel="noreferrer">
       <div className="search-result-media">
-        <img src={thumbnailURL} />
+        <Image src={thumbnailURL} alt="thumbnail" />
         <div className="play-button">
           <svg
             focusable="false"
