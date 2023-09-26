@@ -43,7 +43,7 @@ export default function App() {
     <div className="App btc-search">
         {isLoading && <LoadingBar />}
         <div className="header">
-          <Image src="/btc.png" className="logo" alt="bitcoin logo" width={140} height={140} />
+          <Image src="/btc.png" className="logo" alt="bitcoin logo" width={140} height={140} priority />
           <p className="description">Technical Bitcoin Search</p>
         </div>
         <Layout

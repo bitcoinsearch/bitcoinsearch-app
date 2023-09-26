@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { parseYoutubeId } from "../../utils/views";
 import Image from "next/image";
@@ -12,7 +13,7 @@ export const Thumbnail = ({ url }) => {
   return (
     <a href={url} target="_blank" rel="noreferrer">
       <div className="search-result-media">
-        <Image src={thumbnailURL} alt="thumbnail" />
+        <img src={thumbnailURL} alt="thumbnail" />
         <div className="play-button">
           <svg
             focusable="false"
