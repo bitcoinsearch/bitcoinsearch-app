@@ -15,13 +15,8 @@ const Result = ({
   trackClickThrough,
 }) => {
   let dateString = null;
-  const {url, title, body} = result;
-  // console.log({url, title, body})
-  // note, previously
-  // url: result.url.raw
-  // title: result.title.snippet
-  // body: result.body.raw
-
+  const { url, title, body } = result;
+  
   //PREV const createdDate = result.created_at?.raw || result.created_at?.snippet;
   const createdDate = result.created_at;
   if (createdDate) {
@@ -35,6 +30,28 @@ const Result = ({
       dateString = `${day} ${month}, ${year}`;
     } catch {
       dateString = null;
+    }
+  }
+
+  const getBodyData = (result) => {
+    switch (result.body_type) {
+      case "mardown":
+        return body
+      case "raw":
+        return body
+      case "html":
+        return body
+      case "combined_summary":
+        return body
+      default: {
+        try {
+          return JSON.parse(`[${body}]`)
+            .map((i) => i.text)
+            .join(" ")
+        } catch {
+          return body || result.body_formatted
+        }
+      }
     }
   }
 
@@ -64,18 +81,7 @@ const Result = ({
         <p>
           {htmlToReactParser.parse(
             sanitizeHtml(
-              (
-                // PREV result.body_type.raw === "raw"
-                result.body_type === "raw"
-                ? body
-                : result.body_type === "markdown"
-                ? body
-                : result.body_type === "html"
-                ? body
-                : JSON.parse(`[${body}]`)
-                    .map((i) => i.text)
-                    .join(" ")
-              ).replaceAll("\n", "")
+              getBodyData(result).replaceAll("\n", "")
             )
               .substring(0, 300)
               .trim()
