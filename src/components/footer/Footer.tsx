@@ -1,18 +1,10 @@
-// import { Paging } from "@elastic/react-search-ui";
-import React, { useEffect } from "react";
-import useIsInitialStateWithoutFilter from "../../hooks/useIsInitialStateWithoutFilter";
+import React from "react";
 import { Paging } from "@elastic/react-search-ui-views";
 import useSearchQuery from "../../hooks/useSearchQuery";
-import { useRouter } from "next/router";
 
 const Footer = () => {
-  // const page = useRouter().query.get["page"]
   const { handlePageChange, pagingInfo } = useSearchQuery();
   const { totalResults, current, resultsPerPage } = pagingInfo;
-  // const { hiddenBody } = useIsInitialStateWithoutFilter();
-  // useEffect(() => {
-  //   console.log("footer random");
-  // }, [])
   if (!totalResults) {
     return null;
   }
