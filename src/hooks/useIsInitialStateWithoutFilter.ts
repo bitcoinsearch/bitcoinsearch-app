@@ -22,20 +22,6 @@ const useIsInitialStateWithoutFilter = () => {
     hiddenHomeFacet = false
   }
 
-  
-  // if (state) {
-  //   if (
-  //     resultLength &&
-  //     (searchQuery ||
-  //       (state.filters.length && state.results?.length))
-  //   ) {
-  //     hiddenBody = false;
-  //   }
-  //   // hide facet if there is a searchquery
-  //   if (!searchQuery) {
-  //     hiddenHomeFacet = false;
-  //   }
-  // }
   return { hiddenBody, hiddenHomeFacet };
 };
 
