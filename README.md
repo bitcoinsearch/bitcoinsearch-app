@@ -13,7 +13,7 @@ It will classify materials according to:
 ---
 
 ## Getting started 
-The search engine is built using ReactJS and Python. Dependencies include `Node v16.13.0`.
+The search engine is built using NextJS and Python. Dependencies include `Node v16.13.0`.
 
 
 ## Installation

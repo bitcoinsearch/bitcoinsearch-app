@@ -1,59 +1,50 @@
 {
   "name": "bitcoin-search-engine",
   "description": "Bitcoin related publications search engine",
-  "version": "1.18.0",
+  "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "GENERATE_SOURCEMAP=false next dev",
+    "build": "GENERATE_SOURCEMAP=false next build",
+    "start": "GENERATE_SOURCEMAP=false next start",
+    "lint": "next lint"
+  },
   "dependencies": {
-    "@chakra-ui/react": "^1.8.9",
-    "@elastic/react-search-ui": "1.18.0",
-    "@elastic/react-search-ui-views": "1.18.0",
-    "@elastic/search-ui": "1.18.0",
-    "@elastic/search-ui-app-search-connector": "1.18.0",
+    "@chakra-ui/react": "^2.0.0",
+    "@elastic/elasticsearch": "^8.8.0",
+    "@elastic/react-search-ui": "1.20.2",
+    "@elastic/react-search-ui-views": "1.20.2",
+    "@elastic/search-ui": "1.20.2",
+    "@elastic/search-ui-app-search-connector": "1.20.2",
+    "@elastic/search-ui-elasticsearch-connector": "1.20.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "@netlify/plugin-nextjs": "^4.40.1",
+    "@tanstack/react-query": "^4.29.12",
+    "autoprefixer": "10.4.14",
+    "eslint": "^8.42.0",
+    "eslint-config-next": "^13.4.4",
     "framer-motion": "^6.5.1",
     "html-to-react": "^1.5.0",
+    "next": "13.4.4",
     "node-sass": "^7.0.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "postcss": "8.4.24",
+    "rc-pagination": "^3.5.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-hotkeys-hook": "^4.3.2",
     "react-icons": "^4.7.1",
-    "react-router-dom": "^6.8.1",
-    "react-scripts": "^5.0.0",
-    "sanitize-html": "^2.8.0"
+    "sanitize-html": "^2.8.0",
+    "sass": "^1.62.1",
+    "tailwindcss": "3.3.2"
   },
   "devDependencies": {
-    "eslint": "^8.32.0",
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.8",
+    "@types/react-dom": "^18.2.4",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.32.1",
-    "prettier": "2.8.3",
-    "rewire": "^6.0.0"
-  },
-  "scripts": {
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "eslint:check": "eslint src --ext .js,.jsx",
-    "eslint:fix": "eslint src --ext .js,.jsx --fix"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.3"
   }
 }

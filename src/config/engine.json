@@ -2,6 +2,7 @@
   "engineName": "bitcoin-search-engine",
   "endpointBase": "https://my-test-es-deploy.ent.us-central1.gcp.cloud.es.io",
   "searchKey": "search-bjqwxsgfhdnyyhe1arsfxtaq",
+  "hostIdentifier": "",
   "userContentFormURL": "https://script.google.com/macros/s/AKfycbwSdGCfHerKSYtduulBLHY0OYsCFHeGNd5cBr1OWEzHRm114hyX9G3UCxsbcn6xszyQBQ/exec",
   "resultFields": [
     "authors",
@@ -20,7 +21,9 @@
     "categories",
     "id"
   ],
-  "sortFields": [],
+  "searchFields": [],
+  "fields": [],
+  "sortFields": ["created_at"],
   "facets": ["authors", "domain"],
   "titleField": "title",
   "urlField": "url",
@@ -29,7 +32,7 @@
   "topAuthors": [
     "Andrew Chow",
     "Anthony Towns",
-    "Gregory Maxwell",
+    "Greg Maxwell",
     "Matt Corallo",
     "Pieter Wuille",
     "Rusty Russell",
