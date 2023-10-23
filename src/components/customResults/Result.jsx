@@ -18,10 +18,10 @@ const Result = ({
   trackClickThrough,
 }) => {
   let dateString = null;
-  const { url, title, body, domain } = result;
+  const { url, title, body, domain, id } = result;
 
   const isTldrCombinedSummary = tldrLists.includes(domain) && title.includes(combinedSummaryTag)
-  const mappedUrl = isTldrCombinedSummary ? getUrlForCombinedSummary(url) : url
+  const mappedUrl = isTldrCombinedSummary ? getUrlForCombinedSummary(url, id) : url
 
   const createdDate = result.created_at;
   if (createdDate) {
