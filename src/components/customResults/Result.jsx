@@ -7,9 +7,10 @@ import { Thumbnail } from "./Thumbnail";
 import mapping from "@/config/mapping.json";
 import { getMapping } from "@/config/mapping-helper";
 import { getUrlForCombinedSummary } from "@/utils/tldr";
+import { TruncateLengthInChar } from "@/config/config";
 
 const htmlToReactParser = new Parser();
-const {tldrLists, combinedSummaryTag} = getMapping()
+const { tldrLists, combinedSummaryTag } = getMapping()
 
 const Result = ({
   result,
@@ -43,7 +44,7 @@ const Result = ({
       case "mardown":
         return body
       case "raw":
-        return body
+        return result?.summary ?? body
       case "html":
         return body
       case "combined_summary":
@@ -59,6 +60,13 @@ const Result = ({
       }
     }
   }
+
+  const sanitizedBody = sanitizeHtml(
+    getBodyData(result).replaceAll("\n", "")
+  ).trim()
+
+  const truncatedBody = sanitizedBody.length > TruncateLengthInChar ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..." : sanitizedBody
+  const parsedBody = htmlToReactParser.parse(truncatedBody)
 
   // removed onClickLink
   const onClickLink = () => {
@@ -84,13 +92,7 @@ const Result = ({
           <Thumbnail url={result?.media} />
         )}
         <p>
-          {htmlToReactParser.parse(
-            sanitizeHtml(
-              getBodyData(result).replaceAll("\n", "")
-            )
-              .substring(0, 300)
-              .trim()
-          )}
+          {parsedBody}
         </p>
       </div>
 
