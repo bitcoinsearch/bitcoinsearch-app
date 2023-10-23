@@ -49,5 +49,6 @@
     "Package relay",
     "Transaction pinning",
     "Vaults"
-  ]
+  ],
+  "tldrBaseUrl": "https://tldr.bitcoinsearch.xyz"
 }

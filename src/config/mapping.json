@@ -66,5 +66,25 @@
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/",
     "https://bitcointalk.org",
     "https://bitcoin.stackexchange.com"
-  ]
+  ],
+  "tldrLists": [
+    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev",
+    "https://lists.linuxfoundation.org/pipermail/lightning-dev"
+  ],
+  "tldrMappingUrl": "https://lists.linuxfoundation.org/pipermail/",
+  "tldrMappingMonths": {
+    "January": "Jan",
+    "February": "Feb",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "Aug",
+    "September": "Sept",
+    "October": "Oct",
+    "November": "Nov",
+    "December": "Dec"
+  },
+  "combinedSummaryTag": "Combined summary -"
 }
