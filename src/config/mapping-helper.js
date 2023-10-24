@@ -11,3 +11,7 @@ export const getDomainLabel = (domain_url, plainString = false) => {
     ? label.toLowerCase().replace(/ /g, "_")
     : null;
 };
+
+export const getMapping = () => {
+  return mapping
+}

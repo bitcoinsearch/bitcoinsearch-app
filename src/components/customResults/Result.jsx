@@ -5,8 +5,12 @@ import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
 import { Thumbnail } from "./Thumbnail";
 import mapping from "@/config/mapping.json";
+import { getMapping } from "@/config/mapping-helper";
+import { getUrlForCombinedSummary } from "@/utils/tldr";
+import { TruncateLengthInChar } from "@/config/config";
 
 const htmlToReactParser = new Parser();
+const { tldrLists, combinedSummaryTag } = getMapping()
 
 const Result = ({
   result,
@@ -15,9 +19,11 @@ const Result = ({
   trackClickThrough,
 }) => {
   let dateString = null;
-  const { url, title, body } = result;
-  
-  //PREV const createdDate = result.created_at?.raw || result.created_at?.snippet;
+  const { url, title, body, domain, id } = result;
+
+  const isTldrCombinedSummary = tldrLists.includes(domain) && title.includes(combinedSummaryTag)
+  const mappedUrl = isTldrCombinedSummary ? getUrlForCombinedSummary(url, id) : url
+
   const createdDate = result.created_at;
   if (createdDate) {
     try {
@@ -38,7 +44,7 @@ const Result = ({
       case "mardown":
         return body
       case "raw":
-        return body
+        return result?.summary ?? body
       case "html":
         return body
       case "combined_summary":
@@ -55,6 +61,13 @@ const Result = ({
     }
   }
 
+  const sanitizedBody = sanitizeHtml(
+    getBodyData(result).replaceAll("\n", "")
+  ).trim()
+
+  const truncatedBody = sanitizedBody.length > TruncateLengthInChar ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..." : sanitizedBody
+  const parsedBody = htmlToReactParser.parse(truncatedBody)
+
   // removed onClickLink
   const onClickLink = () => {
     if (shouldTrackClickThrough) {
@@ -66,26 +79,20 @@ const Result = ({
     <div className="searchresult">
       <h2 className="search-result-link">
         {/* <a onClick={onClickLink} href={result.url.raw}> */}
-        <a href={url}>
+        <a href={mappedUrl}>
           {htmlToReactParser.parse(sanitizeHtml(title))}
         </a>
       </h2>
       {/* <a onClick={onClickLink} href={result.url.raw} className="url-display"> */}
-      <a href={url} className="url-display">
-        {url}
+      <a href={mappedUrl} className="url-display">
+        {mappedUrl}
       </a>
       <div className="search-result-body">
         {mapping.media.includes(result?.domain) && (
           <Thumbnail url={result?.media} />
         )}
         <p>
-          {htmlToReactParser.parse(
-            sanitizeHtml(
-              getBodyData(result).replaceAll("\n", "")
-            )
-              .substring(0, 300)
-              .trim()
-          )}
+          {parsedBody}
         </p>
       </div>
 

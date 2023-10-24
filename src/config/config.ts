@@ -12,3 +12,5 @@ export const urlParamsPrefix = {
   FILTER: "filter",
   SORT: "sort"
 }
+
+export const TruncateLengthInChar = 300
