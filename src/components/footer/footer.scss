@@ -1,34 +1,27 @@
-.home-footer {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-}
-
 .footer-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
+  align-items: center; // Center items horizontally
 
-.chaincode-link {
-  letter-spacing: 2px;
-  font-weight: 500;
-  margin-top: 10px;
-  font-size: 14px;
-  transition: color ease-in 0.2s;
-  &:hover {
-    color: #ff9900;
-  }
-}
-
-@media screen and (min-width: 640px) {
-  .footer-container {
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
+  .pagination-wrapper { // If you have this wrapper from the previous instruction
+    margin-bottom: 3rem; // Adjust this to create the desired spacing
   }
 
   .chaincode-link {
-    margin-top: 0;
+    margin-top: 2rem; // Space between the pagination and the Bitcoin Dev link
+    text-align: center; // Center the text within the link
+  }
+
+  .umami {
+    margin-top: 1rem; // Space between the Bitcoin Dev link and the umami info
+    text-align: center; // Center the text within the div
+  }
+}
+
+.chaincode-link {
+  font-weight: 500;
+  transition: color ease-in 0.2s;
+  &:hover {
+    color: #ff9900;
   }
 }
