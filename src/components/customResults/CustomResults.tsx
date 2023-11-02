@@ -1,7 +1,6 @@
 import React from "react";
 import ResultCollection from "./ResultCollection";
 import useSearchQuery from "@/hooks/useSearchQuery";
-import Result from "./Result";
 import { getDomainGrouping } from "@/config/mapping-helper";
 import { EsSearchResult } from "@/types";
 import {
@@ -22,12 +21,7 @@ const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
   const groupedDomains = getDomainGrouping();
 
   const results = queryResult.data?.hits?.hits ?? []
-  // Using newAPI restrucure data and make it one array deep
-  // if (queryResult.data?.hits.hits.length) {
-  //   queryResult.data.hits?.hits?.forEach((result) => {
-  //     formattedResults.push({...result["_source"]})
-  //   })
-  // }
+
   results.forEach((item) => {
     const result = item._source as EsSearchResult["_source"]
     const raw_domain = result.domain;
