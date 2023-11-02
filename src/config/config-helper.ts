@@ -41,7 +41,7 @@ export function getFacetWithSearch() {
   return getConfig().facetSearch || [];
 }
 export function getResultTags() {
-  return getConfig().resultTags || [];
+  return (getConfig().resultTags || []) as FacetKeys[];
 }
 
 export function getTitleField() {

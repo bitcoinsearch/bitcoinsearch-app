@@ -8,16 +8,24 @@ import mapping from "@/config/mapping.json";
 import { getMapping } from "@/config/mapping-helper";
 import { getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar } from "@/config/config";
+import { EsSearchResult } from "@/types";
 
-const htmlToReactParser = new Parser();
+const htmlToReactParser = new (Parser as any)();
 const { tldrLists, combinedSummaryTag } = getMapping()
+
+type ResultProps = {
+  result: EsSearchResult["_source"];
+  clickThroughTags: any;
+  shouldTrackClickThrough: boolean;
+  trackClickThrough: () => void;
+};
 
 const Result = ({
   result,
   clickThroughTags,
   shouldTrackClickThrough,
   trackClickThrough,
-}) => {
+}: ResultProps) => {
   let dateString = null;
   const { url, title, body, domain, id } = result;
 
@@ -69,11 +77,11 @@ const Result = ({
   const parsedBody = htmlToReactParser.parse(truncatedBody)
 
   // removed onClickLink
-  const onClickLink = () => {
-    if (shouldTrackClickThrough) {
-      result?.id?.raw && trackClickThrough(result.id.raw, clickThroughTags);
-    }
-  };
+  // const onClickLink = () => {
+  //   if (shouldTrackClickThrough) {
+  //     result?.id && trackClickThrough(result.id, clickThroughTags);
+  //   }
+  // };
 
   return (
     <div className="searchresult">

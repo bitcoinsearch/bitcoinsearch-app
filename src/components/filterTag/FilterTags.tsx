@@ -5,18 +5,21 @@ import React from "react";
 
 type FilterTagProps = {
   field: FacetKeys;
-  options: string[];
+  options: string[] | string;
 }
 
 const FilterTags = ({ field, options }: FilterTagProps) => {
   const { getFilter, addFilter, removeFilter } = useURLManager()
+
+  if (!Array.isArray(options)) return null;
+
   const onRemove = (value: string) => {
     removeFilter({filterType: field, filterValue: value});
   };
   const onAdd = (value: string) => {
     addFilter({filterType: field, filterValue: value});
   };
-
+  
   const handleToggleFilter = (filter: typeof formattedOptions[number]) => {
     if (filter.selected) {
       onRemove(filter.value);
@@ -24,7 +27,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       onAdd(filter.value);
     }
   };
-
+  
   const filterForField = getFilter(field)
   const formattedOptions = options.map((option) => {
     return {
