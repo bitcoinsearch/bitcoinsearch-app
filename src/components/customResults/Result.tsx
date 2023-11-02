@@ -47,15 +47,15 @@ const Result = ({
     }
   }
 
-  const getBodyData = (result) => {
+  const getBodyData = (result: ResultProps["result"]) => {
     switch (result.body_type) {
-      case "mardown":
+      case "markdown":
         return body
       case "raw":
         return result?.summary ?? body
       case "html":
         return body
-      case "combined_summary":
+      case "combined-summary":
         return body
       default: {
         try {
