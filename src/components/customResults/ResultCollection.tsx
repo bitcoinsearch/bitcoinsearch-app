@@ -17,18 +17,8 @@ const ResultCollection = ({
   ...resultProps
 }: ResultCollectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [sortedResult, setSortedResult] = useState<ResultCollectionProps["result"]>([]);
 
-  useEffect(() => {
-    // reverse array to get the oldest post "souce" in the filtered collection
-    let newResult = [...result];
-    if (newResult.length > 1) {
-      newResult.reverse();
-    }
-    setSortedResult(newResult);
-  }, [result]);
-
-  const [initialResult, ...otherResults] = sortedResult;
+  const [initialResult, ...otherResults] = result;
 
   return (
     <div className="results-collection">

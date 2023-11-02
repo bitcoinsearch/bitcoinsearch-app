@@ -6,7 +6,7 @@ import { EsSearchResult } from "@/types";
 import {
   generateLocator,
   sortGroupedResults,
-} from "../../config/results-helper.js";
+} from "../../config/results-helper";
 
 const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
 
@@ -17,7 +17,7 @@ const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
 
   const formattedResults = [] as Array<EsSearchResult["_source"]>[];
   const similarity = {};
-  const groupedIndices = new Set();
+  const groupedIndices: Set<number> = new Set();
   const groupedDomains = getDomainGrouping();
 
   const results = queryResult.data?.hits?.hits ?? []
