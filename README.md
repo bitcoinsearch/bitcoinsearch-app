@@ -9,50 +9,31 @@ It will classify materials according to:
 - Tags
 - Authors
 
-
 ---
 
 ## Getting started 
-The search engine is built using NextJS and Python. Dependencies include `Node v16.13.0`.
 
+The search engine is built using NextJS and connects to elasticsearch
+
+The `.env` looks like:
+
+```bash
+API_KEY="0000000000000000000164dbb81fbea0a98f09eae1ff2a51493cb3a633523891=="
+CLOUD_ID="Deployment_name:0000000000000000000365ff7535528e43b5c6793e840c2b2a0a38e1648c930f"
+INDEX="index-name"
+```
 
 ## Installation
 
-One can leverage [NVM](https://github.com/nvm-sh/nvm) to install Node before proceeding to start the application by running the following commands:
-
 ```bash
-# Run this to install Node 16.13.0
-nvm install 16.13.0
-
-# Run this to use the installed Node version 
-nvm use 16.13.0
-```
-
-The README assumes that you have generated this code from within the App Search dashboard.
-
-Run the following commands to start this application:
-
-```bash
-git clone git@github.com:adamjonas/btc-engine-1-react-demo-ui.git
-# Run the `cd` command to change the current directory to the
-# location of your downloaded project directory. Replace the path
-# below with the actual path of your project.
-cd ~/Projects/btc-engine-1-react-demo-ui.git
-
-# Run this to set everything up
 npm install
-
-# Run this to start your application and open it up in a new browser window
-npm start
+npm run dev
 ```
 
 ## Contribute 🚀
 
-We welcome contributors to the project. Before you begin, a couple notes...
-
-- Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/adamjonas/btc-engine-1-react-demo-ui/issues).
-- Please write simple code and concise documentation, when appropriate.
+We welcome contributors to the project. Open an issue or PR to help us out.
 
 ## License 📗
 
-[Apache-2.0](https://github.com/adamjonas/btc-engine-1-react-demo-ui/blob/main/LICENSE.txt) 
+This is MIT licensed.

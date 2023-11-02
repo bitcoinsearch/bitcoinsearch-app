@@ -19,6 +19,7 @@ import { SearchProvider } from "@elastic/react-search-ui";
 import theme from "@/chakra/chakra-theme";
 import { SearchDriverOptions } from "@elastic/search-ui";
 import Head from "next/head";
+import Script from 'next/script';
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ export default function App({ Component, pageProps }) {
               <meta name="twitter:title" content="Technical ₿itcoin Search"/>
               <meta name="twitter:description" content="The bitcoin technical search we deserve"/>
             </Head>
+            <Script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53" />
             <Component {...pageProps} />
           </SearchProvider>
         </SearchQueryProvider>
