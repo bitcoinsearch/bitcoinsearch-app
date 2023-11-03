@@ -1,13 +1,20 @@
-const AUTHOR = "authors" as const
-const DOMAIN = "domain" as const
-const TAGS = "tags" as const
+const AUTHOR = "authors" as const;
+const DOMAIN = "domain" as const;
+const TAGS = "tags" as const;
 
-export type FacetKeys = typeof AUTHOR | typeof DOMAIN | typeof TAGS
+export type FacetKeys = typeof AUTHOR | typeof DOMAIN | typeof TAGS;
 
 export type Facet = {
   field: FacetKeys;
-  value: string
-}
+  value: string;
+};
+
+const bodyType = {
+  "markdown": "markdown",
+  "raw": "raw",
+  "html": "html",
+  "combined-summary": "combined-summary",
+} as const
 
 export type SortOption = "asc" | "desc";
 
@@ -17,4 +24,29 @@ export type SearchQuery = {
   page: number;
   filterFields: Facet[];
   sortFields: any[];
-}
+};
+
+export type EsSearchResult = {
+  _id: string;
+  _index: string;
+  _source: {
+    authors: string[];
+    body: string;
+    body_type: BodyType;
+    created_at: Date;
+    domain: string;
+    id: string;
+    indexed_at: Date;
+    title: string;
+    url: string;
+    body_formatted?: string;
+    categories?: string[];
+    media?: string;
+    tags?: string[];
+    transcript_by?: string;
+    summary?: string;
+    type?: "question" | "reply" | "original_post" | "newsletter";
+  };
+};
+
+export type BodyType = (typeof bodyType)[keyof typeof bodyType];

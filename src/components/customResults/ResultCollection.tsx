@@ -3,21 +3,22 @@ import { useState } from "react";
 import Result from "./Result";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { HiOutlineRectangleStack } from "react-icons/hi2";
+import { EsSearchResult } from "@/types";
 
-const ResultCollection = ({ result, ...resultProps }) => {
+type ResultCollectionProps = {
+  result: Array<EsSearchResult["_source"]>;
+  clickThroughTags: any;
+  shouldTrackClickThrough: boolean;
+  trackClickThrough: () => void;
+};
+
+const ResultCollection = ({
+  result,
+  ...resultProps
+}: ResultCollectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [sortedResult, setSortedResult] = useState([]);
 
-  useEffect(() => {
-    // reverse array to get the oldest post "souce" in the filtered collection
-    let newResult = [...result];
-    if (newResult.length > 1) {
-      newResult.reverse();
-    }
-    setSortedResult(newResult);
-  }, [result]);
-
-  const [initialResult, ...otherResults] = sortedResult;
+  const [initialResult, ...otherResults] = result;
 
   return (
     <div className="results-collection">
@@ -45,7 +46,7 @@ const ResultCollection = ({ result, ...resultProps }) => {
           </div>
           <div className={`other-results ${isExpanded ? "expanded" : ""}`}>
             {otherResults.map((result) => (
-              <Result key={result.id.raw} result={result} {...resultProps} />
+              <Result key={result.id} result={result} {...resultProps} />
             ))}
           </div>
         </>

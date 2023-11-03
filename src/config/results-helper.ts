@@ -1,6 +1,7 @@
+import { EsSearchResult } from "@/types";
 import { getDomainLabel } from "./mapping-helper";
 
-export const generateLocator = (raw_domain, url, title) => {
+export const generateLocator = (raw_domain: string, url: string, title: string) => {
   const label = getDomainLabel(raw_domain, true);
   switch (raw_domain) {
     case "https://bitcointalk.org": {
@@ -16,7 +17,7 @@ export const generateLocator = (raw_domain, url, title) => {
   }
 };
 
-export const locatorForBitcoinTalk = (url) => {
+export const locatorForBitcoinTalk = (url: string) => {
   const topicParams = new URL(url)?.searchParams.get("topic");
   const topicId = topicParams?.length && topicParams?.split(".")[0];
   return topicId || null;
@@ -29,28 +30,27 @@ export const locatorForBitcoinStackExchange = (url) => {
   return id;
 };
 
-export const locatorForMailingList = (url) => {
+export const locatorForMailingList = (url: string) => {
   // TODO: write a more robust regex pattern matching for id
   const id = url.match(/([0-9]){4,}\w+/)[0];
-  if (!id) return null;
-  return id;
+  if (!id) return 0;
+  return parseInt(id) ?? 0;
 };
 
 const appendIdWithDomain = (id, label) => {
   return `${id}_${label}`;
 };
 
-export const sortGroupedResults = (groupedIndices, results) => {
+export const sortGroupedResults = (groupedIndices: Set<number>, results: Array<Array<EsSearchResult["_source"]>>) => {
   if (groupedIndices.size) {
     groupedIndices.forEach((idx) => {
-      const domain = results[idx][0]?.domain?.raw;
-
+      const domain = results[idx][0]?.domain;
       results[idx].sort((prevResult, nextResult) => {
         // sort with date by default when applicable
-        if (prevResult?.created_at.raw && nextResult?.created_at.raw) {
+        if (prevResult?.created_at && nextResult?.created_at) {
           return (
-            new Date(nextResult?.created_at.raw) -
-            new Date(prevResult?.created_at.raw)
+            new Date(prevResult.created_at).getTime() -
+            new Date(nextResult.created_at).getTime()
           );
         } else if (domain) {
           return domainSorting(domain, prevResult, nextResult);
@@ -62,18 +62,18 @@ export const sortGroupedResults = (groupedIndices, results) => {
   }
 };
 
-const domainSorting = (domain, prev, next) => {
-  if (!prev?.url?.raw || !next?.url?.raw) return 0;
+const domainSorting = (domain: EsSearchResult["_source"]["domain"], prev: EsSearchResult["_source"], next: EsSearchResult["_source"]) => {
+  if (!prev?.url || !next?.url) return 0;
   switch (domain) {
     case "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/":
       return (
-        locatorForMailingList(next.url.raw) -
-        locatorForMailingList(prev.url.raw)
+        locatorForMailingList(next.url) -
+        locatorForMailingList(prev.url)
       );
     case "https://lists.linuxfoundation.org/pipermail/lightning-dev/":
       return (
-        locatorForMailingList(next.url.raw) -
-        locatorForMailingList(prev.url.raw)
+        locatorForMailingList(next.url) -
+        locatorForMailingList(prev.url)
       );
     default:
       return 0;
