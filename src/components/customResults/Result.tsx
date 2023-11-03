@@ -86,17 +86,13 @@ const Result = ({
   return (
     <div className="searchresult">
       <h2 className="search-result-link">
-        {/* <a onClick={onClickLink} href={result.url.raw}> */}
         <a href={mappedUrl}
-          onClick={onClickLink}
           data-umami-event="URL Clicked"
           data-umami-event-src={mappedUrl}>
           {htmlToReactParser.parse(sanitizeHtml(title))}
         </a>
       </h2>
-      {/* <a onClick={onClickLink} href={result.url.raw} className="url-display"> */}
       <a href={mappedUrl} 
-        onClick={onClickLink}
         className="url-display"
         data-umami-event="URL Clicked"
         data-umami-event-src={mappedUrl}>
