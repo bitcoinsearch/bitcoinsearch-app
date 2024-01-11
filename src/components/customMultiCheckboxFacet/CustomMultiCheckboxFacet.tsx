@@ -3,6 +3,7 @@ import mapping from "../../config/mapping.json";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
 import appendClassName from "../../utils/elastic-search-ui-functions"
+import { deriveNameFromUrl } from "@/config/mapping-helper";
 
 function CustomMultiCheckboxFacet({
   className,
@@ -16,16 +17,22 @@ function CustomMultiCheckboxFacet({
   onSearch,
   searchPlaceholder,
 }) {
+  console.log({label})
   // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
   function getFilterValueDisplay(filterValue) {
+    console.log(filterValue)
     if (filterValue === undefined || filterValue === null) {
       return "";
     }
     if (Object.prototype.hasOwnProperty.call(filterValue, "name")) {
       return filterValue.name;
     }
-    if (mapping?.labels[filterValue]) {
-      return mapping?.labels[filterValue];
+    if (label === "domain") {
+      if (mapping?.labels[filterValue]) {
+        return mapping?.labels[filterValue];
+      } else {
+        return deriveNameFromUrl(filterValue)
+      }
     }
     return String(filterValue);
   }
