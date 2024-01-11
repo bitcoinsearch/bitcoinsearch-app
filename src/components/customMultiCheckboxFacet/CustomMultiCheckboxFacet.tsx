@@ -17,10 +17,8 @@ function CustomMultiCheckboxFacet({
   onSearch,
   searchPlaceholder,
 }) {
-  console.log({label})
   // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
   function getFilterValueDisplay(filterValue) {
-    console.log(filterValue)
     if (filterValue === undefined || filterValue === null) {
       return "";
     }
