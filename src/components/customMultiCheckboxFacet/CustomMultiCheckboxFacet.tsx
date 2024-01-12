@@ -3,6 +3,7 @@ import mapping from "../../config/mapping.json";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
 import appendClassName from "../../utils/elastic-search-ui-functions"
+import { deriveNameFromUrl } from "@/config/mapping-helper";
 
 function CustomMultiCheckboxFacet({
   className,
@@ -24,8 +25,12 @@ function CustomMultiCheckboxFacet({
     if (Object.prototype.hasOwnProperty.call(filterValue, "name")) {
       return filterValue.name;
     }
-    if (mapping?.labels[filterValue]) {
-      return mapping?.labels[filterValue];
+    if (label === "domain") {
+      if (mapping?.labels[filterValue]) {
+        return mapping?.labels[filterValue];
+      } else {
+        return deriveNameFromUrl(filterValue)
+      }
     }
     return String(filterValue);
   }
