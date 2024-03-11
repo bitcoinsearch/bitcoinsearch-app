@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import SearchIcon from "../svgs/SearchIcon";
+import { defaultSearchTags } from "@/utils/dummy";
+import CloseIconOutlined from "../svgs/CloseIconOutlined";
 
 const SearchBoxNew = () => {
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement | null>();
+  const [typed, setTyped] = useState(false)
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
@@ -29,10 +32,10 @@ const SearchBoxNew = () => {
       document.removeEventListener("click", handleDocumentClick);
     };
   }, []);
+
   const onTabClick = (value: string) => {
-    console.log(inputRef.current);
-    console.log(value);
-    setFocus(false);
+    inputRef.current.value = value;
+    setTyped(false)
   };
   return (
     <>
@@ -51,32 +54,48 @@ const SearchBoxNew = () => {
           >
             <input
               ref={inputRef}
+              onKeyUp={(e)=>setTyped(true)}
               onFocus={() => {
                 setFocus(true);
               }}
               placeholder="Search for topics, authors or resources..."
               className="h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent py-3"
             />
-            <p className="whitespace-nowrap text-sm text-light_gray">
-              {" "}
-              Ctrl + K
-            </p>
+            {!(onFocus && !isOutsideClick && typed) && (
+              <p className="whitespace-nowrap text-sm text-light_gray">
+                {" "}
+                Ctrl + K
+              </p>
+            )}
+            {
+             typed && <CloseIconOutlined />
+            }
           </div>
-
+{/* dropdown showing tags onl */}
           {onFocus && !isOutsideClick && (
             <div
-              className={`border border-t-0 border-light_gray z-10 px-6 py-7 w-full max-w-3xl max- min-h-[367px] top-0 bg-white rounded-b-2xl  `}
+              className={`border border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
             >
               {/* Each search */}
-              <div className="flex text-dark flex-col gap-2">
-                <p className=" font-semibold"> Search by Authors</p>
-                <div className="flex flex-wrap gap-2">
-                  {/* Tab */}
-                  <div className="py-2 hover:bg-[#FFF0E0] cursor-pointer text-xs rounded-lg border border-light_gray  px-4 max-w-[max-content]">
-                    <p>Adaptor signature</p>
+              {defaultSearchTags.map((tagType) => (
+                <div
+                  key={tagType.headline}
+                  className="flex text-dark flex-col gap-2"
+                >
+                  <p className=" font-semibold">{tagType.headline}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {tagType.tags.map((tag) => (
+                      <div
+                        key={tag}
+                        onClick={() => onTabClick(tag)}
+                        className="py-2 hover:bg-[#FFF0E0] cursor-pointer text-xs rounded-lg border border-light_gray  px-4 max-w-[max-content]"
+                      >
+                        <p>{tag}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           )}
         </div>
