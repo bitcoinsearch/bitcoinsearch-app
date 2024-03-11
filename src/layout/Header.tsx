@@ -6,6 +6,7 @@ import KeywordsSelection from "../components/homeFacetSelection/KeywordsSelectio
 import useSearchQuery from "../hooks/useSearchQuery";
 import SearchBoxView from "../components/customSearchboxView/SearchBoxView"
 import { InputViewProps } from "@elastic/react-search-ui-views";
+import SearchBoxNew from "@/components/customSearchboxView/SearchBoxNew";
 
 const Header = ({openForm}) => {
   useEffect(() => {
@@ -43,6 +44,7 @@ const Header = ({openForm}) => {
         onSubmit={handleSubmit}
         onSelectAutocomplete={handleAutoCompleteSelect}
       />
+      {/* <SearchBoxNew /> */}
       <HomeFacetSelection />
       <KeywordsSelection />
     </>
