@@ -43,6 +43,15 @@ const Button = {
         bgColor: "orange.275",
       },
     }),
+    secondary: {
+      fontSize: "16px",
+      fontWeight: "400",
+      borderRadius: "10px",
+      backgroundColor: "#292929",
+      color: "#FFFFFF",
+      padding: "6px 24px",
+      transition: "all 200ms ease",
+    },
     "facet-pill": {
       fontSize: "11px",
       fontWeight: "400",
