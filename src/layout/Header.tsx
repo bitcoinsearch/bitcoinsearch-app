@@ -27,7 +27,7 @@ const Header = ({openForm}) => {
 
   return (
     <>
-      {/* <SearchBox
+      <SearchBox
         autocompleteMinimumCharacters={3}
         // autocompleteResults={{
         //   linkTarget: "_blank",
@@ -43,8 +43,8 @@ const Header = ({openForm}) => {
         inputView={SearchInputWrapper}
         onSubmit={handleSubmit}
         onSelectAutocomplete={handleAutoCompleteSelect}
-      /> */}
-      <SearchBoxNew />
+      />
+      {/* <SearchBoxNew /> */}
       <HomeFacetSelection />
       <KeywordsSelection />
     </>

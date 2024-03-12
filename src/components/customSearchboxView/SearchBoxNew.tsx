@@ -5,7 +5,8 @@ import CloseIconOutlined from "../svgs/CloseIconOutlined";
 
 const SearchBoxNew = () => {
   const inputRef = useRef<HTMLInputElement | null>();
-  const [typed, setTyped] = useState(false)
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [typed, setTyped] = useState(false);
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
@@ -35,7 +36,18 @@ const SearchBoxNew = () => {
 
   const onTabClick = (value: string) => {
     inputRef.current.value = value;
-    setTyped(false)
+    setTyped(false);
+  };
+
+  const onClearInput = () => {
+    inputRef.current.value = "";
+    setTyped(false);
+    setSearchInput("");
+  };
+
+  const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchInput(value);
   };
   return (
     <>
@@ -54,25 +66,29 @@ const SearchBoxNew = () => {
           >
             <input
               ref={inputRef}
-              onKeyUp={(e)=>setTyped(true)}
+              onChange={onSearchInputChange}
+              onKeyUp={(e) => setTyped(true)}
               onFocus={() => {
                 setFocus(true);
               }}
               placeholder="Search for topics, authors or resources..."
               className="h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent py-3"
             />
-            {!(onFocus && !isOutsideClick && typed) && (
+            {!(onFocus && !isOutsideClick) && (
               <p className="whitespace-nowrap text-sm text-light_gray">
                 {" "}
                 Ctrl + K
               </p>
             )}
-            {
-             typed && <CloseIconOutlined />
-            }
+            {searchInput && typed && (
+              <CloseIconOutlined
+                className="cursor-pointer"
+                onClick={onClearInput}
+              />
+            )}
           </div>
-{/* dropdown showing tags onl */}
-          {onFocus && !isOutsideClick && (
+          {/* dropdown showing tags only */}
+          {(onFocus && !isOutsideClick && !searchInput) && (
             <div
               className={`border border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
             >
@@ -98,6 +114,18 @@ const SearchBoxNew = () => {
               ))}
             </div>
           )}
+
+          {/* For auto complete */}
+          {searchInput && typed &&
+          <div
+              className={`border border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-2xl  flex flex-col  `}
+            >
+            <p className="cursor-pointer px-6 py-4 hover:bg-[#FFF0E0]">What are eclipse attacks <strong>used for</strong></p>
+            <p className="cursor-pointer px-6 py-4 hover:bg-[#FFF0E0]">What are eclipse attacks <strong>used for</strong></p>
+            <p className="cursor-pointer px-6 py-4 hover:bg-[#FFF0E0]">What are eclipse attacks <strong>used for</strong></p>
+            <p className="cursor-pointer px-6 py-4 hover:bg-[#FFF0E0]">What are eclipse attacks <strong>used for</strong></p>
+            </div>
+}
         </div>
         <div className="flex items-center bg-gradient-search h-[45px] px-4 min-h-full rounded-r-2xl">
           <SearchIcon />
