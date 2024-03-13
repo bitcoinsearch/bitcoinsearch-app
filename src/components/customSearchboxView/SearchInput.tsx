@@ -12,8 +12,8 @@ function SearchInput({
   return (
     <div className="search-box-with-contribute">
       <div className="sui-search-box__wrapper">
-        <input {...getInputProps()} />
-        {getAutocomplete()}
+        {/* <input {...getInputProps()} />
+        {getAutocomplete()} */}
       </div>
       <input {...getButtonProps()} />
 

@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import Downshift from "downshift";
 
 import { Autocomplete } from "@elastic/react-search-ui-views";
@@ -6,15 +6,18 @@ import { Autocomplete } from "@elastic/react-search-ui-views";
 import type {
   AutocompleteResult,
   AutocompleteSuggestion,
-  SearchContextState
+  SearchContextState,
 } from "@elastic/search-ui";
 import {
   BaseContainerProps,
   SearchBoxAutocompleteViewProps,
-  InputViewProps
+  InputViewProps,
 } from "@elastic/react-search-ui-views";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import appendClassName from "@/utils/elastic-search-ui-functions";
+import SearchIcon from "../svgs/SearchIcon";
+import CloseIconOutlined from "../svgs/CloseIconOutlined";
+import { defaultSearchTags } from "@/utils/dummy";
 
 export type SearchBoxContainerContext = Pick<
   SearchContextState,
@@ -81,45 +84,87 @@ function SearchBoxView(props: SearchBoxViewProps) {
     value,
     // NOTE: These are explicitly de-structured but not used so that they are
     // not passed through to the input with the 'rest' parameter
-    
+
     autocompletedResults,
-    
+
     autocompletedSuggestions,
-    
+
     autocompletedSuggestionsCount,
-    
+
     completeSuggestion,
-    
+
     notifyAutocompleteSelected,
     ...rest
   } = props;
-  const { searchQuery, makeQuery } = useSearchQuery();
-  const focusedClass = isFocused ? "focus" : "";
-  const AutocompleteView = Autocomplete;
-  const InputView = inputView;
+  const inputRef = useRef<HTMLInputElement | null>();
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [typed, setTyped] = useState(false);
+  const [onFocus, setFocus] = useState(false);
+  const searchBoxRef = useRef<HTMLDivElement | null>(null);
+  const [isOutsideClick, setIsOutsideClick] = useState(false);
 
-  const [searchTerm, setSearchTerm] = useState(searchQuery)
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      searchBoxRef.current &&
+      !searchBoxRef.current.contains(event.target as Node)
+    ) {
+      setIsOutsideClick(true);
+    } else {
+      setIsOutsideClick(false);
+    }
+  };
 
-  // sync autocomplete
   useEffect(() => {
-    if (!searchQuery) return
-    setSearchTerm(searchQuery)
-  }, [searchQuery])
+    const handleDocumentClick = (event: MouseEvent) => {
+      handleClickOutside(event);
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
 
   const handleChange = (value: string) => {
-    onChange(value)
-    setSearchTerm(value)
-  }
+    onChange(value);
+    setSearchTerm(value);
+  };
+  const onTabClick = (value: string) => {
+    inputRef.current.value = value;
+    handleChange(value);
+    setIsOutsideClick(true);
+  };
+  const onClearInput = () => {
+    inputRef.current.value = "";
+    handleChange("");
+    setTyped(false);
+    setSearchInput("");
+  };
 
+  const onSearchInputChange = (value: string) => {
+    setSearchInput(value);
+  };
+  const {searchQuery} = useSearchQuery();
+  const [searchTerm, setSearchTerm] = useState(searchQuery);
+  // sync autocomplete
+  useEffect(() => {
+    if (!searchQuery) return;
+    setSearchTerm(searchQuery);
+  }, [searchQuery]);
+
+  const suggestions = autocompletedSuggestions?.documents || [];
+  const onSelectSuggestion = (value) => {
+    onSelectAutocomplete(value);
+    setTyped(false);
+  };
   return (
     <Downshift
       inputValue={searchTerm}
       onChange={onSelectAutocomplete}
       onInputValueChange={(newValue) => {
-        // To avoid over dispatching
-        // if (value === newValue) return;
-        // onChange(newValue);
         handleChange(newValue);
+        onSearchInputChange(newValue);
       }}
       // Because when a selection is made, we don't really want to change
       // the inputValue. This is supposed to be a "controlled" value, and when
@@ -130,6 +175,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
       {(downshiftProps) => {
         const { closeMenu, getInputProps, isOpen } = downshiftProps;
         const autocompleteClass = isOpen === true ? " autocomplete" : "";
+        console.log(downshiftProps)
         return (
           <form
             onSubmit={(e) => {
@@ -138,51 +184,89 @@ function SearchBoxView(props: SearchBoxViewProps) {
             }}
           >
             <div
-              className={
-                appendClassName("sui-search-box", className) + autocompleteClass
-              }
+              ref={searchBoxRef}
+              tabIndex={0}
+              className="flex  items-start w-full mx-auto max-w-3xl"
             >
-              <InputView
-                {...downshiftProps}
-                getInputProps={(additionalProps) => {
-                  const { className, ...rest } = additionalProps || {};
-                  return getInputProps({
-                    "data-transaction-name": "search input",
-                    placeholder: "Search",
-                    ...inputProps,
-                    className: appendClassName("sui-search-box__text-input", [
-                      inputProps.className,
-                      className,
-                      focusedClass
-                    ]),
-                    ...rest
-                  });
-                }}
-                getButtonProps={(additionalProps) => {
-                  const { className, ...rest } = additionalProps || {};
-                  return {
-                    "data-transaction-name": "search submit",
-                    type: "submit",
-                    value: "Search",
-                    className: appendClassName(
-                      "button sui-search-box__submit",
-                      className
-                    ),
-                    ...rest
-                  };
-                }}
-                getAutocomplete={() => {
-                  if (
-                    useAutocomplete &&
-                    isOpen &&
-                    allAutocompletedItemsCount > 0
-                  ) {
-                    return <AutocompleteView {...props} {...downshiftProps} />;
-                  } else {
-                    return null;
-                  }
-                }}
-              />
+              <div className="flex-col w-full">
+                <div
+                  className={`${
+                    onFocus && !isOutsideClick
+                      ? "rounded-b-none rounded-tl-2xl"
+                      : "rounded-l-2xl"
+                  } border-r-0  h-full  w-full px-6 items-center border border-light_gray flex`}
+                >
+                  <input
+                    ref={inputRef}
+                    {...getInputProps()}
+                    onKeyUp={(e) => setTyped(true)}
+                    onFocus={() => {
+                      setFocus(true);
+                    }}
+                    placeholder="Search for topics, authors or resources..."
+                    className="search-box h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent py-3"
+                  />
+                  {!(onFocus && !isOutsideClick) && (
+                    <p className="whitespace-nowrap text-sm text-light_gray">
+                      {" "}
+                      Ctrl + K
+                    </p>
+                  )}
+                  {searchInput && typed && (
+                    <CloseIconOutlined
+                      className="cursor-pointer"
+                      onClick={onClearInput}
+                    />
+                  )}
+                </div>
+                {/* dropdown showing tags only */}
+                {onFocus && !isOutsideClick && !searchInput && (
+                  <div
+                    className={`border border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
+                  >
+                    {/* Each search */}
+                    {defaultSearchTags.map((tagType) => (
+                      <div
+                        key={tagType.headline}
+                        className="flex text-dark flex-col gap-2"
+                      >
+                        <p className=" font-semibold">{tagType.headline}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {tagType.tags.map((tag) => (
+                            <div
+                              key={tag}
+                              onClick={() => onTabClick(tag)}
+                              className="py-2 hover:bg-[#FFF0E0] cursor-pointer text-xs rounded-lg border border-light_gray  px-4 max-w-[max-content]"
+                            >
+                              <p>{tag}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* For auto complete */}
+                {searchInput && typed && useAutocomplete && (
+                  <div
+                    className={`border border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-2xl  flex flex-col  `}
+                  >
+                    {suggestions.map((sug) => (
+                      <p
+                        key={sug.suggestion}
+                        onClick={() => onSelectSuggestion(sug)}
+                        className="cursor-pointer px-6 py-4 hover:bg-[#FFF0E0]"
+                      >
+                        {sug.suggestion}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <button className="flex items-center bg-gradient-search h-[45px] px-4 min-h-full rounded-r-2xl">
+                <SearchIcon />
+              </button>
             </div>
           </form>
         );

@@ -45,8 +45,9 @@ const Header = ({openForm}) => {
         onSelectAutocomplete={handleAutoCompleteSelect}
       />
       {/* <SearchBoxNew /> */}
-      <HomeFacetSelection />
-      <KeywordsSelection />
+      {/* Delete below */}
+      {/* <HomeFacetSelection />
+      <KeywordsSelection /> */}
     </>
   );
 };
