@@ -1,50 +1,31 @@
 import GithubIcon from "../svgs/GithubIcon";
 
 const Separator = ({ className }: { className?: string }) => (
-  <div className={`h-6 border-2 border-[#BFBFBF] ${className}`}></div>
+  <div
+    className={`hidden xl:block h-6 border-2 border-[#BFBFBF] ${className}`}
+  />
 );
 
 const HomeFooter = () => {
   return (
-    <footer className="bg-white lg:text-left fixed bottom-0 gap-7 text-center flex flex-col md:flex-row items-center justify-center p-11 text-black w-full border-t-[1px] border-[#BFBFBF]">
-      <div className="flex gap-7 items-center">
-        <button className="text-xs font-semibold text-white focus:outline-none py-4 px-6 bg-[#292929] rounded-xl">
-          Give feedback
-        </button>
-        <Separator />
-        <div className="flex-grow text-xs text-gray-700">
-          Built with <span className="text-red-500">🧡</span> by the{" "}
-          <a href="#" className="underline font-medium text-[#EC802F]">
-            Bitcoin Dev Project
-          </a>
-        </div>
-        <Separator />
-        <a className="text-xs text-gray-700 hover:underline focus:outline-none">
-          View our public visitor counts
+    <footer className="bg-white fixed bottom-0 text-left md:text-center flex flex-col md:flex-row gap-y-3 items-center justify-between p-5 md:p-7 2xl:p-10 w-full border-t border-[#BFBFBF] text-xs md:text-base 2xl:text-xl leading-normal">
+      <button className="focus:outline-none">
+        <GithubIcon className="w-8 h-8 2xl:w-14 2xl:h-14" />
+      </button>
+      <Separator />
+      <p>
+        Built with <span>🧡</span> by the{" "}
+        <a href="#" className="underline font-medium text-[#EC802F]">
+          Bitcoin Dev Project
         </a>
-      </div>
-      <Separator className="hidden md:block" />
-      <div className="flex gap-7 items-center">
-        <div className="flex-grow text-xs text-gray-700">
-          <p>Stay in touch with the Bitcoin Dev Project</p>
-          (Please consider using an email alias.{" "}
-          <a href="#" className="hover:underline">
-            Here&apos;s how.
-          </a>
-          )
-        </div>
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            placeholder="you@email.com"
-            className="text-xs text-gray-700 p-4 rounded-xl border border-gray-300 h-full focus:outline-none focus:border-gray-500"
-          />
-          <button className="text-xs font-semibold text-white focus:outline-none py-4 px-6 bg-[#292929] rounded-xl">
-            Keep me updated
-          </button>
-        </div>
-        <button className="focus:outline-none">
-          <GithubIcon />
+      </p>
+      <Separator />
+      <a className="underline">View our public visitor counts</a>
+      <Separator />
+      <div className="flex items-center justify-between gap-3 md:gap-8">
+        <p>We&apos;d love to hear your feedback on this project</p>
+        <button className="text-xs md:text-sm 2xl:text-lg leading-normal font-semibold text-white focus:outline-none px-2 py-3 md:py-4 md:px-6 bg-[#292929] rounded-xl">
+          Give feedback
         </button>
       </div>
     </footer>
