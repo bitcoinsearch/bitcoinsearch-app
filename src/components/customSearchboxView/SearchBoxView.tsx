@@ -217,7 +217,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   />
                   {isShortcutVisible && (
                     <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
-                      <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or{" "}
+                      <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or{" /"}
                     </p>
                   )}
                   {onFocus && searchInput && typed && (
