@@ -192,9 +192,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen
-                      ? "rounded-b-none rounded-tl-2xl"
-                      : "rounded-l-2xl"
-                  } border-r-0  h-full  w-full px-6 items-center border border-light_gray flex`}
+                      ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
+                      : "rounded-l-xl md:rounded-l-2xl"
+                  } border-r-0  h-full  w-full px-3 md:px-6 items-center border border-light_gray flex`}
                 >
                   <input
                     ref={inputRef}
@@ -204,7 +204,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       setFocus(true);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="search-box h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent py-3"
+                    className="search-box py-1.5 md:py-3 text-xs placeholder:text-[0.6rem] md:placeholder:text-base h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent "
                   />
                   {!(onFocus && !isOutsideClick) && (
                     <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
@@ -213,7 +213,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   )}
                   {searchInput && typed && (
                     <CloseIconOutlined
-                      className="cursor-pointer"
+                      className="cursor-pointer w-[10px] md:w-auto"
                       onClick={onClearInput}
                     />
                   )}
@@ -221,7 +221,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 {/* dropdown showing tags only */}
                 {onFocus && !isOutsideClick && !searchInput && (
                   <div
-                    className={`border absolute top-11.5 border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
+                    className={`border absolute top-11.5 border-t-0 border-light_gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-8 flex flex-col `}
                   >
                     {/* Each search */}
                     {defaultSearchTags.map((tagType) => (
@@ -229,13 +229,13 @@ function SearchBoxView(props: SearchBoxViewProps) {
                         key={tagType.headline}
                         className="flex text-dark flex-col gap-2"
                       >
-                        <p className=" font-semibold">{tagType.headline}</p>
+                        <p className="text-xs md:text-base font-semibold">{tagType.headline}</p>
                         <div className="flex flex-wrap gap-2">
                           {tagType.tags.map((tag) => (
                             <div
                               key={tag}
                               onClick={() => onTabClick(tag)}
-                              className="py-2 hover:bg-[#FFF0E0] cursor-pointer text-xs rounded-lg border border-light_gray  px-4 max-w-[max-content]"
+                              className="py-0.5 px-1 md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.4rem] md:text-xs rounded-md md:rounded-lg border  border-light_gray   max-w-[max-content]"
                             >
                               <p>{tag}</p>
                             </div>
@@ -249,13 +249,13 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 {/* For auto complete */}
                 {searchInput && typed && useAutocomplete && (
                   <div
-                    className={`border absolute top-11.5 border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5 border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
                     {suggestions.map((sug) => (
                       <p
                         key={sug.suggestion}
                         onClick={() => onSelectSuggestion(sug)}
-                        className="cursor-pointer px-6 py-4 hover:bg-[#FFF0E0]"
+                        className="cursor-pointer text-xs md:text-base py-2 px-3 md:px-6 md:py-4 hover:bg-[#FFF0E0]"
                       >
                         {sug.suggestion}
                       </p>
@@ -263,8 +263,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   </div>
                 )}
               </div>
-              <button className="flex items-center bg-gradient-search h-[45px] px-4 min-h-full rounded-r-2xl">
-                <SearchIcon />
+              <button className="flex items-center bg-gradient-search h-[28px] md:h-[45px] px-2 md:px-4 min-h-full rounded-r-xl md:rounded-r-2xl">
+                <SearchIcon className="w-[16px] md:w-auto" />
               </button>
             </div>
           </form>
