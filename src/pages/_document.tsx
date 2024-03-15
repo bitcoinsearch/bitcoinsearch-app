@@ -1,4 +1,3 @@
-import HomeFooter from "@/components/footer/HomeFooter";
 import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -8,7 +7,6 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <HomeFooter />
       </body>
     </Html>
   );

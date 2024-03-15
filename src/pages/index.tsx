@@ -1,23 +1,23 @@
-import { ErrorBoundary } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
 // COMPONENTS //
-import { useCallback, useState } from "react";
+import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import CustomResults from "@/components/customResults/CustomResults";
-import { useSearchFocusHotkey } from "@/hooks/useGlobalHotkey";
-import NoResults from "@/components/noResultsCard/NoResults";
+import BodyFooter from "@/components/footer/BodyFooter";
+import ResultFooter from "@/components/footer/ResultFooter";
 import FormModal from "@/components/formModal/FormModal";
 import LoadingBar from "@/components/loadingBar/LoadingBar";
+import NoResults from "@/components/noResultsCard/NoResults";
+import { useSearchFocusHotkey } from "@/hooks/useGlobalHotkey";
+import useScrollTop from "@/hooks/useScrollTop";
+import useSearchQuery from "@/hooks/useSearchQuery";
 import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
-import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
-import BodyFooter from "@/components/footer/BodyFooter";
-import useSearchQuery from "@/hooks/useSearchQuery";
-import useScrollTop from "@/hooks/useScrollTop";
-import { useRouter } from "next/router";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useCallback, useState } from "react";
 
 export default function App() {
   useSearchFocusHotkey();
@@ -65,6 +65,7 @@ export default function App() {
         bodyHeader={<CustomPagingInfo />}
         bodyFooter={<BodyFooter />}
       />
+      <ResultFooter />
       {noResult && <NoResults openForm={openForm} />}
       <FormModal formOpen={modalOpen} closeForm={closeForm} />
     </div>
