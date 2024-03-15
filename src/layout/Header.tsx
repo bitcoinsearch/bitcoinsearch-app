@@ -2,7 +2,7 @@ import { SearchBox } from "@elastic/react-search-ui";
 import React, { useEffect } from "react";
 import useSearchQuery from "../hooks/useSearchQuery";
 import SearchBoxView from "../components/customSearchboxView/SearchBoxView"
-import { InputViewProps } from "@elastic/react-search-ui-views";
+import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 
 const Header = ({openForm}) => {
   useEffect(() => {
@@ -15,7 +15,7 @@ const Header = ({openForm}) => {
 
   const handleAutoCompleteSelect = (selection, autoCompleteData, defaultFunction) => {
     if (!selection.suggestion) return;
-    makeQuery(selection.suggestion);
+    makeQuery(removeMarkdownCharacters(selection.suggestion));
   };
 
   return (

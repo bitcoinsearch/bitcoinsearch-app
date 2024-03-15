@@ -16,6 +16,7 @@ import SearchIcon from "../svgs/SearchIcon";
 import CloseIconOutlined from "../svgs/CloseIconOutlined";
 import { defaultSearchTags } from "@/utils/dummy";
 import { isMac } from "@/utils/userOS";
+import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 
 export type SearchBoxContainerContext = Pick<
   SearchContextState,
@@ -94,6 +95,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     notifyAutocompleteSelected,
     ...rest
   } = props;
+
   const inputRef = useRef<HTMLInputElement | null>();
   const [searchInput, setSearchInput] = useState<string>("");
   const [typed, setTyped] = useState(false);
@@ -107,6 +109,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
       searchBoxRef.current &&
       !searchBoxRef.current.contains(event.target as Node)
     ) {
+      setFocus(false);
       setIsOutsideClick(true);
     } else {
       setIsOutsideClick(false);
@@ -152,13 +155,16 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchTerm(searchQuery);
   }, [searchQuery]);
   const isContainerOpen = onFocus && !isOutsideClick;
-
+  const isAutoCompleteContainerOpen = searchInput && typed && useAutocomplete && !isOutsideClick
+  const isShortcutVisible =  !onFocus
   const suggestions = autocompletedSuggestions?.documents || [];
+
   const onSelectSuggestion = (value) => {
     onSelectAutocomplete(value);
-    handleChange(value.suggestion);
+    handleChange(removeMarkdownCharacters(value.suggestion));
     setTyped(false);
   };
+console.log(isContainerOpen, isAutoCompleteContainerOpen)
   return (
     <Downshift
       inputValue={searchTerm}
@@ -179,8 +185,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
           <form
             onSubmit={(e) => {
               e.stopPropagation();
-              setIsOutsideClick(true);
+              e.preventDefault();
               onSubmit(e);
+              setFocus(false)
+              setTyped(false);
             }}
           >
             <div
@@ -191,7 +199,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
               <div className="flex-col relative w-full">
                 <div
                   className={`${
-                    isContainerOpen
+                    (isContainerOpen || isAutoCompleteContainerOpen )
                       ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
                       : "rounded-l-xl md:rounded-l-2xl"
                   } border-r-0  h-full  w-full px-3 md:px-6 items-center border border-light_gray flex`}
@@ -206,13 +214,12 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     placeholder="Search for topics, authors or resources..."
                     className="search-box py-1.5 md:py-3 text-xs md:text-base placeholder:text-[0.6rem] md:placeholder:text-base h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent "
                   />
-                  {!(onFocus && !isOutsideClick) && (
+                  {isShortcutVisible && (
                     <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
                       <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or{" "}
-                      <kbd>/</kbd>
                     </p>
                   )}
-                  {searchInput && typed && (
+                  {onFocus && searchInput && typed && (
                     <CloseIconOutlined
                       className="cursor-pointer w-[10px] md:w-auto"
                       onClick={onClearInput}
@@ -250,7 +257,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 )}
 
                 {/* For auto complete */}
-                {searchInput && typed && useAutocomplete && (
+                {isAutoCompleteContainerOpen && (
                   <div
                     className={`border absolute top-11.5 border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
@@ -260,7 +267,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                         onClick={() => onSelectSuggestion(sug)}
                         className="cursor-pointer text-xs md:text-base py-2 px-3 md:px-6 md:py-4 hover:bg-[#FFF0E0]"
                       >
-                        {sug.suggestion}
+                        {removeMarkdownCharacters(sug.suggestion)}
                       </p>
                     ))}
                   </div>
