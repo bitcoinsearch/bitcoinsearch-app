@@ -4,13 +4,13 @@ import React, { FunctionComponent } from 'react'
 type ViewProps = Omit<FacetProps, "view" | "field" | "sortOptions"> & {
   onChange: (x: string) => void;
   options: SortOption[];
+  option: SortOption;
   value: string;
 } 
 
 type SortOption = {
   label: string;
   value: string;
-  field: string;
 }
 
 type FacetProps = {
@@ -28,20 +28,19 @@ const SortingFacet = ({field, label, view, sortOptions}: FacetProps) => {
   const selectedOption = sortOptions.find(option => option.value === sortField) ?? {
     label: "-",
     value: " ",
-    field
   }
 
   const onChange = (x: string) => {
     if (x.trim()) {
       const selectedOption = sortOptions.find(option => option.value === x)
-      selectedOption && addSort(selectedOption.field, selectedOption.value)
+      selectedOption.value && addSort(field, selectedOption.value)
     } else {
       removeSort(field)
     }
 
   }
 
-  const viewProps = {onChange, options: sortOptions, label, value: selectedOption.value}
+  const viewProps = {onChange, options: sortOptions, label, value: selectedOption.value, option: selectedOption }
 
   return React.createElement<ViewProps>(view, Object.assign({}, viewProps));
 }
