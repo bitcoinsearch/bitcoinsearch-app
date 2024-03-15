@@ -155,8 +155,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchTerm(searchQuery);
   }, [searchQuery]);
   const isContainerOpen = onFocus && !isOutsideClick;
-  const isAutoCompleteContainerOpen = searchInput && typed && useAutocomplete && !isOutsideClick
-  const isShortcutVisible =  !onFocus
+  const isAutoCompleteContainerOpen =
+    searchInput && typed && useAutocomplete && !isOutsideClick;
+  const isShortcutVisible = !onFocus;
   const suggestions = autocompletedSuggestions?.documents || [];
 
   const onSelectSuggestion = (value) => {
@@ -164,7 +165,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     handleChange(removeMarkdownCharacters(value.suggestion));
     setTyped(false);
   };
-console.log(isContainerOpen, isAutoCompleteContainerOpen)
+
   return (
     <Downshift
       inputValue={searchTerm}
@@ -187,7 +188,7 @@ console.log(isContainerOpen, isAutoCompleteContainerOpen)
               e.stopPropagation();
               e.preventDefault();
               onSubmit(e);
-              setFocus(false)
+              setFocus(false);
               setTyped(false);
             }}
           >
@@ -199,7 +200,7 @@ console.log(isContainerOpen, isAutoCompleteContainerOpen)
               <div className="flex-col relative w-full">
                 <div
                   className={`${
-                    (isContainerOpen || isAutoCompleteContainerOpen )
+                    isContainerOpen || isAutoCompleteContainerOpen
                       ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
                       : "rounded-l-xl md:rounded-l-2xl"
                   } border-r-0  h-full  w-full px-3 md:px-6 items-center border border-light_gray flex`}
