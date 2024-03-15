@@ -80,8 +80,13 @@ const useURLManager = () => {
   };
 
   const removePageQuery = () => {
-    urlParams.delete(URLSearchParamsKeyword["PAGE"]);
-  };
+    urlParams.delete(URLSearchParamsKeyword["PAGE"])
+  }
+
+  const setResultsSize = (size: number) => {
+    urlParams.set(URLSearchParamsKeyword.SIZE, size.toString())
+    router.push(router.pathname + "?" + urlParams.toString())
+  }
 
   return {
     addFilter,
@@ -91,7 +96,7 @@ const useURLManager = () => {
     getSearchTerm,
     getSort,
     addSort,
-    removeSort,
+    removeSort, setResultsSize,
   };
 };
 
