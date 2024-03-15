@@ -56,7 +56,7 @@ const SearchBoxNew = () => {
         tabIndex={0}
         className="flex  items-start w-full mx-auto max-w-3xl"
       >
-        <div className="flex-col w-full">
+        <div className="flex-col w-full relative">
           <div
             className={`${
               onFocus && !isOutsideClick
@@ -90,7 +90,7 @@ const SearchBoxNew = () => {
           {/* dropdown showing tags only */}
           {(onFocus && !isOutsideClick && !searchInput) && (
             <div
-              className={`border border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
+              className={`border absolute border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
             >
               {/* Each search */}
               {defaultSearchTags.map((tagType) => (

@@ -49,14 +49,14 @@ export default function App() {
       {isLoading && <LoadingBar />}
       <div className="header">
         <Image
-          src="/btc.png"
-          className="logo"
+          src="/btc-main.png"
+          className="logo mx-auto max-w-xl"
           alt="bitcoin logo"
-          width={140}
-          height={140}
+          width={459}
+          height={69}
           priority
         />
-        <p className="description">Technical Bitcoin Search</p>
+        <p className="text-dark leading-normal text-2xl">Search the depths of bitcoin’s technical ecosystem</p>
       </div>
       <Layout
         header={<Header openForm={openForm} />}

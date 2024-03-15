@@ -1,7 +1,5 @@
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, { FormEvent, use, useEffect, useRef, useState } from "react";
 import Downshift from "downshift";
-
-import { Autocomplete } from "@elastic/react-search-ui-views";
 
 import type {
   AutocompleteResult,
@@ -14,10 +12,10 @@ import {
   InputViewProps,
 } from "@elastic/react-search-ui-views";
 import useSearchQuery from "@/hooks/useSearchQuery";
-import appendClassName from "@/utils/elastic-search-ui-functions";
 import SearchIcon from "../svgs/SearchIcon";
 import CloseIconOutlined from "../svgs/CloseIconOutlined";
 import { defaultSearchTags } from "@/utils/dummy";
+import { isMac } from "@/utils/userOS";
 
 export type SearchBoxContainerContext = Pick<
   SearchContextState,
@@ -102,6 +100,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
+  const isMacDevice = isMac();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -145,17 +144,19 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const onSearchInputChange = (value: string) => {
     setSearchInput(value);
   };
-  const {searchQuery} = useSearchQuery();
+  const { searchQuery } = useSearchQuery();
   const [searchTerm, setSearchTerm] = useState(searchQuery);
   // sync autocomplete
   useEffect(() => {
     if (!searchQuery) return;
     setSearchTerm(searchQuery);
   }, [searchQuery]);
+  const isContainerOpen = onFocus && !isOutsideClick;
 
   const suggestions = autocompletedSuggestions?.documents || [];
   const onSelectSuggestion = (value) => {
     onSelectAutocomplete(value);
+    handleChange(value.suggestion);
     setTyped(false);
   };
   return (
@@ -174,12 +175,11 @@ function SearchBoxView(props: SearchBoxViewProps) {
     >
       {(downshiftProps) => {
         const { closeMenu, getInputProps, isOpen } = downshiftProps;
-        const autocompleteClass = isOpen === true ? " autocomplete" : "";
-        console.log(downshiftProps)
         return (
           <form
             onSubmit={(e) => {
-              closeMenu();
+              e.stopPropagation();
+              setIsOutsideClick(true);
               onSubmit(e);
             }}
           >
@@ -188,10 +188,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
               tabIndex={0}
               className="flex  items-start w-full mx-auto max-w-3xl"
             >
-              <div className="flex-col w-full">
+              <div className="flex-col relative w-full">
                 <div
                   className={`${
-                    onFocus && !isOutsideClick
+                    isContainerOpen
                       ? "rounded-b-none rounded-tl-2xl"
                       : "rounded-l-2xl"
                   } border-r-0  h-full  w-full px-6 items-center border border-light_gray flex`}
@@ -208,8 +208,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   />
                   {!(onFocus && !isOutsideClick) && (
                     <p className="whitespace-nowrap text-sm text-light_gray">
-                      {" "}
-                      Ctrl + K
+                   <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or <kbd>/</kbd>
                     </p>
                   )}
                   {searchInput && typed && (
@@ -222,7 +221,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 {/* dropdown showing tags only */}
                 {onFocus && !isOutsideClick && !searchInput && (
                   <div
-                    className={`border border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
+                    className={`border absolute top-11.5 border-t-0 border-light_gray z-20 px-6 py-7 w-full max-w-3xl max- min-h-[367px]  bg-white rounded-b-2xl gap-8 flex flex-col `}
                   >
                     {/* Each search */}
                     {defaultSearchTags.map((tagType) => (
@@ -250,7 +249,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 {/* For auto complete */}
                 {searchInput && typed && useAutocomplete && (
                   <div
-                    className={`border border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5 border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-2xl  flex flex-col  `}
                   >
                     {suggestions.map((sug) => (
                       <p
