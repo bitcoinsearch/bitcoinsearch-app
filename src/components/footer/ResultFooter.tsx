@@ -6,7 +6,7 @@ const Separator = ({ className }: { className?: string }) => (
   />
 );
 
-const HomeFooter = () => {
+const ResultFooter = () => {
   return (
     <footer className="bg-white fixed bottom-0 text-left md:text-center flex flex-col md:flex-row gap-y-3 items-center justify-between p-5 md:p-7 2xl:p-10 w-full border-t border-[#BFBFBF] text-xs md:text-base 2xl:text-xl leading-normal">
       <button className="focus:outline-none">
@@ -32,4 +32,4 @@ const HomeFooter = () => {
   );
 };
 
-export default HomeFooter;
+export default ResultFooter;

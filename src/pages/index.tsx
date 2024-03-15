@@ -12,7 +12,7 @@ import LoadingBar from "@/components/loadingBar/LoadingBar";
 import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
 import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
-import Footer from "@/components/footer/Footer";
+import BodyFooter from "@/components/footer/BodyFooter";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import useScrollTop from "@/hooks/useScrollTop";
 import { useRouter } from "next/router";
@@ -63,7 +63,7 @@ export default function App() {
         sideContent={<SideBar />}
         bodyContent={<CustomResults shouldTrackClickThrough={true} />}
         bodyHeader={<CustomPagingInfo />}
-        bodyFooter={<Footer />}
+        bodyFooter={<BodyFooter />}
       />
       {noResult && <NoResults openForm={openForm} />}
       <FormModal formOpen={modalOpen} closeForm={closeForm} />
