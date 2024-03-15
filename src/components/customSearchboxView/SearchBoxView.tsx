@@ -1,4 +1,4 @@
-import React, { FormEvent, use, useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import Downshift from "downshift";
 
 import type {
@@ -208,7 +208,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   />
                   {!(onFocus && !isOutsideClick) && (
                     <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
-                   <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or <kbd>/</kbd>
+                      <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or{" "}
+                      <kbd>/</kbd>
                     </p>
                   )}
                   {searchInput && typed && (
@@ -229,7 +230,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
                         key={tagType.headline}
                         className="flex text-dark flex-col gap-2"
                       >
-                        <p className="text-xs md:text-base font-semibold">{tagType.headline}</p>
+                        <p className="text-xs md:text-base font-semibold">
+                          {tagType.headline}
+                        </p>
                         <div className="flex flex-wrap gap-2">
                           {tagType.tags.map((tag) => (
                             <div
