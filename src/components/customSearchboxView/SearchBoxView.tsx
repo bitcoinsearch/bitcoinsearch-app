@@ -204,7 +204,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       setFocus(true);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="search-box py-1.5 md:py-3 text-xs placeholder:text-[0.6rem] md:placeholder:text-base h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent "
+                    className="search-box py-1.5 md:py-3 text-xs md:text-base placeholder:text-[0.6rem] md:placeholder:text-base h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent "
                   />
                   {!(onFocus && !isOutsideClick) && (
                     <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
