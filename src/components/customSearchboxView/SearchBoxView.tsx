@@ -207,7 +207,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     className="search-box h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent py-3"
                   />
                   {!(onFocus && !isOutsideClick) && (
-                    <p className="whitespace-nowrap text-sm text-light_gray">
+                    <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
                    <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or <kbd>/</kbd>
                     </p>
                   )}

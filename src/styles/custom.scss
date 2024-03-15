@@ -170,8 +170,13 @@
         .header {
             font-weight: 300;
             font-size: small;
+            gap: 0.4rem;
+
         }
-   
+        .sui-layout-header{
+            padding: 12px 12px;  
+            width: 100%;  
+        }
         .url-display { 
             font-size: 12px;
             overflow: hidden;

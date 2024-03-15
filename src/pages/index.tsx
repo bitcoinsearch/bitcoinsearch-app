@@ -50,13 +50,15 @@ export default function App() {
       <div className="header">
         <Image
           src="/btc-main.png"
-          className="logo mx-auto max-w-xl"
+          className="logo mx-auto max-w-[200px] md:max-w-xs lg:max-w-lg 2xl:max-w-xl"
           alt="bitcoin logo"
           width={459}
           height={69}
           priority
         />
-        <p className="text-dark leading-normal text-2xl">Search the depths of bitcoin’s technical ecosystem</p>
+        <p className="text-dark leading-normal text-sm  sm:text-base lg:text-2xl xl:text-2xl">
+          Search the depths of bitcoin’s technical ecosystem
+        </p>
       </div>
       <Layout
         header={<Header openForm={openForm} />}
