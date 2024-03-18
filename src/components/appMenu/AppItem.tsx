@@ -10,6 +10,6 @@ export const AppItem = ({ href, image, name, title }: MenuApp) => (
       width={88}
       height={88}
     />
-    <p className="text-lg text-[#666666]">{title}</p>
+    <p className="text-lg text-darkGray-100">{title}</p>
   </a>
 );
