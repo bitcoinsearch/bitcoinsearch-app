@@ -13,9 +13,14 @@ const ResultFooter = () => {
   return (
     <footer className="bg-white bottom-0 text-left md:text-center w-full border-t border-gray text-xs md:text-base 2xl:text-xl leading-normal">
       <div className="flex flex-col md:flex-row gap-y-3 items-center justify-between p-5 md:p-7 2xl:p-10 w-full max-w-[1920px] m-auto">
-        <button className="focus:outline-none">
+        <a
+          href="https://github.com/bitcoinsearch/bitcoinsearch-app"
+          target="_blank"
+          rel="noreferrer"
+          className="focus:outline-none"
+        >
           <GithubIcon className="w-8 h-8 2xl:w-14 2xl:h-14" />
-        </button>
+        </a>
         <Separator />
         <p>
           Built with <span>🧡</span> by the{" "}
