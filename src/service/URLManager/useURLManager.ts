@@ -1,7 +1,12 @@
-import { FacetKeys } from "@/types";
-import { useRouter } from "next/router";
-import { appendFilterName, appendSortName } from "./helper";
-import { URLSearchParamsKeyword } from "@/config/config";
+import { FacetKeys } from '@/types'
+import { useRouter } from 'next/router'
+import { appendFilterName, appendSortName } from './helper'
+import { URLSearchParamsKeyword } from '@/config/config'
+
+type FilterProp = {
+  filterType: FacetKeys;
+  filterValue: string;
+}
 
 const useURLManager = () => {
   const router = useRouter();
@@ -32,14 +37,8 @@ const useURLManager = () => {
     return urlParams.get("search");
   };
 
-  const addFilter = ({
-    filterType,
-    filterValue,
-  }: {
-    filterType: FacetKeys;
-    filterValue: string;
-  }) => {
-    const currentFilterForType = urlParams.getAll(appendFilterName(filterType));
+  const addFilter = ({filterType, filterValue}: FilterProp) => {
+    const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
     if (currentFilterForType.includes(filterValue)) return;
     removePageQuery();
     urlParams.append(appendFilterName(filterType), filterValue);
@@ -79,6 +78,18 @@ const useURLManager = () => {
     router.push(router.pathname + "?" + urlParams.toString());
   };
 
+  const removeFilterTypes = (filterTypes: FacetKeys[]) => {
+    let removedFilter = false
+    filterTypes.forEach((filterType) => {
+      const appendedFilterName = appendFilterName(filterType)
+      const currentFilterForType = urlParams.getAll(appendedFilterName)
+      if (!currentFilterForType.length) return
+      urlParams.delete(appendedFilterName)
+      removedFilter = true
+    })
+    removedFilter && router.push(router.pathname + "?" + urlParams.toString())
+  }
+
   const removePageQuery = () => {
     urlParams.delete(URLSearchParamsKeyword["PAGE"])
   }
@@ -93,7 +104,7 @@ const useURLManager = () => {
     removeFilter,
     getFilter,
     clearAllFilters,
-    getSearchTerm,
+    removeFilterTypes, getSearchTerm,
     getSort,
     addSort,
     removeSort, setResultsSize,

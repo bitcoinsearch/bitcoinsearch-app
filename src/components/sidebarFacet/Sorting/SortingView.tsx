@@ -48,7 +48,7 @@ const SortingView = ({
               <div
                 className="w-full flex bg-white px-4 py-3 border-[1px] border-custom-grey-light items-center justify-between rounded-xl"
               >
-                <p className="text-base font-bold text-custom-dark ">
+                <p className="text-base font-bold text-custom-black-dark ">
                   {option.label}
                 </p>
                 <Icon color="gray.600" as={IoIosArrowDown} />

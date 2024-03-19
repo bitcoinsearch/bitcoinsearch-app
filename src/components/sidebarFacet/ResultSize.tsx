@@ -51,7 +51,7 @@ const ResultSize = () => {
   };
   return (
     <>
-      <div className="flex items-center gap-2 pb-9">
+      <div className="flex items-center gap-2 pb-9 text-custom-black-light">
         <span>Showing</span>
         <Popover
           isOpen={isOpen}
@@ -72,7 +72,7 @@ const ResultSize = () => {
               cursor="pointer"
               alignItems="center"
             >
-              <p className="font-bold text-lg text-[#4D4D4D]">
+              <p className="font-bold text-lg">
                 {currentSizeOption.label}
               </p>
               <Icon color="gray.600" as={IoIosArrowDown} />
@@ -88,7 +88,7 @@ const ResultSize = () => {
             <PopoverBody p="0px">
               {sizes.map((size) => (
                 <div key={size.label} className="hover:bg-[#FFF0E0]" role="button" onClick={() => handleSelect(size.value)} >
-                  <p className="text-center py-2 px-2 text-lg font-medium text-[#4D4D4D]">{size.label}</p>
+                  <p className="text-center py-2 px-2 text-lg font-medium">{size.label}</p>
                 </div>
               ))}
             </PopoverBody>

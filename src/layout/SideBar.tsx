@@ -9,6 +9,7 @@ import SortingFacet from "@/components/sidebarFacet/SortingFacet";
 import SortingView from "@/components/sidebarFacet/Sorting/SortingView";
 import ResultSize from "@/components/sidebarFacet/ResultSize";
 import Image from "next/image";
+import FilterMenu from "@/components/sidebarFacet/FilterMenu";
 
 const SideBar = () => {
   const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
@@ -20,6 +21,7 @@ const SideBar = () => {
   return (
     <div>
       <ResultSize />
+      <FilterMenu />
       <SortingFacet
         field="sort_by"
         label="Sort by"
