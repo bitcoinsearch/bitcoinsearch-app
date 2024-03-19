@@ -232,7 +232,7 @@ console.log(queryResult, queryResult.isStale, queryResult.isFetching)
                     isContainerOpen || isAutoCompleteContainerOpen
                       ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
                       : "rounded-l-xl md:rounded-l-2xl"
-                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center border border-light_gray flex`}
+                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center border border-gray flex`}
                 >
                   <input
                     ref={inputRef}
@@ -242,10 +242,10 @@ console.log(queryResult, queryResult.isStale, queryResult.isFetching)
                       setFocus(true);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-light_gray w-full border-none outline-none bg-transparent "
+                    className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-gray w-full border-none outline-none bg-transparent "
                   />
                   {isShortcutVisible && (
-                    <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
+                    <p className="whitespace-nowrap hidden md:inline-block text-sm text-gray">
                       <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or
                       {" /"}
                     </p>
@@ -260,13 +260,13 @@ console.log(queryResult, queryResult.isStale, queryResult.isFetching)
                 {/* dropdown showing tags only */}
                 {(onFocus && !isOutsideClick && !searchInput || queryResult.isFetching)  && (
                   <div
-                    className={`border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-light_gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8 flex flex-col `}
+                    className={`border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8 flex flex-col `}
                   >
                     {/* Each search */}
                     {defaultSearchTags.map((tagType) => (
                       <div
                         key={tagType.headline}
-                        className="flex text-dark flex-col gap-2"
+                        className="flex text-darkGray-300 flex-col gap-2"
                       >
                         <p className="text-sm md:text-base font-semibold">
                           {tagType.headline}
@@ -284,7 +284,7 @@ console.log(queryResult, queryResult.isStale, queryResult.isFetching)
                                 )
                                   ? "bg-[#FFF0E0]"
                                   : ""
-                              } px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-light_gray   max-w-[max-content]`}
+                              } px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-gray   max-w-[max-content]`}
                             >
                               <p>{tag}</p>
                             </div>
@@ -298,7 +298,7 @@ console.log(queryResult, queryResult.isStale, queryResult.isFetching)
                 {/* For auto complete */}
                 {(isAutoCompleteContainerOpen) && (
                   <div
-                    className={`border absolute top-11.5  border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5  border-t-0 border-gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
                     {suggestions.map((sug) => (
                       <p

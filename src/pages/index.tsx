@@ -56,7 +56,7 @@ export default function App() {
           height={69}
           priority
         />
-        <p className="text-dark leading-normal text-sm  sm:text-base lg:text-2xl xl:text-2xl">
+        <p className="text-darkGray-300 leading-normal text-sm  sm:text-base lg:text-2xl xl:text-2xl">
           Search the depths of bitcoin’s technical ecosystem
         </p>
       </div>
