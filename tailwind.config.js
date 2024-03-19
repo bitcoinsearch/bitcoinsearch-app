@@ -20,6 +20,23 @@ module.exports = {
       gray: "#BFBFBF",
     },
     extend: {
+      colors: {
+        "custom": {
+          "grey": {
+            "light": "#BFBFBF",
+            "dark": "#999999",
+          },
+          "orange": {
+            "light": "#FFF0E0",
+            "dark": "#F7931A"
+          },
+          "white": "#F2F2F7",
+          "black": {
+            "dark": "#292929",
+            "light": "#4D4D4D"
+          }
+        }
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

@@ -26,7 +26,7 @@ const SortingFacet = ({field, label, view, sortOptions}: FacetProps) => {
   const sortField = getSort(field) ?? "";
 
   const selectedOption = sortOptions.find(option => option.value === sortField) ?? {
-    label: "-",
+    label: "Relevance",
     value: " ",
   }
 

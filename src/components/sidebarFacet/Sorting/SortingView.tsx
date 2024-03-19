@@ -14,6 +14,7 @@ import {
 import { IoIosArrowDown } from "react-icons/io";
 import { SortingViewProps } from "./types";
 import Image from "next/image";
+import SidebarSection from "../SidebarSection";
 
 const SortingView = ({
   onChange,
@@ -24,9 +25,12 @@ const SortingView = ({
 }: SortingViewProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
-    <>
-      <label></label>
-      <FormControl pb={2}>
+    <SidebarSection>
+      <label className="flex gap-2 mb-6">
+        <Image src="./sort_icon.svg" height={20} width={20} alt={label} />
+        <p className="text-lg font-bold">{label}</p>
+      </label>
+      <FormControl>
         <Box position="relative" w="full">
           <Popover
             isOpen={isOpen}
@@ -41,32 +45,23 @@ const SortingView = ({
             gutter={10}
           >
             <PopoverTrigger>
-              <Flex
-                w="full"
-                bgColor="blackAlpha.100"
-                px={2}
-                py={1}
-                rounded="md"
-                border="2px solid"
-                borderColor="gray.200"
-                borderRadius="md"
-                cursor="pointer"
-                justifyContent="space-between"
+              <div
+                className="w-full flex bg-white px-4 py-3 border-[1px] border-custom-grey-light items-center justify-between rounded-xl"
               >
-                <Text color="gray.600" fontSize="14px" fontWeight={500}>
+                <p className="text-base font-bold text-custom-dark ">
                   {option.label}
-                </Text>
+                </p>
                 <Icon color="gray.600" as={IoIosArrowDown} />
-              </Flex>
+              </div>
             </PopoverTrigger>
             <PopoverContent
               w="full"
               _focusVisible={{ boxShadow: "none", outline: "none" }}
               border="1px solid"
               borderColor="#BFBFBF"
-              borderRadius="md"
+              borderRadius="xl"
             >
-              <PopoverBody>
+              <PopoverBody padding={0} borderRadius="2xl">
                 {options.map((item, index) => (
                   <div
                     key={`${item.label}_${index}`}
@@ -75,7 +70,7 @@ const SortingView = ({
                       onClose();
                     }}
                     data-selected={option.value === item.value}
-                    className="group hover:bg-[#] text-[#4D4D4D]"
+                    className="group pl-5 pr-2 my-4 text-[#4D4D4D] font-medium data-[selected=false]:hover:text-custom-grey-dark"
                     role="button"
                   >
                     <span className="flex gap-2">
@@ -87,7 +82,7 @@ const SortingView = ({
                         width={16}
                         alt=""
                       />
-                      <span className="group-data-[selected=true]:text-[#F7931A]">
+                      <span className="group-data-[selected=true]:text-[#F7931A] group-data-[selected=true]:font-bold">
                         {item.label}
                       </span>
                     </span>
@@ -98,7 +93,7 @@ const SortingView = ({
           </Popover>
         </Box>
       </FormControl>
-    </>
+    </SidebarSection>
   );
 };
 

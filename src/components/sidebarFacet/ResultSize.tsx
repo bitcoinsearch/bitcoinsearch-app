@@ -51,7 +51,7 @@ const ResultSize = () => {
   };
   return (
     <>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 pb-9">
         <span>Showing</span>
         <Popover
           isOpen={isOpen}
