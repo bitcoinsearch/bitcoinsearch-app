@@ -17,6 +17,8 @@ import CloseIconOutlined from "../svgs/CloseIconOutlined";
 import { defaultSearchTags } from "@/utils/dummy";
 import { isMac } from "@/utils/userOS";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
+import useURLManager from "@/service/URLManager/useURLManager";
+import { FacetKeys } from "@/types";
 
 export type SearchBoxContainerContext = Pick<
   SearchContextState,
@@ -97,13 +99,15 @@ function SearchBoxView(props: SearchBoxViewProps) {
   } = props;
 
   const inputRef = useRef<HTMLInputElement | null>();
+  const searchFormRef = useRef<HTMLFormElement | null>();
+
   const [searchInput, setSearchInput] = useState<string>("");
   const [typed, setTyped] = useState(false);
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
   const isMacDevice = isMac();
-
+  const { getFilter, addFilter, removeFilter } = useURLManager();
   const handleClickOutside = (event: MouseEvent) => {
     if (
       searchBoxRef.current &&
@@ -132,10 +136,33 @@ function SearchBoxView(props: SearchBoxViewProps) {
     onChange(value);
     setSearchTerm(value);
   };
-  const onTabClick = (value: string) => {
+  const onTabClick = (
+    value: string,
+    filterType: FacetKeys,
+    filterValue: string
+  ) => {
     inputRef.current.value = value;
-    handleChange(value);
-    setIsOutsideClick(true);
+    if (filterType) {
+      if (getFilter(filterType).includes(filterValue)) {
+        removeFilter({ filterType, filterValue });
+      } else {
+        if (filterType === "domain") {
+          if (getFilter("domain")[0]) {
+            removeFilter({
+              filterType: "domain",
+              filterValue: getFilter("domain")[0],
+            });
+          }
+        }
+        addFilter({ filterType, filterValue });
+        handleChange(filterValue);
+        makeQuery(filterValue);
+      }
+      return;
+    }
+    setIsOutsideClick(true)
+    handleChange(value)
+    makeQuery(value);
   };
   const onClearInput = () => {
     inputRef.current.value = "";
@@ -147,13 +174,14 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const onSearchInputChange = (value: string) => {
     setSearchInput(value);
   };
-  const { searchQuery } = useSearchQuery();
+  const { searchQuery, isLoading, makeQuery, queryResult } = useSearchQuery();
   const [searchTerm, setSearchTerm] = useState(searchQuery);
   // sync autocomplete
   useEffect(() => {
     if (!searchQuery) return;
     setSearchTerm(searchQuery);
   }, [searchQuery]);
+
   const isContainerOpen = onFocus && !isOutsideClick;
   const isAutoCompleteContainerOpen =
     searchInput && typed && useAutocomplete && !isOutsideClick;
@@ -165,7 +193,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     handleChange(removeMarkdownCharacters(value.suggestion));
     setTyped(false);
   };
-
+console.log(queryResult, queryResult.isStale, queryResult.isFetching)
   return (
     <Downshift
       inputValue={searchTerm}
@@ -184,6 +212,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
         const { closeMenu, getInputProps, isOpen } = downshiftProps;
         return (
           <form
+            ref={searchFormRef}
             onSubmit={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -217,7 +246,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   />
                   {isShortcutVisible && (
                     <p className="whitespace-nowrap hidden md:inline-block text-sm text-light_gray">
-                      <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or{" /"}
+                      <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or
+                      {" /"}
                     </p>
                   )}
                   {onFocus && searchInput && typed && (
@@ -228,7 +258,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   )}
                 </div>
                 {/* dropdown showing tags only */}
-                {onFocus && !isOutsideClick && !searchInput && (
+                {(onFocus && !isOutsideClick && !searchInput || queryResult.isFetching)  && (
                   <div
                     className={`border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-light_gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8 flex flex-col `}
                   >
@@ -245,8 +275,16 @@ function SearchBoxView(props: SearchBoxViewProps) {
                           {tagType.tags.map((tag) => (
                             <div
                               key={tag}
-                              onClick={() => onTabClick(tag)}
-                              className="px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-light_gray   max-w-[max-content]"
+                              onClick={() => {
+                                onTabClick(tag, tagType.type as FacetKeys, tag);
+                              }}
+                              className={`${
+                                getFilter(tagType.type as FacetKeys).includes(
+                                  tag
+                                )
+                                  ? "bg-[#FFF0E0]"
+                                  : ""
+                              } px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-light_gray   max-w-[max-content]`}
                             >
                               <p>{tag}</p>
                             </div>
@@ -258,7 +296,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 )}
 
                 {/* For auto complete */}
-                {isAutoCompleteContainerOpen && (
+                {(isAutoCompleteContainerOpen) && (
                   <div
                     className={`border absolute top-11.5  border-t-0 border-light_gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >

@@ -22,6 +22,7 @@ export type SearchQueryContextType = {
   makeQuery: (queryString: string) => void,
   handlePageChange: (page: number) => void,
   pagingInfo: PagingInfoType,
+  isLoading: boolean
 }
 
 export const SearchQueryContext = createContext<SearchQueryContextType | null>(null);
@@ -65,6 +66,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     filterFields,
     sortFields,
   })
+  
 
   const makeQuery = (queryString: string) => {
     router.query = {}
@@ -82,9 +84,10 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     current: page + 1,
     totalResults: queryResult.data?.hits?.total["value"] as unknown as number ?? null
   }
-
+const isLoading =  queryResult.isLoading
+  useEffect(()=>{console.log("test")},[isLoading])
   return (
-    <SearchQueryContext.Provider value={{ searchQuery, queryResult, makeQuery, handlePageChange, pagingInfo }} >
+    <SearchQueryContext.Provider value={{ searchQuery, queryResult, makeQuery, handlePageChange, pagingInfo, isLoading }} >
       {children}
     </SearchQueryContext.Provider>
   );
