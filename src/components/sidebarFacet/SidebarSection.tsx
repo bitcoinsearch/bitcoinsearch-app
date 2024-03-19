@@ -1,8 +1,9 @@
+import appendClassName from '@/utils/elastic-search-ui-functions'
 import React from 'react'
 
-const SidebarSection = ({children}:{children: React.ReactNode}) => {
+const SidebarSection = ({children, className=""}:{children: React.ReactNode, className?: string}) => {
   return (
-    <div className='py-9 border-b-[1px] border-b-[#BFBFBF]'>
+    <div className={appendClassName('py-9 border-b-[1px] border-b-[#BFBFBF]', className)}>
       {children}
     </div>
   )

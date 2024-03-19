@@ -25,9 +25,9 @@ const SortingView = ({
 }: SortingViewProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
-    <SidebarSection>
+    <SidebarSection className="text-custom-black-light">
       <label className="flex gap-2 mb-6">
-        <Image src="./sort_icon.svg" height={20} width={20} alt={label} />
+        <Image src="./sort_icon.svg" height={28} width={20} alt={label} />
         <p className="text-lg font-bold">{label}</p>
       </label>
       <FormControl>
@@ -48,7 +48,7 @@ const SortingView = ({
               <div
                 className="w-full flex bg-white px-4 py-3 border-[1px] border-custom-grey-light items-center justify-between rounded-xl"
               >
-                <p className="text-base font-bold text-custom-black-dark ">
+                <p className="text-base font-bold text-custom-black-light ">
                   {option.label}
                 </p>
                 <Icon color="gray.600" as={IoIosArrowDown} />
@@ -70,7 +70,7 @@ const SortingView = ({
                       onClose();
                     }}
                     data-selected={option.value === item.value}
-                    className="group pl-5 pr-2 my-4 text-[#4D4D4D] font-medium data-[selected=false]:hover:text-custom-grey-dark"
+                    className="group pl-5 pr-2 my-4 font-medium data-[selected=false]:hover:text-custom-grey-dark"
                     role="button"
                   >
                     <span className="flex gap-2">

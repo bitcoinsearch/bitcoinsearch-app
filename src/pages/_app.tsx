@@ -20,6 +20,7 @@ import theme from "@/chakra/chakra-theme";
 import { SearchDriverOptions } from "@elastic/search-ui";
 import Head from "next/head";
 import Script from 'next/script';
+import { AddSourceProvider } from "@/context/AddSourceContext";
 
 const queryClient = new QueryClient();
 
@@ -48,19 +49,21 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <SearchQueryProvider>
           <SearchProvider config={config}>
-            <Head>
-              <meta charSet="utf-8" />
-              <link rel="shortcut icon" href="./favicon.ico" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <title>Bitcoin Search</title>
-              <link rel="manifest" href="./manifest.json" />
-              <meta name="twitter:card" content="summary_large_image" />
-              <meta name="twitter:image" content="https://bitcoinsearch.xyz/btc_book_2_1.jpg?v1"/>
-              <meta name="twitter:title" content="Technical ₿itcoin Search"/>
-              <meta name="twitter:description" content="The bitcoin technical search we deserve"/>
-            </Head>
-            <Script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53" />
-            <Component {...pageProps} />
+            <AddSourceProvider>
+              <Head>
+                <meta charSet="utf-8" />
+                <link rel="shortcut icon" href="./favicon.ico" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title>Bitcoin Search</title>
+                <link rel="manifest" href="./manifest.json" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:image" content="https://bitcoinsearch.xyz/btc_book_2_1.jpg?v1"/>
+                <meta name="twitter:title" content="Technical ₿itcoin Search"/>
+                <meta name="twitter:description" content="The bitcoin technical search we deserve"/>
+              </Head>
+              <Script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53" />
+              <Component {...pageProps} />
+            </AddSourceProvider>
           </SearchProvider>
         </SearchQueryProvider>
       </QueryClientProvider>

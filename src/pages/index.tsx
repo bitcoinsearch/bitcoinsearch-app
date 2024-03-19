@@ -16,16 +16,16 @@ import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 import Image from "next/image";
+import useAddSources from "@/hooks/useAddSource";
 import { LandingPage } from "@/components/landingPage/LandingPage";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 export default function App() {
   useSearchFocusHotkey();
 
   const { isHomePage } = useIsInitialStateWithoutFilter();
-  const [modalOpen, setModalOpen] = useState(false);
+  const {isOpen, closeForm, openForm} = useAddSources()
   const { searchQuery, queryResult, makeQuery, pagingInfo } = useSearchQuery();
   useScrollTop({ current: pagingInfo.current });
   const router = useRouter();
@@ -34,13 +34,10 @@ export default function App() {
   const hasFilters = Boolean(generateFilterQuery(router.asPath.slice(1)).length);
   const hasQueryString = Boolean(searchQuery?.trim());
   const isLoading = queryResult.isFetching;
-  const noResult = (hasFilters || hasQueryString) && !isLoading && !queryResult.data?.hits?.total["value"];
-  const openForm = useCallback(() => {
-    setModalOpen(true);
-  }, []);
-  const closeForm = () => {
-    setModalOpen(false);
-  };
+  const noResult =
+    (hasFilters || hasQueryString) &&
+    !isLoading &&
+    !queryResult.data?.hits?.total["value"];
 
   return (
     <div className={`${isHomePage && "relative"}`}>
@@ -68,7 +65,7 @@ export default function App() {
             bodyFooter={<BodyFooter />}
           />
           {noResult && <NoResults openForm={openForm} />}
-          <FormModal formOpen={modalOpen} closeForm={closeForm} />
+          <FormModal formOpen={isOpen} closeForm={closeForm} />
         </div>
       </main>
       {NoResults && isHomePage && <LandingPage />}

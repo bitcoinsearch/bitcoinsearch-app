@@ -75,12 +75,12 @@ const useCheckboxNavigate = ({checkboxContainer, searchEl, options}: ChekboxNavi
           // Enter
           e.preventDefault();
           const input = multiCheckboxList[currentCheckboxNavIndex]
-            ? multiCheckboxList[currentCheckboxNavIndex].querySelector("input")
+            ? multiCheckboxList[currentCheckboxNavIndex].querySelector('[role="button"]')
             : null;
           if (input) {
             // savedNavIndex.current =
             //   multiCheckboxList[currentCheckboxNavIndex].dataset?.checkbox;
-            input.click();
+            (input as HTMLButtonElement).click();
           }
           break;
         }

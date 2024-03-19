@@ -6,8 +6,8 @@ export const getDomainGrouping = () => {
   return mapping.collection;
 };
 
-export const getDomainLabel = (domain_url, plainString = false) => {
-  const label = mapping?.labels[domain_url] || null;
+export const getDomainLabel = (domain_url: string, plainString = false) => {
+  const label = mapping?.labels[domain_url] || domain_url;
   if (!plainString) return label;
   return label && typeof label === "string"
     ? label.toLowerCase().replace(/ /g, "_")

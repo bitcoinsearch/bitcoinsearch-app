@@ -2,8 +2,23 @@ import React, { useRef } from "react";
 import mapping from "../../config/mapping.json";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
-import appendClassName from "../../utils/elastic-search-ui-functions"
+import appendClassName from "../../utils/elastic-search-ui-functions";
 import { deriveNameFromUrl } from "@/config/mapping-helper";
+import SidebarSection from "../sidebarFacet/SidebarSection";
+import Image from "next/image";
+import { FacetKeys } from "@/types";
+import useAddSources from "@/hooks/useAddSource";
+
+const facetMapping = {
+  authors: {
+    display: "Authors",
+    icon: "./author_icon.svg",
+  },
+  domain: {
+    display: "Sources",
+    icon: "./source_icon.svg",
+  },
+};
 
 function CustomMultiCheckboxFacet({
   className,
@@ -18,7 +33,7 @@ function CustomMultiCheckboxFacet({
   searchPlaceholder,
 }) {
   // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
-  function getFilterValueDisplay(filterValue) {
+  function getFilterValueDisplay(filterValue, label) {
     if (filterValue === undefined || filterValue === null) {
       return "";
     }
@@ -29,7 +44,7 @@ function CustomMultiCheckboxFacet({
       if (mapping?.labels[filterValue]) {
         return mapping?.labels[filterValue];
       } else {
-        return deriveNameFromUrl(filterValue)
+        return deriveNameFromUrl(filterValue);
       }
     }
     return String(filterValue);
@@ -38,91 +53,140 @@ function CustomMultiCheckboxFacet({
   const searchRef = useRef<HTMLInputElement>();
   const multiCheckboxRef = useRef<HTMLDivElement>();
 
-  const { currentNavigateCheckbox, toggleRefocus } = useCheckboxNavigate(
-    {
-      checkboxContainer: multiCheckboxRef,
-      searchEl: searchRef,
-      options
-    }
-  );
+  const { currentNavigateCheckbox, toggleRefocus } = useCheckboxNavigate({
+    checkboxContainer: multiCheckboxRef,
+    searchEl: searchRef,
+    options,
+  });
+
+  const numberFormat = new Intl.NumberFormat('en-US', {compactDisplay: "short", notation: "compact"})
 
   return (
-    <fieldset className={appendClassName("sui-facet", className)}>
-      <legend className="sui-facet__title">{label}</legend>
-
-      {showSearch && (
-        <div className="sui-facet-search">
-          <input
-            className="sui-facet-search__text-input"
-            type="search"
-            placeholder={
-              currentNavigateCheckbox || searchPlaceholder || "Search"
-            }
-            onChange={(e) => {
-              onSearch(e.target.value);
-            }}
-            ref={searchRef}
-          />
-        </div>
-      )}
-
-      <div className="sui-multi-checkbox-facet" ref={multiCheckboxRef}>
-        {options.length < 1 && <div>No matching options</div>}
-        {options?.map((option) => {
-          const checked = option.selected;
-          const value = option.value;
-          return (
-            <label
-              key={`${getFilterValueDisplay(option.value)}`}
-              htmlFor={`example_facet_${label}${getFilterValueDisplay(
-                option.value
-              )}`}
-              data-checkbox={getFilterValueDisplay(option.value)}
-              className={`${styles.checkboxLabel} 
-              ${
-                getFilterValueDisplay(option.value) === currentNavigateCheckbox
-                  ? styles.currentNavigatedLabel
-                  : ""
-              } 
-              ${checked ? styles.checked : ""}
-                sui-multi-checkbox-facet__option-label`}
-            >
-              <div className={styles.checkbox_input_wrapper}>
-                <input
-                  data-transaction-name={`facet - ${label}`}
-                  id={`example_facet_${label}${getFilterValueDisplay(
-                    option.value
-                  )}`}
-                  type="checkbox"
-                  className="sui-multi-checkbox-facet__checkbox"
-                  checked={checked}
-                  onChange={() => (checked ? onRemove(value) : onSelect(value))}
+    <SidebarSection className="text-custom-black-light">
+      <fieldset className={appendClassName("", className)}>
+        <SideBarHeader label={label} />
+        {showSearch && (
+          <div className="relative">
+            <input
+              className="w-full pl-12 pr-4 py-4 rounded-xl border-[1px] border-custom-grey-light group focus-visible:outline-custom-grey-dark focus-visible:outline-offset-0"
+              type="search"
+              placeholder={currentNavigateCheckbox || "Search"}
+              onChange={(e) => {
+                onSearch(e.target.value);
+              }}
+              ref={searchRef}
+            />
+            <span className="absolute top-1/2 -translate-y-1/2 left-[18px]">
+              <Image
+                src="./search_icon.svg"
+                width={18}
+                height={18}
+                alt="search"
+              />
+            </span>
+            {/* {!searchRef.current.textContent.trim() && (
+              <span className="absolute top-1/2 -translate-y-1/2 right-4">
+                <Image
+                  src={"./up_arrow.svg"}
+                  width={12}
+                  height={7}
+                  alt="arrow"
                 />
-                <span className="">{getFilterValueDisplay(option.value)}</span>
-              </div>
-              <span className={styles.option_count}>
-                {option.count.toLocaleString("en")}
               </span>
-            </label>
-          );
-        })}
-      </div>
+            )} */}
+          </div>
+        )}
 
-      {showMore && (
-        <button
-          type="button"
-          className="sui-facet-view-more"
-          onClick={() => {
-            onMoreClick();
-            toggleRefocus();
-          }}
-          aria-label="Show more options"
-        >
-          + More
-        </button>
-      )}
-    </fieldset>
+        <div className="mt-2 max-h-[300px] overflow-scroll border border-custom-grey-light rounded-xl" ref={multiCheckboxRef}>
+          {options.length < 1 && <div>No matching options</div>}
+          {options?.map((option) => {
+            const checked = option.selected;
+            const value = option.value;
+            const valueDisplay = getFilterValueDisplay(option.value, label);
+            return (
+              <label
+                key={valueDisplay}
+                htmlFor={`example_facet_${label}${valueDisplay}`}
+                data-checkbox={valueDisplay}
+                data-selected={checked}
+                data-current-navigated={valueDisplay === currentNavigateCheckbox}
+                className="group flex justify-between py-2 px-[14px] data-[current-navigated=true]:bg-red-400 data-[selected=true]:text-custom-orange-dark"
+              >
+                <div className="selectable-option flex items-center gap-3"
+                  id={`example_facet_${label}${valueDisplay}`}
+                  onClick={() =>
+                    checked ? onRemove(value) : onSelect(value)
+                  }
+                  role="button"
+                >
+                  <Image
+                    data-transaction-name={`facet - ${label}`}
+                    className="group-data-[selected=false]:invisible"
+                    src="./lightning_icon_filled.svg"
+                    height={16}
+                    width={16}
+                    alt=""
+                  />
+                  {/* <input
+                    data-transaction-name={`facet - ${label}`}
+                    id={`example_facet_${label}${valueDisplay}`}
+                    type="checkbox"
+                    className="sui-multi-checkbox-facet__checkbox"
+                    checked={checked}
+                    onChange={() =>
+                      checked ? onRemove(value) : onSelect(value)
+                    }
+                  /> */}
+                  <span className="text-base group-data-[selected=true]:font-bold">{valueDisplay}</span>
+                </div>
+                <span className="group-data-[selected=true]:font-medium">
+                  {numberFormat.format(option.count)}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+    </SidebarSection>
   );
 }
+
+export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
+  const { openForm } = useAddSources();
+  return (
+    <div className="flex justify-between mb-6">
+      <div className="flex gap-2 items-center">
+        <Image
+          src={facetMapping[label]["icon"]}
+          width={20}
+          height={20}
+          alt={label}
+        />
+        <span className="text-lg font-bold">
+          {facetMapping[label]["display"]}
+        </span>
+      </div>
+      {label === "domain" && (
+        <div
+          className="flex gap-2 items-center group"
+          role="button"
+          onClick={openForm}
+        >
+          <span className="group-hover:underline underline-offset-4 text-sm font-medium">
+            Add a source
+          </span>
+          <span className="p-[6px] bg-custom-black-light group-hover:bg-custom-orange-dark rounded-md">
+            <Image
+              src="./plus_icon.svg"
+              width={10}
+              height={10}
+              alt="add source"
+            />
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default CustomMultiCheckboxFacet;
