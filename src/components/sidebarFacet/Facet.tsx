@@ -1,6 +1,7 @@
 import useSearchQuery from '@/hooks/useSearchQuery';
 import useURLManager from '@/service/URLManager/useURLManager';
 import { FacetKeys } from '@/types'
+import { matchCharactersWithRegex } from '@/utils/facet';
 import React, { FunctionComponent, useMemo, useState } from 'react'
 
 type ViewProps = Omit<FacetProps, "view" | "isFilterable"> & {
@@ -57,7 +58,7 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
   })
 
   const options = useMemo(() => {
-    return baseOptions.filter(item => searchTermFacet.trim() ? item.value.includes(searchTermFacet) : true)
+    return baseOptions.filter(item => searchTermFacet.trim() ? matchCharactersWithRegex(item.value, searchTermFacet) : true)
   }, [searchTermFacet, baseOptions])
 
 

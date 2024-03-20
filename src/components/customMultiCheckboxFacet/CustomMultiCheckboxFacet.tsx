@@ -59,7 +59,10 @@ function CustomMultiCheckboxFacet({
     options,
   });
 
-  const numberFormat = new Intl.NumberFormat('en-US', {compactDisplay: "short", notation: "compact"})
+  const numberFormat = new Intl.NumberFormat("en-US", {
+    compactDisplay: "short",
+    notation: "compact",
+  });
 
   return (
     <SidebarSection className="text-custom-black-light">
@@ -97,7 +100,10 @@ function CustomMultiCheckboxFacet({
           </div>
         )}
 
-        <div className="mt-2 max-h-[300px] overflow-scroll border border-custom-grey-light rounded-xl" ref={multiCheckboxRef}>
+        <div
+          className="mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-grey-light rounded-xl"
+          ref={multiCheckboxRef}
+        >
           {options.length < 1 && <div>No matching options</div>}
           {options?.map((option) => {
             const checked = option.selected;
@@ -109,14 +115,15 @@ function CustomMultiCheckboxFacet({
                 htmlFor={`example_facet_${label}${valueDisplay}`}
                 data-checkbox={valueDisplay}
                 data-selected={checked}
-                data-current-navigated={valueDisplay === currentNavigateCheckbox}
+                data-current-navigated={
+                  valueDisplay === currentNavigateCheckbox
+                }
                 className="group flex justify-between py-2 px-[14px] data-[current-navigated=true]:bg-red-400 data-[selected=true]:text-custom-orange-dark"
               >
-                <div className="selectable-option flex items-center gap-3"
+                <div
+                  className="selectable-option flex items-center gap-3"
                   id={`example_facet_${label}${valueDisplay}`}
-                  onClick={() =>
-                    checked ? onRemove(value) : onSelect(value)
-                  }
+                  onClick={() => (checked ? onRemove(value) : onSelect(value))}
                   role="button"
                 >
                   <Image
@@ -137,7 +144,9 @@ function CustomMultiCheckboxFacet({
                       checked ? onRemove(value) : onSelect(value)
                     }
                   /> */}
-                  <span className="text-base group-data-[selected=true]:font-bold">{valueDisplay}</span>
+                  <span className="text-base group-data-[selected=true]:font-bold">
+                    {valueDisplay}
+                  </span>
                 </div>
                 <span className="group-data-[selected=true]:font-medium">
                   {numberFormat.format(option.count)}
