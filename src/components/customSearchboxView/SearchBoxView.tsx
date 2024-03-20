@@ -131,7 +131,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
       document.removeEventListener("click", handleDocumentClick);
     };
   }, []);
-
   const handleChange = (value: string) => {
     onChange(value);
     setSearchTerm(value);
@@ -174,7 +173,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const onSearchInputChange = (value: string) => {
     setSearchInput(value);
   };
-  const { searchQuery, isLoading, makeQuery, queryResult } = useSearchQuery();
+  const { searchQuery, makeQuery, queryResult } = useSearchQuery();
+  const [isPageLoaded, setIsPageLoaded] = useState(true)
   const [searchTerm, setSearchTerm] = useState(searchQuery);
   // sync autocomplete
   useEffect(() => {
@@ -182,8 +182,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchTerm(searchQuery);
   }, [searchQuery]);
 
-  const isContainerOpen = onFocus && !isOutsideClick;
-  const isAutoCompleteContainerOpen =
+
+  const isContainerOpen = (!isPageLoaded && queryResult.isFetching) ||(onFocus && !isOutsideClick && !searchInput)
+  const isAutoCompleteContainerOpen = 
     searchInput && typed && useAutocomplete && !isOutsideClick;
   const isShortcutVisible = !onFocus;
   const suggestions = autocompletedSuggestions?.documents || [];
@@ -193,7 +194,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     handleChange(removeMarkdownCharacters(value.suggestion));
     setTyped(false);
   };
-console.log(queryResult, queryResult.isStale, queryResult.isFetching)
+
   return (
     <Downshift
       inputValue={searchTerm}
@@ -240,6 +241,7 @@ console.log(queryResult, queryResult.isStale, queryResult.isFetching)
                     onKeyUp={(e) => setTyped(true)}
                     onFocus={() => {
                       setFocus(true);
+                      setIsPageLoaded(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
                     className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-gray w-full border-none outline-none bg-transparent "
@@ -258,7 +260,7 @@ console.log(queryResult, queryResult.isStale, queryResult.isFetching)
                   )}
                 </div>
                 {/* dropdown showing tags only */}
-                {(onFocus && !isOutsideClick && !searchInput || queryResult.isFetching)  && (
+                {isContainerOpen  && (
                   <div
                     className={`border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8 flex flex-col `}
                   >
