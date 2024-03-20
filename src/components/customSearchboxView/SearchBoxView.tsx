@@ -141,6 +141,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     filterValue: string
   ) => {
     inputRef.current.value = value;
+    setIsPageLoaded(false);
     if (filterType) {
       if (getFilter(filterType).includes(filterValue)) {
         removeFilter({ filterType, filterValue });
@@ -185,7 +186,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
 
   const isContainerOpen = (!isPageLoaded && queryResult.isFetching) ||(onFocus && !isOutsideClick && !searchInput)
   const isAutoCompleteContainerOpen = 
-    searchInput && typed && useAutocomplete && !isOutsideClick;
+    (searchInput && typed && allAutocompletedItemsCount && !isOutsideClick) ? true : false;
   const isShortcutVisible = !onFocus;
   const suggestions = autocompletedSuggestions?.documents || [];
 
@@ -241,7 +242,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     onKeyUp={(e) => setTyped(true)}
                     onFocus={() => {
                       setFocus(true);
-                      setIsPageLoaded(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
                     className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-gray w-full border-none outline-none bg-transparent "
@@ -300,7 +300,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 {/* For auto complete */}
                 {(isAutoCompleteContainerOpen) && (
                   <div
-                    className={`border absolute top-11.5  border-t-0 border-gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5   border-t-0 border-gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
                     {suggestions.map((sug) => (
                       <p
