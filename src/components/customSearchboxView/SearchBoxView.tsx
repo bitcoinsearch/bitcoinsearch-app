@@ -106,8 +106,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
+  const [isPageLoaded, setIsPageLoaded] = useState(false)
   const isMacDevice = isMac();
-  const { getFilter, addFilter, removeFilter } = useURLManager();
+  const { getFilter, addFilter, removeFilter, getSearchTerm } = useURLManager();
   const handleClickOutside = (event: MouseEvent) => {
     if (
       searchBoxRef.current &&
@@ -140,8 +141,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
     filterType: FacetKeys,
     filterValue: string
   ) => {
-    inputRef.current.value = value;
-    setIsPageLoaded(false);
+    setIsOutsideClick(true)
+    setFocus(false)
     if (filterType) {
       if (getFilter(filterType).includes(filterValue)) {
         removeFilter({ filterType, filterValue });
@@ -155,12 +156,15 @@ function SearchBoxView(props: SearchBoxViewProps) {
           }
         }
         addFilter({ filterType, filterValue });
-        handleChange(filterValue);
+        if(!inputRef.current.value){
+          handleChange(filterValue);
+        }
+        setIsPageLoaded(true);
         makeQuery(filterValue);
       }
       return;
     }
-    setIsOutsideClick(true)
+    setIsPageLoaded(true);
     handleChange(value)
     makeQuery(value);
   };
@@ -175,7 +179,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchInput(value);
   };
   const { searchQuery, makeQuery, queryResult } = useSearchQuery();
-  const [isPageLoaded, setIsPageLoaded] = useState(true)
+
   const [searchTerm, setSearchTerm] = useState(searchQuery);
   // sync autocomplete
   useEffect(() => {
@@ -183,8 +187,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchTerm(searchQuery);
   }, [searchQuery]);
 
-
-  const isContainerOpen = (!isPageLoaded && queryResult.isFetching) ||(onFocus && !isOutsideClick && !searchInput)
+  const isContainerOpen = (onFocus && !isOutsideClick && !searchInput) || (isPageLoaded)
   const isAutoCompleteContainerOpen = 
     (searchInput && typed && allAutocompletedItemsCount && !isOutsideClick) ? true : false;
   const isShortcutVisible = !onFocus;
@@ -195,7 +198,15 @@ function SearchBoxView(props: SearchBoxViewProps) {
     handleChange(removeMarkdownCharacters(value.suggestion));
     setTyped(false);
   };
+  console.log(onFocus, !isOutsideClick ,!searchInput, "first part" )
+  console.log(isPageLoaded, isContainerOpen, "page load")
+  useEffect(()=>{
+    if(queryResult.isFetched){
+      setIsPageLoaded(false)
+      console.log("i entered")
+    }
 
+  },[queryResult.isFetched])
   return (
     <Downshift
       inputValue={searchTerm}
@@ -260,9 +271,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   )}
                 </div>
                 {/* dropdown showing tags only */}
-                {isContainerOpen  && (
+
                   <div
-                    className={`border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8 flex flex-col `}
+                    className={`${isContainerOpen ?"flex" : "hidden"} border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8  flex-col `}
                   >
                     {/* Each search */}
                     {defaultSearchTags.map((tagType) => (
@@ -286,6 +297,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
                                 )
                                   ? "bg-[#FFF0E0]"
                                   : ""
+                              }  ${
+                                (searchTerm === tag)
+                                  ? "bg-[#FFF0E0]"
+                                  : ""
                               } px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-gray   max-w-[max-content]`}
                             >
                               <p>{tag}</p>
@@ -295,7 +310,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       </div>
                     ))}
                   </div>
-                )}
 
                 {/* For auto complete */}
                 {(isAutoCompleteContainerOpen) && (
