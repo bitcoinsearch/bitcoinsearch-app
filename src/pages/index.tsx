@@ -10,7 +10,6 @@ import FormModal from "@/components/formModal/FormModal";
 import LoadingBar from "@/components/loadingBar/LoadingBar";
 import NoResults from "@/components/noResultsCard/NoResults";
 import { useSearchFocusHotkey } from "@/hooks/useGlobalHotkey";
-import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 import useScrollTop from "@/hooks/useScrollTop";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import Header from "@/layout/Header";
@@ -19,6 +18,8 @@ import { generateFilterQuery } from "@/service/URLManager/helper";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
+import NavBar from "@/components/navBar/NavBar";
+import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 const HomeTextBanner = () => {
   const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
@@ -74,6 +75,7 @@ export default function App() {
 
   return (
     <div className="App btc-search">
+      <NavBar />
       {isLoading && <LoadingBar />}
       <HomeTextBanner />
       <Layout
