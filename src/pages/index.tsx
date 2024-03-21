@@ -7,18 +7,19 @@ import CustomResults from "@/components/customResults/CustomResults";
 import BodyFooter from "@/components/footer/BodyFooter";
 import ResultFooter from "@/components/footer/ResultFooter";
 import FormModal from "@/components/formModal/FormModal";
+import { LandingPage } from "@/components/landingPage/LandingPage";
 import LoadingBar from "@/components/loadingBar/LoadingBar";
+import NavBar from "@/components/navBar/NavBar";
 import NoResults from "@/components/noResultsCard/NoResults";
 import { useSearchFocusHotkey } from "@/hooks/useGlobalHotkey";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 import useScrollTop from "@/hooks/useScrollTop";
 import useSearchQuery from "@/hooks/useSearchQuery";
+import useUIContext from "@/hooks/useUIContext";
 import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 import Image from "next/image";
-import useUIContext from "@/hooks/useUIContext";
-import { LandingPage } from "@/components/landingPage/LandingPage";
 import { useRouter } from "next/router";
 
 const HomeTextBanner = () => {
@@ -73,6 +74,7 @@ export default function App() {
   return (
     <div className={`${isHomePage && "relative"}`}>
       <main className="min-h-[95vh] flex w-full items-center bg-white">
+        <NavBar />
         {isLoading && <LoadingBar />}
         <div
           className={`App btc-search w-full ${
