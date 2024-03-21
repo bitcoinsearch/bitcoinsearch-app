@@ -68,7 +68,7 @@ const ResultFooter = () => {
           <p className="hidden md:block">
             We&apos;d love to hear your feedback on this project
           </p>
-          <button className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-darkGray-200 rounded-xl">
+          <button className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-darkGray-300 rounded-xl">
             Give feedback
           </button>
         </div>
