@@ -106,7 +106,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
-  const [isPageLoaded, setIsPageLoaded] = useState(false)
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
   const isMacDevice = isMac();
   const { getFilter, addFilter, removeFilter, getSearchTerm } = useURLManager();
   const handleClickOutside = (event: MouseEvent) => {
@@ -141,8 +141,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
     filterType: FacetKeys,
     filterValue: string
   ) => {
-    setIsOutsideClick(true)
-    setFocus(false)
+    setIsOutsideClick(true);
+    setFocus(false);
     if (filterType) {
       if (getFilter(filterType).includes(filterValue)) {
         removeFilter({ filterType, filterValue });
@@ -156,7 +156,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
           }
         }
         addFilter({ filterType, filterValue });
-        if(!inputRef.current.value){
+        if (!inputRef.current.value) {
           handleChange(filterValue);
         }
         setIsPageLoaded(true);
@@ -165,7 +165,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
       return;
     }
     setIsPageLoaded(true);
-    handleChange(value)
+    handleChange(value);
     makeQuery(value);
   };
   const onClearInput = () => {
@@ -187,9 +187,12 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchTerm(searchQuery);
   }, [searchQuery]);
 
-  const isContainerOpen = (onFocus && !isOutsideClick && !searchInput) || (isPageLoaded)
-  const isAutoCompleteContainerOpen = 
-    (searchInput && typed && allAutocompletedItemsCount && !isOutsideClick) ? true : false;
+  const isContainerOpen =
+    (onFocus && !isOutsideClick && !searchInput) || isPageLoaded;
+  const isAutoCompleteContainerOpen =
+    searchInput && typed && allAutocompletedItemsCount && !isOutsideClick
+      ? true
+      : false;
   const isShortcutVisible = !onFocus;
   const suggestions = autocompletedSuggestions?.documents || [];
 
@@ -199,13 +202,12 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setTyped(false);
   };
 
-  useEffect(()=>{
-    if(queryResult.isFetched){
-      setIsPageLoaded(false)
-      console.log("i entered")
+  useEffect(() => {
+    if (queryResult.isFetched) {
+      setIsPageLoaded(false);
+      console.log("i entered");
     }
-
-  },[queryResult.isFetched])
+  }, [queryResult.isFetched]);
   return (
     <Downshift
       inputValue={searchTerm}
@@ -249,7 +251,12 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <input
                     ref={inputRef}
                     {...getInputProps()}
-                    onKeyUp={(e) => setTyped(true)}
+                    onKeyUp={() => {
+                      setFocus(true);
+                    }}
+                    onKeyDown={(e) => {
+                      e.code === "Enter" ? setTyped(false) : setTyped(true);
+                    }}
                     onFocus={() => {
                       setFocus(true);
                     }}
@@ -262,7 +269,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       {" /"}
                     </p>
                   )}
-                  {onFocus && searchInput && typed && (
+                  {onFocus && typed && (
                     <CloseIconOutlined
                       className="cursor-pointer w-[8px] md:w-auto"
                       onClick={onClearInput}
@@ -271,47 +278,45 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 </div>
                 {/* dropdown showing tags only */}
 
-                  <div
-                    className={`${isContainerOpen ?"flex" : "hidden"} border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8  flex-col `}
-                  >
-                    {/* Each search */}
-                    {defaultSearchTags.map((tagType) => (
-                      <div
-                        key={tagType.headline}
-                        className="flex text-darkGray-300 flex-col gap-2"
-                      >
-                        <p className="text-sm md:text-base font-semibold">
-                          {tagType.headline}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 md:gap-2">
-                          {tagType.tags.map((tag) => (
-                            <div
-                              key={tag}
-                              onClick={() => {
-                                onTabClick(tag, tagType.type as FacetKeys, tag);
-                              }}
-                              className={`${
-                                getFilter(tagType.type as FacetKeys).includes(
-                                  tag
-                                )
-                                  ? "bg-[#FFF0E0]"
-                                  : ""
-                              }  ${
-                                (searchTerm === tag)
-                                  ? "bg-[#FFF0E0]"
-                                  : ""
-                              } px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-gray   max-w-[max-content]`}
-                            >
-                              <p>{tag}</p>
-                            </div>
-                          ))}
-                        </div>
+                <div
+                  className={`${
+                    isContainerOpen ? "flex" : "hidden"
+                  } border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8  flex-col `}
+                >
+                  {/* Each search */}
+                  {defaultSearchTags.map((tagType) => (
+                    <div
+                      key={tagType.headline}
+                      className="flex text-darkGray-300 flex-col gap-2"
+                    >
+                      <p className="text-sm md:text-base font-semibold">
+                        {tagType.headline}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 md:gap-2">
+                        {tagType.tags.map((tag) => (
+                          <div
+                            key={tag}
+                            onClick={() => {
+                              onTabClick(tag, tagType.type as FacetKeys, tag);
+                            }}
+                            className={`${
+                              getFilter(tagType.type as FacetKeys).includes(tag)
+                                ? "bg-[#FFF0E0]"
+                                : ""
+                            }  ${
+                              searchTerm === tag ? "bg-[#FFF0E0]" : ""
+                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-gray   max-w-[max-content]`}
+                          >
+                            <p>{tag}</p>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
+                </div>
 
                 {/* For auto complete */}
-                {(isAutoCompleteContainerOpen) && (
+                {isAutoCompleteContainerOpen && (
                   <div
                     className={`border absolute top-11.5   border-t-0 border-gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
