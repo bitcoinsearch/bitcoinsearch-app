@@ -198,8 +198,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     handleChange(removeMarkdownCharacters(value.suggestion));
     setTyped(false);
   };
-  console.log(onFocus, !isOutsideClick ,!searchInput, "first part" )
-  console.log(isPageLoaded, isContainerOpen, "page load")
+
   useEffect(()=>{
     if(queryResult.isFetched){
       setIsPageLoaded(false)
