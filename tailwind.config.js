@@ -7,6 +7,21 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    colors: {
+      white: "#FFFFFF",
+      lightOrange: "#FFF0E0",
+      brightOrange: {
+        100: "#EC802F",
+        200: "#ED8936",
+        300: "#FAA739",
+      },
+      darkGray: {
+        100: "#666666",
+        200: "#4D4D4D",
+        300: "#292929",
+      },
+      gray: "#BFBFBF",
+    },
     extend: {
       colors: {
         custom: {
@@ -32,6 +47,7 @@ module.exports = {
         },
       },
       backgroundImage: {
+        "gradient-92": "linear-gradient(92deg, var(--tw-gradient-stops))",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
