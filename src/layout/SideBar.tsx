@@ -19,7 +19,7 @@ const SideBar = () => {
   }
 
   return (
-    <div>
+    <div className="w-[300px]">
       <ResultSize />
       <FilterMenu />
       <SortingFacet

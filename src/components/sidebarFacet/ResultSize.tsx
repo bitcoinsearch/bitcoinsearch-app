@@ -63,19 +63,21 @@ const ResultSize = () => {
             <Flex
               w="fit-content"
               bgColor="white"
-              px={1}
-              py={1}
-              rounded="md"
+              px={3}
+              py={2}
               border="1px solid"
               borderColor="#BFBFBF"
-              borderRadius="md"
+              borderRadius="xl"
               cursor="pointer"
               alignItems="center"
+              gap={2}
             >
-              <p className="font-bold text-lg">
+              <p className="font-bold text-lg leading-none">
                 {currentSizeOption.label}
               </p>
-              <Icon color="gray.600" as={IoIosArrowDown} />
+              <span data-is-open={isOpen} className="data-[is-open=false]:rotate-180 transition-transform">
+                <Image src="./up_arrow.svg" width={11} height={7} alt="arrow"/>
+              </span>
             </Flex>
           </PopoverTrigger>
           <PopoverContent

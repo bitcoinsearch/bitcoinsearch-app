@@ -1,4 +1,4 @@
-import { Layout } from "@elastic/react-search-ui-views";
+import Layout from "@/layout/Layout";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
 // COMPONENTS //
@@ -57,7 +57,8 @@ export default function App() {
               Search the depths of bitcoin’s technical ecosystem
             </p>
           </div>
-          <Layout
+          <div className="p-10 w-8 h-8"></div>
+      <Layout
             header={<Header openForm={openForm} />}
             sideContent={<SideBar />}
             bodyContent={<CustomResults shouldTrackClickThrough={true} />}
