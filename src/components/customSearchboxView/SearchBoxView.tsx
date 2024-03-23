@@ -100,7 +100,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
 
   const inputRef = useRef<HTMLInputElement | null>();
   const searchFormRef = useRef<HTMLFormElement | null>();
-
+  const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchInput, setSearchInput] = useState<string>("");
   const [typed, setTyped] = useState(false);
   const [onFocus, setFocus] = useState(false);
@@ -108,6 +108,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const [isOutsideClick, setIsOutsideClick] = useState(false);
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const isMacDevice = isMac();
+  const currentItemRef = useRef<HTMLLIElement | null>(null);
+
   const { getFilter, addFilter, removeFilter, getSearchTerm } = useURLManager();
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -116,6 +118,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     ) {
       setFocus(false);
       setIsOutsideClick(true);
+      setCurrentIndex(-1);
     } else {
       setIsOutsideClick(false);
     }
@@ -202,12 +205,33 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setTyped(false);
   };
 
+  // Effect to focus on the current item whenever currentIndex changes
+  useEffect(() => {
+    if (currentItemRef.current) {
+      currentItemRef.current.focus();
+    }
+  }, [currentIndex]);
+
   useEffect(() => {
     if (queryResult.isFetched) {
       setIsPageLoaded(false);
-      console.log("i entered");
     }
   }, [queryResult.isFetched]);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? suggestions.length - 1 : prevIndex - 1
+      );
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setCurrentIndex((prevIndex) =>
+        prevIndex === suggestions.length - 1 ? 0 : prevIndex + 1
+      );
+    }
+  };
+
   return (
     <Downshift
       inputValue={searchTerm}
@@ -239,6 +263,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
               ref={searchBoxRef}
               tabIndex={0}
               className="flex  items-start w-full mx-auto max-w-3xl"
+              onKeyDown={handleKeyDown}
             >
               <div className="flex-col relative w-full">
                 <div
@@ -318,17 +343,28 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 {/* For auto complete */}
                 {isAutoCompleteContainerOpen && (
                   <div
+                    role="presentation"
+                    tabIndex={0}
                     className={`border absolute top-11.5   border-t-0 border-gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
-                    {suggestions.map((sug) => (
-                      <p
-                        key={sug.suggestion}
-                        onClick={() => onSelectSuggestion(sug)}
-                        className="cursor-pointer text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-[#FFF0E0]"
-                      >
-                        {removeMarkdownCharacters(sug.suggestion)}
-                      </p>
-                    ))}
+                    <ul>
+                      {suggestions.map((sug, index) => (
+                        <li
+                          key={sug.suggestion}
+                          tabIndex={0}
+                          ref={currentIndex === index ? currentItemRef : null}
+                          onClick={() => onSelectSuggestion(sug)}
+                          onKeyDown={(e) =>
+                            e.code === "Enter" && onSelectSuggestion(sug)
+                          }
+                          className={`
+                          focus:bg-[#FFF0E0]
+                          outline-none cursor-pointer text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-[#FFF0E0]`}
+                        >
+                          {removeMarkdownCharacters(sug.suggestion)}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>
