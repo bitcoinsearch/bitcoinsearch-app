@@ -110,7 +110,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const isMacDevice = isMac();
   const currentItemRef = useRef<HTMLLIElement | null>(null);
 
-  const { getFilter, addFilter, removeFilter, getSearchTerm } = useURLManager();
+  const { getFilter, addFilter, removeFilter, clearAllFilters } =
+    useURLManager();
   const handleClickOutside = (event: MouseEvent) => {
     if (
       searchBoxRef.current &&
@@ -172,10 +173,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
     makeQuery(value);
   };
   const onClearInput = () => {
-    inputRef.current.value = "";
-    handleChange("");
-    setTyped(false);
+    inputRef.current.focus();
     setSearchInput("");
+    handleChange("");
+    clearAllFilters();
   };
 
   const onSearchInputChange = (value: string) => {
@@ -192,6 +193,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
 
   const isContainerOpen =
     (onFocus && !isOutsideClick && !searchInput) || isPageLoaded;
+  console.log(onFocus, !isOutsideClick, !searchInput);
   const isAutoCompleteContainerOpen =
     searchInput && typed && allAutocompletedItemsCount && !isOutsideClick
       ? true
@@ -219,16 +221,22 @@ function SearchBoxView(props: SearchBoxViewProps) {
   }, [queryResult.isFetched]);
 
   const handleKeyDown = (event) => {
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? suggestions.length - 1 : prevIndex - 1
-      );
-    } else if (event.key === "ArrowDown") {
-      event.preventDefault();
-      setCurrentIndex((prevIndex) =>
-        prevIndex === suggestions.length - 1 ? 0 : prevIndex + 1
-      );
+    switch (event.keyCode) {
+      case 27:
+        setTyped(false);
+      case 38:
+        setCurrentIndex((prevIndex) =>
+          prevIndex === 0 ? suggestions.length - 1 : prevIndex - 1
+        );
+        break;
+      case 40:
+        setCurrentIndex((prevIndex) =>
+          prevIndex === suggestions.length - 1 ? 0 : prevIndex + 1
+        );
+        break;
+      default:
+        console.log("");
+        break;
     }
   };
 
@@ -247,10 +255,11 @@ function SearchBoxView(props: SearchBoxViewProps) {
       {...rest}
     >
       {(downshiftProps) => {
-        const { closeMenu, getInputProps, isOpen } = downshiftProps;
+        const { getInputProps } = downshiftProps;
         return (
           <form
             ref={searchFormRef}
+            className="w-full"
             onSubmit={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -262,7 +271,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
             <div
               ref={searchBoxRef}
               tabIndex={0}
-              className="flex  items-start w-full mx-auto max-w-3xl"
+              className="flex  items-start w-full "
               onKeyDown={handleKeyDown}
             >
               <div className="flex-col relative w-full">
@@ -284,6 +293,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     }}
                     onFocus={() => {
                       setFocus(true);
+                      setIsOutsideClick(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
                     className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-gray w-full border-none outline-none bg-transparent "
@@ -294,7 +304,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       {" /"}
                     </p>
                   )}
-                  {onFocus && typed && (
+                  {onFocus && typed && searchInput && (
                     <CloseIconOutlined
                       className="cursor-pointer w-[8px] md:w-auto"
                       onClick={onClearInput}
