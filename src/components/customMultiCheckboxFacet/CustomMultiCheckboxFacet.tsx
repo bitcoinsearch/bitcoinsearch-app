@@ -8,6 +8,7 @@ import SidebarSection from "../sidebarFacet/SidebarSection";
 import Image from "next/image";
 import { FacetKeys } from "@/types";
 import useAddSources from "@/hooks/useAddSource";
+import LightningIcon from "public/lightning_icon_filled.svg"
 
 const facetMapping = {
   authors: {
@@ -71,9 +72,12 @@ function CustomMultiCheckboxFacet({
         {showSearch && (
           <div className="relative">
             <input
-              className="w-full pl-12 pr-4 py-4 rounded-xl border-[1px] border-custom-grey-light group focus-visible:outline-custom-grey-dark focus-visible:outline-offset-0"
-              type="search"
-              placeholder={currentNavigateCheckbox || "Search"}
+              className="text-sm lg:text-base font-medium w-full pl-12 pr-4 py-4 rounded-xl border-[1px] border-custom-grey-light group focus-visible:outline-custom-grey-dark focus-visible:outline-offset-0 leading-none"
+              type="text"
+              placeholder={
+                currentNavigateCheckbox ||
+                `Search ${facetMapping[label]["display"]}`
+              }
               onChange={(e) => {
                 onSearch(e.target.value);
               }}
@@ -85,6 +89,7 @@ function CustomMultiCheckboxFacet({
                 width={18}
                 height={18}
                 alt="search"
+                className=""
               />
             </span>
             {/* {!searchRef.current.textContent.trim() && (
@@ -104,7 +109,7 @@ function CustomMultiCheckboxFacet({
           className="mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-grey-light rounded-xl"
           ref={multiCheckboxRef}
         >
-          {options.length < 1 && <div>No matching options</div>}
+          {options.length < 1 && <p className="w-full text-sm lg:text-base text-center px-2">No matching options</p>}
           {options?.map((option) => {
             const checked = option.selected;
             const value = option.value;
@@ -118,7 +123,7 @@ function CustomMultiCheckboxFacet({
                 data-current-navigated={
                   valueDisplay === currentNavigateCheckbox
                 }
-                className="group flex justify-between py-2 px-[14px] data-[current-navigated=true]:bg-red-400 data-[selected=true]:text-custom-orange-dark"
+                className="group flex justify-between py-1 lg:py-2 px-[14px] data-[current-navigated=true]:bg-red-400 data-[selected=true]:text-custom-orange-dark"
               >
                 <div
                   className="selectable-option flex items-center gap-3"
@@ -128,11 +133,9 @@ function CustomMultiCheckboxFacet({
                 >
                   <Image
                     data-transaction-name={`facet - ${label}`}
-                    className="group-data-[selected=false]:invisible"
-                    src="./lightning_icon_filled.svg"
-                    height={16}
-                    width={16}
-                    alt=""
+                    className="group-data-[selected=false]:invisible w-[12px] lg:w-[16px]"
+                    src={LightningIcon}
+                    alt="bolt icon"
                   />
                   {/* <input
                     data-transaction-name={`facet - ${label}`}
@@ -144,7 +147,7 @@ function CustomMultiCheckboxFacet({
                       checked ? onRemove(value) : onSelect(value)
                     }
                   /> */}
-                  <span className="text-base group-data-[selected=true]:font-bold">
+                  <span className="text-sm lg:text-base group-data-[selected=true]:font-bold">
                     {valueDisplay}
                   </span>
                 </div>
@@ -163,15 +166,16 @@ function CustomMultiCheckboxFacet({
 export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
   const { openForm } = useAddSources();
   return (
-    <div className="flex justify-between mb-6">
+    <div className="flex justify-between mb-4 lg:mb-6">
       <div className="flex gap-2 items-center">
         <Image
           src={facetMapping[label]["icon"]}
           width={20}
           height={20}
           alt={label}
+          className="w-[18px] lg:w-[20px]"
         />
-        <span className="text-lg font-bold">
+        <span className="text-base lg:text-lg font-bold">
           {facetMapping[label]["display"]}
         </span>
       </div>
@@ -182,7 +186,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
           onClick={openForm}
         >
           <span className="group-hover:underline underline-offset-4 text-sm font-medium">
-            Add a source
+            Suggest a source
           </span>
           <span className="p-[6px] bg-custom-black-light group-hover:bg-custom-orange-dark rounded-md">
             <Image

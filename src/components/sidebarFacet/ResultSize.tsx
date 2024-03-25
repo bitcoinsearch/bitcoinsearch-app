@@ -51,7 +51,7 @@ const ResultSize = () => {
   };
   return (
     <>
-      <div className="flex items-center gap-2 pb-9 text-custom-black-light">
+      <div className="flex items-center gap-2 pb-9 text-custom-black-light text-xs lg:text-base">
         <span>Showing</span>
         <Popover
           isOpen={isOpen}
@@ -72,7 +72,7 @@ const ResultSize = () => {
               alignItems="center"
               gap={2}
             >
-              <p className="font-bold text-lg leading-none">
+              <p className="font-bold text-xs lg:text-lg leading-none">
                 {currentSizeOption.label}
               </p>
               <span data-is-open={isOpen} className="data-[is-open=false]:rotate-180 transition-transform">

@@ -11,7 +11,7 @@ import ResultSize from "@/components/sidebarFacet/ResultSize";
 import Image from "next/image";
 import FilterMenu from "@/components/sidebarFacet/FilterMenu";
 
-const SideBar = () => {
+const SideBar = ({toggle}: {toggle: () => void}) => {
   const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
   if (hiddenBody) {
@@ -20,7 +20,9 @@ const SideBar = () => {
 
   return (
     <div className="w-[300px]">
-      <ResultSize />
+      <div className="hidden lg:block">
+        <ResultSize />
+      </div>
       <FilterMenu />
       <SortingFacet
         field="sort_by"

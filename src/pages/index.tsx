@@ -60,7 +60,7 @@ export default function App() {
           <div className="p-10 w-8 h-8"></div>
       <Layout
             header={<Header openForm={openForm} />}
-            sideContent={<SideBar />}
+            sideContent={(toggle) => <SideBar toggle={toggle} />}
             bodyContent={<CustomResults shouldTrackClickThrough={true} />}
             bodyHeader={<CustomPagingInfo />}
             bodyFooter={<BodyFooter />}

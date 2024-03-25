@@ -15,6 +15,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { SortingViewProps } from "./types";
 import Image from "next/image";
 import SidebarSection from "../SidebarSection";
+import SortIcon from "public/sort_icon.svg"
 
 const SortingView = ({
   onChange,
@@ -26,9 +27,9 @@ const SortingView = ({
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
     <SidebarSection className="text-custom-black-light">
-      <label className="flex gap-2 mb-6">
-        <Image src="./sort_icon.svg" height={28} width={20} alt={label} />
-        <p className="text-lg font-bold">{label}</p>
+      <label className="flex gap-2 mb-4 lg:mb-6 items-center">
+        <Image src={SortIcon} alt={label} className="w-[20px] h-[20px] lg:w-[25px]" />
+        <p className="lg:text-lg font-bold">{label}</p>
       </label>
       <FormControl>
         <Box position="relative" w="full">
@@ -48,10 +49,12 @@ const SortingView = ({
               <div
                 className="w-full flex bg-white px-4 py-3 border-[1px] border-custom-grey-light items-center justify-between rounded-xl"
               >
-                <p className="text-base font-bold text-custom-black-light ">
+                <p className="text-sm lg:text-base font-bold text-custom-black-light ">
                   {option.label}
                 </p>
-                <Icon color="gray.600" as={IoIosArrowDown} />
+                <span data-is-open={isOpen} className="data-[is-open=false]:rotate-180 transition-transform">
+                  <Image src="./up_arrow.svg" width={11} height={7} alt="arrow"/>
+                </span>
               </div>
             </PopoverTrigger>
             <PopoverContent
