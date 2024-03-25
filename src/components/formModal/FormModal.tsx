@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -18,6 +19,7 @@ import { getFormURL } from "../../config/config-helper";
 
 const FormModal = ({ formOpen, closeForm }) => {
   const [urlValue, setUrlValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
   const [formState, setFormState] = useState({
     loading: false,
     error: "",
@@ -68,9 +70,13 @@ const FormModal = ({ formOpen, closeForm }) => {
       <ModalOverlay />
       <ModalContent mx={{ base: "16px", md: "0px" }}>
         <ModalHeader>
-          <Text align="center" fontWeight={500}>
-            User Domain Submission
-          </Text>
+          <p className="text-center font-medium mb-4 leading-none">
+            Help Expand Our Source Library
+          </p>
+          <p className="text-center text-sm font-normal">
+            We manually review every suggestion to ensure it meets our standards
+            for reliable, technical Bitcoin content.
+          </p>
         </ModalHeader>
         <ModalBody>
           {formState.success ? (
@@ -86,11 +92,14 @@ const FormModal = ({ formOpen, closeForm }) => {
               </Text>
             </Box>
           ) : (
-            <form onSubmit={handleSubmit}>
-              <FormControl>
-                <FormLabel fontWeight={400} htmlFor="form-url">
-                  URL
-                </FormLabel>
+            <form onSubmit={handleSubmit} >
+              <FormControl className="flex flex-col gap-2 mb-6">
+                <label
+                  className="text-sm font-semibold text-custom-black-light"
+                  htmlFor="form-url"
+                >
+                  Source&apos;s URL
+                </label>
                 <Input
                   id="form-url"
                   type="url"
@@ -100,21 +109,58 @@ const FormModal = ({ formOpen, closeForm }) => {
                   isRequired
                   maxLength={255}
                 />
-                <FormHelperText>
-                  Enter a valid url, should contain http/https
-                </FormHelperText>
-                <Center my="5">
-                  <Button
-                    fontWeight={400}
-                    mx="auto"
-                    type="submit"
-                    colorScheme="blue"
-                    isLoading={formState.loading}
-                  >
-                    Submit
-                  </Button>
-                </Center>
+                <p className="text-[11px] font-medium text-custom-grey-dark">
+                  Please enter the full URL, including http:// or https://
+                </p>
               </FormControl>
+              <FormControl className="flex flex-col gap-2">
+                <label
+                  className="text-sm font-semibold text-custom-black-light"
+                  htmlFor="form-url"
+                >
+                  Your Email
+                </label>
+                <Input
+                  id="form-email"
+                  type="email"
+                  placeholder=""
+                  onChange={(e) => setEmailValue(e.target.value)}
+                  value={emailValue}
+                  isRequired
+                  maxLength={255}
+                />
+                <p className="text-[11px] font-medium text-custom-grey-dark">
+                  We’ll notify you once the source is approved and
+                  added
+                </p>
+              </FormControl>
+              <Flex my="5" gap={2}>
+                <Button
+                  size="no-size"
+                  p={2}
+                  w="full"
+                  fontWeight={400}
+                  mx="auto"
+                  type="reset"
+                  colorScheme="gray"
+                  isLoading={formState.loading}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  size="no-size"
+                  p={2}
+                  w="full"
+                  fontWeight={400}
+                  mx="auto"
+                  type="submit"
+                  colorScheme="blue"
+                  isLoading={formState.loading}
+                >
+                  Submit Source
+                </Button>
+              </Flex>
             </form>
           )}
         </ModalBody>
