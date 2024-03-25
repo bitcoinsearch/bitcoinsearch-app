@@ -20,7 +20,7 @@ import theme from "@/chakra/chakra-theme";
 import { SearchDriverOptions } from "@elastic/search-ui";
 import Head from "next/head";
 import Script from 'next/script';
-import { AddSourceProvider } from "@/context/AddSourceContext";
+import { UIContextProvider } from "@/context/UIContext";
 
 const queryClient = new QueryClient();
 
@@ -49,7 +49,7 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <SearchQueryProvider>
           <SearchProvider config={config}>
-            <AddSourceProvider>
+            <UIContextProvider>
               <Head>
                 <meta charSet="utf-8" />
                 <link rel="shortcut icon" href="./favicon.ico" />
@@ -63,7 +63,7 @@ export default function App({ Component, pageProps }) {
               </Head>
               <Script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53" />
               <Component {...pageProps} />
-            </AddSourceProvider>
+            </UIContextProvider>
           </SearchProvider>
         </SearchQueryProvider>
       </QueryClientProvider>

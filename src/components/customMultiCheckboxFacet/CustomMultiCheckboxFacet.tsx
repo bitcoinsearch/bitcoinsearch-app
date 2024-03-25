@@ -7,7 +7,7 @@ import { deriveNameFromUrl } from "@/config/mapping-helper";
 import SidebarSection from "../sidebarFacet/SidebarSection";
 import Image from "next/image";
 import { FacetKeys } from "@/types";
-import useAddSources from "@/hooks/useAddSource";
+import useUIContext from "@/hooks/useUIContext";
 import LightningIcon from "public/lightning_icon_filled.svg"
 
 const facetMapping = {
@@ -164,7 +164,7 @@ function CustomMultiCheckboxFacet({
 }
 
 export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
-  const { openForm } = useAddSources();
+  const { openForm } = useUIContext();
   return (
     <div className="flex justify-between mb-4 lg:mb-6">
       <div className="flex gap-2 items-center">
