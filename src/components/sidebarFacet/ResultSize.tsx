@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import UpArrow from "public/up_arrow.svg"
 
 const sizes = [
   {
@@ -51,7 +52,7 @@ const ResultSize = () => {
   };
   return (
     <>
-      <div className="flex items-center gap-2 pb-9 text-custom-black-light text-xs lg:text-base">
+      <div className="flex items-center gap-2 pb-9 text-custom-black-light text-sm lg:text-lg">
         <span>Showing</span>
         <Popover
           isOpen={isOpen}
@@ -60,25 +61,14 @@ const ResultSize = () => {
           placement="bottom"
         >
           <PopoverTrigger>
-            <Flex
-              w="fit-content"
-              bgColor="white"
-              px={3}
-              py={2}
-              border="1px solid"
-              borderColor="#BFBFBF"
-              borderRadius="xl"
-              cursor="pointer"
-              alignItems="center"
-              gap={2}
-            >
-              <p className="font-bold text-xs lg:text-lg leading-none">
+            <div className="flex items-center gap-1 lg:gap-2 cursor-pointer w-fit py-2 px-2 lg:px-3 border-[1px] border-custom-grey-dark leading-none rounded-lg lg:rounded-xl ">
+              <p className="font-bold leading-none">
                 {currentSizeOption.label}
               </p>
               <span data-is-open={isOpen} className="data-[is-open=false]:rotate-180 transition-transform">
-                <Image src="./up_arrow.svg" width={11} height={7} alt="arrow"/>
+                <Image src={UpArrow} alt="arrow" className="w-2 lg:w-[11px] "/>
               </span>
-            </Flex>
+            </div>
           </PopoverTrigger>
           <PopoverContent
             w="fit-content"
@@ -90,7 +80,7 @@ const ResultSize = () => {
             <PopoverBody p="0px">
               {sizes.map((size) => (
                 <div key={size.label} className="hover:bg-[#FFF0E0]" role="button" onClick={() => handleSelect(size.value)} >
-                  <p className="text-center py-2 px-2 text-lg font-medium">{size.label}</p>
+                  <p className="text-center py-2 px-2 font-medium">{size.label}</p>
                 </div>
               ))}
             </PopoverBody>
@@ -98,7 +88,7 @@ const ResultSize = () => {
         </Popover>
         <span> of {totalResults} results</span>
       </div>
-      <div className="text-red-400">
+      <div className="group-data-[no-border='true']:hidden">
         <Image src="./dashed_line.svg" height={12} width={300} alt="seperator" />
       </div>
     </>

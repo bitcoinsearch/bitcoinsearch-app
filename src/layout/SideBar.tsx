@@ -10,16 +10,12 @@ import SortingView from "@/components/sidebarFacet/Sorting/SortingView";
 import ResultSize from "@/components/sidebarFacet/ResultSize";
 import Image from "next/image";
 import FilterMenu from "@/components/sidebarFacet/FilterMenu";
+import ShowFilterResultsMobile from "@/components/sidebarFacet/ShowFilterResultsMobile";
 
 const SideBar = () => {
-  const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
-
-  if (hiddenBody) {
-    return null;
-  }
 
   return (
-    <div className="w-[300px]">
+    <div className="w-full md:w-[300px]">
       <div className="hidden lg:block">
         <ResultSize />
       </div>
@@ -48,8 +44,7 @@ const SideBar = () => {
           },
         ]}
       />
-      {hiddenHomeFacet
-        ? getFacetFields().map((field) => (
+      {getFacetFields().map((field) => (
             <Facet
               key={field}
               field={field}
@@ -58,17 +53,8 @@ const SideBar = () => {
               view={CustomMultiCheckboxFacet}
             />
           ))
-        : getFacetFields()
-            .filter((field) => !getFacetWithSearch().includes(field))
-            .map((field) => (
-              <Facet
-                key={field}
-                field={field}
-                isFilterable={getFacetWithSearch().includes(field)}
-                label={field}
-                view={CustomMultiCheckboxFacet}
-              />
-            ))}
+        }
+      <ShowFilterResultsMobile />
     </div>
   );
 };
