@@ -11,7 +11,7 @@ import ResultSize from "@/components/sidebarFacet/ResultSize";
 import Image from "next/image";
 import FilterMenu from "@/components/sidebarFacet/FilterMenu";
 
-const SideBar = ({toggle}: {toggle: () => void}) => {
+const SideBar = () => {
   const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
   if (hiddenBody) {

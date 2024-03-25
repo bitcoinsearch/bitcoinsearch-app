@@ -10,18 +10,24 @@ import { getFilterValueDisplay } from "@/utils/facet";
 import useURLManager from "@/service/URLManager/useURLManager";
 import FilterIcon from "public/filter.svg"
 import CrossIcon from "public/cross_icon.svg"
+import useUIContext from "@/hooks/useUIContext";
+import CloseSidebarIcon from "public/close_sidebar.svg"
 
 
 const FilterMenu = () => {
   const { filterFields } = useSearchQuery();
+  const { sidebarToggleManager } = useUIContext()
 
   return (
     <>
-      <SidebarSection className="text-custom-black-light">
+      <SidebarSection className="text-custom-black-light flex justify-between">
         <div className="flex items-center gap-2">
           <Image src={FilterIcon} alt="filter" className="w-[20px] lg:w-[25px]" />
           <p className="text-base lg:text-xl font-bold">Filters</p>
         </div>
+        <span onClick={() => sidebarToggleManager.updater(false)}>
+          <Image src={CloseSidebarIcon} alt="close sidebar" className="" />
+        </span>
       </SidebarSection>
       <AppliedFilters filters={filterFields} />
     </>

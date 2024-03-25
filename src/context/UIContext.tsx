@@ -7,7 +7,7 @@ export type UIContextType = {
   isOpen: boolean;
   sidebarToggleManager: {
     state: boolean;
-    updater: (x:boolean) => void;
+    updater: (x?:boolean) => void;
   }
 }
 
