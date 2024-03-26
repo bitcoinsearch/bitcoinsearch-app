@@ -68,17 +68,17 @@ const FormModal = ({ formOpen, closeForm }) => {
   return (
     <Modal isOpen={formOpen} onClose={resetAndCloseForm}>
       <ModalOverlay />
-      <ModalContent mx={{ base: "16px", md: "0px" }}>
-        <ModalHeader>
-          <p className="text-center font-medium mb-4 leading-none">
+      <ModalContent mx={{ base: "16px", lg: "0px" }} p={{ base: "16px", lg: "40px"}} maxW={{base: "400px", lg:"580px"}}>
+        <ModalHeader p={0} mb={{ base: "28px", lg: "48px"}}>
+          <p className="text-center font-medium mb-4 lg:mb-6 lg:text-3xl leading-none">
             Help Expand Our Source Library
           </p>
-          <p className="text-center text-sm font-normal">
+          <p className="text-center text-sm lg:text-lg font-normal">
             We manually review every suggestion to ensure it meets our standards
             for reliable, technical Bitcoin content.
           </p>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody p={0}>
           {formState.success ? (
             <Box my="10">
               <Text fontWeight={500} textAlign="center" color="green.400">
@@ -92,8 +92,8 @@ const FormModal = ({ formOpen, closeForm }) => {
               </Text>
             </Box>
           ) : (
-            <form onSubmit={handleSubmit} >
-              <FormControl className="flex flex-col gap-2 mb-6">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 lg:gap-10">
+              <FormControl className="flex flex-col gap-2 lg:gap-3">
                 <label
                   className="text-sm font-semibold text-custom-black-light"
                   htmlFor="form-url"
@@ -113,10 +113,10 @@ const FormModal = ({ formOpen, closeForm }) => {
                   Please enter the full URL, including http:// or https://
                 </p>
               </FormControl>
-              <FormControl className="flex flex-col gap-2">
+              <FormControl className="flex flex-col gap-2 lg:gap-3">
                 <label
                   className="text-sm font-semibold text-custom-black-light"
-                  htmlFor="form-url"
+                  htmlFor="form-email"
                 >
                   Your Email
                 </label>
@@ -134,33 +134,36 @@ const FormModal = ({ formOpen, closeForm }) => {
                   added
                 </p>
               </FormControl>
-              <Flex my="5" gap={2}>
+              <div className="flex gap-2 lg:gap-4">
                 <Button
                   size="no-size"
-                  p={2}
+                  py={3}
                   w="full"
-                  fontWeight={400}
+                  fontWeight={600}
                   mx="auto"
                   type="reset"
                   colorScheme="gray"
                   isLoading={formState.loading}
+                  fontSize="sm"
+                  onClick={resetAndCloseForm}
                 >
                   Cancel
                 </Button>
                 <Button
                   variant="primary"
                   size="no-size"
-                  p={2}
+                  py={3}
                   w="full"
-                  fontWeight={400}
+                  fontWeight={600}
                   mx="auto"
                   type="submit"
                   colorScheme="blue"
                   isLoading={formState.loading}
+                  fontSize="sm"
                 >
                   Submit Source
                 </Button>
-              </Flex>
+              </div>
             </form>
           )}
         </ModalBody>
