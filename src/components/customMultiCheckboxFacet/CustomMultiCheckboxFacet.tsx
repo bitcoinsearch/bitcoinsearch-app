@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import mapping from "../../config/mapping.json";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
@@ -9,6 +9,8 @@ import Image from "next/image";
 import { FacetKeys } from "@/types";
 import useUIContext from "@/hooks/useUIContext";
 import LightningIcon from "public/lightning_icon_filled.svg"
+import UpArrow from "public/up_arrow.svg"
+import { useDisclosure } from "@chakra-ui/react";
 
 const facetMapping = {
   authors: {
@@ -33,6 +35,7 @@ function CustomMultiCheckboxFacet({
   onSearch,
   searchPlaceholder,
 }) {
+  const {isOpen, onToggle, onOpen, onClose} = useDisclosure({defaultIsOpen: false})
   // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
   function getFilterValueDisplay(filterValue, label) {
     if (filterValue === undefined || filterValue === null) {
@@ -65,6 +68,24 @@ function CustomMultiCheckboxFacet({
     notation: "compact",
   });
 
+  useEffect(() => {
+    const handleFocusIn = () => {
+      onOpen()
+    }
+    const handleFocusOut = () => {
+      onClose()
+    }
+    let searchRefInput = searchRef.current
+    if (!searchRefInput) return
+    searchRefInput.addEventListener("focusin", () => handleFocusIn())
+    searchRefInput.addEventListener("focusout", () => handleFocusOut())
+    return () => {
+      searchRefInput.removeEventListener("focusin", () => handleFocusIn())
+      searchRefInput.removeEventListener("focusout", () => handleFocusOut())
+    }
+  }, [onOpen, onClose])
+  
+
   return (
     <SidebarSection className="text-custom-black-light">
       <fieldset className={appendClassName("", className)}>
@@ -72,7 +93,7 @@ function CustomMultiCheckboxFacet({
         {showSearch && (
           <div className="relative">
             <input
-              className="text-sm lg:text-base font-medium w-full pl-12 pr-4 py-4 rounded-xl border-[1px] border-custom-grey-light group focus-visible:outline-custom-grey-dark focus-visible:outline-offset-0 leading-none"
+              className="text-sm lg:text-base font-medium w-full pl-12 pr-10 py-4 rounded-xl border-[1px] border-custom-grey-light group focus-visible:outline-custom-grey-dark focus-visible:outline-offset-0 leading-none"
               type="text"
               placeholder={
                 currentNavigateCheckbox ||
@@ -92,6 +113,9 @@ function CustomMultiCheckboxFacet({
                 className=""
               />
             </span>
+            <span data-is-open={isOpen} onClick={onToggle} className="absolute p-2 cursor-pointer top-1/2 -translate-y-1/2 right-[18px] data-[is-open=false]:rotate-180 transition-transform">
+              <Image src={UpArrow} alt="arrow"/>
+            </span>
             {/* {!searchRef.current.textContent.trim() && (
               <span className="absolute top-1/2 -translate-y-1/2 right-4">
                 <Image
@@ -106,7 +130,8 @@ function CustomMultiCheckboxFacet({
         )}
 
         <div
-          className="mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-grey-light rounded-xl"
+          data-is-open={isOpen}
+          className="data-[is-open='false']:hidden data-[is-open='false']:md:block mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-grey-light rounded-xl"
           ref={multiCheckboxRef}
         >
           {options.length < 1 && <p className="w-full text-sm lg:text-base text-center px-2">No matching options</p>}

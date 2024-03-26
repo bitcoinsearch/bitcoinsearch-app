@@ -25,7 +25,7 @@ const FilterMenu = () => {
           <Image src={FilterIcon} alt="filter" className="w-[20px] lg:w-[25px]" />
           <p className="text-base lg:text-xl font-bold">Filters</p>
         </div>
-        <span onClick={() => sidebarToggleManager.updater(false)}>
+        <span className="md:hidden" onClick={() => sidebarToggleManager.updater(false)}>
           <Image src={CloseSidebarIcon} alt="close sidebar" className="" />
         </span>
       </SidebarSection>
