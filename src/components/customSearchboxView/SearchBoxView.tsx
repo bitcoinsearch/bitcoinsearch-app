@@ -1,4 +1,10 @@
-import React, { FormEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Downshift from "downshift";
 
 import type {
@@ -137,6 +143,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
     };
   }, []);
   const handleChange = (value: string) => {
+    if (isOutsideClick) {
+      setIsOutsideClick(false);
+    }
     onChange(value);
     setSearchTerm(value);
   };
@@ -173,7 +182,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     makeQuery(value);
   };
   const onClearInput = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     inputRef.current.focus();
     setFocus(true);
     setIsOutsideClick(false);
@@ -226,7 +235,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const handleKeyDown = (event) => {
     switch (event.keyCode) {
       case 27:
-        setTyped(false);
+        setIsOutsideClick(true);
       case 38:
         setCurrentIndex((prevIndex) =>
           prevIndex === 0 ? suggestions.length - 1 : prevIndex - 1
