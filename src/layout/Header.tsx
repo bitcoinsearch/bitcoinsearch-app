@@ -23,7 +23,7 @@ const Header = ({ openForm }) => {
   };
 
   return (
-    <div className="flex gap-3 mx-auto max-w-3xl w-full  justify-center">
+    <div className="flex gap-2 mx-auto max-w-3xl w-full  justify-center">
       <SearchBox
         autocompleteMinimumCharacters={3}
         view={SearchBoxView}

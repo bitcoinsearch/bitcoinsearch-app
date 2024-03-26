@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, { FormEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import Downshift from "downshift";
 
 import type {
@@ -172,8 +172,11 @@ function SearchBoxView(props: SearchBoxViewProps) {
     handleChange(value);
     makeQuery(value);
   };
-  const onClearInput = () => {
+  const onClearInput = (e) => {
+    e.stopPropagation()
     inputRef.current.focus();
+    setFocus(true);
+    setIsOutsideClick(false);
     setSearchInput("");
     handleChange("");
     clearAllFilters();
@@ -193,7 +196,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
 
   const isContainerOpen =
     (onFocus && !isOutsideClick && !searchInput) || isPageLoaded;
-  console.log(onFocus, !isOutsideClick, !searchInput);
+
   const isAutoCompleteContainerOpen =
     searchInput && typed && allAutocompletedItemsCount && !isOutsideClick
       ? true
