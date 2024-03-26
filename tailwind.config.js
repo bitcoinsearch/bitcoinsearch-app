@@ -15,6 +15,7 @@ module.exports = {
       darkGray: {
         100: "#666666",
         200: "#292929",
+        300:"#4D4D4D"
       },
       gray: "#BFBFBF",
     },
@@ -23,6 +24,7 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "gradient-search": "linear-gradient(137deg, rgba(232,120,43,1) 0%, rgba(232,120,43,1) 50%, rgba(246,167,63,1) 100%);"
       },
     },
   },

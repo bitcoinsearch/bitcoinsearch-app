@@ -1,51 +1,41 @@
 import { SearchBox } from "@elastic/react-search-ui";
 import React, { useEffect } from "react";
-import SearchInput from "../components/customSearchboxView/SearchInput";
-import HomeFacetSelection from "../components/homeFacetSelection";
-import KeywordsSelection from "../components/homeFacetSelection/KeywordsSelection";
 import useSearchQuery from "../hooks/useSearchQuery";
-import SearchBoxView from "../components/customSearchboxView/SearchBoxView"
-import { InputViewProps } from "@elastic/react-search-ui-views";
+import SearchBoxView from "../components/customSearchboxView/SearchBoxView";
+import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
+import FilterIcon from "@/components/svgs/FilterIcon";
 
-const Header = ({openForm}) => {
-  useEffect(() => {
-  }, [])
+const Header = ({ openForm }) => {
   const { makeQuery } = useSearchQuery();
-  const SearchInputWrapper = ({ ...rest }: InputViewProps) => {
-    return <SearchInput openForm={openForm} {...rest} />;
-  };
 
   const handleSubmit = (input: string) => {
     makeQuery(input);
   };
 
-  const handleAutoCompleteSelect = (selection, autoCompleteData, defaultFunction) => {
+  const handleAutoCompleteSelect = (
+    selection,
+    autoCompleteData,
+    defaultFunction
+  ) => {
     if (!selection.suggestion) return;
-    makeQuery(selection.suggestion);
+    makeQuery(removeMarkdownCharacters(selection.suggestion));
   };
 
   return (
-    <>
+    <div className="flex gap-2 mx-auto max-w-3xl w-full  justify-center">
       <SearchBox
         autocompleteMinimumCharacters={3}
-        // autocompleteResults={{
-        //   linkTarget: "_blank",
-        //   sectionTitle: "Suggested Queries",
-        //   titleField: "title",
-        //   urlField: "nps_link",
-        //   shouldTrackClickThrough: true,
-        //   clickThroughTags: ["test"],
-        // }}
         view={SearchBoxView}
         autocompleteSuggestions={true}
         debounceLength={0}
-        inputView={SearchInputWrapper}
         onSubmit={handleSubmit}
+        className="w-full"
         onSelectAutocomplete={handleAutoCompleteSelect}
       />
-      <HomeFacetSelection />
-      <KeywordsSelection />
-    </>
+      <button className="flex items-center bg-transparent min-h-[40px] border border-gray  px-4  rounded-xl  md:hidden">
+        <FilterIcon />
+      </button>
+    </div>
   );
 };
 
