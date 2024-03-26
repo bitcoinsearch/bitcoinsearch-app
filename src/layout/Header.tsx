@@ -6,7 +6,6 @@ import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import FilterIcon from "@/components/svgs/FilterIcon";
 
 const Header = ({ openForm }) => {
-  useEffect(() => {}, []);
   const { makeQuery } = useSearchQuery();
 
   const handleSubmit = (input: string) => {
