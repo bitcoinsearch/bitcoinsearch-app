@@ -1,10 +1,4 @@
-import React, {
-  FormEvent,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FormEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import Downshift from "downshift";
 
 import type {
@@ -126,6 +120,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
       setFocus(false);
       setIsOutsideClick(true);
       setCurrentIndex(-1);
+      setIsPageLoaded(false)
     } else {
       setIsOutsideClick(false);
     }
@@ -143,10 +138,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
     };
   }, []);
   const handleChange = (value: string) => {
-    if (isOutsideClick) {
-      setIsOutsideClick(false);
-    }
-    onChange(value);
+    if(isOutsideClick)
+{
+  setIsOutsideClick(false)
+}    onChange(value);
     setSearchTerm(value);
   };
   const onTabClick = (
@@ -182,7 +177,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     makeQuery(value);
   };
   const onClearInput = (e) => {
-    e.stopPropagation();
+    e.stopPropagation()
     inputRef.current.focus();
     setFocus(true);
     setIsOutsideClick(false);
@@ -195,7 +190,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchInput(value);
   };
   const { searchQuery, makeQuery, queryResult } = useSearchQuery();
-
+  //  used to check if it's the same query that has been cached  being made by the client
+  const isQueryChanged = queryResult.data?.hits?.max_score || 0
   const [searchTerm, setSearchTerm] = useState(searchQuery);
   // sync autocomplete
   useEffect(() => {
@@ -230,7 +226,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
     if (queryResult.isFetched) {
       setIsPageLoaded(false);
     }
-  }, [queryResult.isFetched]);
+  }, [queryResult.isFetched,isQueryChanged]);
+
 
   const handleKeyDown = (event) => {
     switch (event.keyCode) {
@@ -247,7 +244,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
         );
         break;
       default:
-        console.log("");
         break;
     }
   };
@@ -292,7 +288,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     isContainerOpen || isAutoCompleteContainerOpen
                       ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
                       : "rounded-l-xl md:rounded-l-2xl"
-                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center border border-gray flex`}
+                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center bg-white border border-gray flex`}
                 >
                   <input
                     ref={inputRef}
@@ -311,7 +307,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-gray w-full border-none outline-none bg-transparent "
                   />
                   {isShortcutVisible && (
-                    <p className="whitespace-nowrap hidden md:inline-block text-sm text-gray">
+                    <p className="whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-gray">
                       <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or
                       {" /"}
                     </p>
