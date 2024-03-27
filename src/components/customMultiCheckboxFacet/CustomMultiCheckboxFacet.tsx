@@ -35,7 +35,7 @@ function CustomMultiCheckboxFacet({
   onSearch,
   searchPlaceholder,
 }) {
-  const {isOpen, onToggle, onOpen, onClose} = useDisclosure({defaultIsOpen: false})
+  const {isOpen, onToggle, onOpen, onClose} = useDisclosure({defaultIsOpen: true})
   // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
   function getFilterValueDisplay(filterValue, label) {
     if (filterValue === undefined || filterValue === null) {

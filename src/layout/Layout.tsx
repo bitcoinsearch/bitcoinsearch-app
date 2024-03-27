@@ -15,9 +15,7 @@ const Layout = ({
   const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
   const { sidebarToggleManager } = useUIContext();
-  const test = () => {
-    sidebarToggleManager.updater(true);
-  };
+  
   return (
     <div>
       <section className="py-8 px-6 border-b-[1px] border-b-custom-grey-light">
@@ -34,12 +32,6 @@ const Layout = ({
             {sideContent}
           </section>
           <section className="pl-4 lg:pl-20 pr-4 py-5 group-data-[sb-open='true']:hidden group-data-[sb-open='true']:md:block">
-            <button
-              className="absolute md:hidden right-8 p-2 -top-10 bg-red-400 z-[99]"
-              onClick={test}
-            >
-              temp toggle
-            </button>
             <div className="block lg:hidden group" data-no-border={true}>
               <ResultSize />
             </div>

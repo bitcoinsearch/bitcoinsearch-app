@@ -4,9 +4,13 @@ import useSearchQuery from "../hooks/useSearchQuery";
 import SearchBoxView from "../components/customSearchboxView/SearchBoxView";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import FilterIcon from "@/components/svgs/FilterIcon";
+import useUIContext from "@/hooks/useUIContext";
 
 const Header = ({ openForm }) => {
-  const { makeQuery } = useSearchQuery();
+  const { makeQuery, filterFields } = useSearchQuery();
+  const { sidebarToggleManager } = useUIContext();
+
+  const numberOfAppliedFilters = filterFields.length;
 
   const handleSubmit = (input: string) => {
     makeQuery(input);
@@ -32,9 +36,19 @@ const Header = ({ openForm }) => {
         className="w-full"
         onSelectAutocomplete={handleAutoCompleteSelect}
       />
-      <button className="flex items-center bg-transparent min-h-[40px] border border-gray  px-4  rounded-xl  md:hidden">
-        <FilterIcon />
-      </button>
+      <div className="relative  md:hidden">
+        <button
+          onClick={() => sidebarToggleManager.updater(true)}
+          className="flex items-center bg-transparent min-h-[40px] border border-gray  px-4  rounded-xl"
+        >
+          <FilterIcon />
+        </button>
+        {Boolean(numberOfAppliedFilters) && (
+          <div className="absolute -top-1 -right-1 bg-brightOrange-200 rounded-full w-4 h-4 text-[11px] font-black leading-none">
+            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{numberOfAppliedFilters}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
