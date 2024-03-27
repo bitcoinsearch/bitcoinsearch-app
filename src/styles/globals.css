@@ -25,3 +25,8 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 24px;
+}

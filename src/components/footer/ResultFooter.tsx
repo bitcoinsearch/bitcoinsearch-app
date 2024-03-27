@@ -28,10 +28,6 @@ const StatsLink = () => (
 );
 
 const ResultFooter = () => {
-  const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
-
-  if (!hiddenHomeFacet) return null;
-
   return (
     <footer className="bg-white bottom-0 text-left md:text-center w-full border-t border-gray text-xs md:text-base 2xl:text-xl leading-normal">
       <div className="flex flex-col md:flex-row gap-y-5 items-center justify-between p-5 md:p-7 2xl:p-10 w-full max-w-[1920px] m-auto">

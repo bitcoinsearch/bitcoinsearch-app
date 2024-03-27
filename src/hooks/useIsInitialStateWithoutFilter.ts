@@ -9,8 +9,9 @@ const useIsInitialStateWithoutFilter = () => {
   const { searchQuery, queryResult } = useSearchQuery();
   const router = useRouter()
 
-  const hasFilters = generateFilterQuery(router.asPath.slice(1)).length
-  
+  const hasFilters = generateFilterQuery(router.asPath.slice(1)).length;
+  let isHomePage = router.asPath.slice(1) === "" || router.asPath.slice(1).startsWith("#");
+
   const resultLength = queryResult.data?.hits?.total["value"];
   
   // visible if
@@ -22,7 +23,7 @@ const useIsInitialStateWithoutFilter = () => {
     hiddenHomeFacet = false
   }
 
-  return { hiddenBody, hiddenHomeFacet };
+  return { hiddenBody, hiddenHomeFacet, isHomePage };
 };
 
 export default useIsInitialStateWithoutFilter;

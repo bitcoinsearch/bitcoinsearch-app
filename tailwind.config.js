@@ -26,6 +26,11 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
           "gradient-search": "linear-gradient(137deg, rgba(232,120,43,1) 0%, rgba(232,120,43,1) 50%, rgba(246,167,63,1) 100%);"
       },
+      colors: {
+        "secondary-black": '#292929',
+        "tertiary-black": '#4d4d4d',
+        "primary-orange": '#F7931A'
+      }
     },
   },
   plugins: [],
