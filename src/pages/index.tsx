@@ -18,6 +18,7 @@ import useScrollTop from "@/hooks/useScrollTop";
 import { useRouter } from "next/router";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 import Image from "next/image";
+import { LandingPage } from '@/components/landingPage/LandingPage';
 
 export default function App() {
   useSearchFocusHotkey();
@@ -45,28 +46,31 @@ export default function App() {
   };
 
   return (
-    <div className="App btc-search">
-      {isLoading && <LoadingBar />}
-      <div className="header">
-        <Image
-          src="/btc.png"
-          className="logo"
-          alt="bitcoin logo"
-          width={140}
-          height={140}
-          priority
+    <>    
+      <div className="App btc-search h-screen">
+        {isLoading && <LoadingBar />}
+        <div className="header">
+          <Image
+            src="/btc.png"
+            className="logo"
+            alt="bitcoin logo"
+            width={140}
+            height={140}
+            priority
+          />
+          <p className="description">Technical Bitcoin Search</p>
+        </div>
+        <Layout
+          header={<Header openForm={openForm} />}
+          sideContent={<SideBar />}
+          bodyContent={<CustomResults shouldTrackClickThrough={true} />}
+          bodyHeader={<CustomPagingInfo />}
+          bodyFooter={<Footer />}
         />
-        <p className="description">Technical Bitcoin Search</p>
+        {noResult && <NoResults openForm={openForm} />}
+        <FormModal formOpen={modalOpen} closeForm={closeForm} />
       </div>
-      <Layout
-        header={<Header openForm={openForm} />}
-        sideContent={<SideBar />}
-        bodyContent={<CustomResults shouldTrackClickThrough={true} />}
-        bodyHeader={<CustomPagingInfo />}
-        bodyFooter={<Footer />}
-      />
-      {noResult && <NoResults openForm={openForm} />}
-      <FormModal formOpen={modalOpen} closeForm={closeForm} />
-    </div>
+      <LandingPage />
+    </>
   );
 }
