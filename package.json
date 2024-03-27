@@ -27,7 +27,7 @@
     "framer-motion": "^6.5.1",
     "html-to-react": "^1.5.0",
     "next": "13.4.4",
-    "node-sass": "^7.0.3",
+    "node-sass": "^8.0.0",
     "postcss": "8.4.24",
     "rc-pagination": "^3.5.0",
     "react": "18.2.0",
