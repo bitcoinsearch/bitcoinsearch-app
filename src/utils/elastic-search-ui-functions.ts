@@ -17,3 +17,8 @@ export default function appendClassName(
   if (!baseClassName) return getNewClassName(newClassName) || "";
   return `${baseClassName} ${getNewClassName(newClassName)}`;
 }
+
+// To remove the weird character "�" and markdowns /n
+export const removeMarkdownCharacters = (value:string)=>{
+  return value.replace(/(\\n|[.]+)/gm, " ").replace(/[^\x20-\x7E]/g, "'")
+}

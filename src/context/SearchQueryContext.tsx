@@ -65,6 +65,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     filterFields,
     sortFields,
   })
+  
 
   const makeQuery = (queryString: string) => {
     router.query = {}
