@@ -72,7 +72,7 @@ export default function App() {
         </div>
       </main>
       {NoResults && isHomePage && <LandingPage />}
-      <section className={`absolute right-0 left-0 ${!isHomePage && "bottom-0"}`}>
+      <section className={`sticky right-0 left-0 ${!isHomePage && "bottom-0"}`}>
         <ResultFooter />
       </section>
     </div>
