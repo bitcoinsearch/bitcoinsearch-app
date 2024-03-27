@@ -43,7 +43,7 @@ export default function App() {
   };
 
   return (
-    <>
+    <div className={`${isHomePage && "relative"}`}>
       <main className='min-h-[95vh] flex w-full items-center justify-center bg-white'>
         {isLoading && <LoadingBar />}
         <div className='App btc-search w-full'>
@@ -72,7 +72,9 @@ export default function App() {
         </div>
       </main>
       {NoResults && isHomePage && <LandingPage />}
-      <ResultFooter />
-    </>
+      <section className={`absolute right-0 left-0 ${!isHomePage && "bottom-0"}`}>
+        <ResultFooter />
+      </section>
+    </div>
   );
 }
