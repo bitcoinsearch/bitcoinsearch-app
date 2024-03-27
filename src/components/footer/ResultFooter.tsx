@@ -28,9 +28,9 @@ const StatsLink = () => (
 );
 
 const ResultFooter = () => {
-  const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
+  const { hiddenHomeFacet, isHomePage } = useIsInitialStateWithoutFilter();
 
-  if (!hiddenHomeFacet) return null;
+  if (!hiddenHomeFacet && !isHomePage) return null;
 
   return (
     <footer className="bg-white bottom-0 text-left md:text-center w-full border-t border-gray text-xs md:text-base 2xl:text-xl leading-normal">
