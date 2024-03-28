@@ -41,7 +41,7 @@ const ResultFooter = () => {
             href="https://bitcoindevs.xyz/"
             target="_blank"
             rel="noreferrer"
-            className="underline font-medium text-brightOrange-100"
+            className="underline font-medium text-custom-brightOrange-100"
           >
             Bitcoin Dev Project
           </a>
@@ -64,7 +64,7 @@ const ResultFooter = () => {
           <p className="hidden md:block">
             We&apos;d love to hear your feedback on this project
           </p>
-          <button className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-darkGray-200 rounded-xl">
+          <button className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-custom-black-dark rounded-xl">
             Give feedback
           </button>
         </div>

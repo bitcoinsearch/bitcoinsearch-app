@@ -1,4 +1,4 @@
-import { Layout } from "@elastic/react-search-ui-views";
+import Layout from "@/layout/Layout";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
 // COMPONENTS //
@@ -16,16 +16,16 @@ import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
 import { generateFilterQuery } from "@/service/URLManager/helper";
 import Image from "next/image";
+import useUIContext from "@/hooks/useUIContext";
 import { LandingPage } from "@/components/landingPage/LandingPage";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 export default function App() {
   useSearchFocusHotkey();
 
   const { isHomePage } = useIsInitialStateWithoutFilter();
-  const [modalOpen, setModalOpen] = useState(false);
+  const {isOpen, closeForm, openForm} = useUIContext()
   const { searchQuery, queryResult, makeQuery, pagingInfo } = useSearchQuery();
   useScrollTop({ current: pagingInfo.current });
   const router = useRouter();
@@ -34,13 +34,10 @@ export default function App() {
   const hasFilters = Boolean(generateFilterQuery(router.asPath.slice(1)).length);
   const hasQueryString = Boolean(searchQuery?.trim());
   const isLoading = queryResult.isFetching;
-  const noResult = (hasFilters || hasQueryString) && !isLoading && !queryResult.data?.hits?.total["value"];
-  const openForm = useCallback(() => {
-    setModalOpen(true);
-  }, []);
-  const closeForm = () => {
-    setModalOpen(false);
-  };
+  const noResult =
+    (hasFilters || hasQueryString) &&
+    !isLoading &&
+    !queryResult.data?.hits?.total["value"];
 
   return (
     <div className={`${isHomePage && "relative"}`}>
@@ -56,11 +53,12 @@ export default function App() {
               height={69}
               priority
             />
-            <p className='text-darkGray-300 leading-normal text-sm  sm:text-base lg:text-2xl xl:text-2xl'>
+            <p className='text-custom-black-dark leading-normal text-sm  sm:text-base lg:text-2xl xl:text-2xl'>
               Search the depths of bitcoin’s technical ecosystem
             </p>
           </div>
-          <Layout
+          <div className="p-10 w-8 h-8"></div>
+      <Layout
             header={<Header openForm={openForm} />}
             sideContent={<SideBar />}
             bodyContent={<CustomResults shouldTrackClickThrough={true} />}
@@ -68,7 +66,7 @@ export default function App() {
             bodyFooter={<BodyFooter />}
           />
           {noResult && <NoResults openForm={openForm} />}
-          <FormModal formOpen={modalOpen} closeForm={closeForm} />
+          <FormModal formOpen={isOpen} closeForm={closeForm} />
         </div>
       </main>
       {NoResults && isHomePage && <LandingPage />}

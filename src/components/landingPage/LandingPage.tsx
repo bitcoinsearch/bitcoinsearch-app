@@ -13,7 +13,7 @@ export const LandingPage = () => {
       </Link>
       <div className='bg-gradient-to-b from-[#E58525] flex flex-col items-center w-full px-4 md:px-10 xl:px-20 min-h-screen'>
         <div className=' flex flex-col gap-10 md:gap-16 lg:gap-24 pt-[80px] w-full max-w-[1600px] items-center'>
-          <section className='flex flex-col items-center text-secondary-black text-center max-w-full md:max-w-[1200px] w-full' id='why-use-bitcoin'>
+          <section className='flex flex-col items-center text-custom-black-dark text-center max-w-full md:max-w-[1200px] w-full' id='why-use-bitcoin'>
             <p className='text-xs md:text-xl leading-[140%] font-medium'>WHY USE BITCOIN SEARCH</p>
             <h3 className='py-6 md:py-9 lg:py-12 text-[28px] md:text-4xl lg:text-5xl xl:text-[60px] font-bold leading-[120%] md:leading-[120%]'>
               {`Bitcoin Search results are relevant, where traditional search engines aren't`}
@@ -44,7 +44,7 @@ export const LandingPage = () => {
           </section>
 
           <div className='bg-white w-full md:max-h-[576px] rounded-[30px] p-4 md:pr-0 md:pl-5 lg:pl-20 flex flex-col gap-5 md:flex-row items-center md:justify-between mb-[-250px] mt-5 lg:mt-16'>
-            <section className='flex flex-col items-center md:items-start text-center md:text-start gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-tertiary-black mt-0 lg:mt-16'>
+            <section className='flex flex-col items-center md:items-start text-center md:text-start gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-black-dark mt-0 lg:mt-16'>
               <Image src={"/svg/treasure-icon.svg"} alt='treasure icon' height={70} width={70} className=' h-10 w-10 md:h-16 md:w-16' />
               <h3 className='text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]'>
                 Treasure Trove of Technical Bitcoin Resources
@@ -65,7 +65,7 @@ export const LandingPage = () => {
           <Image src={"/svg/filter-image.svg"} alt='filter image' fill />
         </section>
 
-        <section className='flex flex-col gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-tertiary-black items-center md:items-start text-center md:text-start p-4 md:p-0'>
+        <section className='flex flex-col gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-black-dark items-center md:items-start text-center md:text-start p-4 md:p-0'>
           <Image src={"/svg/rounded-checkmark.svg"} alt='treasure icon' height={70} width={70} className=' h-10 w-10 md:h-16 md:w-16' />
           <h3 className='text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]'>
             Up-to-Date Information
@@ -77,7 +77,7 @@ export const LandingPage = () => {
       </div>
 
       <div className='w-full rounded-[30px] flex flex-col md:flex-row justify-between mt-0 xl:mt-[100px] items-center px-4 py-4 md:py-0 md:px-10 lg:px-20  max-w-[1600px] gap-6'>
-        <section className='flex items-center md:items-start flex-col max-w-full md:max-w-[48%] gap-5 md:gap-8 lg:gap-12 text-tertiary-black text-center md:text-start py-4 md:py-0'>
+        <section className='flex items-center md:items-start flex-col max-w-full md:max-w-[48%] gap-5 md:gap-8 lg:gap-12 text-custom-black-dark text-center md:text-start py-4 md:py-0'>
           <Image src={"/svg/award-checkmark.svg"} alt='treasure icon' height={70} width={70} />
           <h3 className='text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]'>
             Credible Sources
@@ -97,7 +97,7 @@ export const LandingPage = () => {
           onClick={() => {
             window.scrollTo({ top: 0 });
           }}
-          className=' rounded-2xl bg-transparent border border-primary-orange gap-3 lg:gap-6  py-[18px] lg:py-9 px-4 lg:px-8 text-primary-orange hover:bg-primary-orange hover:text-white flex items-center justify-center text-[18px] lg:text-[32px] font-semibold'
+          className=' rounded-2xl bg-transparent border border-custom-orange-dark gap-3 lg:gap-6  py-[18px] lg:py-9 px-4 lg:px-8 text-custom-orange-dark hover:bg-custom-orange-dark hover:text-white flex items-center justify-center text-[18px] lg:text-[32px] font-semibold'
         >
           <svg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg' className=' w-4 h-4 lg:w-6 lg:h-6'>
             <path
