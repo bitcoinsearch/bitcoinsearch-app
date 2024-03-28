@@ -72,16 +72,16 @@ function CustomMultiCheckboxFacet({
     const handleFocusIn = () => {
       onOpen()
     }
-    const handleFocusOut = () => {
-      onClose()
-    }
+    // const handleFocusOut = () => {
+    //   onClose()
+    // }
     let searchRefInput = searchRef.current
     if (!searchRefInput) return
     searchRefInput.addEventListener("focusin", () => handleFocusIn())
-    searchRefInput.addEventListener("focusout", () => handleFocusOut())
+    // searchRefInput.addEventListener("focusout", () => handleFocusOut())
     return () => {
       searchRefInput.removeEventListener("focusin", () => handleFocusIn())
-      searchRefInput.removeEventListener("focusout", () => handleFocusOut())
+      // searchRefInput.removeEventListener("focusout", () => handleFocusOut())
     }
   }, [onOpen, onClose])
   
@@ -131,7 +131,7 @@ function CustomMultiCheckboxFacet({
 
         <div
           data-is-open={isOpen}
-          className="data-[is-open='false']:hidden data-[is-open='false']:md:block mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-grey-light rounded-xl"
+          className="data-[is-open='false']:hidden mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-grey-light rounded-xl"
           ref={multiCheckboxRef}
         >
           {options.length < 1 && <p className="w-full text-sm lg:text-base text-center px-2">No matching options</p>}

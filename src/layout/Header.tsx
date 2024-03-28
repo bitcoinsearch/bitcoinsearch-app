@@ -26,7 +26,7 @@ const Header = ({ openForm }) => {
   };
 
   return (
-    <div className="flex gap-2 mx-auto max-w-3xl w-full  justify-center">
+    <div className="flex gap-2 mx-auto max-w-3xl w-full justify-center">
       <SearchBox
         autocompleteMinimumCharacters={3}
         view={SearchBoxView}
@@ -36,15 +36,15 @@ const Header = ({ openForm }) => {
         className="w-full"
         onSelectAutocomplete={handleAutoCompleteSelect}
       />
-      <div className="relative  md:hidden">
+      <div className="relative md:hidden peer-data-[input-focus='true']/search:hidden">
         <button
           onClick={() => sidebarToggleManager.updater(true)}
-          className="flex items-center bg-transparent min-h-[40px] border border-gray  px-4  rounded-xl"
+          className="flex items-center justify-center bg-transparent min-h-[48px] w-[48px] border border-gray rounded-xl"
         >
           <FilterIcon />
         </button>
         {Boolean(numberOfAppliedFilters) && (
-          <div className="absolute -top-1 -right-1 bg-brightOrange-200 rounded-full w-4 h-4 text-[11px] font-black leading-none">
+          <div className="absolute -top-1 -right-1 rounded-full w-4 h-4 text-[11px] font-black leading-none">
             <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{numberOfAppliedFilters}</span>
           </div>
         )}

@@ -79,7 +79,7 @@ const ResultSize = () => {
           >
             <PopoverBody p="0px">
               {sizes.map((size) => (
-                <div key={size.label} className="hover:bg-[#FFF0E0]" role="button" onClick={() => handleSelect(size.value)} >
+                <div key={size.label} className="hover:bg-custom-orange-light" role="button" onClick={() => handleSelect(size.value)} >
                   <p className="text-center py-2 px-2 font-medium">{size.label}</p>
                 </div>
               ))}

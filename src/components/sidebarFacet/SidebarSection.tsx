@@ -3,7 +3,7 @@ import React from 'react'
 
 const SidebarSection = ({children, className=""}:{children: React.ReactNode, className?: string}) => {
   return (
-    <section className={appendClassName('py-5 lg:py-9 border-b-[1px] border-b-[#BFBFBF] last-of-type:border-none', className)}>
+    <section className={appendClassName('py-5 lg:py-9 border-b-[1px] border-b-custom-grey-light last-of-type:border-none', className)}>
       {children}
     </section>
   )
