@@ -7,7 +7,7 @@ const ShowFilterResultsMobile = () => {
   const { sidebarToggleManager } = useUIContext();
   return (
     <div
-      className="my-8 ml-auto md:hidden w-fit p-2 text-sm font-semibold text-custom-white bg-custom-black-light rounded-lg"
+      className="my-8 ml-auto md:hidden w-fit p-2 text-sm font-semibold text-custom-white bg-custom-black-dark rounded-lg"
       role="button"
       onClick={() => sidebarToggleManager.updater(false)}
     >

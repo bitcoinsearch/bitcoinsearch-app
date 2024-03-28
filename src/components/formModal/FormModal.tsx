@@ -95,7 +95,7 @@ const FormModal = ({ formOpen, closeForm }) => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-6 lg:gap-10">
               <FormControl className="flex flex-col gap-2 lg:gap-3">
                 <label
-                  className="text-sm font-semibold text-custom-black-light"
+                  className="text-sm font-semibold text-custom-black-dark"
                   htmlFor="form-url"
                 >
                   Source&apos;s URL
@@ -115,7 +115,7 @@ const FormModal = ({ formOpen, closeForm }) => {
               </FormControl>
               <FormControl className="flex flex-col gap-2 lg:gap-3">
                 <label
-                  className="text-sm font-semibold text-custom-black-light"
+                  className="text-sm font-semibold text-custom-black-dark"
                   htmlFor="form-email"
                 >
                   Your Email

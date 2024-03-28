@@ -52,7 +52,7 @@ const ResultSize = () => {
   };
   return (
     <>
-      <div className="flex items-center gap-2 pb-9 text-custom-black-light text-sm lg:text-lg">
+      <div className="flex items-center gap-2 pb-9 text-custom-black-dark text-sm lg:text-lg">
         <span>Showing</span>
         <Popover
           isOpen={isOpen}

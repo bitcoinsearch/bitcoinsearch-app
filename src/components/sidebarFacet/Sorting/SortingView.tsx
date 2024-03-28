@@ -20,7 +20,7 @@ const SortingView = ({
 }: SortingViewProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
-    <SidebarSection className="text-custom-black-light">
+    <SidebarSection className="text-custom-black-dark">
       <label className="flex gap-2 mb-4 lg:mb-6 items-center">
         <Image
           src={SortIcon}
@@ -38,7 +38,7 @@ const SortingView = ({
         >
           <MenuButton as="button" style={{ width: "100%" }}>
             <div className="w-full flex bg-white px-4 py-3 border-[1px] border-custom-grey-light items-center justify-between rounded-xl">
-              <p className="text-sm lg:text-base font-bold text-custom-black-light ">
+              <p className="text-sm lg:text-base font-bold text-custom-black-dark ">
                 {option.label}
               </p>
               <span

@@ -331,7 +331,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   {defaultSearchTags.map((tagType) => (
                     <div
                       key={tagType.headline}
-                      className="flex text-custom-black-light flex-col gap-2"
+                      className="flex text-custom-black-dark flex-col gap-2"
                     >
                       <p className="text-sm md:text-base font-semibold">
                         {tagType.headline}

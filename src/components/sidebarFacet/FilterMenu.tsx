@@ -20,7 +20,7 @@ const FilterMenu = () => {
 
   return (
     <>
-      <SidebarSection className="text-custom-black-light flex justify-between">
+      <SidebarSection className="text-custom-black-dark flex justify-between">
         <div className="flex items-center gap-2">
           <Image src={FilterIcon} alt="filter" className="w-[20px] lg:w-[25px]" />
           <p className="text-base lg:text-xl font-bold">Filters</p>
@@ -41,7 +41,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
     removeFilterTypes(["authors", "domain"]);
   };
   return (
-    <SidebarSection className="text-custom-black-light">
+    <SidebarSection className="text-custom-black-dark">
       <div className="flex justify-between mb-4 lg:mb-8">
         <p className="text-sm lg:text-base font-bold">Applied Filters</p>
         <div
@@ -52,7 +52,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
           <span className="text-sm lg:text-base group-hover:underline underline-offset-4">
             Clear all
           </span>
-          <span className="p-[6px] lg:p-2 bg-custom-black-light rounded-md">
+          <span className="p-[6px] lg:p-2 bg-custom-black-dark rounded-md">
             <Image
               src={CrossIcon}
               alt="clear all"

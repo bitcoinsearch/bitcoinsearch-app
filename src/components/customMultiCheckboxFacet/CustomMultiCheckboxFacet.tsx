@@ -87,7 +87,7 @@ function CustomMultiCheckboxFacet({
   
 
   return (
-    <SidebarSection className="text-custom-black-light">
+    <SidebarSection className="text-custom-black-dark">
       <fieldset className={appendClassName("", className)}>
         <SideBarHeader label={label} />
         {showSearch && (
@@ -213,7 +213,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
           <span className="group-hover:underline underline-offset-4 text-sm font-medium">
             Suggest a source
           </span>
-          <span className="p-[6px] bg-custom-black-light group-hover:bg-custom-orange-dark rounded-md">
+          <span className="p-[6px] bg-custom-black-dark group-hover:bg-custom-orange-dark rounded-md">
             <Image
               src="./plus_icon.svg"
               width={10}
