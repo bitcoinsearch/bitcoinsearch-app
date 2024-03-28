@@ -72,16 +72,11 @@ function CustomMultiCheckboxFacet({
     const handleFocusIn = () => {
       onOpen()
     }
-    // const handleFocusOut = () => {
-    //   onClose()
-    // }
     let searchRefInput = searchRef.current
     if (!searchRefInput) return
     searchRefInput.addEventListener("focusin", () => handleFocusIn())
-    // searchRefInput.addEventListener("focusout", () => handleFocusOut())
     return () => {
       searchRefInput.removeEventListener("focusin", () => handleFocusIn())
-      // searchRefInput.removeEventListener("focusout", () => handleFocusOut())
     }
   }, [onOpen, onClose])
   
@@ -116,16 +111,6 @@ function CustomMultiCheckboxFacet({
             <span data-is-open={isOpen} onClick={onToggle} className="absolute p-2 cursor-pointer top-1/2 -translate-y-1/2 right-[18px] data-[is-open=false]:rotate-180 transition-transform">
               <Image src={UpArrow} alt="arrow"/>
             </span>
-            {/* {!searchRef.current.textContent.trim() && (
-              <span className="absolute top-1/2 -translate-y-1/2 right-4">
-                <Image
-                  src={"./up_arrow.svg"}
-                  width={12}
-                  height={7}
-                  alt="arrow"
-                />
-              </span>
-            )} */}
           </div>
         )}
 
@@ -162,16 +147,6 @@ function CustomMultiCheckboxFacet({
                     src={LightningIcon}
                     alt="bolt icon"
                   />
-                  {/* <input
-                    data-transaction-name={`facet - ${label}`}
-                    id={`example_facet_${label}${valueDisplay}`}
-                    type="checkbox"
-                    className="sui-multi-checkbox-facet__checkbox"
-                    checked={checked}
-                    onChange={() =>
-                      checked ? onRemove(value) : onSelect(value)
-                    }
-                  /> */}
                   <span className="text-sm lg:text-base group-data-[selected=true]:font-bold">
                     {valueDisplay}
                   </span>

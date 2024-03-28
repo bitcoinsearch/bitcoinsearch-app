@@ -7,19 +7,6 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    // colors: {
-    //   white: "#FFFFFF",
-    //   brightOrange: {
-    //     100: "#EC802F",
-    //     200: "#ED8936",
-    //   },
-    //   darkGray: {
-    //     100: "#666666",
-    //     200: "#292929",
-    //     300: "#4D4D4D"
-    //   },
-    //   gray: "#BFBFBF",
-    // },
     extend: {
       colors: {
         custom: {

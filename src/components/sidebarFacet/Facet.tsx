@@ -31,13 +31,6 @@ type FacetList = {
   selected: boolean
 }
 
-// const FacetIcon: Record<FacetKeys, string> = {
-//   "authors": "./author_icon.svg",
-//   "domain": "./",
-//   "tags": "sd"
-// }
-
-
 const Facet = ({field, isFilterable, label, view}: FacetProps) => {
   // const [itemsToShow, setItemsToShow] = useState<number>(10)
   const [searchTermFacet, setSearchTermFacet] = useState("")
