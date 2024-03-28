@@ -23,11 +23,11 @@
   ],
   "searchFields": [],
   "fields": [],
-  "sortFields": ["created_at"],
+  "sortFields": ["created_at", "sort_by"],
   "facets": ["authors", "domain"],
   "titleField": "title",
   "urlField": "url",
-  "facetSearch": ["authors"],
+  "facetSearch": ["authors", "domain"],
   "resultTags": ["authors"],
   "topAuthors": [
     "Ava Chow",

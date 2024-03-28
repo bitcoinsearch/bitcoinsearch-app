@@ -22,6 +22,7 @@ export type SearchQueryContextType = {
   makeQuery: (queryString: string) => void,
   handlePageChange: (page: number) => void,
   pagingInfo: PagingInfoType,
+  filterFields: Facet[]
 }
 
 export const SearchQueryContext = createContext<SearchQueryContextType | null>(null);
@@ -85,7 +86,7 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   }
 
   return (
-    <SearchQueryContext.Provider value={{ searchQuery, queryResult, makeQuery, handlePageChange, pagingInfo }} >
+    <SearchQueryContext.Provider value={{ searchQuery, queryResult, makeQuery, handlePageChange, pagingInfo, filterFields }} >
       {children}
     </SearchQueryContext.Provider>
   );

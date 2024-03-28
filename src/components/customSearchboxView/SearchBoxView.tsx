@@ -267,7 +267,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
         return (
           <form
             ref={searchFormRef}
-            className="w-full"
+            className="w-full peer/search"
+            data-input-focus={onFocus}
             onSubmit={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -330,7 +331,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   {defaultSearchTags.map((tagType) => (
                     <div
                       key={tagType.headline}
-                      className="flex text-darkGray-300 flex-col gap-2"
+                      className="flex text-custom-black-dark flex-col gap-2"
                     >
                       <p className="text-sm md:text-base font-semibold">
                         {tagType.headline}
@@ -344,11 +345,11 @@ function SearchBoxView(props: SearchBoxViewProps) {
                             }}
                             className={`${
                               getFilter(tagType.type as FacetKeys).includes(tag)
-                                ? "bg-[#FFF0E0]"
+                                ? "bg-custom-orange-light"
                                 : ""
                             }  ${
-                              searchTerm === tag ? "bg-[#FFF0E0]" : ""
-                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-[#FFF0E0] cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-gray   max-w-[max-content]`}
+                              searchTerm === tag ? "bg-custom-orange-light" : ""
+                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-custom-orange-light cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-gray   max-w-[max-content]`}
                           >
                             <p>{tag}</p>
                           </div>
@@ -376,8 +377,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
                             e.code === "Enter" && onSelectSuggestion(sug)
                           }
                           className={`
-                          focus:bg-[#FFF0E0]
-                          outline-none cursor-pointer text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-[#FFF0E0]`}
+                          focus:bg-custom-orange-light
+                          outline-none cursor-pointer text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-custom-orange-light`}
                         >
                           {removeMarkdownCharacters(sug.suggestion)}
                         </li>

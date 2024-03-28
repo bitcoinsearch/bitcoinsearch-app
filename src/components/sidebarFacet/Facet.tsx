@@ -1,11 +1,10 @@
 import useSearchQuery from '@/hooks/useSearchQuery';
 import useURLManager from '@/service/URLManager/useURLManager';
 import { FacetKeys } from '@/types'
+import { matchCharactersWithRegex } from '@/utils/facet';
 import React, { FunctionComponent, useMemo, useState } from 'react'
 
 type ViewProps = Omit<FacetProps, "view" | "isFilterable"> & {
-  onMoreClick: () => void;
-  showMore: boolean;
   showSearch: boolean;
   onSearch: (x: string) => void;
   searchPlaceholder: string;
@@ -32,9 +31,8 @@ type FacetList = {
   selected: boolean
 }
 
-
 const Facet = ({field, isFilterable, label, view}: FacetProps) => {
-  const [itemsToShow, setItemsToShow] = useState<number>(10)
+  // const [itemsToShow, setItemsToShow] = useState<number>(10)
   const [searchTermFacet, setSearchTermFacet] = useState("")
   const { searchQuery, queryResult: { data } } = useSearchQuery()
   // temporary conditional
@@ -53,14 +51,9 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
   })
 
   const options = useMemo(() => {
-    return baseOptions.filter(item => searchTermFacet.trim() ? item.value.includes(searchTermFacet) : true).slice(0, itemsToShow)
-  }, [searchTermFacet, baseOptions, itemsToShow])
+    return baseOptions.filter(item => searchTermFacet.trim() ? matchCharactersWithRegex(item.value, searchTermFacet) : true)
+  }, [searchTermFacet, baseOptions])
 
-  const showMore = itemsToShow < baseOptions.length
-
-  const onMoreClick = () => {
-    setItemsToShow(prev => prev + 10)
-  }
 
   const onSearch = (val: string) => {
     setSearchTermFacet(val)
@@ -75,7 +68,7 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
 
   const searchPlaceholder = `Filter ${label}`
 
-  const viewProps = {onRemove, onSelect, onSearch, onMoreClick, showMore, options, field, showSearch: isFilterable, label, searchPlaceholder}
+  const viewProps = {onRemove, onSelect, onSearch, options, field, showSearch: isFilterable, label, searchPlaceholder}
 
   return React.createElement<ViewProps>(view, Object.assign({}, viewProps));
 }
