@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ResultFooter from "../footer/ResultFooter";
 
 export const LandingPage = () => {
   return (
@@ -112,6 +113,7 @@ export const LandingPage = () => {
           Start searching now
         </button>
       </div>
+      <ResultFooter />
     </main>
   );
 };

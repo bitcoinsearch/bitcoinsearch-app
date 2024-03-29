@@ -25,7 +25,7 @@ export default function App() {
   useSearchFocusHotkey();
 
   const { isHomePage } = useIsInitialStateWithoutFilter();
-  const {isOpen, closeForm, openForm} = useUIContext()
+  const { isOpen, closeForm, openForm } = useUIContext();
   const { searchQuery, queryResult, makeQuery, pagingInfo } = useSearchQuery();
   useScrollTop({ current: pagingInfo.current });
   const router = useRouter();
@@ -34,17 +34,16 @@ export default function App() {
   const hasFilters = Boolean(generateFilterQuery(router.asPath.slice(1)).length);
   const hasQueryString = Boolean(searchQuery?.trim());
   const isLoading = queryResult.isFetching;
-  const noResult =
-    (hasFilters || hasQueryString) &&
-    !isLoading &&
-    !queryResult.data?.hits?.total["value"];
+  const noResult = (hasFilters || hasQueryString) && !isLoading && !queryResult.data?.hits?.total["value"];
+  const results = queryResult.data?.hits?.hits ?? [];
+  console.log({ results });
 
   return (
     <div className={`${isHomePage && "relative"}`}>
       <main className='min-h-[95vh] flex w-full items-center bg-white'>
         {isLoading && <LoadingBar />}
-        <div className='App btc-search w-full -mt-40'>
-          <div className='header'>
+        <div className={`App btc-search w-full ${!results.length && !noResult && "-mt-40"}`}>
+          <div className={`header ${results.length && 'pt-10'}`}>
             <Image
               src='/btc-main.png'
               className='logo mx-auto max-w-[200px] md:max-w-xs lg:max-w-lg 2xl:max-w-xl'
@@ -70,9 +69,7 @@ export default function App() {
         </div>
       </main>
       {NoResults && isHomePage && <LandingPage />}
-      <section
-        className={`${(isLoading || !hasQueryString || noResult) && "hidden"}`}
-      >
+      <section className={`${(isLoading || !hasQueryString || noResult) && "hidden"}`}>
         <ResultFooter />
       </section>
     </div>
