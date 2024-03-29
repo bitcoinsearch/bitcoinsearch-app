@@ -2,12 +2,18 @@ import type { Facet, SearchQuery } from "@/types";
 
 const FIELDS_TO_SEARCH = ["authors", "title", "body"];
 
+// Omitting 'page' from SearchQuery as 'from' is used for Elasticsearch pagination
 type BuildQueryForElaSticClient = Omit<SearchQuery, "page"> & {
   from: number
 }
 
+/**
+ * Constructs an Elasticsearch query object for searching documents based on provided criteria.
+ * Supports full-text search across multiple fields, filtering by facets, and sorting results.
+ */
 export const buildQuery = ({queryString, size, from, filterFields, sortFields}: BuildQueryForElaSticClient) => {
   
+  // Initialize the base structure of the Elasticsearch query
   let baseQuery = {
     query:{
       bool:{
@@ -37,11 +43,11 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
         }
       }
     },
-    size,
-    from,
+    size, // Number of search results to return
+    from, // Offset for pagination (calculated from page number)
   }
 
-  //Add the clause to the should array
+  // Construct and add the full-text search clause
   let shouldClause = buildShouldQueryClause(queryString);
   if (!queryString) {
     baseQuery.query.bool.should.push(shouldClause);
@@ -49,6 +55,7 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
     baseQuery.query.bool.must.push(shouldClause);
   }
 
+  // Add filter clauses for each specified filter field
   if(filterFields && filterFields.length) {
     for (let facet of filterFields) {
       let mustClause = buildFilterQueryClause(facet);
@@ -56,6 +63,7 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
     }
   }
 
+  // Add sorting clauses for each specified sort field
   if (sortFields && sortFields.length) {
     for (let field of sortFields) {
       const sortClause = buildSortClause(field)
@@ -66,6 +74,7 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
   return baseQuery;
 };
 
+// Helper to build the should query clause for full-text search
 const buildShouldQueryClause = (queryString: string) => {
   let shouldQueryClause = {
     multi_match : {
@@ -77,6 +86,7 @@ const buildShouldQueryClause = (queryString: string) => {
   return shouldQueryClause;
 }
 
+// Helper to build filter query clauses based on facets
 const buildFilterQueryClause = ({field, value}: Facet) => {
   let filterQueryClause = {
     term: {
@@ -87,6 +97,7 @@ const buildFilterQueryClause = ({field, value}: Facet) => {
   return filterQueryClause;
 }
 
+// Helper to build sort clauses for sorting results
 const buildSortClause = ({field, value}: {field: any, value: any}) => {
   return {
     [field]: value
