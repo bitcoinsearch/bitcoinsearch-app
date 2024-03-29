@@ -23,6 +23,9 @@ module.exports = {
       gray: "#BFBFBF",
     },
     extend: {
+      boxShadow: {
+        "custom-sm": "2px 3px 10px 0px rgba(255, 128, 0, 0.18);",
+      },
       colors: {
         custom: {
           grey: {

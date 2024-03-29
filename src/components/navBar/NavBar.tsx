@@ -11,26 +11,27 @@ import Link from "next/link";
 
 function ThemeSwitcher() {
   const [isLight, setIsLight] = useState(true);
+  const switchStyle = `flex basis-1/2 items-center justify-center rounded-lg transition-[background-color] duration-500`;
 
   return (
     <div className="relative w-20 2xl:w-24">
-      <div className="relative flex overflow-hidden rounded-lg w-20 h-9 2xl:w-24 2xl:h-12 border border-gray">
+      <div className="relative flex overflow-hidden rounded-lg w-20 h-9 2xl:w-24 2xl:h-12 border border-gray bg-white">
         <button
-          onClick={() => setIsLight(false)}
-          className="flex basis-1/2 items-center justify-center"
+          onClick={() => setIsLight(true)}
+          className={`${switchStyle} ${isLight ? "bg-lightOrange" : ""}`}
         >
           <DayIcon />
         </button>
         <button
-          onClick={() => setIsLight(true)}
-          className="flex basis-1/2 items-center justify-center"
+          onClick={() => setIsLight(false)}
+          className={`${switchStyle} ${!isLight ? "bg-lightOrange" : ""}`}
         >
           <NightIcon />
         </button>
       </div>
       <div
-        className={`rounded-lg top-0 absolute w-9 h-9 2xl:w-12 2xl:h-12 border border-brightOrange-100 transition-all duration-300 ${
-          isLight ? "left-11 2xl:left-12" : "left-0"
+        className={`rounded-lg top-0 absolute w-1/2 h-full border border-brightOrange-100 transition-all duration-300 ${
+          isLight ? "left-0" : "left-10 2xl:left-12"
         }`}
       />
     </div>
@@ -60,7 +61,11 @@ const MenuSwitcher = () => {
   }, []);
 
   return (
-    <div className="flex flex-col rounded-lg border border-brightOrange-100 w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center">
+    <div
+      className={`flex flex-col rounded-lg border border-brightOrange-100 w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
+        open ? "bg-lightOrange shadow-custom-sm" : "bg-white"
+      }`}
+    >
       <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)}>
         <AppsIcon />
       </button>
