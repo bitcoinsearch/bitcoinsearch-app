@@ -5,16 +5,21 @@ import SearchBoxView from "../components/customSearchboxView/SearchBoxView";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import FilterIcon from "@/components/svgs/FilterIcon";
 import useUIContext from "@/hooks/useUIContext";
+import { useTailwindBreakpoint } from "@/hooks/useMediaQuery";
+import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 const Header = ({ openForm }) => {
-  const { makeQuery, filterFields } = useSearchQuery();
   const { sidebarToggleManager } = useUIContext();
+  const { makeQuery, filterFields } = useSearchQuery();
+  const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
   const numberOfAppliedFilters = filterFields.length;
 
   const handleSubmit = (input: string) => {
     makeQuery(input);
   };
+
+  const isMediumScreen = useTailwindBreakpoint("md");
 
   const handleAutoCompleteSelect = (
     selection,
@@ -27,15 +32,17 @@ const Header = ({ openForm }) => {
 
   return (
     <div className="flex gap-2 mx-auto max-w-3xl w-full justify-center">
-      <SearchBox
-        autocompleteMinimumCharacters={3}
-        view={SearchBoxView}
-        autocompleteSuggestions={true}
-        debounceLength={0}
-        onSubmit={handleSubmit}
-        className="w-full"
-        onSelectAutocomplete={handleAutoCompleteSelect}
-      />
+      {(!isMediumScreen || !hiddenHomeFacet) && (
+        <SearchBox
+          autocompleteMinimumCharacters={3}
+          view={SearchBoxView}
+          autocompleteSuggestions={true}
+          debounceLength={0}
+          onSubmit={handleSubmit}
+          className="w-full"
+          onSelectAutocomplete={handleAutoCompleteSelect}
+        />
+      )}
       <div className="relative md:hidden peer-data-[input-focus='true']/search:hidden">
         <button
           onClick={() => sidebarToggleManager.updater(true)}
@@ -45,7 +52,9 @@ const Header = ({ openForm }) => {
         </button>
         {Boolean(numberOfAppliedFilters) && (
           <div className="absolute -top-1 -right-1 rounded-full w-4 h-4 text-[11px] font-black leading-none">
-            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{numberOfAppliedFilters}</span>
+            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              {numberOfAppliedFilters}
+            </span>
           </div>
         )}
       </div>
