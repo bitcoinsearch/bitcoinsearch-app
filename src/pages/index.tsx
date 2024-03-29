@@ -28,22 +28,17 @@ const HomeTextBanner = () => {
   if (hiddenHomeFacet) return null;
 
   return (
-    <div className="flex flex-col gap-4 text-center mb-auto pt-[8%] pb-4">
-      <div className="flex gap-2 md:gap-3 items-center self-center">
-        <Image
-          src="/btc.png"
-          className="w-8 h-8 md:w-16 md:h-16"
-          alt="bitcoin logo"
-          width={36}
-          height={36}
-          priority
-        />
-        <p className="text-3xl md:text-6xl font-bold italic text-gray bg-gradient-92 from-brightOrange-100 to-brightOrange-300 text-opacity-0 bg-clip-text p-1">
-          bitcoin search
-        </p>
-      </div>
-      <p className="text-sm md:text-2xl text-darkGray-200">
-        Search the depths of bitcoin&apos;s technical ecosystem
+    <div className="header">
+      <Image
+        src="/btc-main.png"
+        className="logo mx-auto max-w-[200px] md:max-w-xs lg:max-w-lg 2xl:max-w-xl"
+        alt="bitcoin logo"
+        width={459}
+        height={69}
+        priority
+      />
+      <p className="text-custom-black-dark leading-normal text-sm  sm:text-base lg:text-2xl xl:text-2xl">
+        Search the depths of bitcoin’s technical ecosystem
       </p>
     </div>
   );
