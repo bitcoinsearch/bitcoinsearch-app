@@ -18,7 +18,7 @@ const Layout = ({
   
   return (
     <div>
-      <section className="py-8 px-6 border-b-[1px] border-b-custom-grey-light">
+      <section className="px-4 pb-8">
         {header}
       </section>
       {!hiddenBody && (

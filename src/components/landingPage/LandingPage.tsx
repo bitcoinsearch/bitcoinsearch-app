@@ -1,13 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ResultFooter from "../footer/ResultFooter";
 
 export const LandingPage = () => {
   return (
     <main className='flex flex-col items-center'>
       <Link
         href='/#why-use-bitcoin'
-        className='border-[1.4px] border-[#ffe6cc] p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-50 bg-white'
+        className='border-[1.4px] border-[#ffe6cc] p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-10 bg-white'
       >
         <Image src='/svg/down-arrow.svg' alt='arrow pointing downwards' width={18.15} height={18.67} />
       </Link>
@@ -112,6 +113,7 @@ export const LandingPage = () => {
           Start searching now
         </button>
       </div>
+      <ResultFooter />
     </main>
   );
 };
