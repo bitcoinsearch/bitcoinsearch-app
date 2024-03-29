@@ -1,12 +1,12 @@
-import { SearchBox } from "@elastic/react-search-ui";
-import React, { useEffect } from "react";
-import useSearchQuery from "../hooks/useSearchQuery";
-import SearchBoxView from "../components/customSearchboxView/SearchBoxView";
-import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import FilterIcon from "@/components/svgs/FilterIcon";
-import useUIContext from "@/hooks/useUIContext";
-import { useTailwindBreakpoint } from "@/hooks/useMediaQuery";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
+import { useTailwindBreakpoint } from "@/hooks/useTailwindBreakpoint";
+import useUIContext from "@/hooks/useUIContext";
+import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
+import { SearchBox } from "@elastic/react-search-ui";
+import React from "react";
+import SearchBoxView from "../components/customSearchboxView/SearchBoxView";
+import useSearchQuery from "../hooks/useSearchQuery";
 
 const Header = ({ openForm }) => {
   const { sidebarToggleManager } = useUIContext();
