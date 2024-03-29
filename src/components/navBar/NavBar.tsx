@@ -19,13 +19,13 @@ function ThemeSwitcher() {
           onClick={() => setIsLight(false)}
           className="flex basis-1/2 items-center justify-center"
         >
-          <NightIcon />
+          <DayIcon />
         </button>
         <button
           onClick={() => setIsLight(true)}
           className="flex basis-1/2 items-center justify-center"
         >
-          <DayIcon />
+          <NightIcon />
         </button>
       </div>
       <div
@@ -67,7 +67,7 @@ const MenuSwitcher = () => {
       {open && (
         <div
           ref={popoverRef}
-          className="absolute top-0 right-0 mt-24 mr-3 md:mr-5 2xl:mr-7"
+          className="absolute top-0 right-0 mt-16 md:mt-20 xl:mt-24 mr-3 md:mr-5 2xl:mr-7"
         >
           <AppMenu />
         </div>
@@ -79,12 +79,18 @@ const MenuSwitcher = () => {
 const NavBar = () => {
   const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
-  if (!hiddenHomeFacet) return null;
-
   return (
-    <nav className="bg-lightOrange fixed shadow-md text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-10">
-      <div className="flex items-center justify-between p-3 md:p-5 2xl:p-7 w-full max-w-[1920px] m-auto">
-        <Link href="/">
+    <nav
+      className={`fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-10 ${
+        hiddenHomeFacet ? "bg-lightOrange shadow-md" : ""
+      }`}
+    >
+      <div
+        className={`flex items-center justify-between p-3 md:p-5 2xl:p-7 w-full max-w-[1920px] m-auto ${
+          !hiddenHomeFacet ? "flex-row-reverse" : ""
+        }`}
+      >
+        <Link className={hiddenHomeFacet ? "" : "hidden"} href="/">
           <Image
             src="/btc-main.png"
             className="max-w-[140px] lg:max-w-[240px] 2xl:max-w-[300px] "
@@ -94,7 +100,9 @@ const NavBar = () => {
             priority
           />
         </Link>
-        <div className="hidden md:block w-[45vw]">
+        <div
+          className={hiddenHomeFacet ? "hidden md:block w-[45vw]" : "hidden"}
+        >
           <SearchBox
             autocompleteMinimumCharacters={3}
             view={SearchBoxView}
@@ -108,9 +116,6 @@ const NavBar = () => {
         <div className="flex items-center gap-4">
           <ThemeSwitcher />
           <MenuSwitcher />
-          {/* <button className="flex flex-col rounded-lg border border-brightOrange-100 w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center">
-            <AppsIcon />
-          </button> */}
         </div>
       </div>
     </nav>
