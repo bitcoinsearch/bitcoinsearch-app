@@ -15,22 +15,26 @@ function ThemeSwitcher() {
 
   return (
     <div className="relative w-20 2xl:w-24">
-      <div className="relative flex overflow-hidden rounded-lg w-20 h-9 2xl:w-24 2xl:h-12 border border-gray bg-white">
+      <div className="relative flex overflow-hidden rounded-lg w-20 h-9 2xl:w-24 2xl:h-12 border border-custom-grey-light bg-white">
         <button
           onClick={() => setIsLight(true)}
-          className={`${switchStyle} ${isLight ? "bg-lightOrange" : ""}`}
+          className={`${switchStyle} ${
+            isLight ? "bg-custom-orange-light" : ""
+          }`}
         >
           <DayIcon />
         </button>
         <button
           onClick={() => setIsLight(false)}
-          className={`${switchStyle} ${!isLight ? "bg-lightOrange" : ""}`}
+          className={`${switchStyle} ${
+            !isLight ? "bg-custom-orange-light" : ""
+          }`}
         >
           <NightIcon />
         </button>
       </div>
       <div
-        className={`rounded-lg top-0 absolute w-1/2 h-full border border-brightOrange-100 transition-all duration-300 ${
+        className={`rounded-lg top-0 absolute w-1/2 h-full border border-custom-brightOrange-100 transition-all duration-300 ${
           isLight ? "left-0" : "left-10 2xl:left-12"
         }`}
       />
@@ -62,8 +66,8 @@ const MenuSwitcher = () => {
 
   return (
     <div
-      className={`flex flex-col rounded-lg border border-brightOrange-100 w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
-        open ? "bg-lightOrange shadow-custom-sm" : "bg-white"
+      className={`flex flex-col rounded-lg border border-custom-brightOrange-100 w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
+        open ? "bg-custom-orange-light shadow-custom-sm" : "bg-white"
       }`}
     >
       <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)}>
@@ -87,7 +91,7 @@ const NavBar = () => {
   return (
     <nav
       className={`fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-10 ${
-        hiddenHomeFacet ? "bg-lightOrange shadow-md" : ""
+        hiddenHomeFacet ? "bg-custom-orange-light shadow-md" : ""
       }`}
     >
       <div

@@ -46,7 +46,7 @@ const Header = ({ openForm }) => {
       <div className="relative md:hidden peer-data-[input-focus='true']/search:hidden">
         <button
           onClick={() => sidebarToggleManager.updater(true)}
-          className="flex items-center justify-center bg-transparent min-h-[48px] w-[48px] border border-gray rounded-xl"
+          className="flex items-center justify-center bg-transparent min-h-[48px] w-[48px] border border-custom-grey-light rounded-xl"
         >
           <FilterIcon />
         </button>
