@@ -5,7 +5,7 @@ import Link from "next/link";
 export const AppItem = ({ href, image, name, title }: MenuApp) => (
   <Link
     href={href}
-    className="py-3 px-8 gap-6 flex items-center hover:bg-custom-stroke"
+    className="py-3 px-8 gap-6 flex items-center hover:bg-custom-hover-state dark:hover:bg-custom-stroke"
     target="_blank"
     rel="noopener noreferrer"
   >
