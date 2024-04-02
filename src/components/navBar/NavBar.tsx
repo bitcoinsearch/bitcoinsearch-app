@@ -109,19 +109,19 @@ const NavBar = () => {
             priority
           />
         </Link>
-        <div
-          className={hiddenHomeFacet ? "hidden md:block w-[45vw]" : "hidden"}
-        >
-          <SearchBox
-            autocompleteMinimumCharacters={3}
-            view={SearchBoxView}
-            autocompleteSuggestions={true}
-            debounceLength={0}
-            onSubmit={() => {}}
-            className="w-auto mx-10"
-            onSelectAutocomplete={() => {}}
-          />
-        </div>
+        {hiddenHomeFacet && (
+          <div className="hidden md:block w-[45vw]">
+            <SearchBox
+              autocompleteMinimumCharacters={3}
+              view={SearchBoxView}
+              autocompleteSuggestions={true}
+              debounceLength={0}
+              onSubmit={() => {}}
+              className="w-auto mx-10"
+              onSelectAutocomplete={() => {}}
+            />
+          </div>
+        )}
         <div className="flex items-center gap-4">
           <ThemeSwitcher />
           <MenuSwitcher />
