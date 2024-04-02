@@ -8,24 +8,30 @@ import useSearchQuery from "@/hooks/useSearchQuery";
 import { getFacetFields } from "@/config/config-helper";
 import { getFilterValueDisplay } from "@/utils/facet";
 import useURLManager from "@/service/URLManager/useURLManager";
-import FilterIcon from "public/filter.svg"
-import CrossIcon from "public/cross_icon.svg"
+import FilterIcon from "public/filter.svg";
+import CrossIcon from "public/cross_icon.svg";
 import useUIContext from "@/hooks/useUIContext";
-import CloseSidebarIcon from "public/close_sidebar.svg"
-
+import CloseSidebarIcon from "public/close_sidebar.svg";
 
 const FilterMenu = () => {
   const { filterFields } = useSearchQuery();
-  const { sidebarToggleManager } = useUIContext()
+  const { sidebarToggleManager } = useUIContext();
 
   return (
     <>
-      <SidebarSection className="text-custom-black-dark flex justify-between">
+      <SidebarSection className="text-custom-black-dark flex justify-between pt-10">
         <div className="flex items-center gap-2">
-          <Image src={FilterIcon} alt="filter" className="w-[20px] lg:w-[25px]" />
+          <Image
+            src={FilterIcon}
+            alt="filter"
+            className="w-[20px] lg:w-[25px]"
+          />
           <p className="text-base lg:text-xl font-bold">Filters</p>
         </div>
-        <span className="md:hidden" onClick={() => sidebarToggleManager.updater(false)}>
+        <span
+          className="md:hidden"
+          onClick={() => sidebarToggleManager.updater(false)}
+        >
           <Image src={CloseSidebarIcon} alt="close sidebar" className="" />
         </span>
       </SidebarSection>
@@ -77,7 +83,9 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
                   })
                 }
               >
-                <span className="text-xs lg:text-sm">{getFilterValueDisplay(filter.value, filter.field)}</span>
+                <span className="text-xs lg:text-sm">
+                  {getFilterValueDisplay(filter.value, filter.field)}
+                </span>
                 <Image
                   src={CrossIcon}
                   alt="remove"

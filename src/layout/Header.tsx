@@ -31,7 +31,7 @@ const Header = ({ openForm }) => {
   };
 
   return (
-    <div className="flex gap-2 mx-auto max-w-3xl w-full justify-center">
+    <div className="flex pt-10 md:pt-0 gap-2 mx-auto max-w-3xl w-full justify-center">
       {(!isMediumScreen || !hiddenHomeFacet) && (
         <SearchBox
           autocompleteMinimumCharacters={3}
