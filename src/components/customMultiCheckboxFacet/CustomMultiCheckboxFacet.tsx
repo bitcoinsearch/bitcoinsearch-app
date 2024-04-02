@@ -83,13 +83,13 @@ function CustomMultiCheckboxFacet({
   }, [onOpen, onClose]);
 
   return (
-    <SidebarSection className="text-custom-black-dark">
+    <SidebarSection className="text-custom-primary-text">
       <fieldset className={appendClassName("", className)}>
         <SideBarHeader label={label} />
         {showSearch && (
           <div className="relative">
             <input
-              className="text-sm lg:text-base font-medium w-full pl-12 pr-10 py-4 rounded-xl border-[1px] border-custom-grey-light group focus-visible:outline-custom-grey-dark focus-visible:outline-offset-0 leading-none"
+              className="bg-custom-background text-sm lg:text-base font-medium w-full pl-12 pr-10 py-4 rounded-xl border-[1px] border-custom-stroke group focus-visible:outline-custom-secondary-text focus-visible:outline-offset-0 leading-none"
               type="text"
               placeholder={
                 currentNavigateCheckbox ||
@@ -121,7 +121,7 @@ function CustomMultiCheckboxFacet({
 
         <div
           data-is-open={isOpen}
-          className="group/container font-medium data-[is-open='false']:hidden mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-grey-light rounded-xl"
+          className="group/container font-medium data-[is-open='false']:hidden mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-stroke rounded-xl"
           ref={multiCheckboxRef}
         >
           {options.length < 1 && (
@@ -200,7 +200,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
           <span className="group-hover/source:underline underline-offset-4 text-sm font-medium">
             Suggest a source
           </span>
-          <span className="p-[6px] bg-custom-black-dark group-hover/source:bg-custom-orange-dark rounded-md">
+          <span className="p-[6px] bg-custom-primary-text group-hover/source:bg-custom-accent  rounded-md">
             <Image
               src="./plus_icon.svg"
               width={10}

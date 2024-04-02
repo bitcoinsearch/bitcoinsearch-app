@@ -13,9 +13,8 @@ import FilterMenu from "@/components/sidebarFacet/FilterMenu";
 import ShowFilterResultsMobile from "@/components/sidebarFacet/ShowFilterResultsMobile";
 
 const SideBar = () => {
-
   return (
-    <div className="w-full md:w-[300px]">
+    <div className="w-full md:w-[300px] bg-custom-background">
       <div className="hidden lg:block">
         <ResultSize />
       </div>
@@ -45,15 +44,14 @@ const SideBar = () => {
         ]}
       />
       {getFacetFields().map((field) => (
-            <Facet
-              key={field}
-              field={field}
-              isFilterable={getFacetWithSearch().includes(field)}
-              label={field}
-              view={CustomMultiCheckboxFacet}
-            />
-          ))
-        }
+        <Facet
+          key={field}
+          field={field}
+          isFilterable={getFacetWithSearch().includes(field)}
+          label={field}
+          view={CustomMultiCheckboxFacet}
+        />
+      ))}
       <ShowFilterResultsMobile />
     </div>
   );
