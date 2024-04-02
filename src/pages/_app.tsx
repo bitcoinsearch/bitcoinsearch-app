@@ -62,6 +62,7 @@ export default function App({ Component, pageProps }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <title>Bitcoin Search</title>
                 <link rel="manifest" href="./manifest.json" />
+                <link rel="preload" href="./font/Mona-Sans.woff2" as="font" type="font/woff2" crossOrigin=""/>
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:image" content="https://bitcoinsearch.xyz/btc_book_2_1.jpg?v1"/>
                 <meta name="twitter:title" content="Technical ₿itcoin Search"/>

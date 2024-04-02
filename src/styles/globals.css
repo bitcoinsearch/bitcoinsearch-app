@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: 'Mona Sans';
+    src:
+      url('../../public/font/Mona-Sans.woff2') format('woff2 supports variations'),
+      url('../../public/font/Mona-Sans.woff2') format('woff2-variations');
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -17,7 +28,7 @@
 }
 
 body {
-  font-family: 'Geist Sans', sans-serif;
+  font-family: 'Geist Sans', sans-serif !important;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -30,4 +41,5 @@ body {
 html {
   scroll-behavior: smooth !important;
   scroll-padding-top: 24px;
+  font-family: 'Geist Sans', sans-serif;
 }
