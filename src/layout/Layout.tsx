@@ -22,9 +22,9 @@ const Layout = ({
       {!hiddenBody && (
         <div
           data-sb-open={sidebarToggleManager.state}
-          className="font-mona group bg-[#fcfcfc] flex relative"
+          className="group bg-[#fcfcfc] flex relative"
         >
-          <section className='hidden flex-shrink-0 py-0 px-6 lg:py-10 lg:px-16 border-r-[1px] border-r-custom-grey-light -translate-x-full w-full md:w-auto md:h-auto md:relative md:block md:translate-x-0 group-data-[sb-open="true"]:block group-data-[sb-open="true"]:bg-white group-data-[sb-open="true"]:translate-x-0 group-data-[sb-open="true"]:z-10'>
+          <section className='font-mona hidden flex-shrink-0 py-0 px-6 lg:py-10 lg:px-16 border-r-[1px] border-r-custom-grey-light -translate-x-full w-full md:w-auto md:h-auto md:relative md:block md:translate-x-0 group-data-[sb-open="true"]:block group-data-[sb-open="true"]:bg-white group-data-[sb-open="true"]:translate-x-0 group-data-[sb-open="true"]:z-10'>
             {sideContent}
           </section>
           <section className="pl-4 lg:pl-20 pr-4 py-0 lg:py-10 group-data-[sb-open='true']:hidden group-data-[sb-open='true']:md:block">
