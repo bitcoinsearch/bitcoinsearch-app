@@ -1,24 +1,24 @@
-import React, { FormEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import Downshift from "downshift";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 
+import useSearchQuery from "@/hooks/useSearchQuery";
+import useURLManager from "@/service/URLManager/useURLManager";
+import { FacetKeys } from "@/types";
+import { defaultSearchTags } from "@/utils/dummy";
+import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
+import { isMac } from "@/utils/userOS";
+import {
+  BaseContainerProps,
+  InputViewProps,
+  SearchBoxAutocompleteViewProps,
+} from "@elastic/react-search-ui-views";
 import type {
   AutocompleteResult,
   AutocompleteSuggestion,
   SearchContextState,
 } from "@elastic/search-ui";
-import {
-  BaseContainerProps,
-  SearchBoxAutocompleteViewProps,
-  InputViewProps,
-} from "@elastic/react-search-ui-views";
-import useSearchQuery from "@/hooks/useSearchQuery";
-import SearchIcon from "../svgs/SearchIcon";
 import CloseIconOutlined from "../svgs/CloseIconOutlined";
-import { defaultSearchTags } from "@/utils/dummy";
-import { isMac } from "@/utils/userOS";
-import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
-import useURLManager from "@/service/URLManager/useURLManager";
-import { FacetKeys } from "@/types";
+import SearchIcon from "../svgs/SearchIcon";
 
 export type SearchBoxContainerContext = Pick<
   SearchContextState,
@@ -120,7 +120,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
       setFocus(false);
       setIsOutsideClick(true);
       setCurrentIndex(-1);
-      setIsPageLoaded(false)
+      setIsPageLoaded(false);
     } else {
       setIsOutsideClick(false);
     }
@@ -138,10 +138,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
     };
   }, []);
   const handleChange = (value: string) => {
-    if(isOutsideClick)
-{
-  setIsOutsideClick(false)
-}    onChange(value);
+    if (isOutsideClick) {
+      setIsOutsideClick(false);
+    }
+    onChange(value);
     setSearchTerm(value);
   };
   const onTabClick = (
@@ -177,7 +177,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     makeQuery(value);
   };
   const onClearInput = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     inputRef.current.focus();
     setFocus(true);
     setIsOutsideClick(false);
@@ -191,7 +191,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   };
   const { searchQuery, makeQuery, queryResult } = useSearchQuery();
   //  used to check if it's the same query that has been cached  being made by the client
-  const isQueryChanged = queryResult.data?.hits?.max_score || 0
+  const isQueryChanged = queryResult.data?.hits?.max_score || 0;
   const [searchTerm, setSearchTerm] = useState(searchQuery);
   // sync autocomplete
   useEffect(() => {
@@ -226,13 +226,13 @@ function SearchBoxView(props: SearchBoxViewProps) {
     if (queryResult.isFetched) {
       setIsPageLoaded(false);
     }
-  }, [queryResult.isFetched,isQueryChanged]);
-
+  }, [queryResult.isFetched, isQueryChanged]);
 
   const handleKeyDown = (event) => {
     switch (event.keyCode) {
       case 27:
         setIsOutsideClick(true);
+        break;
       case 38:
         setCurrentIndex((prevIndex) =>
           prevIndex === 0 ? suggestions.length - 1 : prevIndex - 1
@@ -289,7 +289,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     isContainerOpen || isAutoCompleteContainerOpen
                       ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
                       : "rounded-l-xl md:rounded-l-2xl"
-                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center bg-white border border-gray flex`}
+                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center bg-white border border-custom-grey-light flex`}
                 >
                   <input
                     ref={inputRef}
@@ -305,10 +305,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       setIsOutsideClick(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-gray w-full border-none outline-none bg-transparent "
+                    className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-grey-light w-full border-none outline-none bg-transparent "
                   />
                   {isShortcutVisible && (
-                    <p className="whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-gray">
+                    <p className="whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-grey-light">
                       <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or
                       {" /"}
                     </p>
@@ -325,7 +325,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen ? "flex" : "hidden"
-                  } border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8  flex-col `}
+                  } border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-custom-grey-light z-20 py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8  flex-col `}
                 >
                   {/* Each search */}
                   {defaultSearchTags.map((tagType) => (
@@ -349,7 +349,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                                 : ""
                             }  ${
                               searchTerm === tag ? "bg-custom-orange-light" : ""
-                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-custom-orange-light cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border  border-gray   max-w-[max-content]`}
+                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-custom-orange-light cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border border-custom-grey-light  max-w-[max-content]`}
                           >
                             <p>{tag}</p>
                           </div>
@@ -364,7 +364,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <div
                     role="presentation"
                     tabIndex={0}
-                    className={`border absolute top-11.5   border-t-0 border-gray z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5   border-t-0 border-custom-grey-light z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
                     <ul>
                       {suggestions.map((sug, index) => (
