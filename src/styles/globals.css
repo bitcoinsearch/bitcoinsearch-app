@@ -4,10 +4,10 @@
 
 @layer base {
   @font-face {
-    font-family: 'Mona Sans';
-    src:
-      url('../../public/font/Mona-Sans.woff2') format('woff2 supports variations'),
-      url('../../public/font/Mona-Sans.woff2') format('woff2-variations');
+    font-family: "Mona Sans";
+    src: url("../../public/font/Mona-Sans.woff2")
+        format("woff2 supports variations"),
+      url("../../public/font/Mona-Sans.woff2") format("woff2-variations");
     font-weight: 200 300 400 500 600 700 800 900;
   }
 }
@@ -16,6 +16,14 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --background: #fafafa;
+  --hover-state: #fff0e0;
+  --stroke: #bfbfbf;
+  --secondary-text: #999999;
+  --primary-text: #292929;
+  --black: #292929;
+  --accent: #f7931a;
+  --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,7 +35,7 @@
 }
 
 body {
-  font-family: 'Geist Sans', sans-serif !important;
+  font-family: "Geist Sans", sans-serif;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -40,5 +48,17 @@ body {
 html {
   scroll-behavior: smooth !important;
   scroll-padding-top: 24px;
-  font-family: 'Geist Sans', sans-serif;
+}
+
+.dark {
+  background: var(--background);
+  --background: #1c1c1e;
+  --hover-state: #2c2c2e;
+  --stroke: #3a3a3c;
+  --secondary-text: #636366;
+  --primary-text: #8e8e93;
+  --black: #292929;
+  --other-light-text: #48484a;
+  --accent: #f7931a;
+  --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
 }
