@@ -26,3 +26,8 @@ export const getUrlForCombinedSummary = (url: string, id: string) => {
     return url
   }
 };
+
+export const getSiteName = (url:string)=>{
+  const siteName = url.match(/(?:https?:\/\/)?(?:www\.)?([^./]+)\.(?:com|org|co\.uk)/)[1]
+  return siteName
+}

@@ -14,3 +14,4 @@ export const urlParamsPrefix = {
 }
 
 export const TruncateLengthInChar = 300
+export const TruncateLinkInChar = 50

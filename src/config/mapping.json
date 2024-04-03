@@ -61,6 +61,9 @@
     "https://reddit.com": "Reddit",
     "https://delvingbitcoin.org/": "Delving Bitcoin"
   },
+  "icon": {
+    "https://bitcointalk.org": "/favicons/bitcointalk.svg"
+  },
   "media": ["https://btctranscripts.com/"],
   "collection": [
     "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/",

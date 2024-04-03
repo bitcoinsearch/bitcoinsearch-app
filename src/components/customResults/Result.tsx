@@ -6,8 +6,8 @@ import { Parser } from "html-to-react";
 import { Thumbnail } from "./Thumbnail";
 import mapping from "@/config/mapping.json";
 import { getMapping } from "@/config/mapping-helper";
-import { getUrlForCombinedSummary } from "@/utils/tldr";
-import { TruncateLengthInChar } from "@/config/config";
+import { getSiteName, getUrlForCombinedSummary } from "@/utils/tldr";
+import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import Image from "next/image";
 import DateIcon from "../svgs/DateIcon";
@@ -78,48 +78,42 @@ const Result = ({
   const sanitizedBody = sanitizeHtml(
     getBodyData(result).replaceAll("\n", "")
   ).trim();
-
+const truncatedUrl =  mappedUrl.length > TruncateLinkInChar ? mappedUrl.substring(0,TruncateLinkInChar) + "...": mappedUrl
   const truncatedBody =
     sanitizedBody.length > TruncateLengthInChar
       ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
 
-  // removed onClickLink
-  // const onClickLink = () => {
-  //   if (shouldTrackClickThrough) {
-  //     result?.id && trackClickThrough(result.id, clickThroughTags);
-  //   }
-  // };
 console.log(result)
   return (
-    <div className="flex flex-col gap-4 p-4 hover:shadow-lg hover:rounded-xl cursor-pointer">
-      <div className="flex gap-4 items-center text-base text-custom-grey-dark font-medium ">
-        <Image
+    <div className=" flex flex-col gap-2 2xl:gap-4 px-0 py-2 lg:p-4 hover:shadow-lg hover:rounded-xl cursor-pointer lg:max-w-2xl 2xl:max-w-4xl">
+      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base text-custom-grey-dark font-medium ">
+        {/* <Image
           alt="website favicon"
           width={24}
           height={24}
           className="w-6 h-6 rounded-full"
           src={"/demo-chat.png"}
-        />
-        <p className="">Bitcoin Optech</p>
-        <div className="w-[6px] h-[6px] rounded-full bg-custom-grey-dark" />
+        /> */}
+        <p className="capitalize">{getSiteName(mappedUrl)}</p>
+        <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full bg-custom-grey-dark" />
         <a
           className=""
           href={mappedUrl}
           data-umami-event="URL Clicked"
           data-umami-event-src={mappedUrl}
         >
-          {mappedUrl}
+          {truncatedUrl}
         </a>
       </div>
       <div className="flex flex-col gap-5">
-        <h2 className="text-[1.375rem] text-custom-black-dark font-semibold">
+        <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-black-dark font-semibold">
           <a className="cursor-pointer hover:underline">
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
-        <p className="text-lg text-custom-black-light">
+        <p className="text-sm lg:text-[0.843rem] 2xl:text-lg text-custom-black-light">
           {parsedBody}
           {/* <a className=" text-right w-full flex items-start justify-end -m-1">
             {" "}
@@ -128,11 +122,11 @@ console.log(result)
         </p>
       </div>
       <div className="flex justify-between items-center">
-        <div className="flex gap-16 text-base font-semibold text-custom-black-dark">
+        <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-black-dark">
           {dateString && (
             <div className="flex items-center gap-2">
               <DateIcon />
-              <p className="">{dateString}</p>
+              <p className="text-[8px] lg:text-xs 2xl:text-base">{dateString}</p>
             </div>
           )}
           {/* <div className="flex items-center gap-2">
