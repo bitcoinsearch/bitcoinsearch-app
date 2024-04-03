@@ -9,6 +9,7 @@ import { SearchBox } from "@elastic/react-search-ui";
 import SearchBoxView from "../customSearchboxView/SearchBoxView";
 import Link from "next/link";
 import { useTheme } from "@/context/Theme";
+import { Tooltip } from "@chakra-ui/react";
 
 function ThemeSwitcher() {
   const { theme, toggleTheme } = useTheme();
@@ -65,22 +66,36 @@ const MenuSwitcher = () => {
   }, []);
 
   return (
-    <div
-      className={`flex flex-col rounded-lg border border-custom-brightOrange-100 dark:border-custom-stroke  w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
-        open ? "bg-custom-hover-state shadow-custom-sm" : "bg-custom-background"
-      }`}
-    >
-      <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)}>
-        <AppsIcon />
-      </button>
-      {open && (
+    <div className="group">
+      <Tooltip
+        hasArrow
+        label="All Tools by the Bitcoin Dev Project"
+        className="bg-custom-lightGrey dark:bg-custom-hover-state text-white dark:text-custom-primary-text text-center text-sm"
+        padding="16px"
+        borderRadius="8px"
+        maxW="157px"
+        mx="4px"
+      >
         <div
-          ref={popoverRef}
-          className="absolute top-0 right-0 mt-16 md:mt-20 xl:mt-24 mr-3 md:mr-5 2xl:mr-7"
+          className={`flex flex-col rounded-lg border border-custom-brightOrange-100 dark:border-custom-stroke  w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
+            open
+              ? "bg-custom-hover-state shadow-custom-sm"
+              : "bg-custom-background"
+          }`}
         >
-          <AppMenu />
+          <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)}>
+            <AppsIcon />
+          </button>
+          {open && (
+            <div
+              ref={popoverRef}
+              className="absolute top-0 right-0 mt-16 md:mt-20 xl:mt-24 mr-3 md:mr-5 2xl:mr-7"
+            >
+              <AppMenu />
+            </div>
+          )}
         </div>
-      )}
+      </Tooltip>
     </div>
   );
 };
