@@ -19,7 +19,7 @@ const FilterMenu = () => {
 
   return (
     <>
-      <SidebarSection className="text-custom-black-dark flex justify-between pt-10">
+      <SidebarSection className="text-custom-primary-text flex justify-between pt-10">
         <div className="flex items-center gap-2">
           <Image
             src={FilterIcon}
@@ -47,7 +47,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
     removeFilterTypes(["authors", "domain"]);
   };
   return (
-    <SidebarSection className="text-custom-black-dark">
+    <SidebarSection className="text-custom-primary-text">
       <div className="flex justify-between mb-4 lg:mb-8">
         <p className="text-sm lg:text-base font-bold">Applied Filters</p>
         <div
@@ -58,7 +58,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
           <span className="text-sm lg:text-base group-hover:underline underline-offset-4">
             Clear all
           </span>
-          <span className="p-[6px] lg:p-2 bg-custom-black-dark rounded-md">
+          <span className="p-[6px] lg:p-2 bg-custom-primary-text rounded-md">
             <Image
               src={CrossIcon}
               alt="clear all"
@@ -74,7 +74,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
             .map((filter) => (
               <div
                 key={filter.field}
-                className="flex gap-3 w-fit py-[10px] px-3 lg:py-3 lg:px-4 bg-custom-orange-dark text-custom-white rounded-lg"
+                className="flex gap-3 w-fit py-[10px] px-3 lg:py-3 lg:px-4 bg-custom-accent text-custom-white rounded-lg"
                 role="button"
                 onClick={() =>
                   removeFilter({

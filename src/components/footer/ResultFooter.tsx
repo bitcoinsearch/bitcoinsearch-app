@@ -2,7 +2,7 @@ import GithubIcon from "../svgs/GithubIcon";
 
 const Separator = ({ className }: { className?: string }) => (
   <div
-    className={`h-5 border xl:h-6 xl:border-2 border-custom-grey-light ${className}`}
+    className={`h-5 border xl:h-6 xl:border-2 border-custom-stroke ${className}`}
   />
 );
 
@@ -30,7 +30,7 @@ const StatsLink = () => (
 
 const ResultFooter = () => {
   return (
-    <footer className="bg-white bottom-0 text-left md:text-center w-full border-t border-custom-grey-light text-xs md:text-base 2xl:text-xl leading-normal">
+    <footer className="bg-custom-background bottom-0 text-left md:text-center w-full border-t border-custom-stroke text-xs md:text-base 2xl:text-xl leading-normal dark:text-custom-primary-text">
       <div className="flex flex-col md:flex-row gap-y-5 items-center justify-between p-5 md:p-7 2xl:p-10 w-full max-w-[1920px] m-auto">
         <div className="hidden md:block">
           <GithubLink />
@@ -52,7 +52,7 @@ const ResultFooter = () => {
           <StatsLink />
         </div>
         <Separator className="hidden xl:block" />
-        <div className="block md:hidden border-[0.5px] border-custom-grey-light w-full" />
+        <div className="block md:hidden border-[0.5px] border-custom-stroke w-full" />
         <div className="flex w-full md:w-auto items-center justify-between gap-3 md:gap-8">
           <div className="block md:hidden">
             <GithubLink />
@@ -65,7 +65,7 @@ const ResultFooter = () => {
           <p className="hidden md:block">
             We&apos;d love to hear your feedback on this project
           </p>
-          <button className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-custom-black-dark rounded-xl">
+          <button className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-custom-primary-text rounded-xl dark:text-black">
             Give feedback
           </button>
         </div>

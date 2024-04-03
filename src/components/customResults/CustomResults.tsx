@@ -9,31 +9,25 @@ import {
 } from "../../config/results-helper";
 
 const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
-
   const { queryResult } = useSearchQuery();
 
-  const trackClickThrough = () => {
-  }
+  const trackClickThrough = () => {};
 
   const formattedResults = [] as Array<EsSearchResult["_source"]>[];
   const similarity = {};
   const groupedIndices: Set<number> = new Set();
   const groupedDomains = getDomainGrouping();
 
-  const results = queryResult.data?.hits?.hits ?? []
+  const results = queryResult.data?.hits?.hits ?? [];
 
   results.forEach((item) => {
-    const result = item._source as EsSearchResult["_source"]
+    const result = item._source as EsSearchResult["_source"];
     const raw_domain = result.domain;
 
     if (groupedDomains.includes(raw_domain)) {
       const idx = formattedResults.length;
 
-      const locatorId = generateLocator(
-        raw_domain,
-        result.url,
-        result.title
-      );
+      const locatorId = generateLocator(raw_domain, result.url, result.title);
       const isSimilarIdx = similarity[locatorId];
 
       if (isSimilarIdx !== undefined) {

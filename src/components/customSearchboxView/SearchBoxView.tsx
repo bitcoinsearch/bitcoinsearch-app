@@ -289,7 +289,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                     isContainerOpen || isAutoCompleteContainerOpen
                       ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
                       : "rounded-l-xl md:rounded-l-2xl"
-                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center bg-white border border-custom-grey-light flex`}
+                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center bg-custom-background border border-custom-stroke flex`}
                 >
                   <input
                     ref={inputRef}
@@ -305,10 +305,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       setIsOutsideClick(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-grey-light w-full border-none outline-none bg-transparent "
+                    className="text-custom-primary-text dark:text-custom-secondary-text search-box py-1.5 md:py-3 text-sm md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-stroke w-full border-none outline-none bg-transparent "
                   />
                   {isShortcutVisible && (
-                    <p className="whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-grey-light">
+                    <p className="whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke">
                       <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or
                       {" /"}
                     </p>
@@ -325,13 +325,13 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen ? "flex" : "hidden"
-                  } border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-gray z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl    bg-white rounded-b-2xl gap-4 md:gap-8  flex-col `}
+                  } border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl bg-custom-background rounded-b-2xl gap-4 md:gap-8  flex-col `}
                 >
                   {/* Each search */}
                   {defaultSearchTags.map((tagType) => (
                     <div
                       key={tagType.headline}
-                      className="flex text-custom-black-dark flex-col gap-2"
+                      className="flex text-custom-primary-text flex-col gap-2"
                     >
                       <p className="text-sm md:text-base font-semibold">
                         {tagType.headline}
@@ -345,11 +345,11 @@ function SearchBoxView(props: SearchBoxViewProps) {
                             }}
                             className={`${
                               getFilter(tagType.type as FacetKeys).includes(tag)
-                                ? "bg-custom-orange-light"
+                                ? "bg-custom-hover-state"
                                 : ""
                             }  ${
-                              searchTerm === tag ? "bg-custom-orange-light" : ""
-                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-custom-orange-light cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border border-custom-grey-light  max-w-[max-content]`}
+                              searchTerm === tag ? "bg-custom-hover-state" : ""
+                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-custom-hover-state cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border border-custom-stroke  max-w-[max-content]`}
                           >
                             <p>{tag}</p>
                           </div>
@@ -364,7 +364,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <div
                     role="presentation"
                     tabIndex={0}
-                    className={`border absolute top-11.5   border-t-0 border-gray z-[60] overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5  border-t-0 border-custom-stroke z-[60] overflow-hidden  w-full max-w-3xl rounded-b-xl md:rounded-b-2xl  flex flex-col  text-custom-primary-text dark:text-custom-secondary-text`}
                   >
                     <ul>
                       {suggestions.map((sug, index) => (
@@ -377,8 +377,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
                             e.code === "Enter" && onSelectSuggestion(sug)
                           }
                           className={`
-                          focus:bg-custom-orange-light
-                          outline-none cursor-pointer text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-custom-orange-light`}
+                          focus:bg-custom-hover-state
+                          outline-none cursor-pointer text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-custom-hover-state`}
                         >
                           {removeMarkdownCharacters(sug.suggestion)}
                         </li>
@@ -387,7 +387,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   </div>
                 )}
               </div>
-              <button className="flex items-center bg-gradient-search h-[48px]  px-4 min-h-full rounded-r-xl md:rounded-r-2xl">
+              <button className="flex items-center bg-gradient h-[48px]  px-4 min-h-full rounded-r-xl md:rounded-r-2xl">
                 <SearchIcon className="w-[16px] md:w-auto" />
               </button>
             </div>

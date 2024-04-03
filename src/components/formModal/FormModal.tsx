@@ -68,8 +68,12 @@ const FormModal = ({ formOpen, closeForm }) => {
   return (
     <Modal isOpen={formOpen} onClose={resetAndCloseForm}>
       <ModalOverlay />
-      <ModalContent mx={{ base: "16px", lg: "0px" }} p={{ base: "16px", lg: "40px"}} maxW={{base: "400px", lg:"580px"}}>
-        <ModalHeader p={0} mb={{ base: "28px", lg: "48px"}}>
+      <ModalContent
+        mx={{ base: "16px", lg: "0px" }}
+        p={{ base: "16px", lg: "40px" }}
+        maxW={{ base: "400px", lg: "580px" }}
+      >
+        <ModalHeader p={0} mb={{ base: "28px", lg: "48px" }}>
           <p className="text-center font-medium mb-4 lg:mb-6 lg:text-3xl leading-none">
             Help Expand Our Source Library
           </p>
@@ -92,10 +96,13 @@ const FormModal = ({ formOpen, closeForm }) => {
               </Text>
             </Box>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6 lg:gap-10">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-6 lg:gap-10"
+            >
               <FormControl className="flex flex-col gap-2 lg:gap-3">
                 <label
-                  className="text-sm font-semibold text-custom-black-dark"
+                  className="text-sm font-semibold text-custom-primary-text"
                   htmlFor="form-url"
                 >
                   Source&apos;s URL
@@ -109,13 +116,13 @@ const FormModal = ({ formOpen, closeForm }) => {
                   isRequired
                   maxLength={255}
                 />
-                <p className="text-[11px] font-medium text-custom-grey-dark">
+                <p className="text-[11px] font-medium text-custom-secondary-text">
                   Please enter the full URL, including http:// or https://
                 </p>
               </FormControl>
               <FormControl className="flex flex-col gap-2 lg:gap-3">
                 <label
-                  className="text-sm font-semibold text-custom-black-dark"
+                  className="text-sm font-semibold text-custom-primary-text"
                   htmlFor="form-email"
                 >
                   Your Email
@@ -129,9 +136,8 @@ const FormModal = ({ formOpen, closeForm }) => {
                   isRequired
                   maxLength={255}
                 />
-                <p className="text-[11px] font-medium text-custom-grey-dark">
-                  We’ll notify you once the source is approved and
-                  added
+                <p className="text-[11px] font-medium text-custom-secondary-text">
+                  We’ll notify you once the source is approved and added
                 </p>
               </FormControl>
               <div className="flex gap-2 lg:gap-4">

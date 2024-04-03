@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./src/layout/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -20,20 +21,14 @@ module.exports = {
       },
       colors: {
         custom: {
-          grey: {
-            light: "#BFBFBF",
-            dark: "#999999",
-          },
-          orange: {
-            light: "#FFF0E0",
-            dark: "#F7931A",
-          },
-          // white: "#F2F2F7",
+          background: "var(--background)",
+          "hover-state": "var(--hover-state)",
+          stroke: "var(--stroke)",
+          "secondary-text": "var(--secondary-text)",
+          "primary-text": "var(--primary-text)",
+          accent: "var(--accent)",
           white: "#FAFAFA",
-          black: {
-            dark: "#292929",
-            light: "#4D4D4D",
-          },
+          black: "var(--black)",
           lightGrey: "#666666",
           brightOrange: {
             100: "#EC802F",
@@ -43,11 +38,7 @@ module.exports = {
         },
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "gradient-search":
-          "linear-gradient(137deg, rgba(232,120,43,1) 0%, rgba(232,120,43,1) 50%, rgba(246,167,63,1) 100%);",
+        gradient: "var(--gradient)",
       },
     },
   },

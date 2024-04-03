@@ -20,7 +20,7 @@ const SortingView = ({
 }: SortingViewProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
-    <SidebarSection className="text-custom-black-dark">
+    <SidebarSection className="text-custom-primary-text">
       <label className="flex gap-2 mb-4 lg:mb-6 items-center">
         <Image
           src={SortIcon}
@@ -37,8 +37,8 @@ const SortingView = ({
           gutter={10}
         >
           <MenuButton as="button" style={{ width: "100%" }}>
-            <div className="w-full flex bg-white px-4 py-3 border-[1px] border-custom-grey-light items-center justify-between rounded-xl">
-              <p className="text-sm lg:text-base font-bold text-custom-black-dark ">
+            <div className="w-full flex bg-custom-background px-4 py-3 border-[1px] border-custom-stroke items-center justify-between rounded-xl">
+              <p className="text-sm lg:text-base font-bold text-custom-primary-text ">
                 {option.label}
               </p>
               <span
@@ -68,7 +68,7 @@ const SortingView = ({
                 p={0}
                 m={0}
               >
-                <div className="w-full px-5 py-[6px] flex gap-2 font-medium group-data-[selected=false]:hover:bg-custom-orange-light">
+                <div className="w-full px-5 py-[6px] flex gap-2 font-medium group-data-[selected=false]:hover:bg-custom-hover-state">
                   <Image
                     className="group-data-[selected=false]:invisible"
                     src="./lightning_icon_filled.svg"
@@ -76,7 +76,7 @@ const SortingView = ({
                     width={16}
                     alt=""
                   />
-                  <span className="group-data-[selected=true]:text-custom-orange-dark group-data-[selected=true]:font-bold">
+                  <span className="group-data-[selected=true]:text-custom-accent group-data-[selected=true]:font-bold">
                     {item.label}
                   </span>
                 </div>

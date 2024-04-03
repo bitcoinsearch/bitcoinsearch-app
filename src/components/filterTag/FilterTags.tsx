@@ -6,29 +6,29 @@ import React from "react";
 type FilterTagProps = {
   field: FacetKeys;
   options: string[] | string;
-}
+};
 
 const FilterTags = ({ field, options }: FilterTagProps) => {
-  const { getFilter, addFilter, removeFilter } = useURLManager()
+  const { getFilter, addFilter, removeFilter } = useURLManager();
 
   if (!Array.isArray(options)) return null;
 
   const onRemove = (value: string) => {
-    removeFilter({filterType: field, filterValue: value});
+    removeFilter({ filterType: field, filterValue: value });
   };
   const onAdd = (value: string) => {
-    addFilter({filterType: field, filterValue: value});
+    addFilter({ filterType: field, filterValue: value });
   };
-  
-  const handleToggleFilter = (filter: typeof formattedOptions[number]) => {
+
+  const handleToggleFilter = (filter: (typeof formattedOptions)[number]) => {
     if (filter.selected) {
       onRemove(filter.value);
     } else {
       onAdd(filter.value);
     }
   };
-  
-  const filterForField = getFilter(field)
+
+  const filterForField = getFilter(field);
   const formattedOptions = options.map((option) => {
     return {
       value: option,
@@ -43,7 +43,9 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
           variant="facet-pill"
           size="no-size"
           key={`${a.value}_${idx}`}
-          className={`${field}-result-tag ${a.selected ? "tag-selected" : ""}`}
+          className={`${field}-result-tag ${
+            a.selected ? "tag-selected" : ""
+          } bg-custom-hover-state border-custom-stroke`}
           onClick={() => handleToggleFilter(a)}
         >
           {a.value}
