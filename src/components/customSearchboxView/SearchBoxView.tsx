@@ -364,7 +364,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <div
                     role="presentation"
                     tabIndex={0}
-                    className={`border absolute top-11.5   border-t-0 border-gray z-[60] overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5  border-t-0 border-custom-stroke z-[60] overflow-hidden  w-full max-w-3xl rounded-b-xl md:rounded-b-2xl  flex flex-col  text-custom-primary-text dark:text-custom-secondary-text`}
                   >
                     <ul>
                       {suggestions.map((sug, index) => (
