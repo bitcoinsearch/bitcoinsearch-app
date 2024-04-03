@@ -9,9 +9,12 @@ import { getMapping } from "@/config/mapping-helper";
 import { getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
+import Image from "next/image";
+import DateIcon from "../svgs/DateIcon";
+import TimeIcon from "../svgs/TimeIcon";
 
 const htmlToReactParser = new (Parser as any)();
-const { tldrLists, combinedSummaryTag } = getMapping()
+const { tldrLists, combinedSummaryTag } = getMapping();
 
 type ResultProps = {
   result: EsSearchResult["_source"];
@@ -29,8 +32,11 @@ const Result = ({
   let dateString = null;
   const { url, title, body, domain, id } = result;
 
-  const isTldrCombinedSummary = tldrLists.includes(domain) && title.includes(combinedSummaryTag)
-  const mappedUrl = isTldrCombinedSummary ? getUrlForCombinedSummary(url, id) : url
+  const isTldrCombinedSummary =
+    tldrLists.includes(domain) && title.includes(combinedSummaryTag);
+  const mappedUrl = isTldrCombinedSummary
+    ? getUrlForCombinedSummary(url, id)
+    : url;
 
   const createdDate = result.created_at;
   if (createdDate) {
@@ -50,31 +56,34 @@ const Result = ({
   const getBodyData = (result: ResultProps["result"]) => {
     switch (result.body_type) {
       case "markdown":
-        return body
+        return body;
       case "raw":
-        return result?.summary ?? body
+        return result?.summary ?? body;
       case "html":
-        return body
+        return body;
       case "combined-summary":
-        return body
+        return body;
       default: {
         try {
           return JSON.parse(`[${body}]`)
             .map((i) => i.text)
-            .join(" ")
+            .join(" ");
         } catch {
-          return body || result.body_formatted
+          return body || result.body_formatted;
         }
       }
     }
-  }
+  };
 
   const sanitizedBody = sanitizeHtml(
     getBodyData(result).replaceAll("\n", "")
-  ).trim()
+  ).trim();
 
-  const truncatedBody = sanitizedBody.length > TruncateLengthInChar ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..." : sanitizedBody
-  const parsedBody = htmlToReactParser.parse(truncatedBody)
+  const truncatedBody =
+    sanitizedBody.length > TruncateLengthInChar
+      ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
+      : sanitizedBody;
+  const parsedBody = htmlToReactParser.parse(truncatedBody);
 
   // removed onClickLink
   // const onClickLink = () => {
@@ -82,43 +91,67 @@ const Result = ({
   //     result?.id && trackClickThrough(result.id, clickThroughTags);
   //   }
   // };
-
+console.log(result)
   return (
-    <div className="searchresult">
-      <h2 className="search-result-link">
-        <a href={mappedUrl}
+    <div className="flex flex-col gap-4 p-4 hover:shadow-lg hover:rounded-xl cursor-pointer">
+      <div className="flex gap-4 items-center text-base text-custom-grey-dark font-medium ">
+        <Image
+          alt="website favicon"
+          width={24}
+          height={24}
+          className="w-6 h-6 rounded-full"
+          src={"/demo-chat.png"}
+        />
+        <p className="">Bitcoin Optech</p>
+        <div className="w-[6px] h-[6px] rounded-full bg-custom-grey-dark" />
+        <a
+          className=""
+          href={mappedUrl}
           data-umami-event="URL Clicked"
-          data-umami-event-src={mappedUrl}>
-          {htmlToReactParser.parse(sanitizeHtml(title))}
+          data-umami-event-src={mappedUrl}
+        >
+          {mappedUrl}
         </a>
-      </h2>
-      <a href={mappedUrl} 
-        className="url-display"
-        data-umami-event="URL Clicked"
-        data-umami-event-src={mappedUrl}>
-        {mappedUrl}
-      </a>
-      <div className="search-result-body">
-        {mapping.media.includes(result?.domain) && (
-          <Thumbnail url={result?.media} />
-        )}
-        <p>
+      </div>
+      <div className="flex flex-col gap-5">
+        <h2 className="text-[1.375rem] text-custom-black-dark font-semibold">
+          <a className="cursor-pointer hover:underline">
+            {htmlToReactParser.parse(sanitizeHtml(title))}
+          </a>
+        </h2>
+        <p className="text-lg text-custom-black-light">
           {parsedBody}
+          {/* <a className=" text-right w-full flex items-start justify-end -m-1">
+            {" "}
+            ...show more
+          </a> */}
         </p>
       </div>
-
-      <div className="search-result-filter">
-        {getResultTags().map((field, idx) => {
-          if (result[field])
-            return (
-              <FilterTags
-                key={`${field}_${idx}`}
-                field={field}
-                options={result[field]}
-              />
-            );
-        })}
-        {dateString && <span className="search-result-date">{dateString}</span>}
+      <div className="flex justify-between items-center">
+        <div className="flex gap-16 text-base font-semibold text-custom-black-dark">
+          {dateString && (
+            <div className="flex items-center gap-2">
+              <DateIcon />
+              <p className="">{dateString}</p>
+            </div>
+          )}
+          {/* <div className="flex items-center gap-2">
+            <TimeIcon />
+            <p>1 min read</p>
+          </div> */}
+        </div>
+        <div className="flex gap-4 text-base">
+          {getResultTags().map((field, idx) => {
+            if (result[field])
+              return (
+                <FilterTags
+                  key={`${field}_${idx}`}
+                  field={field}
+                  options={result[field]}
+                />
+              );
+          })}
+        </div>
       </div>
     </div>
   );
