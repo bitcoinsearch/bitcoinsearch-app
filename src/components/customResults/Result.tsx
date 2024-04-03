@@ -78,16 +78,19 @@ const Result = ({
   const sanitizedBody = sanitizeHtml(
     getBodyData(result).replaceAll("\n", "")
   ).trim();
-const truncatedUrl =  mappedUrl.length > TruncateLinkInChar ? mappedUrl.substring(0,TruncateLinkInChar) + "...": mappedUrl
+  const truncatedUrl =
+    mappedUrl.length > TruncateLinkInChar
+      ? mappedUrl.substring(0, TruncateLinkInChar) + "..."
+      : mappedUrl;
   const truncatedBody =
     sanitizedBody.length > TruncateLengthInChar
       ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
 
-console.log(result)
+  console.log(result);
   return (
-    <div className=" flex flex-col gap-2 2xl:gap-4 px-0 py-2 lg:p-4 hover:shadow-lg hover:rounded-xl cursor-pointer lg:max-w-2xl 2xl:max-w-4xl">
+    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-0 py-2 lg:p-4 hover:shadow-lg hover:rounded-xl cursor-pointer lg:max-w-2xl 2xl:max-w-4xl">
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base text-custom-grey-dark font-medium ">
         {/* <Image
           alt="website favicon"
@@ -109,7 +112,7 @@ console.log(result)
       </div>
       <div className="flex flex-col gap-5">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-black-dark font-semibold">
-          <a className="cursor-pointer hover:underline">
+          <a className="group-hover/heading:text-custom-orange-dark cursor-pointer hover:underline">
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
@@ -126,7 +129,9 @@ console.log(result)
           {dateString && (
             <div className="flex items-center gap-2">
               <DateIcon />
-              <p className="text-[8px] lg:text-xs 2xl:text-base">{dateString}</p>
+              <p className="text-[8px] lg:text-xs 2xl:text-base">
+                {dateString}
+              </p>
             </div>
           )}
           {/* <div className="flex items-center gap-2">
