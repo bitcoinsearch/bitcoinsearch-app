@@ -2,17 +2,21 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ResultFooter from "../footer/ResultFooter";
+import { useTheme } from "@/context/Theme";
 
 export const LandingPage = () => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   return (
     <main className="bg-custom-background flex flex-col items-center">
       <Link
         href="/#why-use-bitcoin"
-        className="border-[1.4px] border-[#ffe6cc] p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-10 bg-custom-background"
+        className="border-[1.4px] border-custom-accent p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-10 bg-custom-background"
       >
         <Image
           src="/svg/down-arrow.svg"
           alt="arrow pointing downwards"
+          className="w-7 h-7"
           width={18.15}
           height={18.67}
         />
@@ -39,8 +43,12 @@ export const LandingPage = () => {
               <Image
                 src={
                   window.matchMedia("(max-width: 600px)").matches
-                    ? "/google-search-image-mobile.png"
-                    : "/google-search-image.png"
+                    ? isDark
+                      ? "/google-search-image-mobile-dark.webp"
+                      : "/google-search-image-mobile-light.webp"
+                    : isDark
+                    ? "/google-search-image-dark.webp"
+                    : "/google-search-image-light.webp"
                 }
                 alt="google search image"
                 fill
@@ -52,8 +60,12 @@ export const LandingPage = () => {
               <Image
                 src={
                   window.matchMedia("(max-width: 600px)").matches
-                    ? "/bitcoin-search-image-mobile.png"
-                    : "/bitcoin-search-image.png"
+                    ? isDark
+                      ? "/bitcoin-search-image-mobile-dark.webp"
+                      : "/bitcoin-search-image-mobile-light.webp"
+                    : isDark
+                    ? "/bitcoin-search-image-dark.webp"
+                    : "/bitcoin-search-image-light.webp"
                 }
                 alt="google search image"
                 fill
@@ -80,7 +92,11 @@ export const LandingPage = () => {
             </section>
             <section className="relative w-full md:h-[577px] h-[200px]">
               <Image
-                src={"/svg/treasure-trove-chart.svg"}
+                src={
+                  isDark
+                    ? "/svg/treasure-trove-chart-dark.svg"
+                    : "/svg/treasure-trove-chart-light.svg"
+                }
                 alt="trasure trove chart"
                 fill
                 className=" "
@@ -92,7 +108,15 @@ export const LandingPage = () => {
 
       <div className="w-full rounded-[30px] flex flex-col-reverse md:flex-row gap-6 md:gap-10 xl:gap-[140px] items-center px-4 py-4 md:py-0 md:px-10 xl:px-20 max-w-[1600px] mt-[220px] md:mt-[150px] lg:mt-[250px] xl:mt-[400px]">
         <section className="relative w-full md:h-[577px] h-[250px] max-h-[576px] max-w-[766px]">
-          <Image src={"/svg/filter-image.svg"} alt="filter image" fill />
+          <Image
+            src={
+              isDark
+                ? "/svg/filter-image-dark.svg"
+                : "/svg/filter-image-light.svg"
+            }
+            alt="filter image"
+            fill
+          />
         </section>
 
         <section className="flex flex-col gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text items-center md:items-start text-center md:text-start p-4 md:p-0">
@@ -132,7 +156,11 @@ export const LandingPage = () => {
         </section>
         <section className="relative w-full max-w-[766px] md:h-[400px] lg:h-[577px] h-[250px] max-h-[576px]">
           <Image
-            src={"/svg/sources-image.svg"}
+            src={
+              isDark
+                ? "/svg/sources-image-dark.svg"
+                : "/svg/sources-image-light.svg"
+            }
             alt="trasure trove chart"
             fill
           />
