@@ -1,10 +1,24 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
 
 const themeKey = "theme";
 
+const ThemeContext = createContext<{ theme: Theme; toggleTheme: () => void }>(
+  null
+);
+
 export function useTheme() {
+  const contextValue = useContext(ThemeContext);
+
+  if (!contextValue) {
+    throw new Error("Wrap your components tree with a ThemeProvider component");
+  }
+
+  return contextValue;
+}
+
+export const ThemeProvider = (props: React.PropsWithChildren) => {
   const [theme, setTheme] = useState(() => {
     const storedThemePreference = localStorage.getItem(themeKey) as Theme;
     return (
@@ -25,5 +39,14 @@ export function useTheme() {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
-  return [theme, toggleTheme] as const;
-}
+  return (
+    <ThemeContext.Provider
+      value={{
+        theme,
+        toggleTheme,
+      }}
+    >
+      {props.children}
+    </ThemeContext.Provider>
+  );
+};

@@ -8,10 +8,10 @@ import NightIcon from "../svgs/NightIcon";
 import { SearchBox } from "@elastic/react-search-ui";
 import SearchBoxView from "../customSearchboxView/SearchBoxView";
 import Link from "next/link";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/context/Theme";
 
 function ThemeSwitcher() {
-  const [theme, toggleTheme] = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const isLight = theme === "light";
   const switchStyle = `flex basis-1/2 items-center justify-center rounded-lg transition-[background-color] duration-500`;
 
