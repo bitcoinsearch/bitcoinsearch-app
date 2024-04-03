@@ -52,7 +52,7 @@ const ResultSize = () => {
   };
   return (
     <>
-      <div className="flex items-center gap-2 pb-9 text-custom-primary-text text-sm lg:text-lg">
+      <div className="flex items-center gap-2 pb-9 text-custom-primary-text text-sm lg:text-base 2xl:text-lg">
         <span>Showing</span>
         <Popover
           isOpen={isOpen}
@@ -62,7 +62,7 @@ const ResultSize = () => {
         >
           <PopoverTrigger>
             <div className="flex items-center gap-1 lg:gap-2 cursor-pointer w-fit py-2 px-2 lg:px-3 border-[1px] border-custom-secondary-text leading-none rounded-lg lg:rounded-xl ">
-              <p className="font-bold leading-none">
+              <p className="font-bold leading-none min-w-fit">
                 {currentSizeOption.label}
               </p>
               <span

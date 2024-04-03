@@ -11,7 +11,7 @@ const SidebarSection = ({
   return (
     <section
       className={appendClassName(
-        "py-5 lg:py-9 border-b-[1px] border-b-custom-stroke last-of-type:border-none",
+        "py-5 2xl:py-9 border-b-[1px] border-b-custom-stroke last-of-type:border-none",
         className
       )}
     >

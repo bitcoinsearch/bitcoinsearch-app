@@ -21,13 +21,13 @@ const SortingView = ({
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
     <SidebarSection className="text-custom-primary-text">
-      <label className="flex gap-2 mb-4 lg:mb-6 items-center">
+      <label className="flex gap-2 mb-4 2xl:mb-6 items-center">
         <Image
           src={SortIcon}
           alt={label}
-          className="w-[20px] h-[20px] lg:w-[25px]"
+          className="w-[20px] h-[20px] 2xl:w-[25px]"
         />
-        <p className="lg:text-lg font-bold">{label}</p>
+        <p className="2xl:text-lg font-bold">{label}</p>
       </label>
       <FormControl>
         <Menu
@@ -38,7 +38,7 @@ const SortingView = ({
         >
           <MenuButton as="button" style={{ width: "100%" }}>
             <div className="w-full flex bg-custom-background px-4 py-3 border-[1px] border-custom-stroke items-center justify-between rounded-xl">
-              <p className="text-sm lg:text-base font-bold text-custom-primary-text ">
+              <p className="text-sm 2xl:text-base font-bold text-custom-primary-text ">
                 {option.label}
               </p>
               <span
@@ -68,7 +68,7 @@ const SortingView = ({
                 p={0}
                 m={0}
               >
-                <div className="w-full px-5 py-[6px] flex gap-2 font-medium group-data-[selected=false]:hover:bg-custom-hover-state">
+                <div className="w-full px-5 py-[6px] flex gap-2 font-medium text-sm 2xl:text-base group-data-[selected=false]:hover:bg-custom-hover-state">
                   <Image
                     className="group-data-[selected=false]:invisible"
                     src="./lightning_icon_filled.svg"
