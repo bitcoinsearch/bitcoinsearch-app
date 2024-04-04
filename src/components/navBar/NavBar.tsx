@@ -8,6 +8,8 @@ import NightIcon from "../svgs/NightIcon";
 import { SearchBox } from "@elastic/react-search-ui";
 import SearchBoxView from "../customSearchboxView/SearchBoxView";
 import Link from "next/link";
+import useSearchQuery from "@/hooks/useSearchQuery";
+import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import { useTheme } from "@/context/Theme";
 import { Tooltip } from "@chakra-ui/react";
 
@@ -102,7 +104,18 @@ const MenuSwitcher = () => {
 
 const NavBar = () => {
   const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
-
+  const { makeQuery, filterFields } = useSearchQuery();
+  const handleSubmit = (input: string) => {
+    makeQuery(input);
+  };
+  const handleAutoCompleteSelect = (
+    selection,
+    autoCompleteData,
+    defaultFunction
+  ) => {
+    if (!selection.suggestion) return;
+    makeQuery(removeMarkdownCharacters(selection.suggestion));
+  };
   return (
     <nav
       className={`fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-10 ${
@@ -131,9 +144,9 @@ const NavBar = () => {
               view={SearchBoxView}
               autocompleteSuggestions={true}
               debounceLength={0}
-              onSubmit={() => {}}
+              onSubmit={handleSubmit}
               className="w-auto mx-10"
-              onSelectAutocomplete={() => {}}
+              onSelectAutocomplete={handleAutoCompleteSelect}
             />
           </div>
         )}

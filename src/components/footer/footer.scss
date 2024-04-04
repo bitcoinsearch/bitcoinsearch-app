@@ -1,27 +1,190 @@
-.footer-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; // Center items horizontally
+// .footer-container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center; // Center items horizontally
 
-  .pagination-wrapper { // If you have this wrapper from the previous instruction
-    margin-bottom: 3rem; // Adjust this to create the desired spacing
-  }
+//   .pagination-wrapper {
+//     // If you have this wrapper from the previous instruction
+//     margin-bottom: 3rem; // Adjust this to create the desired spacing
+//   }
 
-  .chaincode-link {
-    margin-top: 2rem; // Space between the pagination and the Bitcoin Dev link
-    text-align: center; // Center the text within the link
-  }
+//   .chaincode-link {
+//     margin-top: 2rem; // Space between the pagination and the Bitcoin Dev link
+//     text-align: center; // Center the text within the link
+//   }
 
-  .umami {
-    margin-top: 1rem; // Space between the Bitcoin Dev link and the umami info
-    text-align: center; // Center the text within the div
-  }
-}
+//   .umami {
+//     margin-top: 1rem; // Space between the Bitcoin Dev link and the umami info
+//     text-align: center; // Center the text within the div
+//   }
+// }
 
 .chaincode-link {
   font-weight: 500;
   transition: color ease-in 0.2s;
+
   &:hover {
     color: #ff9900;
+  }
+}
+
+.sui-paging {
+  // min-height: 53px;
+  padding: 10px;
+  color: black;
+  display: flex;
+align-items: center;
+  .rc-pagination-previous {
+    a {
+      color: black;
+    }
+  }
+
+  .rc-pagination-item {
+    background: transparent;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background: #F7931A !important;
+
+      a {
+        color: white !important;
+      }
+    }
+
+    a {
+      color: black !important;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+  }
+
+  // pagination arrows
+  li.rc-pagination-prev {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      color: #292929;
+      font-size: 10px;
+
+    }
+
+    a {
+      color: #292929;
+    }
+
+    &:hover {
+      background-color: #F7931A;
+
+      &:after {
+        font-size: 14px;
+        color: #292929 !important;
+      }
+
+      a {
+        color: #292929;
+      }
+    }
+  }
+
+  li.rc-pagination-next {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      color: #292929;
+      font-size: 14px;
+
+    }
+
+    a {
+      color: #292929;
+    }
+
+    &:hover {
+      background-color: #F7931A;
+
+      &:after {
+        font-size: 14px;
+        color: #292929 !important;
+      }
+
+      a {
+        color: #292929;
+      }
+    }
+  }
+
+
+  li.rc-pagination-jump-prev {
+    font-size: 10px;
+    order: -2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      color: #292929;
+      font-size: 10px;
+      content: "<<";
+    }
+
+    a {
+      color: #292929;
+    }
+
+    &:hover {
+      background-color: #F7931A;
+
+      &:after {
+        font-size: 10px;
+        content: "<<";
+        color: #292929 !important;
+      }
+
+      a {
+        color: #292929;
+      }
+    }
+  }
+
+  li.rc-pagination-jump-next {
+    font-size: 10px;
+    order: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      color: #292929;
+      font-size: 10px;
+      content: ">>";
+    }
+
+    a {
+      color: #292929;
+    }
+
+    &:hover {
+      background-color: #F7931A;
+
+      &:after {
+        font-size: 10px;
+        content: ">>";
+        color: #292929 !important;
+      }
+
+      a {
+        color: #292929;
+      }
+    }
   }
 }

@@ -88,7 +88,6 @@ const Result = ({
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
 
-  console.log(result);
   return (
     <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-0 py-2 lg:p-4 hover:shadow-lg hover:rounded-xl cursor-pointer lg:max-w-2xl 2xl:max-w-4xl">
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base text-custom-grey-dark font-medium ">
