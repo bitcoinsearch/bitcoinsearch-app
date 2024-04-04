@@ -331,11 +331,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   {defaultSearchTags.map((tagType) => (
                     <div
                       key={tagType.headline}
-<<<<<<< HEAD
                       className="flex text-custom-primary-text flex-col gap-2"
-=======
-                      className="flex text-custom-black-dark  text-left flex-col gap-2"
->>>>>>> 8ac2205 (fix: align left for containers)
                     >
                       <p className="text-sm md:text-base font-semibold">
                         {tagType.headline}
@@ -368,11 +364,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <div
                     role="presentation"
                     tabIndex={0}
-<<<<<<< HEAD
-                    className={`border absolute top-11.5  border-t-0 border-custom-stroke z-[60] overflow-hidden  w-full max-w-3xl rounded-b-xl md:rounded-b-2xl  flex flex-col  text-custom-primary-text dark:text-custom-secondary-text`}
-=======
                     className={`border absolute top-11.5 text-left   border-t-0 border-custom-grey-light z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
->>>>>>> 8ac2205 (fix: align left for containers)
                   >
                     <ul>
                       {suggestions.map((sug, index) => (
