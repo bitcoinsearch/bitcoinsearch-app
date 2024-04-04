@@ -17,6 +17,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --background: #fafafa;
+  --button:#333333;
   --hover-state: #fff0e0;
   --stroke: #bfbfbf;
   --secondary-text: #999999;
@@ -55,6 +56,7 @@ html {
   background: var(--background);
   --background: #1c1c1e;
   --hover-state: #2c2c2e;
+  --button:#8E8E93;
   --stroke: #3a3a3c;
   --secondary-text: #636366;
   --primary-text: #8e8e93;

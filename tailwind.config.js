@@ -24,6 +24,7 @@ module.exports = {
           background: "var(--background)",
           "hover-state": "var(--hover-state)",
           stroke: "var(--stroke)",
+          button:"var(--button)",
           "secondary-text": "var(--secondary-text)",
           "primary-text": "var(--primary-text)",
           accent: "var(--accent)",

@@ -89,8 +89,8 @@ const Result = ({
   const parsedBody = htmlToReactParser.parse(truncatedBody);
 
   return (
-    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-0 py-2 lg:p-4 hover:shadow-lg hover:rounded-xl cursor-pointer lg:max-w-2xl 2xl:max-w-4xl">
-      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base text-custom-grey-dark font-medium ">
+    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-0 py-2 lg:p-4 hover:shadow-lg hover:rounded-xl cursor-pointer max-w-full lg:max-w-2xl 2xl:max-w-4xl">
+      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text  font-medium ">
         {/* <Image
           alt="website favicon"
           width={24}
@@ -99,7 +99,7 @@ const Result = ({
           src={"/demo-chat.png"}
         /> */}
         <p className="capitalize">{getSiteName(mappedUrl)}</p>
-        <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full bg-custom-grey-dark" />
+        <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
         <a
           className=""
           href={mappedUrl}
@@ -109,13 +109,13 @@ const Result = ({
           {truncatedUrl}
         </a>
       </div>
-      <div className="flex flex-col gap-5">
-        <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-black-dark font-semibold">
+      <div className="flex flex-col gap-5 max-w-screen">
+        <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
           <a className="group-hover/heading:text-custom-orange-dark cursor-pointer hover:underline">
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
-        <p className="text-sm lg:text-[0.843rem] 2xl:text-lg text-custom-black-light">
+        <p className="text-sm max-w-full lg:text-[0.843rem] 2xl:text-lg text-custom-primary-text">
           {parsedBody}
           {/* <a className=" text-right w-full flex items-start justify-end -m-1">
             {" "}
@@ -124,7 +124,7 @@ const Result = ({
         </p>
       </div>
       <div className="flex justify-between items-center">
-        <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-black-dark">
+        <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
           {dateString && (
             <div className="flex items-center gap-2">
               <DateIcon />

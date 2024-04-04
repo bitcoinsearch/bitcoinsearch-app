@@ -1,7 +1,7 @@
 import React from "react";
 import { Paging } from "@elastic/react-search-ui-views";
 import useSearchQuery from "../../hooks/useSearchQuery";
-import CustomPagination from "./CustomPagination";
+import HolocatChatBtc from "./HolocatChatBtc";
 
 const BodyFooter = () => {
   const { handlePageChange, pagingInfo } = useSearchQuery();
@@ -11,13 +11,14 @@ const BodyFooter = () => {
   }
   const totalPages = Math.ceil(totalResults / resultsPerPage);
   return (
-    <div className="footer-container p-4 flex items-center justify-center">
-      <Paging
+    <div className="footer-container py-2 xl:p-4 gap-3 flex flex-col items-center justify-center max-w-screen overflow-hidden">
+     <Paging
         onChange={handlePageChange}
         totalPages={totalPages}
         current={current}
         resultsPerPage={resultsPerPage}
       />
+      <HolocatChatBtc />
     </div>
   );
 };
