@@ -17,7 +17,7 @@ export const LandingPage = () => {
     <main className="bg-custom-background flex flex-col items-center">
       <Link
         href="/#why-use-bitcoin"
-        className="border-[1.4px] border-custom-accent p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-10 bg-custom-background"
+        className="border-[1.4px] border-custom-accent p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-[1] bg-custom-background"
       >
         <Image
           src="/svg/down-arrow.svg"
