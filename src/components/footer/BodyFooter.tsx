@@ -11,7 +11,7 @@ const BodyFooter = () => {
   }
   const totalPages = Math.ceil(totalResults / resultsPerPage);
   return (
-    <div className="footer-container py-2 xl:p-4 gap-3 flex flex-col items-center justify-center max-w-screen overflow-hidden">
+    <div className="footer-container py-2 xl:p-4 gap-8 xl:gap-20 flex flex-col items-start justify-center max-w-full overflow-hidden">
      <Paging
         onChange={handlePageChange}
         totalPages={totalPages}

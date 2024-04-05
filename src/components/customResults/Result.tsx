@@ -89,7 +89,7 @@ const Result = ({
   const parsedBody = htmlToReactParser.parse(truncatedBody);
 
   return (
-    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-0 py-2 lg:p-4 hover:shadow-lg hover:rounded-xl cursor-pointer max-w-full lg:max-w-2xl 2xl:max-w-4xl">
+    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer max-w-full lg:max-w-2xl 2xl:max-w-4xl">
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text  font-medium ">
         {/* <Image
           alt="website favicon"
@@ -109,7 +109,7 @@ const Result = ({
           {truncatedUrl}
         </a>
       </div>
-      <div className="flex flex-col gap-5 max-w-screen">
+      <div className="flex flex-col gap-2 lg:gap-5 max-w-screen">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
           <a   href={mappedUrl} className="group-hover/heading:text-custom-orange-dark cursor-pointer hover:underline">
             {htmlToReactParser.parse(sanitizeHtml(title))}
