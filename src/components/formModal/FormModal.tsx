@@ -59,7 +59,7 @@ const FormModal = ({ formOpen, closeForm }) => {
     closeForm();
   };
 
-  const formIsComplete = Boolean(emailValue.trim()) && Boolean(urlValue.trim())
+  const formIsComplete = !!(emailValue.trim() && urlValue.trim())
 
   return (
     <Modal isOpen={formOpen} onClose={resetAndCloseForm}>
