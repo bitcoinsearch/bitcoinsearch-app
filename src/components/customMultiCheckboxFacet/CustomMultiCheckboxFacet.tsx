@@ -89,7 +89,7 @@ function CustomMultiCheckboxFacet({
         {showSearch && (
           <div className="relative">
             <input
-              className="bg-custom-background text-sm lg:text-base font-medium w-full pl-12 pr-10 py-4 rounded-xl border-[1px] border-custom-stroke group focus-visible:outline-custom-secondary-text focus-visible:outline-offset-0 leading-none"
+              className="bg-custom-background text-sm 2xl:text-base font-medium w-full pl-12 pr-10 py-4 rounded-xl border-[1px] border-custom-stroke group focus-visible:outline-custom-secondary-text focus-visible:outline-offset-0 leading-none"
               type="text"
               placeholder={
                 currentNavigateCheckbox ||
@@ -125,7 +125,7 @@ function CustomMultiCheckboxFacet({
           ref={multiCheckboxRef}
         >
           {options.length < 1 && (
-            <p className="w-full text-sm lg:text-base text-center px-2">
+            <p className="w-full text-sm 2xl:text-base text-center px-2">
               No matching options
             </p>
           )}
@@ -144,7 +144,7 @@ function CustomMultiCheckboxFacet({
                   data-current-navigated={
                     valueDisplay === currentNavigateCheckbox
                   }
-                  className="flex justify-between py-1 lg:py-2 px-[14px] group data-[current-navigated=true]:bg-custom-orange-light group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-orange-light data-[selected=true]:text-custom-orange-dark hover:bg-custom-orange-light"
+                  className="flex justify-between py-1 2xl:py-2 px-[14px] group data-[current-navigated=true]:bg-custom-orange-light group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-orange-light data-[selected=true]:text-custom-orange-dark hover:bg-custom-orange-light"
                   onClick={() => (checked ? onRemove(value) : onSelect(value))}
                   role="button"
                 >
@@ -154,11 +154,11 @@ function CustomMultiCheckboxFacet({
                   >
                     <Image
                       data-transaction-name={`facet - ${label}`}
-                      className="group-data-[selected=false]:invisible w-[12px] lg:w-[16px]"
+                      className="group-data-[selected=false]:invisible w-[12px] 2xl:w-[16px]"
                       src={LightningIcon}
                       alt="bolt icon"
                     />
-                    <span className="text-sm lg:text-base group-data-[selected=true]:font-bold">
+                    <span className="text-sm 2xl:text-base group-data-[selected=true]:font-bold">
                       {valueDisplay}
                     </span>
                   </div>
@@ -178,16 +178,16 @@ function CustomMultiCheckboxFacet({
 export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
   const { openForm } = useUIContext();
   return (
-    <div className="flex justify-between mb-4 lg:mb-6">
+    <div className="flex justify-between mb-4 2xl:mb-6">
       <div className="flex gap-2 items-center">
         <Image
           src={facetMapping[label]["icon"]}
           width={20}
           height={20}
           alt={label}
-          className="w-[18px] lg:w-[20px]"
+          className="w-[18px] 2xl:w-[20px]"
         />
-        <span className="text-base lg:text-lg font-bold">
+        <span className="text-base 2xl:text-lg font-bold">
           {facetMapping[label]["display"]}
         </span>
       </div>

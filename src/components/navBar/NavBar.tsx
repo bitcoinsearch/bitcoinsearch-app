@@ -66,7 +66,7 @@ const MenuSwitcher = () => {
   }, []);
 
   return (
-    <div className="group">
+    <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)} className="group">
       <Tooltip
         hasArrow
         label="All Tools by the Bitcoin Dev Project"
@@ -83,9 +83,9 @@ const MenuSwitcher = () => {
               : "bg-custom-background"
           }`}
         >
-          <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)}>
+          <div>
             <AppsIcon />
-          </button>
+          </div>
           {open && (
             <div
               ref={popoverRef}
@@ -96,7 +96,7 @@ const MenuSwitcher = () => {
           )}
         </div>
       </Tooltip>
-    </div>
+    </button>
   );
 };
 

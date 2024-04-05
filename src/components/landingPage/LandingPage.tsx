@@ -3,15 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import ResultFooter from "../footer/ResultFooter";
 import { useTheme } from "@/context/Theme";
+import TreasureChartLight from "public/landing/light/treasure-trove-chart.webp"
+import TreasureChartDark from "public/landing/dark/treasure-trove-chart.webp"
+import SourcesLight from "public/landing/light/sources-image.webp"
+import SourcesDark from "public/landing/dark/sources-image.webp"
 
 export const LandingPage = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const isMobile = window.matchMedia("(max-width: 600px)").matches
+
   return (
     <main className="bg-custom-background flex flex-col items-center">
       <Link
         href="/#why-use-bitcoin"
-        className="border-[1.4px] border-custom-accent p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-10 bg-custom-background"
+        className="border-[1.4px] border-custom-accent p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-[1] bg-custom-background"
       >
         <Image
           src="/svg/down-arrow.svg"
@@ -42,34 +48,35 @@ export const LandingPage = () => {
             <div className=" w-full h-full relative cursor-pointer">
               <Image
                 src={
-                  window.matchMedia("(max-width: 600px)").matches
+                  isMobile
                     ? isDark
-                      ? "/google-search-image-mobile-dark.webp"
-                      : "/google-search-image-mobile-light.webp"
+                      ? "/landing/dark/google-search-image-mobile.webp"
+                      : "/landing/light/google-search-image-mobile.webp"
                     : isDark
-                    ? "/google-search-image-dark.webp"
-                    : "/google-search-image-light.webp"
+                    ? "/landing/dark/google-search-image.webp"
+                    : "/landing/light/google-search-image.webp"
                 }
                 alt="google search image"
                 fill
-                className=" transform hover:scale-[1.4] hover:translate-x-6 hover:origin-left hover:ease-in-out hover:duration-300 hover:z-30"
+                data-light-lg={!isMobile && !isDark}
+                className="data-[light-lg]:scale-[1.05] data-[light-lg]:hover:scale-[1.47] object-contain transform hover:scale-[1.4] hover:translate-x-6 hover:origin-left hover:ease-in-out hover:duration-300 hover:z-30"
               />
             </div>
 
             <div className=" w-full h-full relative cursor-pointer">
               <Image
                 src={
-                  window.matchMedia("(max-width: 600px)").matches
+                  isMobile
                     ? isDark
-                      ? "/bitcoin-search-image-mobile-dark.webp"
-                      : "/bitcoin-search-image-mobile-light.webp"
+                      ? "/landing/dark/bitcoin-search-image-mobile.webp"
+                      : "/landing/light/bitcoin-search-image-mobile.webp"
                     : isDark
-                    ? "/bitcoin-search-image-dark.webp"
-                    : "/bitcoin-search-image-light.webp"
+                    ? "/landing/dark/bitcoin-search-image.webp"
+                    : "/landing/light/bitcoin-search-image.webp"
                 }
                 alt="google search image"
                 fill
-                className=" transform hover:scale-[1.4] hover:translate-x-[-6px] hover:origin-right hover:ease-in-out hover:duration-300 hover:z-30"
+                className="object-contain transform hover:scale-[1.4] hover:translate-x-[-6px] hover:origin-right hover:ease-in-out hover:duration-300 hover:z-30"
               />
             </div>
           </section>
@@ -94,12 +101,12 @@ export const LandingPage = () => {
               <Image
                 src={
                   isDark
-                    ? "/svg/treasure-trove-chart-dark.svg"
-                    : "/svg/treasure-trove-chart-light.svg"
+                    ? TreasureChartDark
+                    : TreasureChartLight
                 }
                 alt="trasure trove chart"
                 fill
-                className=" "
+                className="object-contain"
               />
             </section>
           </div>
@@ -111,11 +118,12 @@ export const LandingPage = () => {
           <Image
             src={
               isDark
-                ? "/svg/filter-image-dark.svg"
-                : "/svg/filter-image-light.svg"
+                ? "/landing/dark/filter-image.webp"
+                : "/landing/light/filter-image.webp"
             }
             alt="filter image"
             fill
+            className="object-contain"
           />
         </section>
 
@@ -154,15 +162,16 @@ export const LandingPage = () => {
             List, LN dev Mailing List, Bitcoin Optech, and many more.
           </p>
         </section>
-        <section className="relative w-full max-w-[766px] md:h-[400px] lg:h-[577px] h-[250px] max-h-[576px]">
+        <section className="relative w-full max-w-[766px] md:h-[400px] lg:h-[577px] h-[260px] max-h-[576px]">
           <Image
             src={
               isDark
-                ? "/svg/sources-image-dark.svg"
-                : "/svg/sources-image-light.svg"
+                ? SourcesDark
+                : SourcesLight
             }
-            alt="trasure trove chart"
+            alt="treasure trove chart"
             fill
+            className="object-contain"
           />
         </section>
       </div>

@@ -19,14 +19,14 @@ const FilterMenu = () => {
 
   return (
     <>
-      <SidebarSection className="text-custom-primary-text flex justify-between pt-10">
+      <SidebarSection className="text-custom-primary-text flex justify-between 2xl:pt-10">
         <div className="flex items-center gap-2">
           <Image
             src={FilterIcon}
             alt="filter"
-            className="w-[20px] lg:w-[25px]"
+            className="w-[20px] 2xl:w-[25px]"
           />
-          <p className="text-base lg:text-xl font-bold">Filters</p>
+          <p className="text-base 2xl:text-xl font-bold">Filters</p>
         </div>
         <span
           className="md:hidden"
@@ -48,21 +48,21 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
   };
   return (
     <SidebarSection className="text-custom-primary-text">
-      <div className="flex justify-between mb-4 lg:mb-8">
-        <p className="text-sm lg:text-base font-bold">Applied Filters</p>
+      <div className="flex justify-between mb-4 2xl:mb-8">
+        <p className="text-sm 2xl:text-base font-bold">Applied Filters</p>
         <div
           className="flex gap-2 items-center group"
           role="button"
           onClick={clearAllFilters}
         >
-          <span className="text-sm lg:text-base group-hover:underline underline-offset-4">
+          <span className="text-sm 2xl:text-base group-hover:underline underline-offset-4">
             Clear all
           </span>
-          <span className="p-[6px] lg:p-2 bg-custom-primary-text rounded-md">
+          <span className="p-[6px] 2xl:p-2 bg-custom-primary-text rounded-md">
             <Image
               src={CrossIcon}
               alt="clear all"
-              className="w-[8px] lg:w-[10px]"
+              className="w-[8px] 2xl:w-[10px]"
             />
           </span>
         </div>
@@ -74,7 +74,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
             .map((filter) => (
               <div
                 key={filter.field}
-                className="flex gap-3 w-fit py-[10px] px-3 lg:py-3 lg:px-4 bg-custom-accent text-custom-white rounded-lg"
+                className="flex gap-3 w-fit py-[10px] px-3 2xl:py-3 2xl:px-4 bg-custom-accent text-custom-white rounded-lg"
                 role="button"
                 onClick={() =>
                   removeFilter({
@@ -83,13 +83,13 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
                   })
                 }
               >
-                <span className="text-xs lg:text-sm">
+                <span className="text-xs 2xl:text-sm">
                   {getFilterValueDisplay(filter.value, filter.field)}
                 </span>
                 <Image
                   src={CrossIcon}
                   alt="remove"
-                  className="w-[8px] lg:w-[10px]"
+                  className="w-[8px] 2xl:w-[10px]"
                 />
               </div>
             ));
