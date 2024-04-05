@@ -364,7 +364,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <div
                     role="presentation"
                     tabIndex={0}
-                    className={`border absolute top-11.5 text-left   border-t-0 border-custom-grey-light z-20 overflow-hidden  w-full max-w-3xl  bg-[#FAFAFA] rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5 text-left bg-custom-background border-t-0 border-custom-stroke z-20 overflow-hidden  w-full max-w-3xl   rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
                     <ul>
                       {suggestions.map((sug, index) => (
@@ -378,7 +378,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                           }
                           className={`
                           focus:bg-custom-hover-state
-                          outline-none cursor-pointer text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-custom-hover-state`}
+                          outline-none cursor-pointer text-custom-primary-text text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-custom-hover-state`}
                         >
                           {removeMarkdownCharacters(sug.suggestion)}
                         </li>

@@ -123,7 +123,7 @@ const Result = ({
             </div>
           )}
         </div>
-        <div className="flex gap-4 text-base">
+        <div className="flex flex-wrap gap-4 text-base">
           {getResultTags().map((field, idx) => {
             if (result[field])
               return (
