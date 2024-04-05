@@ -91,13 +91,6 @@ const Result = ({
   return (
     <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer max-w-full lg:max-w-2xl 2xl:max-w-4xl">
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text  font-medium ">
-        {/* <Image
-          alt="website favicon"
-          width={24}
-          height={24}
-          className="w-6 h-6 rounded-full"
-          src={"/demo-chat.png"}
-        /> */}
         <p className="capitalize">{getSiteName(mappedUrl)}</p>
         <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
         <a
@@ -117,10 +110,6 @@ const Result = ({
         </h2>
         <p className="text-sm max-w-full lg:text-[0.843rem] 2xl:text-lg text-custom-primary-text">
           {parsedBody}
-          {/* <a className=" text-right w-full flex items-start justify-end -m-1">
-            {" "}
-            ...show more
-          </a> */}
         </p>
       </div>
       <div className="flex justify-between items-center">
@@ -133,10 +122,6 @@ const Result = ({
               </p>
             </div>
           )}
-          {/* <div className="flex items-center gap-2">
-            <TimeIcon />
-            <p>1 min read</p>
-          </div> */}
         </div>
         <div className="flex gap-4 text-base">
           {getResultTags().map((field, idx) => {

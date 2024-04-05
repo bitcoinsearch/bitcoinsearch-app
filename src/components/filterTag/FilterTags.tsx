@@ -41,10 +41,9 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       {formattedOptions?.map((a, idx) => (
         <Button
           padding={{base:1,lg:3}}
-          background={"#F5F5F5"}
           size="no-size"
           key={`${a.value}_${idx}`}
-          className={`rounded-sm text-[6px] lg:text-[8px] 2xl:text-base lg:rounded-lg py-3 px-4 border bg-[#F5F5F5] items-center justify-center border-custom-grey-light ${a.selected ? "d" : ""}`}
+          className={`rounded-sm  text-[6px] lg:text-[8px] 2xl:text-base lg:rounded-lg py-3 px-4 border  items-center justify-center border-custom-grey-light ${a.selected ? "!bg-custom-accent" : "bg-custom-white"}`}
           onClick={() => handleToggleFilter(a)}
         >
           {a.value}

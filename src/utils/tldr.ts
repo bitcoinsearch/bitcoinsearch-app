@@ -28,9 +28,8 @@ export const getUrlForCombinedSummary = (url: string, id: string) => {
 };
 
 export const getSiteName = (url:string)=>{
-  console.log(url,"test")
+  // Regex finds the site name e.g google.com will return google
   const siteName = (typeof url === "string" ) ? url.match(/(?:https?:\/\/)?(?:www\.)?([^./]+)\.(?:com|org|co\.uk)/) : ""
-  console.log(siteName)
   return siteName ? siteName[1] : ""
   
 }
