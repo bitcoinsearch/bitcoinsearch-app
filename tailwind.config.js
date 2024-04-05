@@ -22,6 +22,7 @@ module.exports = {
       colors: {
         custom: {
           background: "var(--background)",
+          "hover-primary":"var(--hover-primary)",
           "hover-state": "var(--hover-state)",
           stroke: "var(--stroke)",
           button:"var(--button)",

@@ -43,7 +43,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
           padding={{base:1,lg:3}}
           size="no-size"
           key={`${a.value}_${idx}`}
-          className={`rounded-sm  text-[6px] lg:text-[8px] 2xl:text-base lg:rounded-lg py-3 px-4 border  items-center justify-center border-custom-grey-light ${a.selected ? "!bg-custom-accent" : "bg-custom-white"}`}
+          className={`rounded-sm  text-[6px] lg:text-[8px] 2xl:text-base lg:rounded-lg py-3 px-4 border  items-center justify-center border-custom-stroke ${a.selected ? "!bg-custom-accent !text-custom-white" : "!bg-custom-hover-primary !text-custom-primary-text"}`}
           onClick={() => handleToggleFilter(a)}
         >
           {a.value}

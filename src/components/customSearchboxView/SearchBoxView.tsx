@@ -325,7 +325,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen ? "flex" : "hidden"
-                  } border absolute max-h-[60vh] overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl bg-custom-background rounded-b-2xl gap-4 md:gap-8  flex-col `}
+                  } border absolute max-h-[60vh] text-left overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl bg-custom-background rounded-b-2xl gap-4 md:gap-8  flex-col `}
                 >
                   {/* Each search */}
                   {defaultSearchTags.map((tagType) => (

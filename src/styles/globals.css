@@ -17,6 +17,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --background: #fafafa;
+  --hover-primary: #F5F5F5
   --button:#333333;
   --hover-state: #fff0e0;
   --stroke: #bfbfbf;
@@ -63,5 +64,6 @@ html {
   --black: #292929;
   --other-light-text: #48484a;
   --accent: #f7931a;
+  --hover-primary: #2C2C2E;
   --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
 }
