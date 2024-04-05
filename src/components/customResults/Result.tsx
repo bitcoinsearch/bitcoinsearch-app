@@ -111,7 +111,7 @@ const Result = ({
       </div>
       <div className="flex flex-col gap-5 max-w-screen">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
-          <a className="group-hover/heading:text-custom-orange-dark cursor-pointer hover:underline">
+          <a   href={mappedUrl} className="group-hover/heading:text-custom-orange-dark cursor-pointer hover:underline">
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
