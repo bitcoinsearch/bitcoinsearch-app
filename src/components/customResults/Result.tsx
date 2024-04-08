@@ -31,7 +31,7 @@ const Result = ({
   let dateString = null;
   const { url, title, body, domain, id } = result;
   const isLengthOver =
-    getResultTags().map((field) => result[field]?.length)[0] > 1;
+    getResultTags().map((field) => result[field]?.length)[0] > 5;
 
   const isTldrCombinedSummary =
     tldrLists.includes(domain) && title.includes(combinedSummaryTag);
