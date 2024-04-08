@@ -41,6 +41,8 @@ module.exports = {
       },
       backgroundImage: {
         gradient: "var(--gradient)",
+        "shadow-left":"var(--shadow-left)",
+        "shadow-right":"var(--shadow-right)",
       },
     },
   },

@@ -37,7 +37,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
   });
 
   return (
-    <div className={`flex gap-4`}>
+    <div className={`flex  gap-2 justify-end w-full`}>
       {formattedOptions?.map((a, idx) => (
         <Button
           padding={{base:1,lg:3}}

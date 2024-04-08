@@ -17,7 +17,7 @@ const HolocatChatBtc = () => {
         <a
           target="_blank"
           href="https://chat.bitcoinsearch.xyz/"
-          className="text-custom-background rounded-md lg:rounded-[10px] p-1.5 lg:p-3 hover:bg-custom-accent cursor-pointer bg-custom-button max-w-[max-content] text-[10px] lg:text-sm"
+          className="text-custom-white rounded-md lg:rounded-[10px] p-1.5 lg:p-3 hover:bg-custom-accent cursor-pointer bg-custom-black max-w-[max-content] text-[10px] lg:text-sm"
         >
           Ask Holocat a Question
         </a>
