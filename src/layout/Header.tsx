@@ -10,7 +10,7 @@ import useSearchQuery from "../hooks/useSearchQuery";
 
 const Header = ({ openForm }) => {
   const { sidebarToggleManager } = useUIContext();
-  const { makeQuery, filterFields } = useSearchQuery();
+  const { makeQuery, filterFields, pagingInfo } = useSearchQuery();
   const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
   const numberOfAppliedFilters = filterFields.length;
@@ -43,7 +43,7 @@ const Header = ({ openForm }) => {
           onSelectAutocomplete={handleAutoCompleteSelect}
         />
       )}
-      <div className="relative md:hidden peer-data-[input-focus='true']/search:hidden">
+      <div data-has-results={pagingInfo.totalResults > 0} className="relative data-[has-results='false']:hidden md:hidden peer-data-[input-focus='true']/search:hidden">
         <button
           onClick={() => sidebarToggleManager.updater(true)}
           className="flex items-center justify-center bg-transparent min-h-[48px] w-[48px] border border-custom-stroke rounded-xl"

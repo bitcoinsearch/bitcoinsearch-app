@@ -89,7 +89,7 @@ function CustomMultiCheckboxFacet({
         {showSearch && (
           <div className="relative">
             <input
-              className="bg-custom-background text-sm 2xl:text-base font-medium w-full pl-12 pr-10 py-4 rounded-xl border-[1px] border-custom-stroke group focus-visible:outline-custom-secondary-text focus-visible:outline-offset-0 leading-none"
+              className="bg-custom-background text-base 2xl:text-base font-medium w-full pl-12 pr-10 py-4 rounded-xl border-[1px] border-custom-stroke focus:outline-none focus:outline-custom-secondary-text focus:outline-offset-0 leading-none"
               type="text"
               placeholder={
                 currentNavigateCheckbox ||
@@ -144,7 +144,7 @@ function CustomMultiCheckboxFacet({
                   data-current-navigated={
                     valueDisplay === currentNavigateCheckbox
                   }
-                  className="flex justify-between py-1 2xl:py-2 px-[14px] group data-[current-navigated=true]:bg-custom-orange-light group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-orange-light data-[selected=true]:text-custom-orange-dark hover:bg-custom-orange-light"
+                  className="flex justify-between py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
                   onClick={() => (checked ? onRemove(value) : onSelect(value))}
                   role="button"
                 >
@@ -154,15 +154,15 @@ function CustomMultiCheckboxFacet({
                   >
                     <Image
                       data-transaction-name={`facet - ${label}`}
-                      className="group-data-[selected=false]:invisible w-[12px] 2xl:w-[16px]"
+                      className="group-data-[selected=false]/checkOption:invisible w-[12px] 2xl:w-[16px]"
                       src={LightningIcon}
                       alt="bolt icon"
                     />
-                    <span className="text-sm 2xl:text-base group-data-[selected=true]:font-bold">
+                    <span className="text-sm 2xl:text-base group-data-[selected=true]/checkOption:font-bold">
                       {valueDisplay}
                     </span>
                   </div>
-                  <span className="group-data-[selected=true]:font-medium">
+                  <span className="group-data-[selected=true]/checkOption:font-medium">
                     {numberFormat.format(option.count)}
                   </span>
                 </div>
