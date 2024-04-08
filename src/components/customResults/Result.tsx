@@ -27,14 +27,11 @@ type ResultProps = {
 
 const Result = ({
   result,
-  clickThroughTags,
-  shouldTrackClickThrough,
-  trackClickThrough,
 }: ResultProps) => {
   let dateString = null;
   const { url, title, body, domain, id } = result;
   const isLengthOver =
-    getResultTags().map((field) => result[field]?.length)[0] > 5;
+    getResultTags().map((field) => result[field]?.length)[0] > 1;
 
   const isTldrCombinedSummary =
     tldrLists.includes(domain) && title.includes(combinedSummaryTag);
@@ -123,7 +120,7 @@ const Result = ({
   };
 
   return (
-    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer max-w-full lg:max-w-2xl 2xl:max-w-4xl">
+    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text  font-medium ">
         <p className="capitalize">{getSiteName(mappedUrl)}</p>
         <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
@@ -136,7 +133,7 @@ const Result = ({
           {truncatedUrl}
         </a>
       </div>
-      <div className="flex flex-col gap-2 lg:gap-5 max-w-screen">
+      <div className="flex flex-col gap-2 lg:gap-5 ">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
           <a
             href={mappedUrl}
@@ -145,11 +142,11 @@ const Result = ({
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
-        <p className="text-sm max-w-full lg:text-[0.843rem] 2xl:text-lg text-custom-primary-text">
+        <p className="text-sm   lg:text-[0.843rem] 2xl:text-lg text-custom-primary-text">
           {parsedBody}
         </p>
       </div>
-      <div className="flex justify-between xl:gap-12 items-center">
+      <div className="flex justify-between gap-3 xl:gap-12 items-center">
         <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
           {dateString && (
             <div className="flex w-full items-center gap-2">
@@ -161,7 +158,7 @@ const Result = ({
           )}
         </div>
         <div
-          className="relative w-full overflow-hidden"
+          className="relative lg:w-full overflow-hidden"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -195,7 +192,7 @@ const Result = ({
           {scrollLeft < scrollRight + 1 && isLengthOver && (
             <div
               onClick={() => handleArrowClick(50)}
-              className="flex items-center justify-center h-full  w-[60px] bg-shadow-right absolute right-0 top-0 text-white"
+              className="flex items-center justify-center h-full w-5  lg:w-[60px] bg-shadow-right absolute right-0 top-0 text-white"
             >
               {" "}
               <ArrowRight />{" "}
