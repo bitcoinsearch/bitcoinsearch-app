@@ -3,11 +3,12 @@ import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import { getMapping } from "@/config/mapping-helper";
+import { getDomainFavicon, getMapping } from "@/config/mapping-helper";
 import { getSiteName, getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import DateIcon from "../svgs/DateIcon";
+import ResultFavicon from "./ResultFavicon";
 
 const htmlToReactParser = new (Parser as any)();
 const { tldrLists, combinedSummaryTag } = getMapping();
@@ -22,7 +23,6 @@ type ResultProps = {
 const Result = ({ result }: ResultProps) => {
   let dateString = null;
   const { url, title, body, domain, id } = result;
-
 
   const isTldrCombinedSummary =
     tldrLists.includes(domain) && title.includes(combinedSummaryTag);
@@ -80,10 +80,13 @@ const Result = ({ result }: ResultProps) => {
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
 
-
   return (
     <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
-      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text  font-medium ">
+      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
+        <ResultFavicon
+          src={getDomainFavicon(mappedUrl)}
+          alt={`${getSiteName(mappedUrl)}-favicon`}
+        />
         <p className="capitalize">{getSiteName(mappedUrl)}</p>
         <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
         <a
