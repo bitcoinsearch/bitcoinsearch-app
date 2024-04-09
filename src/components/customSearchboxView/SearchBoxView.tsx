@@ -19,6 +19,7 @@ import type {
 } from "@elastic/search-ui";
 import CloseIconOutlined from "../svgs/CloseIconOutlined";
 import SearchIcon from "../svgs/SearchIcon";
+import { getDomainLabel } from "@/config/mapping-helper";
 
 export type SearchBoxContainerContext = Pick<
   SearchContextState,
@@ -351,7 +352,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                               searchTerm === tag ? "bg-custom-hover-state" : ""
                             } px-3 py-1.5  md:py-2 md:px-4 hover:bg-custom-hover-state cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border border-custom-stroke  max-w-[max-content]`}
                           >
-                            <p>{tag}</p>
+                            <p>{tagType.type === "domain" ? getDomainLabel(tag) : tag}</p>
                           </div>
                         ))}
                       </div>

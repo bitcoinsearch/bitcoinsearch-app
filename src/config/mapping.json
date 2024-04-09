@@ -1,6 +1,6 @@
 {
   "labels": {
-    "https://bitcointalk.org": "Bitcointalk",
+    "https://bitcointalk.org/": "Bitcointalk",
     "https://bitcoin.stackexchange.com": "Bitcoin StackExchange",
     "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin dev mailing list",
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "LN dev mailing list",

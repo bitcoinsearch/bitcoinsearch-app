@@ -16,11 +16,11 @@ export const defaultSearchTags = [
     type:"domain",
     filter:true,
     tags: [
-      "Bitcoin dev mailing list",
-      "Bitcoin StackExchange",
-      "LN dev mailing list",
-      "Bitcointalk",
-      "BTC Transcripts",
+      "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/",
+      "https://bitcoin.stackexchange.com",
+      "https://lists.linuxfoundation.org/pipermail/lightning-dev/",
+      "https://bitcointalk.org/",
+      "https://btctranscripts.com/",
     ],
   },
   {
