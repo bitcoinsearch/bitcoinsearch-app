@@ -79,15 +79,17 @@ const Result = ({ result }: ResultProps) => {
       ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
+  const siteName = getSiteName(mappedUrl);
 
   return (
     <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
         <ResultFavicon
+          key={siteName}
           src={getDomainFavicon(mappedUrl)}
-          alt={`${getSiteName(mappedUrl)}-favicon`}
+          alt={`${siteName}-favicon`}
         />
-        <p className="capitalize">{getSiteName(mappedUrl)}</p>
+        <p className="capitalize">{siteName}</p>
         <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
         <a
           className=""
