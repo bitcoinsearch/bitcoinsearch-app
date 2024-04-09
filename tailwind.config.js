@@ -22,8 +22,10 @@ module.exports = {
       colors: {
         custom: {
           background: "var(--background)",
+          "hover-primary":"var(--hover-primary)",
           "hover-state": "var(--hover-state)",
           stroke: "var(--stroke)",
+          button:"var(--button)",
           "secondary-text": "var(--secondary-text)",
           "primary-text": "var(--primary-text)",
           accent: "var(--accent)",
@@ -39,6 +41,8 @@ module.exports = {
       },
       backgroundImage: {
         gradient: "var(--gradient)",
+        "shadow-left":"var(--shadow-left)",
+        "shadow-right":"var(--shadow-right)",
       },
     },
   },

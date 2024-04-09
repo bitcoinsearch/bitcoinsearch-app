@@ -50,7 +50,7 @@ const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
     trackClickThrough,
   };
   return (
-    <div id="results-container">
+    <div className="flex flex-col">
       {formattedResults.map((result, idx) => (
         <ResultCollection key={idx} result={result} {...resultProps} />
       ))}

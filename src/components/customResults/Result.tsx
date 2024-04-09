@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import { Thumbnail } from "./Thumbnail";
-import mapping from "@/config/mapping.json";
 import { getMapping } from "@/config/mapping-helper";
-import { getUrlForCombinedSummary } from "@/utils/tldr";
-import { TruncateLengthInChar } from "@/config/config";
+import { getSiteName, getUrlForCombinedSummary } from "@/utils/tldr";
+import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
+import DateIcon from "../svgs/DateIcon";
 
 const htmlToReactParser = new (Parser as any)();
-const { tldrLists, combinedSummaryTag } = getMapping()
+const { tldrLists, combinedSummaryTag } = getMapping();
 
 type ResultProps = {
   result: EsSearchResult["_source"];
@@ -20,17 +19,16 @@ type ResultProps = {
   trackClickThrough: () => void;
 };
 
-const Result = ({
-  result,
-  clickThroughTags,
-  shouldTrackClickThrough,
-  trackClickThrough,
-}: ResultProps) => {
+const Result = ({ result }: ResultProps) => {
   let dateString = null;
   const { url, title, body, domain, id } = result;
 
-  const isTldrCombinedSummary = tldrLists.includes(domain) && title.includes(combinedSummaryTag)
-  const mappedUrl = isTldrCombinedSummary ? getUrlForCombinedSummary(url, id) : url
+
+  const isTldrCombinedSummary =
+    tldrLists.includes(domain) && title.includes(combinedSummaryTag);
+  const mappedUrl = isTldrCombinedSummary
+    ? getUrlForCombinedSummary(url, id)
+    : url;
 
   const createdDate = result.created_at;
   if (createdDate) {
@@ -50,75 +48,89 @@ const Result = ({
   const getBodyData = (result: ResultProps["result"]) => {
     switch (result.body_type) {
       case "markdown":
-        return body
+        return body;
       case "raw":
-        return result?.summary ?? body
+        return result?.summary ?? body;
       case "html":
-        return body
+        return body;
       case "combined-summary":
-        return body
+        return body;
       default: {
         try {
           return JSON.parse(`[${body}]`)
             .map((i) => i.text)
-            .join(" ")
+            .join(" ");
         } catch {
-          return body || result.body_formatted
+          return body || result.body_formatted;
         }
       }
     }
-  }
+  };
 
   const sanitizedBody = sanitizeHtml(
     getBodyData(result).replaceAll("\n", "")
-  ).trim()
+  ).trim();
+  const truncatedUrl =
+    mappedUrl.length > TruncateLinkInChar
+      ? mappedUrl.substring(0, TruncateLinkInChar) + "..."
+      : mappedUrl;
+  const truncatedBody =
+    sanitizedBody.length > TruncateLengthInChar
+      ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
+      : sanitizedBody;
+  const parsedBody = htmlToReactParser.parse(truncatedBody);
 
-  const truncatedBody = sanitizedBody.length > TruncateLengthInChar ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..." : sanitizedBody
-  const parsedBody = htmlToReactParser.parse(truncatedBody)
-
-  // removed onClickLink
-  // const onClickLink = () => {
-  //   if (shouldTrackClickThrough) {
-  //     result?.id && trackClickThrough(result.id, clickThroughTags);
-  //   }
-  // };
 
   return (
-    <div className="searchresult">
-      <h2 className="search-result-link">
-        <a href={mappedUrl}
+    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
+      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text  font-medium ">
+        <p className="capitalize">{getSiteName(mappedUrl)}</p>
+        <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
+        <a
+          className=""
+          href={mappedUrl}
           data-umami-event="URL Clicked"
-          data-umami-event-src={mappedUrl}>
-          {htmlToReactParser.parse(sanitizeHtml(title))}
+          data-umami-event-src={mappedUrl}
+        >
+          {truncatedUrl}
         </a>
-      </h2>
-      <a href={mappedUrl} 
-        className="url-display"
-        data-umami-event="URL Clicked"
-        data-umami-event-src={mappedUrl}>
-        {mappedUrl}
-      </a>
-      <div className="search-result-body">
-        {mapping.media.includes(result?.domain) && (
-          <Thumbnail url={result?.media} />
-        )}
-        <p>
+      </div>
+      <div className="flex flex-col gap-2 lg:gap-5 ">
+        <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
+          <a
+            href={mappedUrl}
+            className="group-hover/heading:text-custom-accent cursor-pointer hover:underline"
+          >
+            {htmlToReactParser.parse(sanitizeHtml(title))}
+          </a>
+        </h2>
+        <p className="text-sm   lg:text-[0.843rem] 2xl:text-lg text-custom-primary-text">
           {parsedBody}
         </p>
       </div>
-
-      <div className="search-result-filter">
-        {getResultTags().map((field, idx) => {
-          if (result[field])
-            return (
-              <FilterTags
-                key={`${field}_${idx}`}
-                field={field}
-                options={result[field]}
-              />
-            );
-        })}
-        {dateString && <span className="search-result-date">{dateString}</span>}
+      <div className="flex justify-between gap-3 xl:gap-12 items-center">
+        <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
+          {dateString && (
+            <div className="flex w-full items-center gap-2">
+              <DateIcon />
+              <p className="text-[8px] whitespace-nowrap lg:text-xs 2xl:text-base">
+                {dateString}
+              </p>
+            </div>
+          )}
+        </div>
+        <div className={`flex overflow-hidden`}>
+          {getResultTags().map((field, idx) => {
+            if (result[field])
+              return (
+                <FilterTags
+                  key={`${field}_${idx}`}
+                  field={field}
+                  options={result[field]}
+                />
+              );
+          })}
+        </div>
       </div>
     </div>
   );

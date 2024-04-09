@@ -11,12 +11,25 @@
     font-weight: 200 300 400 500 600 700 800 900;
   }
 }
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --background: #fafafa;
+  --hover-primary: #F5F5F5
+  --button:#333333;
   --hover-state: #fff0e0;
   --stroke: #bfbfbf;
   --secondary-text: #999999;
@@ -24,6 +37,9 @@
   --black: #292929;
   --accent: #f7931a;
   --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
+  --shadow-left:linear-gradient(90deg, #FAFAFA 50.33%, rgba(250, 250, 250, 0) 100%);
+  --shadow-right:linear-gradient(270deg, #FAFAFA 50.33%, rgba(250, 250, 250, 0) 100%);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,11 +71,16 @@ html {
   background: var(--background);
   --background: #1c1c1e;
   --hover-state: #2c2c2e;
+  --button:#8E8E93;
   --stroke: #3a3a3c;
   --secondary-text: #636366;
   --primary-text: #8e8e93;
   --black: #292929;
   --other-light-text: #48484a;
   --accent: #f7931a;
+  --hover-primary: #2C2C2E;
   --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
+
+  --shadow-right:linear-gradient(270deg, #1C1C1F 50.33%, rgba(28, 28, 31, 0) 100%);
+  --shadow-left:linear-gradient(90deg, #1C1C1F 50.33%, rgba(28, 28, 31, 0) 100%);
 }

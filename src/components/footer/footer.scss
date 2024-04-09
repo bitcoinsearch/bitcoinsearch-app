@@ -1,27 +1,294 @@
-.footer-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; // Center items horizontally
-
-  .pagination-wrapper { // If you have this wrapper from the previous instruction
-    margin-bottom: 3rem; // Adjust this to create the desired spacing
-  }
-
-  .chaincode-link {
-    margin-top: 2rem; // Space between the pagination and the Bitcoin Dev link
-    text-align: center; // Center the text within the link
-  }
-
-  .umami {
-    margin-top: 1rem; // Space between the Bitcoin Dev link and the umami info
-    text-align: center; // Center the text within the div
-  }
-}
-
 .chaincode-link {
   font-weight: 500;
   transition: color ease-in 0.2s;
+
   &:hover {
     color: #ff9900;
+  }
+}
+
+button.rc-pagination-jump-prev {
+  font-size: 14px;
+  width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 2px 0px 0px;
+  border: 1px solid var(--stroke);
+
+  @media screen and (min-width: 640px) {
+    width: 48px;
+    height: 48px;
+    padding: 20px;
+    border: none;
+  }
+
+  &::after {
+    color: var(--primary-text);
+    content: "<<";
+    font-size: 0.5rem;
+
+    @media screen and (min-width: 640px) {
+      font-size: 14px;
+    }
+  }
+
+  a {
+    color: var(--primary-text);
+  }
+
+  &:hover {
+    border: 1px solid var(--stroke);
+    background-color: transparent;
+
+    &:after {
+      content: "<<";
+      color: var(--primary-text) !important;
+      font-size: 0.5rem;
+
+      @media screen and (min-width: 640px) {
+        font-size: 14px;
+      }
+    }
+
+    a {
+      color: var(--primary-text);
+    }
+  }
+}
+
+button.rc-pagination-jump-next {
+  display: flex;
+  font-size: 14px;
+  width: 16px;
+  padding: 0px;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 2px 0px 0px;
+
+  border: 1px solid var(--stroke);
+
+  @media screen and (min-width: 640px) {
+    width: 48px;
+    height: 48px;
+    padding: 20px;
+    border: none;
+  }
+
+  &::after {
+    color: var(--primary-text);
+    font-size: 0.5rem;
+    content: ">>";
+
+    @media screen and (min-width: 640px) {
+      font-size: 14px;
+    }
+  }
+
+  a {
+    color: var(--primary-text);
+  }
+
+  &:hover {
+    border: 1px solid var(--stroke);
+    background-color: transparent;
+
+    &:after {
+      content: ">>";
+      color: var(--primary-text) !important;
+      font-size: 0.5rem;
+
+      @media screen and (min-width: 640px) {
+        font-size: 14px;
+      }
+    }
+
+    a {
+      color: var(--primary-text);
+    }
+  }
+}
+
+.sui-paging {
+  overflow: hidden;
+  padding: 4px;
+  color: var(--primary-text);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0px;
+
+  @media screen and (min-width: 640px) {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .rc-pagination-previous {
+    a {
+      color: var(--primary-text);
+    }
+  }
+
+  li.rc-pagination-item-active.rc-pagination-item {
+    background: #F7931A;
+    border: none !important;
+
+    a {
+      color: white !important;
+    }
+
+    &:hover {
+      background: #F7931A;
+      border: none !important;
+
+      a {
+        color: white !important;
+      }
+    }
+  }
+
+  li.rc-pagination-item {
+
+    width: 16px;
+    border: 1px solid var(--stroke);
+    display: flex;
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 2px 0px 0px;
+
+    @media screen and (min-width: 640px) {
+      width: 48px;
+      height: 48px;
+      padding: 20px;
+      border: none;
+    }
+
+    &:hover {
+      border: 1px solid var(--stroke);
+      background-color: transparent;
+
+      a {
+        color: var(--black)
+      }
+    }
+
+    a {
+      color: var(--primary-text) !important;
+      font-size: 0.5rem;
+      font-weight: 700;
+
+      @media screen and (min-width: 640px) {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  // pagination arrows
+  li.rc-pagination-prev {
+    display: flex;
+    width: 16px;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 2px 0px 0px;
+    border: 1px solid var(--stroke);
+
+    @media screen and (min-width: 640px) {
+      width: 48px;
+      height: 48px;
+      padding: 20px;
+      border: none;
+    }
+
+    &::after {
+      color: var(--primary-text);
+      font-size: 0.5rem;
+
+      @media screen and (min-width: 640px) {
+        font-size: 14px;
+      }
+    }
+
+    a {
+      color: var(--primary-text);
+    }
+
+    &:hover {
+      border: 1px solid var(--stroke);
+      background-color: transparent;
+      color: var(--primary-text);
+
+      &:after {
+        font-size: 0.5rem;
+
+        @media screen and (min-width: 640px) {
+          font-size: 14px;
+        }
+      }
+
+      a {
+        color: var(--primary-text);
+      }
+
+    }
+  }
+
+  li.rc-pagination-next {
+    display: flex;
+    align-items: center;
+    width: 16px;
+    justify-content: center;
+    margin: 0px 2px 0px 0px;
+    border: 1px solid var(--stroke);
+
+    @media screen and (min-width: 640px) {
+      width: 48px;
+      height: 48px;
+      padding: 20px;
+      border: none;
+
+    }
+
+    &::after {
+      color: var(--black);
+      font-size: 0.5rem;
+
+      @media screen and (min-width: 640px) {
+        font-size: 14px;
+      }
+
+    }
+
+    a {
+      color: var(--primary-text);
+    }
+
+    &:hover {
+      border: 1px solid var(--stroke);
+      background-color: transparent;
+
+      &:after {
+        color: var(--primary-text) !important;
+        font-size: 0.5rem;
+
+        @media screen and (min-width: 640px) {
+          font-size: 14px;
+        }
+      }
+
+      a {
+        color: var(--primary-text);
+      }
+    }
+  }
+
+
+  li.rc-pagination-jump-prev {
+    display: none;
+  }
+
+  li.rc-pagination-jump-next {
+    display: none;
   }
 }
