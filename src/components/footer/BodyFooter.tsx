@@ -12,12 +12,27 @@ const BodyFooter = () => {
   const totalPages = Math.ceil(totalResults / resultsPerPage);
   return (
     <div className="footer-container py-2 xl:p-4 gap-8 xl:gap-20 flex flex-col items-start justify-center max-w-full overflow-hidden">
-     <Paging
-        onChange={handlePageChange}
-        totalPages={totalPages}
-        current={current}
-        resultsPerPage={resultsPerPage}
-      />
+      <div className="flex">
+        {current !== 1 && (
+          <button
+            className="rc-pagination-jump-prev"
+            onClick={() => handlePageChange(1)}
+          ></button>
+        )}
+        <Paging
+          onChange={handlePageChange}
+          totalPages={totalPages}
+          current={current}
+          resultsPerPage={resultsPerPage}
+        />
+        {current !== totalPages && (
+          <button
+            className="rc-pagination-jump-next"
+            onClick={() => handlePageChange(totalPages)}
+          ></button>
+        )}
+      </div>
+
       <HolocatChatBtc />
     </div>
   );
