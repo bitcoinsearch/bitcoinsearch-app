@@ -25,13 +25,10 @@ type ResultProps = {
   trackClickThrough: () => void;
 };
 
-const Result = ({
-  result,
-}: ResultProps) => {
+const Result = ({ result }: ResultProps) => {
   let dateString = null;
   const { url, title, body, domain, id } = result;
-  const isLengthOver =
-    getResultTags().map((field) => result[field]?.length)[0] > 5;
+
 
   const isTldrCombinedSummary =
     tldrLists.includes(domain) && title.includes(combinedSummaryTag);
@@ -89,35 +86,6 @@ const Result = ({
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
 
-  const containerRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(null);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const scrollRight =
-    (containerRef.current?.scrollWidth || 0) -
-    (containerRef.current?.clientWidth || 0);
-
-  const handleMouseDown = (event) => {
-    setIsDragging(true);
-    setStartX(event.pageX);
-    setScrollLeft(containerRef.current.scrollLeft);
-  };
-
-  const handleMouseMove = (event) => {
-    if (!isDragging) return;
-    const x = event.pageX;
-    const scrollOffset = (x - startX) * 2;
-    containerRef.current.scrollLeft = scrollLeft - scrollOffset;
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleArrowClick = (scrollOffset) => {
-    containerRef.current.scrollLeft += scrollOffset;
-    setScrollLeft(containerRef.current.scrollLeft);
-  };
 
   return (
     <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
@@ -157,47 +125,17 @@ const Result = ({
             </div>
           )}
         </div>
-        <div
-          className="relative lg:w-full overflow-hidden"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-        >
-          {scrollLeft > 0 && (
-            <div
-              onClick={() => handleArrowClick(-50)}
-              className="flex z-10 items-center justify-center h-full  w-[60px] bg-shadow-left absolute left-0 top-0"
-            >
-              <ArrowLeft />
-            </div>
-          )}
-          <div
-            ref={containerRef}
-            className={`flex gap-2 text-base  overflow-scroll no-scrollbar  ${
-              isLengthOver ? "pr-[60px]" : ""
-            }`}
-          >
-            {getResultTags().map((field, idx) => {
-              if (result[field])
-                return (
-                  <FilterTags
-                    key={`${field}_${idx}`}
-                    field={field}
-                    options={result[field]}
-                  />
-                );
-            })}
-          </div>
-          {scrollLeft < scrollRight + 1 && isLengthOver && (
-            <div
-              onClick={() => handleArrowClick(50)}
-              className="flex items-center justify-center h-full w-5  lg:w-[60px] bg-shadow-right absolute right-0 top-0 text-white"
-            >
-              {" "}
-              <ArrowRight />{" "}
-            </div>
-          )}
+        <div className={`flex overflow-hidden`}>
+          {getResultTags().map((field, idx) => {
+            if (result[field])
+              return (
+                <FilterTags
+                  key={`${field}_${idx}`}
+                  field={field}
+                  options={result[field]}
+                />
+              );
+          })}
         </div>
       </div>
     </div>
