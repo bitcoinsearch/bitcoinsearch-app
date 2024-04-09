@@ -26,20 +26,12 @@ const SideBar = () => {
         sortOptions={[
           { label: "Relevance", value: " " },
           {
-            label: "Date published (newest)",
+            label: "Newest First",
             value: "created_at:desc",
           },
           {
-            label: "Date published (oldest)",
+            label: "Oldest First",
             value: "created_at:asc",
-          },
-          {
-            label: "Date added (newest)",
-            value: "indexed_at:desc",
-          },
-          {
-            label: "Date added (oldest)",
-            value: "indexed_at:asc",
           },
         ]}
       />
