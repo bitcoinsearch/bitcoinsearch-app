@@ -5,6 +5,7 @@ import React, { useRef, useState } from "react";
 import ArrowLeft from "../svgs/ArrowLeft";
 import ArrowRight from "../svgs/ArrowRight";
 
+
 type FilterTagProps = {
   field: FacetKeys;
   options: string[] | string;
@@ -37,9 +38,14 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
   };
 
   const handleArrowClick = (scrollOffset) => {
-    containerRef.current.scrollLeft += scrollOffset;
-    setScrollLeft(containerRef.current.scrollLeft);
+    const newScrollLeft = containerRef.current.scrollLeft + scrollOffset;
+    setScrollLeft(newScrollLeft);
+    containerRef.current.scrollTo({
+      left: newScrollLeft,
+      behavior: "smooth", // Use smooth scrolling behavior
+    });
   };
+
   const { getFilter, addFilter, removeFilter } = useURLManager();
 
   if (!Array.isArray(options)) return null;
@@ -75,9 +81,9 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      {scrollLeft > 0 && (
+      {scrollLeft > 0 && isLengthOver &&  (
         <div
-          onClick={() => handleArrowClick(-50)}
+          onClick={() => handleArrowClick(-200)}
           className="flex z-10 items-center justify-center h-full  w-[60px] bg-shadow-left absolute left-0 top-0"
         >
           <ArrowLeft />
@@ -85,7 +91,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       )}
       <div
         ref={containerRef}
-        className={`flex max-w-full gap-2 overflow-scroll no-scrollbar ${isLengthOver?"pr-16":""}`}
+        className={`flex max-w-full gap-2 overflow-scroll no-scrollbar ${isLengthOver ? "pr-16" : ""}`}
       >
         {formattedOptions?.map((a, idx) => (
           <Button
@@ -96,7 +102,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
               a.selected
                 ? "!bg-custom-accent !text-custom-white"
                 : "!bg-custom-hover-primary !text-custom-primary-text"
-            }`}
+              }`}
             onClick={() => handleToggleFilter(a)}
           >
             {a.value}
@@ -105,7 +111,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       </div>
       {scrollLeft < scrollRight + 1 && isLengthOver && (
         <div
-          onClick={() => handleArrowClick(50)}
+          onClick={() => handleArrowClick(200)}
           className="flex items-center justify-center h-full w-5  lg:w-[60px] bg-shadow-right absolute right-0 top-0 text-white"
         >
           {" "}
