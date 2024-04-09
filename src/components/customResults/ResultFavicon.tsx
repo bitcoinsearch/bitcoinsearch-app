@@ -9,7 +9,7 @@ type ResultFaviconProps = React.ComponentProps<typeof Image> & {
 const ResultFavicon = ({
   alt,
   fallbackUrl = "/default_favicon.svg",
-  numbersOfRetry = 3,
+  numbersOfRetry = 1,
   ...props
 }: ResultFaviconProps) => {
   const [retryCount, setRetryCount] = useState(0);
@@ -34,6 +34,7 @@ const ResultFavicon = ({
       {...props}
       onError={onError}
       src={src}
+      priority
     />
   );
 };
