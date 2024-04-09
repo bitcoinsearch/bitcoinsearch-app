@@ -17,7 +17,7 @@ const BodyFooter = () => {
           <button
             className="rc-pagination-jump-prev"
             onClick={() => handlePageChange(1)}
-          ></button>
+          />
         )}
         <Paging
           onChange={handlePageChange}
@@ -29,7 +29,7 @@ const BodyFooter = () => {
           <button
             className="rc-pagination-jump-next"
             onClick={() => handlePageChange(totalPages)}
-          ></button>
+          />
         )}
       </div>
 

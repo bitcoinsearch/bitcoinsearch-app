@@ -3,17 +3,11 @@ import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import { Thumbnail } from "./Thumbnail";
-import mapping from "@/config/mapping.json";
 import { getMapping } from "@/config/mapping-helper";
 import { getSiteName, getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
-import Image from "next/image";
 import DateIcon from "../svgs/DateIcon";
-import TimeIcon from "../svgs/TimeIcon";
-import ArrowRight from "../svgs/ArrowRight";
-import ArrowLeft from "../svgs/ArrowLeft";
 
 const htmlToReactParser = new (Parser as any)();
 const { tldrLists, combinedSummaryTag } = getMapping();

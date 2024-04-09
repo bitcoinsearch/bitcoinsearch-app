@@ -86,7 +86,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
           onClick={() => handleArrowClick(-200)}
           className="flex z-10 items-center justify-center h-full  w-[60px] bg-shadow-left absolute left-0 top-0"
         >
-          <ArrowLeft />
+          <ArrowLeft className="text-black dark:text-custom-primary-text" />
         </div>
       )}
       <div
@@ -115,7 +115,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
           className="flex items-center justify-center h-full w-5  lg:w-[60px] bg-shadow-right absolute right-0 top-0 text-white"
         >
           {" "}
-          <ArrowRight />{" "}
+          <ArrowRight className="text-black dark:text-custom-primary-text" />{" "}
         </div>
       )}
     </div>
