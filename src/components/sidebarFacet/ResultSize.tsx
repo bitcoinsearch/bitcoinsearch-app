@@ -4,6 +4,10 @@ import {
   Button,
   Flex,
   Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Popover,
   PopoverBody,
   PopoverContent,
@@ -40,7 +44,6 @@ const sizes = [
 ];
 
 const ResultSize = () => {
-  const { onClose, onOpen, isOpen } = useDisclosure();
   const { setResultsSize } = useURLManager();
   const { resultsPerPage: currentSize, totalResults } =
     useSearchQuery().pagingInfo;
@@ -48,55 +51,60 @@ const ResultSize = () => {
     sizes.find((size) => size.value === currentSize) ?? sizes[0];
   const handleSelect = (size: number) => {
     setResultsSize(size);
-    onClose();
   };
   return (
     <>
       <div className="flex items-center gap-2 pb-9 text-custom-primary-text text-sm lg:text-base 2xl:text-lg">
         <span>Showing</span>
-        <Popover
-          isOpen={isOpen}
-          onClose={onClose}
-          onOpen={onOpen}
+        <Menu
+          closeOnBlur={true}
+          matchWidth={true}
+          gutter={10}
           placement="bottom"
+          variant="brand"
         >
-          <PopoverTrigger>
+          <MenuButton
+            as="button"
+            // style={{ width: "100%" }}
+            className="group/resultSize"
+          >
             <div className="flex items-center gap-1 lg:gap-2 cursor-pointer w-fit py-2 px-2 lg:px-3 border-[1px] border-custom-secondary-text leading-none rounded-lg lg:rounded-xl ">
               <p className="font-bold leading-none min-w-fit">
                 {currentSizeOption.label}
               </p>
-              <span
-                data-is-open={isOpen}
-                className="data-[is-open=false]:rotate-180 transition-transform"
-              >
+              <span className="group-aria-[expanded=false]/resultSize:rotate-180 transition-transform">
                 <Image src={UpArrow} alt="arrow" className="w-2 lg:w-[11px] " />
               </span>
             </div>
-          </PopoverTrigger>
-          <PopoverContent
-            w="fit-content"
+          </MenuButton>
+          <MenuList
+            id="test"
+            w="full"
+            minW="none"
             _focusVisible={{ boxShadow: "none", outline: "none" }}
-            border="1px solid"
-            borderColor="#BFBFBF"
-            borderRadius="md"
           >
-            <PopoverBody p="0px">
+            <div className="rounded-xl overflow-clip bg-custom-background border-[1px] border-custom-stroke">
               {sizes.map((size) => (
-                <div
+                <MenuItem
                   key={size.label}
                   className="hover:bg-custom-hover-state"
                   role="button"
                   onClick={() => handleSelect(size.value)}
+                  p={0}
+                  m={0}
+                  width="full"
                 >
-                  <p className="text-center py-2 px-2 font-medium">
-                    {size.label}
-                  </p>
-                </div>
+                  <div className="w-full px-1 py-[6px] hover:bg-custom-hover-state">
+                    <p className="text-center py-2 font-medium">
+                      {size.label}
+                    </p>
+                  </div>
+                </MenuItem>
               ))}
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
-         of <span className="font-bold">{totalResults}</span> results
+            </div>
+          </MenuList>
+        </Menu>
+        of <span className="font-bold">{totalResults}</span> results
       </div>
       <div className="group-data-[no-border='true']:hidden border-b border-custom-stroke">
       </div>
