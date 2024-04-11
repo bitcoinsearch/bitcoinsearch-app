@@ -10,7 +10,7 @@ const useIsInitialStateWithoutFilter = () => {
   const router = useRouter()
 
   const hasFilters = generateFilterQuery(router.asPath.slice(1)).length;
-  let isHomePage = router.asPath.slice(1) === "" || router.asPath.slice(1).startsWith("#");
+  let isHomePage = !hasFilters
 
   const resultLength = queryResult.data?.hits?.total["value"];
   

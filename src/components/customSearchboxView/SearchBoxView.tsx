@@ -288,9 +288,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen || isAutoCompleteContainerOpen
-                      ? "rounded-b-none rounded-tl-xl md:rounded-tl-2xl"
-                      : "rounded-l-xl md:rounded-l-2xl"
-                  } border-r-0   h-[48px]  w-full px-3 md:px-6 items-center justify-center bg-custom-background border border-custom-stroke flex`}
+                      ? "rounded-b-none rounded-tl-lg md:rounded-tl-[14px]"
+                      : "rounded-l-xl md:rounded-l-[14px]"
+                  } border-r-0 h-[48px] 2xl:h-[66px] w-full px-3 md:px-6 items-center justify-center bg-custom-background border border-custom-stroke flex`}
                 >
                   <input
                     ref={inputRef}
@@ -306,11 +306,11 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       setIsOutsideClick(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="text-custom-primary-text dark:text-custom-primary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-stroke w-full border-none outline-none bg-transparent "
+                    className="2xl:text-xl text-custom-primary-text dark:text-custom-primary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-stroke w-full border-none outline-none bg-transparent"
                   />
                   {isShortcutVisible && (
-                    <p className="whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke">
-                      <kbd>{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd>K</kbd> or
+                    <p className="font-geist whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke">
+                      <kbd className="font-geist">{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd className="font-geist">K</kbd> or
                       {" /"}
                     </p>
                   )}
@@ -388,8 +388,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   </div>
                 )}
               </div>
-              <button className="flex items-center bg-gradient h-[48px]  px-4 min-h-full rounded-r-xl md:rounded-r-2xl">
-                <SearchIcon className="w-[16px] md:w-auto" />
+              <button className="flex items-center bg-gradient h-[48px] 2xl:h-[66px] px-4 2xl:px-[27px] min-h-full rounded-r-lg md:rounded-r-[14px]">
+                <SearchIcon className="stroke-custom-background w-[16px] 2xl:w-[18px] md:w-auto" />
               </button>
             </div>
           </form>
