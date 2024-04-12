@@ -7,6 +7,7 @@ import TreasureChartLight from "public/landing/light/treasure-trove-chart.webp"
 import TreasureChartDark from "public/landing/dark/treasure-trove-chart.webp"
 import SourcesLight from "public/landing/light/sources-image.webp"
 import SourcesDark from "public/landing/dark/sources-image.webp"
+import SearchIcon from "../svgs/SearchIcon";
 
 export const LandingPage = () => {
   const { theme } = useTheme();
@@ -194,16 +195,12 @@ export const LandingPage = () => {
             <path
               d="M12.6667 23.3334C18.5577 23.3334 23.3334 18.5577 23.3334 12.6667C23.3334 6.77563 18.5577 2 12.6667 2C6.77563 2 2 6.77563 2 12.6667C2 18.5577 6.77563 23.3334 12.6667 23.3334Z"
               stroke="currentColor"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="4"
             />
             <path
               d="M25.9999 26.0009L20.2666 20.2676"
               stroke="currentColor"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="4"
             />
           </svg>
           Start searching now

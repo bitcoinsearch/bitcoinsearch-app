@@ -11,16 +11,12 @@ const SearchIcon = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       d="M9.00001 17C13.4183 17 17 13.4183 17 9.00001C17 4.58173 13.4183 1 9.00001 1C4.58173 1 1 4.58173 1 9.00001C1 13.4183 4.58173 17 9.00001 17Z"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      stroke="currentColor"
     />
     <path
       d="M18.9992 19.0002L14.6992 14.7002"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      stroke="currentColor"
     />
   </svg>
-);
+)
 export default SearchIcon;

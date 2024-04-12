@@ -100,7 +100,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
   } = props;
 
   const inputRef = useRef<HTMLInputElement | null>();
-  const searchFormRef = useRef<HTMLFormElement | null>();
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchInput, setSearchInput] = useState<string>("");
   const [typed, setTyped] = useState(false);
@@ -267,7 +266,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
         const { getInputProps } = downshiftProps;
         return (
           <form
-            ref={searchFormRef}
             className="w-full peer/search"
             data-input-focus={onFocus}
             onSubmit={(e) => {
