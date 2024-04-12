@@ -11,16 +11,19 @@ import useUIContext from "@/hooks/useUIContext";
 import LightningIcon from "public/lightning_icon_filled.svg";
 import UpArrow from "public/up_arrow.svg";
 import { useDisclosure } from "@chakra-ui/react";
+import AuthorIcon from "../svgs/AuthorIcon";
+import SourceIcon from "../svgs/SourceIcon";
+import SearchIcon from "../svgs/SearchIcon";
 import PlusIcon from '../svgs/PlusIcon';
 
 const facetMapping = {
   authors: {
     display: "Authors",
-    icon: "./author_icon.svg",
+    icon: <AuthorIcon />,
   },
   domain: {
     display: "Sources",
-    icon: "./source_icon.svg",
+    icon: <SourceIcon />,
   },
 };
 
@@ -102,13 +105,7 @@ function CustomMultiCheckboxFacet({
               ref={searchRef}
             />
             <span className="absolute top-1/2 -translate-y-1/2 left-[18px]">
-              <Image
-                src="./search_icon.svg"
-                width={18}
-                height={18}
-                alt="search"
-                className=""
-              />
+              <SearchIcon className="stroke-custom-secondary-text w-[16px] h-[16px]" />
             </span>
             <span
               data-is-open={isOpen}
@@ -181,13 +178,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
   return (
     <div className="flex justify-between mb-4 2xl:mb-6">
       <div className="flex gap-2 items-center">
-        <Image
-          src={facetMapping[label]["icon"]}
-          width={20}
-          height={20}
-          alt={label}
-          className="w-[18px] 2xl:w-[20px]"
-        />
+        {facetMapping[label].icon}
         <span className="text-base 2xl:text-lg font-bold">
           {facetMapping[label]["display"]}
         </span>

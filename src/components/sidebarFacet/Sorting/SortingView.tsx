@@ -8,7 +8,7 @@ import {
 import { SortingViewProps } from "./types";
 import Image from "next/image";
 import SidebarSection from "../SidebarSection";
-import SortIcon from "public/sort_icon.svg";
+import SortIcon from "@/components/svgs/SortIcon";
 
 const SortingView = ({
   onChange,
@@ -20,11 +20,7 @@ const SortingView = ({
   return (
     <SidebarSection className="text-custom-primary-text">
       <label className="flex gap-2 mb-4 2xl:mb-6 items-center">
-        <Image
-          src={SortIcon}
-          alt={label}
-          className="w-[20px] h-[20px] 2xl:w-[25px]"
-        />
+        <SortIcon className="w-[20px] h-[20px] 2xl:w-[25px]" />
         <p className="2xl:text-lg font-bold">{label}</p>
       </label>
       <FormControl>

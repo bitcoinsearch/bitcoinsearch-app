@@ -8,11 +8,11 @@ import useSearchQuery from "@/hooks/useSearchQuery";
 import { getFacetFields } from "@/config/config-helper";
 import { getFilterValueDisplay } from "@/utils/facet";
 import useURLManager from "@/service/URLManager/useURLManager";
-import FilterIcon from "public/filter.svg";
 import CrossIcon from "public/cross_icon.svg";
 import DarkCrossIcon from "public/dark_cross_icon.svg";
 import useUIContext from "@/hooks/useUIContext";
 import CloseSidebarIcon from "public/close_sidebar.svg";
+import FilterMenuIcon from "../svgs/FilterMenuIcon";
 import { useTheme } from '@/context/Theme';
 
 const FilterMenu = () => {
@@ -23,11 +23,7 @@ const FilterMenu = () => {
     <>
       <SidebarSection className="text-custom-primary-text flex justify-between 2xl:pt-10">
         <div className="flex items-center gap-2">
-          <Image
-            src={FilterIcon}
-            alt="filter"
-            className="w-[20px] 2xl:w-[25px]"
-          />
+          <FilterMenuIcon />
           <p className="text-base 2xl:text-xl font-bold">Filters</p>
         </div>
         <span

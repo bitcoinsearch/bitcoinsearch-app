@@ -48,7 +48,7 @@ const Header = ({ openForm }) => {
           onClick={() => sidebarToggleManager.updater(true)}
           className="flex items-center justify-center bg-transparent min-h-[48px] w-[48px] border border-custom-stroke rounded-xl"
         >
-          <FilterIcon />
+          <FilterIcon className="text-custom-primary-text" />
         </button>
         {Boolean(numberOfAppliedFilters) && (
           <div className="absolute -top-1 -right-1 rounded-full w-4 h-4 text-[11px] font-black leading-none">
