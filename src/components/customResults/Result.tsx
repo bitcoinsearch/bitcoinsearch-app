@@ -82,7 +82,7 @@ const Result = ({ result }: ResultProps) => {
   const siteName = getSiteName(mappedUrl);
 
   return (
-    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
+    <div className=" group/heading flex flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
         <ResultFavicon
           key={siteName}
