@@ -55,12 +55,12 @@ export const LandingPage = () => {
                       : "/landing/light/google-search-image-mobile.webp"
                     : isDark
                     ? "/landing/dark/google-search-image.webp"
-                    : "/landing/light/google-search-image.webp"
+                    : "/landing/light/google-search.webp"
                 }
                 alt="google search image"
                 fill
                 data-light-lg={!isMobile && !isDark}
-                className="data-[light-lg]:scale-[1.05] data-[light-lg]:hover:scale-[1.47] object-contain transform hover:scale-[1.4] hover:translate-x-6 hover:origin-left hover:ease-in-out hover:duration-300 hover:z-30"
+                className="object-contain transform hover:scale-[1.3] hover:translate-x-[6px] origin-left ease-in-out duration-300 hover:z-30"
               />
             </div>
 
@@ -77,7 +77,7 @@ export const LandingPage = () => {
                 }
                 alt="google search image"
                 fill
-                className="object-contain transform hover:scale-[1.4] hover:translate-x-[-6px] hover:origin-right hover:ease-in-out hover:duration-300 hover:z-30"
+                className="object-contain transform hover:scale-[1.3] hover:translate-x-[-6px] origin-right ease-in-out duration-300 hover:z-30"
               />
             </div>
           </section>
