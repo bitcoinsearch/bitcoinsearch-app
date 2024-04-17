@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
@@ -81,8 +81,19 @@ const Result = ({ result }: ResultProps) => {
   const parsedBody = htmlToReactParser.parse(truncatedBody);
   const siteName = getSiteName(mappedUrl);
 
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  const handleCardClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const link = linkRef.current;
+    link && link.click();
+  }, [linkRef]);
+
   return (
-    <div className=" group/heading flex flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
+    <div
+      role="link"
+      className="group/heading flex flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl"
+      onClick={handleCardClick}
+    >
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
         <ResultFavicon
           key={siteName}
@@ -96,6 +107,7 @@ const Result = ({ result }: ResultProps) => {
           href={mappedUrl}
           data-umami-event="URL Clicked"
           data-umami-event-src={mappedUrl}
+          ref={linkRef}
         >
           {truncatedUrl}
         </a>

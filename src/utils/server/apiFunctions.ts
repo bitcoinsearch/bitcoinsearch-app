@@ -46,6 +46,9 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
     },
     size, // Number of search results to return
     from, // Offset for pagination (calculated from page number)
+    _source: {
+      excludes: ['summary_vector_embeddings']
+    }
   }
 
   // Construct and add the full-text search clause
