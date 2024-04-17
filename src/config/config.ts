@@ -15,3 +15,5 @@ export const urlParamsPrefix = {
 
 export const TruncateLengthInChar = 300
 export const TruncateLinkInChar = 50
+
+export const aggregatorSize = 100
