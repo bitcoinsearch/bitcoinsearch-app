@@ -11,6 +11,7 @@ import useUIContext from "@/hooks/useUIContext";
 import LightningIcon from "public/lightning_icon_filled.svg";
 import UpArrow from "public/up_arrow.svg";
 import { useDisclosure } from "@chakra-ui/react";
+import PlusIcon from '../svgs/PlusIcon';
 
 const facetMapping = {
   authors: {
@@ -201,12 +202,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
             Suggest a source
           </span>
           <span className="p-[6px] bg-custom-primary-text group-hover/source:bg-custom-accent  rounded-md">
-            <Image
-              src="./plus_icon.svg"
-              width={10}
-              height={10}
-              alt="suggest a source"
-            />
+            <PlusIcon />
           </span>
         </div>
       )}

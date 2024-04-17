@@ -10,8 +10,10 @@ import { getFilterValueDisplay } from "@/utils/facet";
 import useURLManager from "@/service/URLManager/useURLManager";
 import FilterIcon from "public/filter.svg";
 import CrossIcon from "public/cross_icon.svg";
+import DarkCrossIcon from "public/dark_cross_icon.svg";
 import useUIContext from "@/hooks/useUIContext";
 import CloseSidebarIcon from "public/close_sidebar.svg";
+import { useTheme } from '@/context/Theme';
 
 const FilterMenu = () => {
   const { filterFields } = useSearchQuery();
@@ -41,6 +43,8 @@ const FilterMenu = () => {
 };
 
 const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
+  const { theme } = useTheme()
+  const isDark = theme === "dark";
   const { removeFilterTypes, removeFilter } = useURLManager();
   if (!filters?.length) return null;
   const clearAllFilters = () => {
@@ -60,7 +64,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
           </span>
           <span className="p-[6px] 2xl:p-2 bg-custom-primary-text rounded-md">
             <Image
-              src={CrossIcon}
+              src={isDark ? DarkCrossIcon : CrossIcon}
               alt="clear all"
               className="w-[8px] 2xl:w-[10px]"
             />
@@ -74,7 +78,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
             .map((filter) => (
               <div
                 key={filter.field}
-                className="flex gap-3 w-fit py-[10px] px-3 2xl:py-3 2xl:px-4 bg-custom-accent text-custom-white rounded-lg"
+                className="flex gap-3 w-fit py-[10px] px-3 2xl:py-3 2xl:px-4 bg-custom-accent text-custom-white dark:text-custom-background rounded-lg"
                 role="button"
                 onClick={() =>
                   removeFilter({
@@ -83,11 +87,11 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
                   })
                 }
               >
-                <span className="text-xs 2xl:text-sm">
+                <span className="text-sm font-semibold 2xl:text-sm">
                   {getFilterValueDisplay(filter.value, filter.field)}
                 </span>
                 <Image
-                  src={CrossIcon}
+                  src={isDark ? DarkCrossIcon : CrossIcon}
                   alt="remove"
                   className="w-[8px] 2xl:w-[10px]"
                 />
