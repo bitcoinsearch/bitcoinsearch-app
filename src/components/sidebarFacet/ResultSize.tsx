@@ -98,13 +98,7 @@ const ResultSize = () => {
         </Popover>
          of <span className="font-bold">{totalResults}</span> results
       </div>
-      <div className="group-data-[no-border='true']:hidden">
-        <Image
-          src="./dashed_line.svg"
-          height={12}
-          width={300}
-          alt="seperator"
-        />
+      <div className="group-data-[no-border='true']:hidden border-b border-custom-stroke">
       </div>
     </>
   );
