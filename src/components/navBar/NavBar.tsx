@@ -5,8 +5,8 @@ import { AppMenu } from "../appMenu";
 import AppsIcon from "../svgs/AppsIcon";
 import DayIcon from "../svgs/DayIcon";
 import NightIcon from "../svgs/NightIcon";
-import { SearchBox } from "@elastic/react-search-ui";
-import SearchBoxView from "../customSearchboxView/SearchBoxView";
+import SearchBox from "@/components/customSearchbox/SearchBox";
+import SearchBoxView from "@/components/customSearchbox/SearchBoxView";
 import Link from "next/link";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
@@ -109,9 +109,7 @@ const NavBar = () => {
     makeQuery(input);
   };
   const handleAutoCompleteSelect = (
-    selection,
-    autoCompleteData,
-    defaultFunction
+    selection
   ) => {
     if (!selection.suggestion) return;
     makeQuery(removeMarkdownCharacters(selection.suggestion));

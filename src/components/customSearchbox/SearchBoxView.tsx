@@ -8,7 +8,6 @@ import { defaultSearchTags } from "@/utils/dummy";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import { isMac } from "@/utils/userOS";
 import {
-  BaseContainerProps,
   InputViewProps,
   SearchBoxAutocompleteViewProps,
 } from "@elastic/react-search-ui-views";
@@ -20,70 +19,39 @@ import type {
 import CloseIconOutlined from "../svgs/CloseIconOutlined";
 import SearchIcon from "../svgs/SearchIcon";
 import { getDomainLabel } from "@/config/mapping-helper";
+import {
+  SearchBoxContainerContext,
+  SearchBoxContainerProps,
+} from "./SearchBox";
 
-export type SearchBoxContainerContext = Pick<
-  SearchContextState,
-  | "autocompletedResults"
+export type SearchBoxViewProps = Pick<
+  SearchBoxContainerContext & SearchBoxContainerProps,
+  | "autocompleteSuggestions"
+  | "autocompleteResults"
   | "autocompletedSuggestions"
-  | "searchTerm"
-  | "setSearchTerm"
-  | "trackAutocompleteClickThrough"
-  | "trackAutocompleteSuggestionClickThrough"
->;
-
-export type SearchBoxContainerProps = BaseContainerProps &
-  SearchBoxContainerContext & {
-    view?: React.ComponentType<SearchBoxViewProps>;
-    autocompleteView?: React.ComponentType<SearchBoxAutocompleteViewProps>;
-    inputView?: React.ComponentType<InputViewProps>;
-    autocompleteMinimumCharacters?: number;
-    autocompleteResults?: AutocompleteResult | boolean;
-    autocompleteSuggestions?: boolean | AutocompleteSuggestion;
-    shouldClearFilters?: boolean;
-    debounceLength?: number;
-    inputProps?: any;
-    onSelectAutocomplete?: any;
-    onSubmit?: (searchTerm: string) => void;
-    searchAsYouType?: boolean;
-  };
-
-export type SearchBoxViewProps = BaseContainerProps &
-  Pick<
-    SearchBoxContainerProps,
-    | "autocompleteView"
-    | "inputView"
-    | "autocompleteSuggestions"
-    | "autocompleteResults"
-    | "autocompleteSuggestions"
-    | "autocompletedResults"
-    | "autocompletedSuggestions"
-  > & {
-    allAutocompletedItemsCount: number;
-    autocompletedSuggestionsCount: any;
-    completeSuggestion: (searchQuery: string) => void;
-    isFocused: boolean;
-    notifyAutocompleteSelected: (selection: any) => void;
-    onChange: (value: string) => void;
-    onSelectAutocomplete: any;
-    onSubmit: (e: FormEvent) => void;
-    useAutocomplete: boolean;
-    value: string;
-    inputProps: any;
-  };
+  | "autocompletedResults"
+> & {
+  isFocused: boolean;
+  className?: string;
+  allAutocompletedItemsCount: number;
+  autocompletedSuggestionsCount: any;
+  onChange: (value: string) => void;
+  onSelectAutocomplete: any;
+  onSubmit: (searchTerm: string) => void;
+  useAutocomplete: boolean;
+  inputProps?: any;
+};
 
 function SearchBoxView(props: SearchBoxViewProps) {
   const {
     className,
     allAutocompletedItemsCount,
-    autocompleteView,
     isFocused,
     inputProps = { className: "" },
-    inputView,
     onChange,
     onSelectAutocomplete,
     onSubmit,
     useAutocomplete,
-    value,
     // NOTE: These are explicitly de-structured but not used so that they are
     // not passed through to the input with the 'rest' parameter
 
@@ -93,9 +61,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
 
     autocompletedSuggestionsCount,
 
-    completeSuggestion,
-
-    notifyAutocompleteSelected,
     ...rest
   } = props;
 
@@ -248,6 +213,14 @@ function SearchBoxView(props: SearchBoxViewProps) {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    onSubmit(searchTerm);
+    setFocus(false);
+    setTyped(false);
+  };
+
   return (
     <Downshift
       inputValue={searchTerm}
@@ -268,18 +241,12 @@ function SearchBoxView(props: SearchBoxViewProps) {
           <form
             className="w-full peer/search"
             data-input-focus={onFocus}
-            onSubmit={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              onSubmit(e);
-              setFocus(false);
-              setTyped(false);
-            }}
+            onSubmit={(e) => handleSubmit(e)}
           >
             <div
               ref={searchBoxRef}
               tabIndex={0}
-              className="flex  items-start w-full "
+              className="flex items-start w-full"
               onKeyDown={handleKeyDown}
             >
               <div className="flex-col relative w-full">
@@ -308,7 +275,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   />
                   {isShortcutVisible && (
                     <p className="font-geist whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke">
-                      <kbd className="font-geist">{isMacDevice ? "⌘" : "CTRL"}</kbd> + <kbd className="font-geist">K</kbd> or
+                      <kbd className="font-geist">
+                        {isMacDevice ? "⌘" : "CTRL"}
+                      </kbd>{" "}
+                      + <kbd className="font-geist">K</kbd> or
                       {" /"}
                     </p>
                   )}
@@ -348,9 +318,13 @@ function SearchBoxView(props: SearchBoxViewProps) {
                                 : ""
                             }  ${
                               searchTerm === tag ? "bg-custom-hover-state" : ""
-                            } px-3 py-1.5  md:py-2 md:px-4 hover:bg-custom-hover-state cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border border-custom-stroke  max-w-[max-content]`}
+                            } px-3 py-1.5 md:py-2 md:px-4 hover:bg-custom-hover-state cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border border-custom-stroke  max-w-[max-content]`}
                           >
-                            <p>{tagType.type === "domain" ? getDomainLabel(tag) : tag}</p>
+                            <p>
+                              {tagType.type === "domain"
+                                ? getDomainLabel(tag)
+                                : tag}
+                            </p>
                           </div>
                         ))}
                       </div>

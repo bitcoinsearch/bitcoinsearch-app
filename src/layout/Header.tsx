@@ -3,10 +3,10 @@ import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilt
 import { useTailwindBreakpoint } from "@/hooks/useTailwindBreakpoint";
 import useUIContext from "@/hooks/useUIContext";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
-import { SearchBox } from "@elastic/react-search-ui";
 import React from "react";
-import SearchBoxView from "../components/customSearchboxView/SearchBoxView";
+import SearchBoxView from "../components/customSearchbox/SearchBoxView";
 import useSearchQuery from "../hooks/useSearchQuery";
+import SearchBox from "@/components/customSearchbox/SearchBox";
 
 const Header = ({ openForm }) => {
   const { sidebarToggleManager } = useUIContext();
@@ -22,9 +22,7 @@ const Header = ({ openForm }) => {
   const isMediumScreen = useTailwindBreakpoint("md");
 
   const handleAutoCompleteSelect = (
-    selection,
-    autoCompleteData,
-    defaultFunction
+    selection
   ) => {
     if (!selection.suggestion) return;
     makeQuery(removeMarkdownCharacters(selection.suggestion));
