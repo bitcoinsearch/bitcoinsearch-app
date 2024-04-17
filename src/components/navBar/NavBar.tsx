@@ -25,7 +25,7 @@ function ThemeSwitcher() {
           onClick={toggleTheme}
           className={`${switchStyle} ${isLight ? "bg-custom-hover-state" : ""}`}
         >
-          <DayIcon className="text-custom-accent dark:text-custom-primary-text" />
+          <DayIcon className="md:w-4 text-custom-accent dark:text-custom-primary-text" />
         </button>
         <button
           onClick={toggleTheme}
@@ -33,7 +33,7 @@ function ThemeSwitcher() {
             !isLight ? "bg-custom-hover-state" : ""
           }`}
         >
-          <NightIcon className="text-custom-accent dark:text-custom-primary-text" />
+          <NightIcon svgProps={{className:"text-custom-primary-text md:w-4"}} pathProps={{className: "dark:fill-custom-primary-text text-custom-secondary-text"}}/>
         </button>
       </div>
       <div
@@ -72,11 +72,14 @@ const MenuSwitcher = () => {
       <Tooltip
         hasArrow
         label="All Tools by the Bitcoin Dev Project"
-        className="bg-custom-lightGrey dark:bg-custom-hover-state text-white dark:text-custom-primary-text text-center text-sm"
+        className="bg-custom-black dark:bg-custom-black text-custom-primary-text text-center text-sm font-medium"
         padding="16px"
         borderRadius="8px"
-        maxW="157px"
+        maxW="180px"
         mx="4px"
+        isDisabled={open}
+        bgColor="var(--black)"
+        placement="bottom-end"
       >
         <div
           className={`flex flex-col rounded-lg border border-custom-brightOrange-100 dark:border-custom-stroke  w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
@@ -86,18 +89,18 @@ const MenuSwitcher = () => {
           }`}
         >
           <div>
-            <AppsIcon />
+            <AppsIcon className="md:w-7" />
           </div>
-          {open && (
-            <div
-              ref={popoverRef}
-              className="absolute top-0 right-0 mt-16 md:mt-20 xl:mt-24 mr-3 md:mr-5 2xl:mr-7"
-            >
-              <AppMenu />
-            </div>
-          )}
         </div>
       </Tooltip>
+      {open && (
+        <div
+          ref={popoverRef}
+          className="absolute top-0 right-0 mt-16 md:mt-20 xl:mt-24 mr-3 md:mr-5 2xl:mr-7"
+        >
+          <AppMenu />
+        </div>
+      )}
     </button>
   );
 };

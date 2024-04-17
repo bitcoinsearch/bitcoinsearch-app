@@ -5,7 +5,7 @@ const AppsIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     color="#F7931A"
     width="22"
-    height="22"
+    height="auto"
     viewBox="0 0 22 22"
     fill="none"
     {...props}

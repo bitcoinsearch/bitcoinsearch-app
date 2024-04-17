@@ -4,8 +4,8 @@ import { SVGProps } from "react";
 const DayIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     color="#F7931A"
-    width="16"
-    height="16"
+    width="12"
+    height="auto"
     viewBox="0 0 16 16"
     fill="none"
     {...props}
