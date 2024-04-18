@@ -1,6 +1,4 @@
 import FilterIcon from "@/components/svgs/FilterIcon";
-import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
-import { useTailwindBreakpoint } from "@/hooks/useTailwindBreakpoint";
 import useUIContext from "@/hooks/useUIContext";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import React from "react";
@@ -11,15 +9,12 @@ import SearchBox from "@/components/customSearchbox/SearchBox";
 const Header = ({ openForm }) => {
   const { sidebarToggleManager } = useUIContext();
   const { makeQuery, filterFields, pagingInfo } = useSearchQuery();
-  const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
 
   const numberOfAppliedFilters = filterFields.length;
 
   const handleSubmit = (input: string) => {
     makeQuery(input);
   };
-
-  const isMediumScreen = useTailwindBreakpoint("md");
 
   const handleAutoCompleteSelect = (
     selection
@@ -30,17 +25,15 @@ const Header = ({ openForm }) => {
 
   return (
     <div className="flex pt-10 md:pt-0 gap-2 mx-auto max-w-3xl w-full justify-center bg-custom-background">
-      {(!isMediumScreen || !hiddenHomeFacet) && (
-        <SearchBox
-          autocompleteMinimumCharacters={3}
-          view={SearchBoxView}
-          autocompleteSuggestions={true}
-          debounceLength={0}
-          onSubmit={handleSubmit}
-          className="w-full"
-          onSelectAutocomplete={handleAutoCompleteSelect}
-        />
-      )}
+      <SearchBox
+        autocompleteMinimumCharacters={3}
+        view={SearchBoxView}
+        autocompleteSuggestions={true}
+        debounceLength={0}
+        onSubmit={handleSubmit}
+        className="w-full"
+        onSelectAutocomplete={handleAutoCompleteSelect}
+      />
       <div data-has-results={pagingInfo.totalResults > 0} className="relative data-[has-results='false']:hidden md:hidden peer-data-[input-focus='true']/search:hidden">
         <button
           onClick={() => sidebarToggleManager.updater(true)}

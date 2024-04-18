@@ -76,7 +76,6 @@ export default function App() {
           }`}
         >
           <HomeTextBanner className={`header ${results.length && "pt-10"}`} />
-          <div className="pt-12"></div>
           <Layout
             header={<Header openForm={openForm} />}
             sideContent={<SideBar />}

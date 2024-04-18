@@ -12,13 +12,18 @@ const Layout = ({
   bodyHeader,
   bodyFooter,
 }: LayoutProps) => {
-  const { hiddenBody, hiddenHomeFacet } = useIsInitialStateWithoutFilter();
+  const { hiddenBody, isHomePage } = useIsInitialStateWithoutFilter();
 
   const { sidebarToggleManager } = useUIContext();
 
   return (
-    <div className="bg-custom-background">
-      <section className="px-4 pb-8">{header}</section>
+    <div className="bg-custom-background pt-[60px] md:pt-[88px] 2xl:pt-[122px]">
+      <section
+        data-is-homepage={isHomePage}
+        className="data-[is-homepage='false']:md:hidden px-4 pb-8"
+      >
+        {header}
+      </section>
       {!hiddenBody && (
         <div
           data-sb-open={sidebarToggleManager.state}
