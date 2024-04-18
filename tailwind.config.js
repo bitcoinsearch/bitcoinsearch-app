@@ -37,6 +37,7 @@ module.exports = {
             200: "#ED8936",
             300: "#FAA739",
           },
+          otherLight: "var(--other-light-text)"
         },
       },
       backgroundImage: {

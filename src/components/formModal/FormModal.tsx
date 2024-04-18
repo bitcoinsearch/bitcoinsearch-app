@@ -138,7 +138,7 @@ const FormModal = ({ formOpen, closeForm }) => {
                 </FormControl>
                 <div className="flex gap-2 lg:gap-4 text-custom-primary-text">
                   <button
-                    className="py-3 w-full font-bold mx-auto text-sm lg:text-base bg-[#D9D9D9] rounded-[10px]"
+                    className="py-3 w-full font-bold mx-auto text-sm lg:text-base bg-custom-otherLight rounded-[10px]"
                     disabled={formState.loading}
                     type="reset"
                     onClick={resetAndCloseForm}
