@@ -121,7 +121,7 @@ const Result = ({ result }: ResultProps) => {
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
-        <p className="text-sm   lg:text-[0.843rem] 2xl:text-lg text-custom-primary-text">
+        <p className="text-sm lg:text-[0.843rem] 2xl:text-lg text-custom-secondary-text">
           {parsedBody}
         </p>
       </div>

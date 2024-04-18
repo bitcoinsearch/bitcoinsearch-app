@@ -5,7 +5,7 @@ export const URLSearchParamsKeyword = {
 } as const;
 
 export const defaultParam = {
-  size: 10
+  size: 25
 };
 
 export const urlParamsPrefix = {

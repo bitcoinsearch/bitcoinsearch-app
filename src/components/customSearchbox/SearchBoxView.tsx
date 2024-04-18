@@ -271,7 +271,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       setIsOutsideClick(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="2xl:text-xl text-custom-primary-text dark:text-custom-primary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-stroke w-full border-none outline-none bg-transparent"
+                    className="2xl:text-xl text-custom-primary-text dark:text-[#bfbfbf] search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-stroke w-full border-none outline-none bg-transparent"
                   />
                   {isShortcutVisible && (
                     <p className="font-geist whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke">
