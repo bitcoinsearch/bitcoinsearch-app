@@ -95,15 +95,16 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       >
         {formattedOptions?.map((a, idx) => (
           <Button
-            padding={{ base: 1, lg: 3 }}
+            padding={"auto"}
+            bgColor=""
             size="no-size"
             key={`${a.value}_${idx}`}
-            className={`rounded-sm text-[8px] lg:text-[12px] 2xl:text-base lg:rounded-lg py-3 px-4 border  items-center justify-center border-custom-stroke ${
+            className={`leading-none !bg-custom-background !text-custom-primary-text text-[10px] lg:text-[12px] 2xl:text-base rounded-[2px] lg:rounded-lg py-2 px-3 border  items-center justify-center border-custom-stroke ${
               a.selected
-                ? "!bg-custom-accent !text-custom-white"
-                : "!bg-custom-hover-primary !text-custom-primary-text"
+                ? "!bg-custom-hover-state !border-custom-accent"
+                : "!bg-custom-background"
               }`}
-            onClick={() => handleToggleFilter(a)}
+            onClick={(e) => {e.stopPropagation(); handleToggleFilter(a)}}
           >
             {a.value}
           </Button>
