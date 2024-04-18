@@ -361,7 +361,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 )}
               </div>
               <button className="flex items-center bg-gradient h-[48px] 2xl:h-[66px] px-4 2xl:px-[27px] min-h-full rounded-r-lg md:rounded-r-[14px]">
-                <SearchIcon className="stroke-custom-background w-[16px] 2xl:w-[18px] md:w-auto" />
+                <SearchIcon className="text-custom-background w-[14px] md:w-[18px] 2xl:w-[24px] h-auto" />
               </button>
             </div>
           </form>
