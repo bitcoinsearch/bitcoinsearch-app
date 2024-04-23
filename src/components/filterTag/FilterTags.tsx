@@ -104,7 +104,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
                 ? "!bg-custom-hover-state !border-custom-accent"
                 : "!bg-custom-background"
               }`}
-            onClick={(e) => {e.stopPropagation(); handleToggleFilter(a)}}
+            onClick={() => handleToggleFilter(a)}
           >
             {a.value}
           </Button>
