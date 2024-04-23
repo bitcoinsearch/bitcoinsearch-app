@@ -9,7 +9,15 @@ const domains = [
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains,
+    // domain mapping is not an exhaustive list of all the domains we have
+    // domains,
+    // allow favicon from any indexed domain for now 
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**"
+      }
+    ],
   },
 };
 
