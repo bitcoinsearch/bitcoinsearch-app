@@ -193,7 +193,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
             Suggest a source
           </span>
           <span className="p-[6px] bg-custom-primary-text group-hover/source:bg-custom-accent  rounded-md">
-            <PlusIcon />
+            <PlusIcon className="text-custom-background" />
           </span>
         </div>
       )}

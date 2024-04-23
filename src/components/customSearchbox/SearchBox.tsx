@@ -75,8 +75,6 @@ const SearchBoxContainer = (
   };
   const handleOnSelectAutocomplete = () => {};
 
-  // const rest = __rest(_a, ["autocompleteMinimumCharacters", "autocompleteResults", "autocompleteSuggestions", "autocompletedResults", "autocompletedSuggestions", "className", "autocompleteView", "inputProps", "inputView", "onSelectAutocomplete", "onSubmit", "searchTerm", "view"]);
-  // const useAutocomplete = (!!autocompleteSuggestions) && searchTerm.length >= autocompleteMinimumCharacters;
   const useAutocomplete = !!autocompleteSuggestions;
   const autocompletedSuggestionsCount = Object.entries(
     autocompletedSuggestions

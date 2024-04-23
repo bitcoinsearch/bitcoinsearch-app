@@ -135,7 +135,7 @@ const Result = ({ result }: ResultProps) => {
         <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
           {dateString && (
             <div className="flex w-full items-center gap-2">
-              <DateIcon />
+              <DateIcon className="flex-shrink-0 text-custom-black dark:text-custom-secondary-text" />
               <p className="text-[8px] whitespace-nowrap lg:text-xs 2xl:text-base">
                 {dateString}
               </p>
