@@ -182,7 +182,7 @@ export const LandingPage = () => {
           onClick={() => {
             window.scrollTo({ top: 0 });
           }}
-          className=" rounded-2xl bg-transparent border border-custom-accent gap-3 lg:gap-6  py-[18px] lg:py-9 px-4 lg:px-8 text-custom-accent hover:bg-custom-accent hover:text-white flex items-center justify-center text-[18px] lg:text-[32px] font-semibold"
+          className="rounded-2xl bg-transparent border border-custom-accent gap-3 lg:gap-6 py-[18px] lg:py-6 3xl:py-9 px-4 lg:px-5 3xl:px-8 text-custom-accent hover:bg-custom-accent hover:text-white flex items-center justify-center text-[18px] lg:text-2xl 3xl:text-[32px] font-semibold"
         >
           <svg
             width="28"
@@ -203,7 +203,7 @@ export const LandingPage = () => {
               strokeWidth="4"
             />
           </svg>
-          Start searching now
+          <span className="leading-none">Start searching now</span>
         </button>
       </div>
       <ResultFooter />

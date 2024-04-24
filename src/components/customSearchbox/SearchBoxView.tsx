@@ -216,6 +216,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.stopPropagation();
     e.preventDefault();
+    if (!searchTerm?.trim()) {
+      return;
+    }
     onSubmit(searchTerm);
     setFocus(false);
     setTyped(false);
@@ -271,10 +274,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       setIsOutsideClick(false);
                     }}
                     placeholder="Search for topics, authors or resources..."
-                    className="2xl:text-xl text-custom-primary-text dark:text-[#bfbfbf] search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full placeholder:text-custom-stroke w-full border-none outline-none bg-transparent"
+                    className="2xl:text-xl text-custom-primary-text font-medium dark:text-[#bfbfbf] placeholder:text-custom-primary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full w-full border-none outline-none bg-transparent"
                   />
                   {isShortcutVisible && (
-                    <p className="font-geist whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke">
+                    <p className="font-geist whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke dark:text-custom-primary-text">
                       <kbd className="font-geist">
                         {isMacDevice ? "⌘" : "CTRL"}
                       </kbd>{" "}
@@ -294,7 +297,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen ? "flex" : "hidden"
-                  } border absolute max-h-[60vh] text-left overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full max-w-3xl bg-custom-background rounded-b-2xl gap-4 md:gap-8  flex-col `}
+                  } border absolute max-h-[60vh] text-left overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full bg-custom-background rounded-b-2xl gap-4 md:gap-8  flex-col `}
                 >
                   {/* Each search */}
                   {defaultSearchTags.map((tagType) => (
@@ -337,7 +340,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <div
                     role="presentation"
                     tabIndex={0}
-                    className={`border absolute top-11.5 text-left bg-custom-background border-t-0 border-custom-stroke z-20 overflow-hidden  w-full max-w-3xl   rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
+                    className={`border absolute top-11.5 text-left bg-custom-background border-t-0 border-custom-stroke z-20 overflow-hidden  w-full   rounded-b-xl md:rounded-b-2xl  flex flex-col  `}
                   >
                     <ul>
                       {suggestions.map((sug, index) => (
