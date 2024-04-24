@@ -47,10 +47,4 @@ export const menuApps = [
     title:
       "Comprehensive archive of Bitcoin-related transcripts for educational reference",
   },
-  {
-    href: "/",
-    image: "/apps/bitcoin-search.jpg",
-    name: "Bitcoin Transcripts Search",
-    title: "Better google for bitcoin tech-related information and resources",
-  },
 ] satisfies Array<MenuApp>;
