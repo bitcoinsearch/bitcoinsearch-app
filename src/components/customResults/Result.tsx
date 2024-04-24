@@ -109,6 +109,7 @@ const Result = ({ result }: ResultProps) => {
         <p className="capitalize">{siteName}</p>
         <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
         <a
+          target="_blank"
           className=""
           href={mappedUrl}
           data-umami-event="URL Clicked"
@@ -122,6 +123,7 @@ const Result = ({ result }: ResultProps) => {
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
           <a
             href={mappedUrl}
+            target="_blank"
             className="pointer-events-auto group-hover/heading:text-custom-accent cursor-pointer hover:underline"
           >
             {htmlToReactParser.parse(sanitizeHtml(title))}
