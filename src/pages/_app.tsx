@@ -53,20 +53,21 @@ const config: SearchDriverOptions = {
 
 export default function App({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <SearchQueryProvider>
-          <SearchProvider config={config}>
-            <UIContextProvider>
-              <ThemeProvider>
-                <Metadata>
+    <>
+      <Metadata />
+      <ChakraProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <SearchQueryProvider>
+            <SearchProvider config={config}>
+              <UIContextProvider>
+                <ThemeProvider>
                   <Component {...pageProps} />
-                </Metadata>
-              </ThemeProvider>
-            </UIContextProvider>
-          </SearchProvider>
-        </SearchQueryProvider>
-      </QueryClientProvider>
-    </ChakraProvider>
+                </ThemeProvider>
+              </UIContextProvider>
+            </SearchProvider>
+          </SearchQueryProvider>
+        </QueryClientProvider>
+      </ChakraProvider>
+    </>
   );
 }

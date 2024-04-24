@@ -1,7 +1,8 @@
 import Head from "next/head";
 import React from "react";
 
-const Metadata = ({ children }: { children: React.ReactNode }) => {
+
+const Metadata = () => {
   return (
     <>
       <Head>
@@ -9,9 +10,8 @@ const Metadata = ({ children }: { children: React.ReactNode }) => {
         <meta
           name="description"
           content="Search the depths of bitcoin's technical ecosystem"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="utf-8" />
+        ></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <meta
           property="og:image"
@@ -23,16 +23,11 @@ const Metadata = ({ children }: { children: React.ReactNode }) => {
           property="og:description"
           content="Search the depths of bitcoin's technical ecosystem"
         ></meta>
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary_large_image"></meta>
         <meta
           name="twitter:image"
           content="https://bitcoinsearch.xyz/btc_book_2_1.jpg"
-        />
-        <meta name="twitter:title" content="Technical ₿itcoin Search" />
-        <meta
-          name="twitter:description"
-          content="The bitcoin technical search we deserve"
-        />
+        ></meta>
         <link
           rel="preload"
           href="./font/Mona-Sans.woff2"
@@ -40,9 +35,8 @@ const Metadata = ({ children }: { children: React.ReactNode }) => {
           type="font/woff2"
           crossOrigin=""
         />
+        <script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"></script>
       </Head>
-      {children}
-      <script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"></script>
     </>
   );
 };
