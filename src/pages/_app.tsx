@@ -28,6 +28,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { UIContextProvider } from "@/context/UIContext";
 import { ThemeProvider } from "@/context/Theme";
+import Metadata from "@/layout/Metadata";
 
 const queryClient = new QueryClient();
 
@@ -58,42 +59,9 @@ export default function App({ Component, pageProps }) {
           <SearchProvider config={config}>
             <UIContextProvider>
               <ThemeProvider>
-                <Head>
-                  <meta charSet="utf-8" />
-                  <link rel="shortcut icon" href="./favicon.ico" />
-                  <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                  />
-                  <title>Bitcoin Search</title>
-                  <link rel="manifest" href="./manifest.json" />
-                  <link
-                    rel="preload"
-                    href="./font/Mona-Sans.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin=""
-                  />
-                  <meta name="twitter:card" content="summary_large_image" />
-                  <meta
-                    name="twitter:image"
-                    content="https://bitcoinsearch.xyz/btc_book_2_1.jpg?v1"
-                  />
-                  <meta
-                    name="twitter:title"
-                    content="Technical ₿itcoin Search"
-                  />
-                  <meta
-                    name="twitter:description"
-                    content="The bitcoin technical search we deserve"
-                  />
-                </Head>
-                <Script
-                  async
-                  src="https://visits.bitcoindevs.xyz/script.js"
-                  data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"
-                />
-                <Component {...pageProps} />
+                <Metadata>
+                  <Component {...pageProps} />
+                </Metadata>
               </ThemeProvider>
             </UIContextProvider>
           </SearchProvider>
