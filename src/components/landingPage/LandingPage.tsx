@@ -84,13 +84,6 @@ export const LandingPage = () => {
 
           <div className="bg-custom-background w-full md:max-h-[576px] rounded-[30px] p-4 md:pr-0 md:pl-5 lg:pl-20 flex flex-col gap-5 md:flex-row items-center md:justify-between mb-[-250px] mt-5 lg:mt-16">
             <section className="flex flex-col items-center md:items-start text-center md:text-start gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text mt-0 lg:mt-16">
-              <Image
-                src={"/svg/treasure-icon.svg"}
-                alt="treasure icon"
-                height={70}
-                width={70}
-                className=" h-10 w-10 md:h-16 md:w-16"
-              />
               <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
                 Treasure Trove of Technical Bitcoin Resources
               </h3>
@@ -129,13 +122,6 @@ export const LandingPage = () => {
         </section>
 
         <section className="flex flex-col gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text items-center md:items-start text-center md:text-start p-4 md:p-0">
-          <Image
-            src={"/svg/rounded-checkmark.svg"}
-            alt="treasure icon"
-            height={70}
-            width={70}
-            className=" h-10 w-10 md:h-16 md:w-16"
-          />
           <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
             Up-to-Date Information
           </h3>
@@ -148,12 +134,6 @@ export const LandingPage = () => {
 
       <div className="w-full rounded-[30px] flex flex-col md:flex-row justify-between mt-0 xl:mt-[100px] items-center px-4 py-4 md:py-0 md:px-10 lg:px-20  max-w-[1600px] gap-6">
         <section className="flex items-center md:items-start flex-col max-w-full md:max-w-[48%] gap-5 md:gap-8 lg:gap-12 text-custom-primary-text text-center md:text-start py-4 md:py-0">
-          <Image
-            src={"/svg/award-checkmark.svg"}
-            alt="treasure icon"
-            height={70}
-            width={70}
-          />
           <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
             Credible Sources
           </h3>

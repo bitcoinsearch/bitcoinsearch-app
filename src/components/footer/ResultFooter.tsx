@@ -1,4 +1,5 @@
 import GithubIcon from "../svgs/GithubIcon";
+import { FaDiscord } from "react-icons/fa";
 
 const Separator = ({ className }: { className?: string }) => (
   <div
@@ -28,12 +29,21 @@ const StatsLink = () => (
   </a>
 );
 
+const ContactSocials = () => {
+  return (
+    <div className="flex items-center gap-1 md:gap-2 lg:gap-3">
+      <GithubLink />
+      <FaDiscord className="text-[38px]"/>
+    </div>
+  );
+};
+
 const ResultFooter = () => {
   return (
     <footer className="bg-custom-background bottom-0 text-left md:text-center w-full border-t border-custom-stroke text-xs md:text-base 2xl:text-xl leading-normal dark:text-custom-primary-text">
       <div className="flex flex-col md:flex-row gap-y-5 items-center justify-between p-5 md:p-7 2xl:p-10 w-full max-w-[1920px] m-auto">
-        <div className="hidden md:block">
-          <GithubLink />
+        <div className="hidden md:flex">
+          <ContactSocials />
         </div>
         <Separator className="hidden xl:block" />
         <p>
@@ -55,7 +65,7 @@ const ResultFooter = () => {
         <div className="block md:hidden border-[0.5px] border-custom-stroke w-full" />
         <div className="flex w-full md:w-auto items-center justify-between gap-3 md:gap-8">
           <div className="block md:hidden">
-            <GithubLink />
+            <ContactSocials />
           </div>
           <Separator className="block md:hidden" />
           <div className="block md:hidden max-w-[100px] text-center">
@@ -65,9 +75,13 @@ const ResultFooter = () => {
           <p className="hidden md:block">
             We&apos;d love to hear your feedback on this project
           </p>
-          <button className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-custom-primary-text rounded-xl dark:text-black">
+          <a
+            href="https://cryptpad.fr/form/#/2/form/view/3P2CsohsHOkcH7C+WdtX0-tvqjBHqXnAmz5D9yx0e04/"
+            target="_blank"
+            className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-custom-primary-text rounded-xl dark:text-black"
+          >
             Give feedback
-          </button>
+          </a>
         </div>
       </div>
     </footer>
