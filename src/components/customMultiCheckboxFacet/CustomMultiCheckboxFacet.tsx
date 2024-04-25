@@ -130,17 +130,16 @@ function CustomMultiCheckboxFacet({
           {options?.map((option) => {
             const checked = option.selected;
             const value = option.value;
-            const valueDisplay = getFilterValueDisplay(option.value, label);
             return (
               <label
-                key={valueDisplay}
-                htmlFor={`example_facet_${label}${valueDisplay}`}
-                data-checkbox={valueDisplay}
+                key={option}
+                htmlFor={`example_facet_${label}${option.label}`}
+                data-checkbox={option.label}
               >
                 <div
                   data-selected={checked}
                   data-current-navigated={
-                    valueDisplay === currentNavigateCheckbox
+                    option.label === currentNavigateCheckbox
                   }
                   className="flex justify-between py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
                   onClick={() => (checked ? onRemove(value) : onSelect(value))}
@@ -148,7 +147,7 @@ function CustomMultiCheckboxFacet({
                 >
                   <div
                     className="selectable-option flex items-center gap-3"
-                    id={`example_facet_${label}${valueDisplay}`}
+                    id={`example_facet_${label}${option.label}`}
                   >
                     <Image
                       data-transaction-name={`facet - ${label}`}
@@ -156,8 +155,8 @@ function CustomMultiCheckboxFacet({
                       src={LightningIcon}
                       alt="bolt icon"
                     />
-                    <span className="text-sm 2xl:text-base group-data-[selected=true]/checkOption:font-bold">
-                      {valueDisplay}
+                    <span className="capitalize text-sm 2xl:text-base group-data-[selected=true]/checkOption:font-bold">
+                      {option.label}
                     </span>
                   </div>
                   <span className="group-data-[selected=true]/checkOption:font-medium">

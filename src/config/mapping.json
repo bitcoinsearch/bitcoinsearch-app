@@ -2,9 +2,9 @@
   "labels": {
     "https://bitcointalk.org/": "Bitcointalk",
     "https://bitcoin.stackexchange.com": "Bitcoin StackExchange",
-    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin dev mailing list",
-    "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "LN dev mailing list",
-    "https://btctranscripts.com/": "BTC transcripts",
+    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin Dev mailing list",
+    "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "LN Dev mailing list",
+    "https://btctranscripts.com/": "BTC Transcripts",
     "https://bitcoinops.org/en/": "Bitcoin Optech",
     "https://bitcoincore.org": "Bitcoin Core",
     "https://github.com/bitcoin/bips": "Bitcoin BIPs",
