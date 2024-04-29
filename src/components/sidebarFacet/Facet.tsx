@@ -74,8 +74,6 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
     return baseOptions.filter(item => searchTermFacet.trim() ? (matchCharactersWithRegex(item.label, searchTermFacet)) : true)
   }, [searchTermFacet, baseOptions])
 
-  console.log(options)
-
   const onSearch = (val: string) => {
     setSearchTermFacet(val)
   }

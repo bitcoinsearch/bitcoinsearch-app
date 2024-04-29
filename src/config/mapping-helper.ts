@@ -14,10 +14,43 @@ export const getDomainLabel = (domain_url: string, plainString = false) => {
     : null;
 };
 
-export const getDomainFavicon = (domain_url: string) => {
+export const getDomainFavicon = (domain_url: string, isDark: boolean) => {
   const url = new URL(domain_url);
-
+  const iconMapping = mapping.icon[domain_url];
+  if (iconMapping) {
+    if (typeof iconMapping === "object") {
+      return isDark ? iconMapping.dark : iconMapping.light;
+    } else if (typeof iconMapping === "string") {
+      return iconMapping;
+    }
+  }
   return url.origin + "/favicon.ico";
+};
+
+export const fetchDomainFavicon = (domain_url: string): Promise<string> => {
+  const url = new URL(domain_url).origin
+  return fetch(url)
+    .then((response) => response.text())
+    .then((html) => {
+      // Create a temporary DOM element to parse the HTML
+      const temp = document.createElement("div");
+      temp.innerHTML = html;
+
+      // Find all <link> elements with rel="icon" or rel="shortcut icon"
+      const links: NodeListOf<HTMLLinkElement> = temp.querySelectorAll(
+        'link[rel="icon"], link[rel="shortcut icon"]'
+      );
+
+      // If found, return the href attribute of the first matching <link> element
+      if (links.length > 0) {
+        return url + links[0].getAttribute("href");
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => {
+      return null;
+    });
 };
 
 export const deriveNameFromUrl = (domain_url: string) => {

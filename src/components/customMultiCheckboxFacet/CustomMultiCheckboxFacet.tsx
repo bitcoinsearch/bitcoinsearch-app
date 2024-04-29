@@ -132,7 +132,7 @@ function CustomMultiCheckboxFacet({
             const value = option.value;
             return (
               <label
-                key={option}
+                key={option.label}
                 htmlFor={`example_facet_${label}${option.label}`}
                 data-checkbox={option.label}
               >

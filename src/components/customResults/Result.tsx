@@ -9,6 +9,7 @@ import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import DateIcon from "../svgs/DateIcon";
 import ResultFavicon from "./ResultFavicon";
+import { useTheme } from "@/context/Theme";
 
 const htmlToReactParser = new (Parser as any)();
 const { tldrLists, combinedSummaryTag } = getMapping();
@@ -90,6 +91,8 @@ const Result = ({ result }: ResultProps) => {
       link && link.click();
     }
   };
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -103,8 +106,9 @@ const Result = ({ result }: ResultProps) => {
       <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
         <ResultFavicon
           key={siteName}
-          src={getDomainFavicon(mappedUrl)}
+          src={getDomainFavicon(domain, isDark)}
           alt={`${siteName}-favicon`}
+          domain={domain}
         />
         <p className="capitalize">{siteName}</p>
         <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />

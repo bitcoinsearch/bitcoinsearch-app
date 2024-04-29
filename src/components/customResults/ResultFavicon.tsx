@@ -4,18 +4,20 @@ import React, { useCallback, useState } from "react";
 type ResultFaviconProps = React.ComponentProps<typeof Image> & {
   fallbackUrl?: string;
   numbersOfRetry?: number;
+  domain: string
 };
 
 const ResultFavicon = ({
   alt,
-  fallbackUrl = "/default_favicon.svg",
+  fallbackUrl = "/domain_favicons/default.svg",
   numbersOfRetry = 1,
+  domain,
   ...props
 }: ResultFaviconProps) => {
   const [retryCount, setRetryCount] = useState(0);
   const [src, setSrc] = useState(props.src);
 
-  const onError = useCallback(() => {
+  const onError = useCallback(async () => {
     if (retryCount < numbersOfRetry) {
       setRetryCount((count) => count + 1);
       return;
@@ -27,7 +29,7 @@ const ResultFavicon = ({
   return (
     <Image
       key={retryCount.toString()}
-      className="rounded-xl"
+      className="rounded-full p-[4px] object-fill"
       width={24}
       height={24}
       alt={alt}
