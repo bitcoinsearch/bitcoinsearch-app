@@ -12,7 +12,7 @@ import "../components/footer/footer.scss";
 import "../components/loadingBar/loadingBar.scss";
 import "../components/noResultsCard/noResults.scss";
 import { ChakraProvider } from "@chakra-ui/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SearchQueryProvider } from "@/context/SearchQueryContext";
 import {
   buildAutocompleteQueryConfig,
@@ -57,15 +57,17 @@ export default function App({ Component, pageProps }) {
       <Metadata />
       <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          <SearchQueryProvider>
-            <SearchProvider config={config}>
-              <UIContextProvider>
-                <ThemeProvider>
-                  <Component {...pageProps} />
-                </ThemeProvider>
-              </UIContextProvider>
-            </SearchProvider>
-          </SearchQueryProvider>
+          <Hydrate state={pageProps.dehydratedState}>
+            <SearchQueryProvider>
+              <SearchProvider config={config}>
+                <UIContextProvider>
+                  <ThemeProvider>
+                    <Component {...pageProps} />
+                  </ThemeProvider>
+                </UIContextProvider>
+              </SearchProvider>
+            </SearchQueryProvider>
+          </Hydrate>
         </QueryClientProvider>
       </ChakraProvider>
     </>

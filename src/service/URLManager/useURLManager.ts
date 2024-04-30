@@ -22,7 +22,7 @@ const useURLManager = () => {
 
   const addSort = (sortField: string, value: string) => {
     urlParams.set(appendSortName(sortField), value);
-    router.push(router.pathname + "?" + urlParams.toString());
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true });
   };
 
   const removeSort = (sortField: string) => {
@@ -30,7 +30,7 @@ const useURLManager = () => {
     const newUrl = urlParams.toString()
       ? `${router.pathname}?${urlParams.toString()}`
       : router.pathname;
-    router.push(newUrl);
+    router.push(newUrl, undefined, { shallow: true });
   };
 
   const getSearchTerm = () => {
@@ -42,7 +42,7 @@ const useURLManager = () => {
     if (currentFilterForType.includes(filterValue)) return;
     removePageQuery();
     urlParams.append(appendFilterName(filterType), filterValue);
-    router.push(router.pathname + "?" + urlParams.toString());
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true });
   };
 
   const removeFilter = ({ filterType, filterValue }) => {
@@ -60,7 +60,7 @@ const useURLManager = () => {
         for (let i = 0; i < currentFilterForType.length; i++) {
           urlParams.append(appendedFilterName, currentFilterForType[i]);
         }
-        router.push(router.pathname + "?" + urlParams.toString());
+        router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true });
       }
     }
   };
@@ -75,7 +75,7 @@ const useURLManager = () => {
 
     removePageQuery();
 
-    router.push(router.pathname + "?" + urlParams.toString());
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true });
   };
 
   const removeFilterTypes = (filterTypes: FacetKeys[]) => {
@@ -87,7 +87,7 @@ const useURLManager = () => {
       urlParams.delete(appendedFilterName)
       removedFilter = true
     })
-    removedFilter && router.push(router.pathname + "?" + urlParams.toString())
+    removedFilter && router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true })
   }
 
   const removePageQuery = () => {
@@ -96,7 +96,7 @@ const useURLManager = () => {
 
   const setResultsSize = (size: number) => {
     urlParams.set(URLSearchParamsKeyword.SIZE, size.toString())
-    router.push(router.pathname + "?" + urlParams.toString())
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true })
   }
 
   return {

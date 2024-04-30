@@ -17,6 +17,7 @@ const useIsInitialStateWithoutFilter = () => {
   // visible if
   if (
     resultLength && (searchQuery || hasFilters)
+    // resultLength
   ) {
     hiddenBody = false;
   } else {
