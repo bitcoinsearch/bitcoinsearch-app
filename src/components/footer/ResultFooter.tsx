@@ -18,6 +18,17 @@ const GithubLink = () => (
   </a>
 );
 
+const DiscordLink = () => (
+  <a
+    href="https://discord.gg/EAy9XMufbY"
+    target="_blank"
+    rel="noreferrer"
+    className="focus:outline-none"
+  >
+    <FaDiscord className="text-[38px]"/>
+  </a>
+);
+
 const StatsLink = () => (
   <a
     href="https://visits.bitcoindevs.xyz/share/0Beh7BUzocqrtgA5/bitcoin-search"
@@ -33,7 +44,7 @@ const ContactSocials = () => {
   return (
     <div className="flex items-center gap-1 md:gap-2 lg:gap-3">
       <GithubLink />
-      <FaDiscord className="text-[38px]"/>
+      <DiscordLink />
     </div>
   );
 };

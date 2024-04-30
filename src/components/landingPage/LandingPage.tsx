@@ -55,7 +55,7 @@ export const LandingPage = () => {
                       : "/landing/light/google-search-image-mobile.webp"
                     : isDark
                     ? "/landing/dark/google-search-image.webp"
-                    : "/landing/light/google-search.webp"
+                    : "/landing/light/google-search-image.webp"
                 }
                 alt="google search image"
                 fill
@@ -75,7 +75,7 @@ export const LandingPage = () => {
                     ? "/landing/dark/bitcoin-search-image.webp"
                     : "/landing/light/bitcoin-search-image.webp"
                 }
-                alt="google search image"
+                alt="bitcoin search image"
                 fill
                 className="object-contain transform hover:scale-[1.3] hover:translate-x-[-6px] origin-right ease-in-out duration-300 hover:z-30"
               />
