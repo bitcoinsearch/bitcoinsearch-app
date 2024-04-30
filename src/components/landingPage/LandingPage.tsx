@@ -159,6 +159,7 @@ export const LandingPage = () => {
 
       <div className="py-[50px] md:py-[122px]">
         <button
+          aria-label="scroll to top"
           onClick={() => {
             window.scrollTo({ top: 0 });
           }}

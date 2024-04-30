@@ -144,6 +144,7 @@ function CustomMultiCheckboxFacet({
                   className="flex justify-between py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
                   onClick={() => (checked ? onRemove(value) : onSelect(value))}
                   role="button"
+                  aria-label={`${checked? 'uncheck' : 'check'} filter ${label}:${option.label}`}
                 >
                   <div
                     className="selectable-option flex items-center gap-3"

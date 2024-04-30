@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 import React from "react";
 
 
@@ -35,8 +36,8 @@ const Metadata = () => {
           type="font/woff2"
           crossOrigin=""
         />
-        <script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"></script>
       </Head>
+      <Script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"></Script>
     </>
   );
 };

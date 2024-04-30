@@ -105,6 +105,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
                 : "!bg-custom-background"
               }`}
             onClick={() => handleToggleFilter(a)}
+            aria-label={`${a.selected? 'unselect' : 'select'} filter ${field}:${a.value}`}
           >
             {a.value}
           </Button>

@@ -35,6 +35,7 @@ const SortingView = ({
             as="button"
             style={{ width: "100%" }}
             className="group/menuBtn"
+            aria-label="open sort menu"
           >
             <div className="w-full flex bg-custom-background px-4 py-3 border-[1px] border-custom-stroke items-center justify-between rounded-xl">
               <p className="text-sm 2xl:text-base font-bold text-custom-primary-text ">
@@ -61,6 +62,7 @@ const SortingView = ({
                   className="group"
                   p={0}
                   m={0}
+                  aria-label={`sort by ${item.label}`}
                 >
                   <div className="w-full px-5 py-[6px] flex gap-2 font-medium text-sm 2xl:text-base group-data-[selected=false]:hover:bg-custom-hover-state">
                     <Image
