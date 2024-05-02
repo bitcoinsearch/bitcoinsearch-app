@@ -109,6 +109,7 @@ const Result = ({ result }: ResultProps) => {
           src={getDomainFavicon(domain, isDark)}
           alt={`${siteName}-favicon`}
           domain={domain}
+          isDark={isDark}
         />
         <p className="capitalize">{siteName}</p>
         <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />

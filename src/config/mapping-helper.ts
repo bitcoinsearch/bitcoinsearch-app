@@ -16,7 +16,9 @@ export const getDomainLabel = (domain_url: string, plainString = false) => {
 
 export const getDomainFavicon = (domain_url: string, isDark: boolean) => {
   const url = new URL(domain_url);
-  const iconMapping = mapping.icon[domain_url];
+  const baseUrl = url.origin
+  console.log({baseUrl})
+  const iconMapping = mapping.icon[baseUrl];
   if (iconMapping) {
     if (typeof iconMapping === "object") {
       return isDark ? iconMapping.dark : iconMapping.light;
@@ -24,7 +26,7 @@ export const getDomainFavicon = (domain_url: string, isDark: boolean) => {
       return iconMapping;
     }
   }
-  return url.origin + "/favicon.ico";
+  return baseUrl + "/favicon.ico";
 };
 
 export const fetchDomainFavicon = (domain_url: string): Promise<string> => {

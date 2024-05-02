@@ -62,16 +62,16 @@
     "https://delvingbitcoin.org/": "Delving Bitcoin"
   },
   "icon": {
-    "https://bitcointalk.org": "/favicons/bitcointalk.svg",
+    "https://bitcointalk.org": "/domain_favicons/bitcointalk.svg",
     "https://github.com": {
       "light": "/domain_favicons/github/light.png",
       "dark": "/domain_favicons/github/dark.png"
     },
-    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": {
-      "light": "/domain_favicons/mailing_list/light.png",
-      "dark": "/domain_favicons/mailing_list/dark.png"
+    "https://gist.github.com": {
+      "light": "/domain_favicons/github/light.png",
+      "dark": "/domain_favicons/github/dark.png"
     },
-    "https://lists.linuxfoundation.org/pipermail/lightning-dev/": {
+    "https://lists.linuxfoundation.org": {
       "light": "/domain_favicons/mailing_list/light.png",
       "dark": "/domain_favicons/mailing_list/dark.png"
     },
@@ -79,7 +79,7 @@
       "light": "/domain_favicons/medium/light.png",
       "dark": "/domain_favicons/medium/dark.png"
     },
-    "https://delvingbitcoin.org/": "/domain_favicons/delving.png"
+    "https://delvingbitcoin.org": "/domain_favicons/delving.png"
   },
   "media": ["https://btctranscripts.com/"],
   "collection": [

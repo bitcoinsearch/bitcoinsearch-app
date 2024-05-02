@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/Theme";
 import Image from "next/image";
 import React, { useCallback, useState } from "react";
 
@@ -5,13 +6,15 @@ type ResultFaviconProps = React.ComponentProps<typeof Image> & {
   fallbackUrl?: string;
   numbersOfRetry?: number;
   domain: string
+  isDark: boolean;
 };
 
 const ResultFavicon = ({
   alt,
-  fallbackUrl = "/domain_favicons/default.svg",
+  fallbackUrl,
   numbersOfRetry = 1,
   domain,
+  isDark,
   ...props
 }: ResultFaviconProps) => {
   const [retryCount, setRetryCount] = useState(0);
@@ -22,8 +25,8 @@ const ResultFavicon = ({
       setRetryCount((count) => count + 1);
       return;
     }
-
-    setSrc(fallbackUrl);
+    const defaultFallback = isDark? "/domain_favicons/default_dark.png" : "/domain_favicons/default_light.png"
+    setSrc(fallbackUrl ?? defaultFallback);
   }, [fallbackUrl, numbersOfRetry, retryCount]);
 
   return (
