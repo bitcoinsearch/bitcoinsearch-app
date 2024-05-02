@@ -71,10 +71,12 @@ const Result = ({ result }: ResultProps) => {
   const sanitizedBody = sanitizeHtml(
     getBodyData(result).replaceAll("\n", "")
   ).trim();
+
+  const strippedUrl = mappedUrl.replace(/^(https?:\/\/)/i, '');
   const truncatedUrl =
-    mappedUrl.length > TruncateLinkInChar
-      ? mappedUrl.substring(0, TruncateLinkInChar) + "..."
-      : mappedUrl;
+    strippedUrl.length > TruncateLinkInChar
+      ? strippedUrl.substring(0, TruncateLinkInChar) + "..."
+      : strippedUrl;
   const truncatedBody =
     sanitizedBody.length > TruncateLengthInChar
       ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
