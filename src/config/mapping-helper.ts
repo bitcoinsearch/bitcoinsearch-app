@@ -100,7 +100,7 @@ export const getDomainName = (domain: string) => {
           /(?:https?:\/\/)?(?:www\.)?([^./]+)\.(?:com|org|nl|co\.uk)/
         )
       : "";
-  return siteName[1] ?? domain;
+  return siteName?.[1] ?? domain;
 };
 
 const getMappedDomainName = (mappedUrl: string): string | undefined => {

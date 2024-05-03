@@ -75,7 +75,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const isMacDevice = isMac();
   const currentItemRef = useRef<HTMLLIElement | null>(null);
 
-  const { getFilter, addFilter, removeFilter, clearAllFilters } =
+  const { getFilter, addFilter, removeFilter, clearAllFilters, toggleFilter } =
     useURLManager();
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -110,32 +110,18 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchTerm(value);
   };
   const onTabClick = (
-    value: string,
     filterType: FacetKeys,
-    filterValue: string
+    value: string
   ) => {
     setIsOutsideClick(true);
     setFocus(false);
     if (filterType) {
-      if (getFilter(filterType).includes(filterValue)) {
-        removeFilter({ filterType, filterValue });
+      if (filterType === "domain") {
+        toggleFilter({filterType, filterValue: value, multiSelect: false})
       } else {
-        if (filterType === "domain") {
-          if (getFilter("domain")[0]) {
-            removeFilter({
-              filterType: "domain",
-              filterValue: getFilter("domain")[0],
-            });
-          }
-        }
-        addFilter({ filterType, filterValue });
-        if (!inputRef.current.value) {
-          handleChange(filterValue);
-        }
-        setIsPageLoaded(true);
-        makeQuery(filterValue);
+        toggleFilter({filterType, filterValue: value, multiSelect: true})
       }
-      return;
+      return
     }
     setIsPageLoaded(true);
     handleChange(value);
@@ -313,7 +299,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                           <div
                             key={tag}
                             onClick={() => {
-                              onTabClick(tag, tagType.type as FacetKeys, tag);
+                              onTabClick(tagType.type as FacetKeys, tag);
                             }}
                             className={`${
                               getFilter(tagType.type as FacetKeys).includes(tag)
