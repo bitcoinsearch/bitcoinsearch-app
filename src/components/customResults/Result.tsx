@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import { getDomainFavicon, getMapping } from "@/config/mapping-helper";
-import { getSiteName, getUrlForCombinedSummary } from "@/utils/tldr";
+import { getDomainFavicon, getMapping, getDomainName } from "@/config/mapping-helper";
+import { getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import DateIcon from "../svgs/DateIcon";
@@ -82,7 +82,7 @@ const Result = ({ result }: ResultProps) => {
       ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
-  const siteName = getSiteName(mappedUrl);
+  const siteName = getDomainName(domain);
 
   const linkRef = useRef<HTMLAnchorElement>(null);
 

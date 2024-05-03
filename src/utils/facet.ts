@@ -1,5 +1,4 @@
-import mapping from "@/config/mapping.json"
-import { deriveNameFromUrl } from "@/config/mapping-helper";
+import { getDomainName } from "@/config/mapping-helper";
 
 type FilterValue = {
   name: string;
@@ -11,11 +10,7 @@ export function getFilterValueDisplay(filterValue: FilterValue, label: string) {
     return filterValue.name;
   } else {
     if (label === "domain") {
-      if (mapping?.labels[filterValue]) {
-        return mapping?.labels[filterValue];
-      } else {
-        return deriveNameFromUrl(filterValue);
-      }
+      return getDomainName(filterValue)
     }
     else return filterValue;
   }

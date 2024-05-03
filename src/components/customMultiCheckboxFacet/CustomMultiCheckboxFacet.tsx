@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import mapping from "../../config/mapping.json";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
 import appendClassName from "../../utils/elastic-search-ui-functions";
-import { deriveNameFromUrl } from "@/config/mapping-helper";
 import SidebarSection from "../sidebarFacet/SidebarSection";
 import Image from "next/image";
 import { FacetKeys } from "@/types";
@@ -42,23 +40,6 @@ function CustomMultiCheckboxFacet({
   const { isOpen, onToggle, onOpen, onClose } = useDisclosure({
     defaultIsOpen: true,
   });
-  // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
-  function getFilterValueDisplay(filterValue, label) {
-    if (filterValue === undefined || filterValue === null) {
-      return "";
-    }
-    if (Object.prototype.hasOwnProperty.call(filterValue, "name")) {
-      return filterValue.name;
-    }
-    if (label === "domain") {
-      if (mapping?.labels[filterValue]) {
-        return mapping?.labels[filterValue];
-      } else {
-        return deriveNameFromUrl(filterValue);
-      }
-    }
-    return String(filterValue);
-  }
 
   const searchRef = useRef<HTMLInputElement>();
   const multiCheckboxRef = useRef<HTMLDivElement>();

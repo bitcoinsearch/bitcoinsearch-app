@@ -1,10 +1,8 @@
 import useSearchQuery from '@/hooks/useSearchQuery';
 import useURLManager from '@/service/URLManager/useURLManager';
 import { FacetKeys } from '@/types'
-import { matchCharactersWithRegex } from '@/utils/facet';
+import { getFilterValueDisplay, matchCharactersWithRegex } from '@/utils/facet';
 import React, { FunctionComponent, useMemo, useState } from 'react'
-import mapping from "../../config/mapping.json";
-import { deriveNameFromUrl } from '@/config/mapping-helper';
 
 type ViewProps = Omit<FacetProps, "view" | "isFilterable"> & {
   showSearch: boolean;
@@ -31,23 +29,6 @@ type FacetList = {
   value: string;
   count: number;
   selected: boolean
-}
-
-function getFilterValueDisplay(filterValue, label) {
-  if (filterValue === undefined || filterValue === null) {
-    return "";
-  }
-  if (Object.prototype.hasOwnProperty.call(filterValue, "name")) {
-    return filterValue.name;
-  }
-  if (label === "domain") {
-    if (mapping?.labels[filterValue]) {
-      return mapping?.labels[filterValue];
-    } else {
-      return deriveNameFromUrl(filterValue);
-    }
-  }
-  return String(filterValue);
 }
 
 const Facet = ({field, isFilterable, label, view}: FacetProps) => {

@@ -16,8 +16,7 @@ export const getDomainLabel = (domain_url: string, plainString = false) => {
 
 export const getDomainFavicon = (domain_url: string, isDark: boolean) => {
   const url = new URL(domain_url);
-  const baseUrl = url.origin
-  console.log({baseUrl})
+  const baseUrl = url.origin;
   const iconMapping = mapping.icon[baseUrl];
   if (iconMapping) {
     if (typeof iconMapping === "object") {
@@ -30,7 +29,7 @@ export const getDomainFavicon = (domain_url: string, isDark: boolean) => {
 };
 
 export const fetchDomainFavicon = (domain_url: string): Promise<string> => {
-  const url = new URL(domain_url).origin
+  const url = new URL(domain_url).origin;
   return fetch(url)
     .then((response) => response.text())
     .then((html) => {
@@ -55,7 +54,7 @@ export const fetchDomainFavicon = (domain_url: string): Promise<string> => {
     });
 };
 
-export const deriveNameFromUrl = (domain_url: string) => {
+export const deriveNameFromUrl = (domain_url: string, ) => {
   try {
     let title;
     const newUrl = new URL(domain_url);
@@ -63,7 +62,7 @@ export const deriveNameFromUrl = (domain_url: string) => {
     if (newUrl.hostname === "github.com") {
       title = pathname
         .split("/")
-        .slice(1)
+        .slice(1, 3)
         .map((word) => word[0].toUpperCase() + word.slice(1))
         .join(" ");
     } else {
@@ -78,10 +77,32 @@ export const deriveNameFromUrl = (domain_url: string) => {
     }
     return title;
   } catch (err) {
-    return domain_url;
+    return null;
   }
 };
 
 export const getMapping = () => {
   return mapping;
+};
+
+export const getDomainName = (domain: string) => {
+  // get site name from mapping.json if it exists
+  const mappedDomainName = getMappedDomainName(domain);
+  if (mappedDomainName) return mappedDomainName;
+
+  const fullDomainName = deriveNameFromUrl(domain);
+  if (fullDomainName) return fullDomainName
+
+  // Regex finds the site name e.g google.com will return google
+  const siteName =
+    typeof domain === "string"
+      ? domain.match(
+          /(?:https?:\/\/)?(?:www\.)?([^./]+)\.(?:com|org|nl|co\.uk)/
+        )
+      : "";
+  return siteName[1] ?? domain;
+};
+
+const getMappedDomainName = (mappedUrl: string): string | undefined => {
+  return mapping.labels[mappedUrl];
 };
