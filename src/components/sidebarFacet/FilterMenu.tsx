@@ -1,7 +1,5 @@
-import { generateFilterQuery } from "@/service/URLManager/helper";
 import { Facet } from "@/types";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React from "react";
 import SidebarSection from "./SidebarSection";
 import useSearchQuery from "@/hooks/useSearchQuery";
@@ -10,14 +8,11 @@ import { getFilterValueDisplay } from "@/utils/facet";
 import useURLManager from "@/service/URLManager/useURLManager";
 import CrossIcon from "public/cross_icon.svg";
 import DarkCrossIcon from "public/dark_cross_icon.svg";
-import useUIContext from "@/hooks/useUIContext";
-import CloseSidebarIcon from "public/close_sidebar.svg";
 import FilterMenuIcon from "../svgs/FilterMenuIcon";
 import { useTheme } from '@/context/Theme';
 
 const FilterMenu = () => {
   const { filterFields } = useSearchQuery();
-  const { sidebarToggleManager } = useUIContext();
 
   return (
     <>
@@ -26,12 +21,6 @@ const FilterMenu = () => {
           <FilterMenuIcon />
           <p className="text-base 2xl:text-xl font-bold">Filters</p>
         </div>
-        <span
-          className="md:hidden"
-          onClick={() => sidebarToggleManager.updater(false)}
-        >
-          <Image src={CloseSidebarIcon} alt="close sidebar" className="" />
-        </span>
       </SidebarSection>
       <AppliedFilters filters={filterFields} />
     </>

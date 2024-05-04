@@ -5,6 +5,7 @@ import React from "react";
 import SearchBoxView from "../components/customSearchbox/SearchBoxView";
 import useSearchQuery from "../hooks/useSearchQuery";
 import SearchBox from "@/components/customSearchbox/SearchBox";
+import FilterCloseIcon from "@/components/svgs/FilterCloseIcon";
 
 const Header = ({ openForm }) => {
   const { sidebarToggleManager } = useUIContext();
@@ -16,9 +17,7 @@ const Header = ({ openForm }) => {
     makeQuery(input);
   };
 
-  const handleAutoCompleteSelect = (
-    selection
-  ) => {
+  const handleAutoCompleteSelect = (selection) => {
     if (!selection.suggestion) return;
     makeQuery(removeMarkdownCharacters(selection.suggestion));
   };
@@ -34,12 +33,19 @@ const Header = ({ openForm }) => {
         className="w-full"
         onSelectAutocomplete={handleAutoCompleteSelect}
       />
-      <div data-has-results={pagingInfo.totalResults > 0} className="relative data-[has-results='false']:hidden md:hidden peer-data-[input-focus='true']/search:hidden">
+      <div
+        data-has-results={pagingInfo.totalResults > 0}
+        className="relative data-[has-results='false']:hidden md:hidden peer-data-[input-focus='true']/search:hidden"
+      >
         <button
-          onClick={() => sidebarToggleManager.updater(true)}
+          onClick={() => sidebarToggleManager.updater(!sidebarToggleManager.state)}
           className="flex items-center justify-center bg-transparent min-h-[48px] w-[48px] border border-custom-stroke rounded-xl"
         >
-          <FilterIcon className="text-custom-primary-text" />
+          {sidebarToggleManager.state ? (
+            <FilterCloseIcon className="text-custom-accent w-[16px] ml-[2px]" />
+          ) : (
+            <FilterIcon className="text-custom-primary-text" />
+          )}
         </button>
         {Boolean(numberOfAppliedFilters) && (
           <div className="absolute -top-1 -right-1 rounded-full w-4 h-4 text-[11px] font-black leading-none">
