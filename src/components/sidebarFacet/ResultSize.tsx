@@ -11,7 +11,7 @@ const ResultSize = () => {
   }
   return (
     <>
-      <div className="flex items-center gap-2 pb-9 text-custom-primary-text text-sm lg:text-base 2xl:text-lg">
+      <div className="flex items-center gap-2 pb-5 md:pb-9 text-custom-primary-text text-sm lg:text-base 2xl:text-lg">
         <span>Showing</span>
         <span className="font-bold">{range.start} - {range.end}</span>
         of <span className="font-bold">{totalResults}</span> results

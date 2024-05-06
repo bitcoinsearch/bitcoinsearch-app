@@ -50,7 +50,7 @@ const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
     trackClickThrough,
   };
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       {formattedResults.map((result, idx) => (
         <ResultCollection key={idx + '_' + result[0].id} result={result} {...resultProps} />
       ))}

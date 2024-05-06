@@ -106,7 +106,7 @@ const Result = ({ result }: ResultProps) => {
     <div
       role="link"
       ref={containerRef}
-      className="group/heading flex flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl max-w-full lg:max-w-2xl 2xl:max-w-4xl"
+      className="group/heading flex flex-col gap-[12px] 2xl:gap-4 px-1 py-2 lg:p-5 lg:hover:shadow-lg hover:rounded-xl max-w-full lg:max-w-2xl 2xl:max-w-4xl"
       onClick={handleCardClick}
     >
       <div className="flex gap-2 2xl:gap-4 items-center lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
@@ -133,7 +133,7 @@ const Result = ({ result }: ResultProps) => {
           </a>
         </div>
       </div>
-      <div className="pointer-events-none flex flex-col gap-2 lg:gap-5 ">
+      <div className="font-mona pointer-events-none flex flex-col gap-2 lg:gap-5 ">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
           <a
             href={mappedUrl}
@@ -147,17 +147,17 @@ const Result = ({ result }: ResultProps) => {
           {parsedBody}
         </p>
       </div>
-      <div className="pointer-events-none flex justify-between gap-3 xl:gap-12 items-center">
-        <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
-          {dateString && (
-            <div className="flex w-full items-center gap-2">
-              <DateIcon className="flex-shrink-0 text-custom-black dark:text-custom-secondary-text" />
-              <p className="text-[8px] whitespace-nowrap lg:text-xs 2xl:text-base">
+      <div className="flex flex-col gap-4 lg:flex-row lg:justify-between xl:gap-12 lg:items-center">
+        {dateString && (
+          <div className="pointer-events-none flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
+            <div className="flex w-full items-center gap-2 font-mona font-medium text-custom-secondary-text">
+              <DateIcon className="flex-shrink-0" />
+              <p className="text-[12px] mb-[-2px] whitespace-nowrap lg:text-sm 2xl:text-base leading-none">
                 {dateString}
               </p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
         <div className={`pointer-events-auto flex overflow-hidden`}>
           {getResultTags().map((field, idx) => {
             if (result[field])

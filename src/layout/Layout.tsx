@@ -17,10 +17,11 @@ const Layout = ({
   const { sidebarToggleManager } = useUIContext();
 
   return (
-    <div className="bg-custom-background pt-[60px] md:pt-[88px] 2xl:pt-[122px]">
+    <div id='sectioned layout' className="bg-custom-background pt-[60px] md:pt-[88px] 2xl:pt-[122px]">
       <section
+        id="searchbar-mobile-result"
         data-hidden-large={hiddenBody}
-        className="data-[hidden-large='false']:md:hidden px-4 pb-8"
+        className="data-[hidden-large='false']:md:hidden px-4 pb-5 pt-5 md:pt-0"
       >
         {header}
       </section>
@@ -29,10 +30,10 @@ const Layout = ({
           data-sb-open={sidebarToggleManager.state}
           className="group bg-custom-background flex relative"
         >
-          <section className='font-mona hidden flex-shrink-0 py-0 px-6 lg:py-10 lg:px-16 border-r-[1px] border-r-custom-stroke -translate-x-full w-full md:w-auto md:h-auto md:relative md:block md:translate-x-0 group-data-[sb-open="true"]:block group-data-[sb-open="true"]:bg-custom-background group-data-[sb-open="true"]:translate-x-0'>
+          <section id="sidebar" className='font-mona hidden flex-shrink-0 py-0 px-6 lg:py-10 lg:px-16 border-r-[1px] border-r-custom-stroke -translate-x-full w-full md:w-auto md:h-auto md:relative md:block md:translate-x-0 group-data-[sb-open="true"]:block group-data-[sb-open="true"]:bg-custom-background group-data-[sb-open="true"]:translate-x-0'>
             {sideContent}
           </section>
-          <section className="pl-4 lg:pl-20 pr-4 overflow-x-hidden py-0 lg:py-10 group-data-[sb-open='true']:hidden group-data-[sb-open='true']:md:block">
+          <section id="body" className="pl-4 lg:pl-20 pr-4 overflow-x-hidden py-0 lg:py-10 group-data-[sb-open='true']:hidden group-data-[sb-open='true']:md:block">
             <div
               className="block md:pt-10 lg:hidden group"
               data-no-border={true}
