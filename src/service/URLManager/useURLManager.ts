@@ -2,6 +2,7 @@ import { FacetKeys } from '@/types'
 import { useRouter } from 'next/router'
 import { appendFilterName, appendSortName } from './helper'
 import { URLSearchParamsKeyword } from '@/config/config'
+import { useMediaQuery } from '@chakra-ui/react'
 
 type FilterProp = {
   filterType: FacetKeys;
@@ -12,6 +13,7 @@ type FilterProp = {
 const useURLManager = () => {
   const router = useRouter();
   const urlParams = new URLSearchParams(router.asPath.slice(1));
+  const isMobile = window ? window.matchMedia("(max-width: 600px)").matches : false
 
   const getSearchTerm = () => {
     return urlParams.get("search");
@@ -82,14 +84,14 @@ const useURLManager = () => {
     const params = addFilterFromParams({filterType, filterValue, multiSelect})
     if (params) {
       console.log({params, setParams: urlParams.toString()})
-      router.push(router.pathname + "?" + params, undefined, { shallow: true });
+      router.push(router.pathname + "?" + params, undefined, { shallow: true,  scroll: isMobile });
     }
   };
   
   const removeFilter = ({ filterType, filterValue, multiSelect = true }: FilterProp) => {
     const params = removeFilterFromParams({ filterType, filterValue, multiSelect })
     if (params) {
-      router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true });
+      router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: isMobile });
     }
   };
 
