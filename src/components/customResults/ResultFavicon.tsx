@@ -32,7 +32,7 @@ const ResultFavicon = ({
   return (
     <Image
       key={retryCount.toString()}
-      className="rounded-full p-[4px] object-fill"
+      className="object-fit"
       width={24}
       height={24}
       alt={alt}

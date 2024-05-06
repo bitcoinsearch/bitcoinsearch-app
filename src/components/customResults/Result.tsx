@@ -3,7 +3,11 @@ import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import { getDomainFavicon, getMapping, getDomainName } from "@/config/mapping-helper";
+import {
+  getDomainFavicon,
+  getMapping,
+  getDomainName,
+} from "@/config/mapping-helper";
 import { getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
@@ -72,7 +76,7 @@ const Result = ({ result }: ResultProps) => {
     getBodyData(result).replaceAll("\n", "")
   ).trim();
 
-  const strippedUrl = mappedUrl.replace(/^(https?:\/\/)/i, '');
+  const strippedUrl = mappedUrl.replace(/^(https?:\/\/)/i, "");
   const truncatedUrl =
     strippedUrl.length > TruncateLinkInChar
       ? strippedUrl.substring(0, TruncateLinkInChar) + "..."
@@ -96,7 +100,7 @@ const Result = ({ result }: ResultProps) => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
@@ -105,26 +109,29 @@ const Result = ({ result }: ResultProps) => {
       className="group/heading flex flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl max-w-full lg:max-w-2xl 2xl:max-w-4xl"
       onClick={handleCardClick}
     >
-      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
+      <div className="flex gap-2 2xl:gap-4 items-center lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
         <ResultFavicon
-          key={siteName}
+          key={`${siteName}-dark:${isDark}`}
           src={getDomainFavicon(domain, isDark)}
           alt={`${siteName}-favicon`}
           domain={domain}
           isDark={isDark}
+          numbersOfRetry={0}
         />
-        <p className="capitalize">{siteName}</p>
-        <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
-        <a
-          target="_blank"
-          className=""
-          href={mappedUrl}
-          data-umami-event="URL Clicked"
-          data-umami-event-src={mappedUrl}
-          ref={linkRef}
-        >
-          {truncatedUrl}
-        </a>
+        <div className="flex flex-col gap-[2px] lg:flex-row lg:items-center lg:gap-2 2xl:gap-4 justify-center">
+          <p className="capitalize text-[12px] leading-none">{siteName}</p>
+          <div className="hidden lg:block w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
+          <a
+            target="_blank"
+            className="text-[10px] leading-none"
+            href={mappedUrl}
+            data-umami-event="URL Clicked"
+            data-umami-event-src={mappedUrl}
+            ref={linkRef}
+          >
+            {truncatedUrl}
+          </a>
+        </div>
       </div>
       <div className="pointer-events-none flex flex-col gap-2 lg:gap-5 ">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">

@@ -59,7 +59,8 @@
     "https://linkedin.com": "LinkedIn",
     "https://coindesk.com": "CoinDesk",
     "https://reddit.com": "Reddit",
-    "https://delvingbitcoin.org/": "Delving Bitcoin"
+    "https://delvingbitcoin.org/": "Delving Bitcoin",
+    "https://gnusha.org/pi/bitcoindev/": "Bitcoin Dev (Gnusha)"
   },
   "icon": {
     "https://bitcointalk.org": "/domain_favicons/bitcointalk.svg",
