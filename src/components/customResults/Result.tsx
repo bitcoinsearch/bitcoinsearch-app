@@ -109,7 +109,7 @@ const Result = ({ result }: ResultProps) => {
       className="group/heading flex flex-col gap-[12px] 2xl:gap-4 px-1 py-2 lg:p-5 lg:hover:shadow-lg hover:rounded-xl max-w-full lg:max-w-2xl 2xl:max-w-4xl"
       onClick={handleCardClick}
     >
-      <div className="flex gap-2 2xl:gap-4 items-center lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
+      <div className="flex gap-2 2xl:gap-4 items-center lg:text-xs 2xl:text-base text-custom-otherLight font-medium">
         <ResultFavicon
           key={`${siteName}-dark:${isDark}`}
           src={getDomainFavicon(domain, isDark)}
@@ -118,12 +118,12 @@ const Result = ({ result }: ResultProps) => {
           isDark={isDark}
           numbersOfRetry={0}
         />
-        <div className="flex flex-col gap-[2px] lg:flex-row lg:items-center lg:gap-2 2xl:gap-4 justify-center">
-          <p className="capitalize text-[12px] leading-none">{siteName}</p>
+        <div className="font-geist font-medium flex flex-col gap-[2px] lg:flex-row lg:items-center lg:gap-2 2xl:gap-4 justify-center">
+          <p className="capitalize text-sm lg:text-base leading-none">{siteName}</p>
           <div className="hidden lg:block w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
           <a
             target="_blank"
-            className="text-[10px] leading-none"
+            className="text-[12px] lg:text-base leading-none"
             href={mappedUrl}
             data-umami-event="URL Clicked"
             data-umami-event-src={mappedUrl}
@@ -143,7 +143,7 @@ const Result = ({ result }: ResultProps) => {
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
-        <p className="text-sm lg:text-[0.843rem] 2xl:text-lg text-custom-secondary-text">
+        <p className="text-sm lg:text-base 2xl:text-lg text-custom-secondary-text">
           {parsedBody}
         </p>
       </div>

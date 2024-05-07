@@ -69,7 +69,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const [searchInput, setSearchInput] = useState<string>("");
   const [typed, setTyped] = useState(false);
   const [onFocus, setFocus] = useState(false);
-  const searchBoxRef = useRef<HTMLFormElement | null>(null);
+  const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const isMacDevice = isMac();
@@ -274,13 +274,12 @@ function SearchBoxView(props: SearchBoxViewProps) {
             className="w-full peer/search group/search"
             data-input-focus={onFocus}
             onSubmit={(e) => handleSubmit(e)}
-            ref={searchBoxRef}
           >
             <div
               tabIndex={0}
               className="flex items-start w-full"
               onKeyDown={handleKeyDown}
-              // onFocus={handleFocus}
+              ref={searchBoxRef}
             >
               <div className="flex-col relative w-full">
                 <div
@@ -294,19 +293,12 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <input
                     ref={inputRef}
                     {...getInputProps()}
-                    // onKeyUp={() => {
-                    //   setFocus(true);
-                    // }}
                     onKeyDown={(e) => {
                       e.code === "Enter" ? setTyped(false) : setTyped(true);
                     }}
-                    // onFocus={() => {
-                    //   setFocus(true);
-                    //   setIsOutsideClick(false);
-                    // }}
                     inputMode="search"
                     placeholder="Search for topics, authors or resources..."
-                    className="search_box_view-input 2xl:text-xl text-custom-primary-text font-medium dark:text-[#bfbfbf] placeholder:text-custom-primary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full w-full border-none outline-none bg-transparent"
+                    className="search_box_view-input 2xl:text-xl text-custom-primary-text font-medium placeholder:text-custom-secondary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-[14px] md:placeholder:text-base h-full w-full border-none outline-none bg-transparent"
                   />
                   {isShortcutVisible && (
                     <p className="font-geist whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke dark:text-custom-primary-text">
@@ -329,13 +321,13 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen ? "flex" : "hidden"
-                  } flex-col border gap-4 md:gap-6 2xl:gap-8 absolute max-h-[60vh] text-left overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full bg-custom-background rounded-b-2xl`}
+                  } flex-col border gap-4 md:gap-6 2xl:gap-8 absolute max-h-[40vh] text-left overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full bg-custom-background rounded-b-2xl`}
                 >
                   {/* Each search */}
                   {defaultSearchTags.map((tagType) => (
                     <div
                       key={tagType.headline}
-                      className="flex text-custom-primary-text flex-col gap-2"
+                      className="flex text-sm text-custom-primary-text flex-col gap-2"
                     >
                       <p className="text-sm md:text-base font-semibold">
                         {tagType.headline}
@@ -353,7 +345,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                                 : ""
                             }  ${
                               searchTerm === tag ? "bg-custom-hover-state" : ""
-                            } px-3 py-1.5 md:py-2 md:px-4 hover:bg-custom-hover-state cursor-pointer text-[0.688rem] md:text-xs rounded-md md:rounded-lg border border-custom-stroke  max-w-[max-content]`}
+                            } px-3 py-1.5 md:py-2 md:px-4 hover:bg-custom-hover-state cursor-pointer rounded-md md:rounded-lg border border-custom-stroke  max-w-[max-content]`}
                           >
                             <p>
                               {tagType.type === "domain"
