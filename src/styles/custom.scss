@@ -182,6 +182,14 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    #main {
+        &:has(.search_box_view-input:focus) .navBar {
+            display: none !important;
+        }
+    }
+  }
+
 .btc-search { 
     .sui-layout-sidebar-toggle {
         display: none;

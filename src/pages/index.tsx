@@ -98,7 +98,7 @@ export const App = () => {
 
   return (
     <div className={`${isHomePage && "relative"} bg-custom-background`}>
-      <main className="min-h-[95vh] flex w-full items-center">
+      <main id="main" className="min-h-[95vh] flex w-full items-center">
         <NavBar />
         {isLoading && <LoadingBar />}
         <div

@@ -117,9 +117,10 @@ const NavBar = () => {
     if (!selection.suggestion) return;
     makeQuery(removeMarkdownCharacters(selection.suggestion));
   };
+
   return (
     <nav
-      className={`fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-20 ${
+      className={`navBar fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-20 ${
         hiddenHomeFacet ? "bg-custom-hover-state shadow-md" : ""
       }`}
     >

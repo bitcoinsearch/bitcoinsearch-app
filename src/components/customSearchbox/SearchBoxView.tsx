@@ -69,7 +69,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const [searchInput, setSearchInput] = useState<string>("");
   const [typed, setTyped] = useState(false);
   const [onFocus, setFocus] = useState(false);
-  const searchBoxRef = useRef<HTMLDivElement | null>(null);
+  const searchBoxRef = useRef<HTMLFormElement | null>(null);
   const [isOutsideClick, setIsOutsideClick] = useState(false);
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const isMacDevice = isMac();
@@ -77,6 +77,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
 
   const { getFilter, addFilter, removeFilter, clearAllFilters, toggleFilter } =
     useURLManager();
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       searchBoxRef.current &&
@@ -102,6 +103,47 @@ function SearchBoxView(props: SearchBoxViewProps) {
       document.removeEventListener("click", handleDocumentClick);
     };
   }, []);
+
+  const top = useRef(0)
+  useEffect(() => {
+    const isMobile = window ? window.matchMedia("(max-width: 600px)").matches : false
+    const inputBox = inputRef.current
+    const handleInputFocus = (event: MouseEvent) => {
+      if (!inputBox) return
+      console.log("number of logs")
+
+      if (!top.current) {
+        top.current = inputBox.getBoundingClientRect().top
+      }
+      setTimeout(() => {
+        if (isMobile) {
+          window.scrollTo({top: top.current - 20, behavior: "smooth"})
+        }
+        setFocus(true);
+        setIsOutsideClick(false);
+      }, 100)
+    };
+
+    const handleInputLost = () => {
+      // blurring because ios keyboard on dismiss doesn't remove focus completeley and that introduces quirks
+      inputBox.blur()
+      setTimeout(() => {
+        if (isMobile) {
+          window.scrollTo({top: -top.current - 20, behavior: "smooth"})
+        }
+        setFocus(false)
+      }, 100)
+    }
+
+    inputBox.addEventListener("focusin", handleInputFocus);
+    inputBox.addEventListener("blur", handleInputLost);
+
+    return () => {
+      inputBox.removeEventListener("focusin", handleInputFocus);
+      inputBox.removeEventListener("blur", handleInputLost);
+    };
+  }, []);
+
   const handleChange = (value: string) => {
     if (isOutsideClick) {
       setIsOutsideClick(false);
@@ -210,6 +252,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setTyped(false);
   };
 
+
   return (
     <Downshift
       inputValue={searchTerm}
@@ -228,39 +271,42 @@ function SearchBoxView(props: SearchBoxViewProps) {
         const { getInputProps } = downshiftProps;
         return (
           <form
-            className="w-full peer/search"
+            className="w-full peer/search group/search"
             data-input-focus={onFocus}
             onSubmit={(e) => handleSubmit(e)}
+            ref={searchBoxRef}
           >
             <div
-              ref={searchBoxRef}
               tabIndex={0}
               className="flex items-start w-full"
               onKeyDown={handleKeyDown}
+              // onFocus={handleFocus}
             >
               <div className="flex-col relative w-full">
                 <div
                   className={`${
                     isContainerOpen || isAutoCompleteContainerOpen
-                      ? "rounded-b-none rounded-tl-lg md:rounded-tl-[14px]"
-                      : "rounded-l-xl md:rounded-l-[14px]"
-                  } border-r-0 h-[48px] 2xl:h-[66px] w-full px-3 md:px-6 items-center justify-center bg-custom-background border border-custom-stroke flex`}
+                      ? "rounded-b-none rounded-tl-lg md:rounded-tl-[14px] group-data-[input-focus='true']/search:rounded-tr-lg group-data-[input-focus='true']/search:md:rounded-tr-none"
+                      : "rounded-l-xl md:rounded-l-[14px] group-data-[input-focus='true']/search:rounded-r-lg group-data-[input-focus='true']/search:md:rounded-r-none"
+                  } 
+                  border-r-0 group-data-[input-focus='true']/search:border-r group-data-[input-focus='true']/search:md:border-r-0 h-[48px] 2xl:h-[66px] w-full px-3 md:px-6 items-center justify-center bg-custom-background border border-custom-stroke flex`}
                 >
                   <input
                     ref={inputRef}
                     {...getInputProps()}
-                    onKeyUp={() => {
-                      setFocus(true);
-                    }}
+                    // onKeyUp={() => {
+                    //   setFocus(true);
+                    // }}
                     onKeyDown={(e) => {
                       e.code === "Enter" ? setTyped(false) : setTyped(true);
                     }}
-                    onFocus={() => {
-                      setFocus(true);
-                      setIsOutsideClick(false);
-                    }}
+                    // onFocus={() => {
+                    //   setFocus(true);
+                    //   setIsOutsideClick(false);
+                    // }}
+                    inputMode="search"
                     placeholder="Search for topics, authors or resources..."
-                    className="2xl:text-xl text-custom-primary-text font-medium dark:text-[#bfbfbf] placeholder:text-custom-primary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full w-full border-none outline-none bg-transparent"
+                    className="search_box_view-input 2xl:text-xl text-custom-primary-text font-medium dark:text-[#bfbfbf] placeholder:text-custom-primary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-xs md:placeholder:text-base h-full w-full border-none outline-none bg-transparent"
                   />
                   {isShortcutVisible && (
                     <p className="font-geist whitespace-nowrap bg-transparent hidden md:inline-block text-sm text-custom-stroke dark:text-custom-primary-text">
@@ -349,7 +395,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   </div>
                 )}
               </div>
-              <button className="flex items-center bg-gradient h-[48px] 2xl:h-[66px] px-4 2xl:px-[27px] min-h-full rounded-r-lg md:rounded-r-[14px]">
+              <button className="group-data-[input-focus='true']/search:hidden group-data-[input-focus='true']/search:md:flex md:flex items-center bg-gradient h-[48px] 2xl:h-[66px] px-4 2xl:px-[27px] min-h-full rounded-r-lg md:rounded-r-[14px]">
                 <SearchIcon className="text-custom-background w-[14px] md:w-[18px] 2xl:w-[24px] h-auto" />
               </button>
             </div>

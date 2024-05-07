@@ -12,7 +12,7 @@ const Metadata = () => {
           name="description"
           content="Search the depths of bitcoin's technical ecosystem"
         ></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"></meta>
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <meta
           property="og:image"

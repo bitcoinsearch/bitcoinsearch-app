@@ -32,7 +32,8 @@
   --button:#333333;
   --hover-state: #fff0e0;
   --stroke: #bfbfbf;
-  --secondary-text: #999999;
+  --secondary-text: #636366;
+  /* --secondary-text: #999999; */
   --primary-text: #292929;
   --black: #292929;
   --other-light-text: #D9D9D9;
@@ -107,8 +108,10 @@ html {
   --hover-state: #2c2c2e;
   --button:#8E8E93;
   --stroke: #3a3a3c;
-  --secondary-text: #636366;
-  --primary-text: #8e8e93;
+  --secondary-text: #888888;
+  /* --secondary-text: #636366; */
+  --primary-text: #A4A4A8;
+  /* --primary-text: #8e8e93; */
   --black: #292929;
   --other-light-text: #48484a;
   --accent: #f7931a;
