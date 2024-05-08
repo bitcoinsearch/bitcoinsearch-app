@@ -40,11 +40,11 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
       <div className="flex justify-between mb-4 2xl:mb-8">
         <p className="text-sm 2xl:text-base font-bold">Applied Filters</p>
         <div
-          className="flex gap-2 items-center group"
+          className="flex gap-2 items-center group/applied-filters"
           role="button"
           onClick={clearAllFilters}
         >
-          <span className="text-sm 2xl:text-base group-hover:underline underline-offset-4">
+          <span className="text-sm 2xl:text-base group-hover/applied-filters:underline underline-offset-4">
             Clear all
           </span>
           <span className="p-[6px] 2xl:p-2 bg-custom-primary-text rounded-md">

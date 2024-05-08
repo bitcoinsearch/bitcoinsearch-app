@@ -289,7 +289,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                               searchInput === tag ? "bg-custom-hover-state" : ""
                             } px-3 py-1.5 md:py-2 md:px-4 hover:bg-custom-hover-state cursor-pointer rounded-md md:rounded-lg border border-custom-stroke  max-w-[max-content]`}
                           >
-                            <p>
+                            <p className="capitalize">
                               {tagType.type === "domain"
                                 ? getDomainLabel(tag)
                                 : tag}

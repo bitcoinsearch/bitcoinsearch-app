@@ -36,7 +36,7 @@ const StatsLink = () => (
     rel="noreferrer"
     className="underline"
   >
-    View our public visitor counts
+    View our public visitor count
   </a>
 );
 
