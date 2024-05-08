@@ -2,7 +2,6 @@ import { FacetKeys } from '@/types'
 import { useRouter } from 'next/router'
 import { appendFilterName, appendSortName } from './helper'
 import { URLSearchParamsKeyword } from '@/config/config'
-import { useMediaQuery } from '@chakra-ui/react'
 
 type FilterProp = {
   filterType: FacetKeys;
@@ -38,10 +37,8 @@ const useURLManager = () => {
     if (multiSelect) {
       urlParams.append(appendFilterName(filterType), filterValue);
     } else {
-      console.log("single select ran")
       urlParams.set(appendFilterName(filterType), filterValue)
     }
-    console.log(urlParams.toString())
     return urlParams.toString()
   };
 
@@ -64,7 +61,6 @@ const useURLManager = () => {
       }
       return urlParams.toString()
     }
-    
   }
 
   const addSort = (sortField: string, value: string) => {
@@ -82,16 +78,15 @@ const useURLManager = () => {
 
   const addFilter = ({filterType, filterValue, multiSelect = true}: FilterProp) => {
     const params = addFilterFromParams({filterType, filterValue, multiSelect})
-    if (params) {
-      console.log({params, setParams: urlParams.toString()})
-      router.push(router.pathname + "?" + params, undefined, { shallow: true,  scroll: isMobile });
+    if (params !== null) {
+      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: isMobile });
     }
   };
   
   const removeFilter = ({ filterType, filterValue, multiSelect = true }: FilterProp) => {
     const params = removeFilterFromParams({ filterType, filterValue, multiSelect })
-    if (params) {
-      router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: isMobile });
+    if (params !== null) {
+      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true, scroll: isMobile });
     }
   };
 
