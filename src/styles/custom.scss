@@ -184,7 +184,7 @@
 
 @media screen and (max-width: 768px) {
     #main {
-        &:has(.search_box_view-input:focus) .navBar {
+        &:has(form[data-input-focus='true']) .navBar {
             display: none !important;
         }
     }
