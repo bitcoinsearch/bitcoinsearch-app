@@ -67,13 +67,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const inputRef = useRef<HTMLInputElement | null>();
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchInput, setSearchInput] = useState<string>("");
-  const [typed, setTyped] = useState(false);
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
-  const [isOutsideClick, setIsOutsideClick] = useState(false);
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const isMacDevice = isMac();
-  const currentItemRef = useRef<HTMLLIElement | null>(null);
 
   const { getFilter, addFilter, removeFilter, clearAllFilters, toggleFilter } =
     useURLManager();
@@ -84,11 +81,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
       !searchBoxRef.current.contains(event.target as Node)
     ) {
       setFocus(false);
-      setIsOutsideClick(true);
       setCurrentIndex(-1);
       setIsPageLoaded(false);
-    } else {
-      setIsOutsideClick(false);
     }
   };
 
@@ -106,21 +100,15 @@ function SearchBoxView(props: SearchBoxViewProps) {
 
   const top = useRef(0)
   useEffect(() => {
-    const isMobile = window ? window.matchMedia("(max-width: 600px)").matches : false
+    // const isMobile = window ? window.matchMedia("(max-width: 600px)").matches : false
     const inputBox = inputRef.current
     const handleInputFocus = (event: MouseEvent) => {
       if (!inputBox) return
-      console.log("number of logs")
-
       if (!top.current) {
         top.current = inputBox.getBoundingClientRect().top
       }
       setTimeout(() => {
-        if (isMobile) {
-          window.scrollTo({top: top.current - 20, behavior: "smooth"})
-        }
         setFocus(true);
-        setIsOutsideClick(false);
       }, 100)
     };
 
@@ -128,9 +116,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
       // blurring because ios keyboard on dismiss doesn't remove focus completeley and that introduces quirks
       inputBox.blur()
       setTimeout(() => {
-        if (isMobile) {
-          window.scrollTo({top: -top.current - 20, behavior: "smooth"})
-        }
         setFocus(false)
       }, 100)
     }
@@ -145,9 +130,9 @@ function SearchBoxView(props: SearchBoxViewProps) {
   }, []);
 
   const handleChange = (value: string) => {
-    if (isOutsideClick) {
-      setIsOutsideClick(false);
-    }
+    // if (isOutsideClick) {
+    //   setIsOutsideClick(false);
+    // }
     onChange(value);
     setSearchTerm(value);
   };
@@ -155,7 +140,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     filterType: FacetKeys,
     value: string
   ) => {
-    setIsOutsideClick(true);
+    // setIsOutsideClick(true);
     setFocus(false);
     if (filterType) {
       if (filterType === "domain") {
@@ -173,7 +158,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     e.stopPropagation();
     inputRef.current.focus();
     setFocus(true);
-    setIsOutsideClick(false);
+    // setIsOutsideClick(false);
     setSearchInput("");
     handleChange("");
     clearAllFilters();
@@ -193,27 +178,18 @@ function SearchBoxView(props: SearchBoxViewProps) {
   }, [searchQuery]);
 
   const isContainerOpen =
-    (onFocus && !isOutsideClick && !searchInput) || isPageLoaded;
+    (onFocus && !searchInput) || isPageLoaded;
 
   const isAutoCompleteContainerOpen =
-    searchInput && typed && allAutocompletedItemsCount && !isOutsideClick
-      ? true
-      : false;
+  onFocus && !!searchInput.trim() && !!allAutocompletedItemsCount
+  
   const isShortcutVisible = !onFocus;
   const suggestions = autocompletedSuggestions?.documents || [];
 
   const onSelectSuggestion = (value) => {
     onSelectAutocomplete(value);
     handleChange(removeMarkdownCharacters(value.suggestion));
-    setTyped(false);
   };
-
-  // Effect to focus on the current item whenever currentIndex changes
-  useEffect(() => {
-    if (currentItemRef.current) {
-      currentItemRef.current.focus();
-    }
-  }, [currentIndex]);
 
   useEffect(() => {
     if (queryResult.isFetched) {
@@ -221,10 +197,17 @@ function SearchBoxView(props: SearchBoxViewProps) {
     }
   }, [queryResult.isFetched, isQueryChanged]);
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     switch (event.keyCode) {
+      case 13:
+        event.preventDefault()
+        const sug = suggestions[currentIndex]
+        if (sug?.["suggestion"]) {
+          onSelectSuggestion(suggestions[currentIndex])
+        }
+        break;
       case 27:
-        setIsOutsideClick(true);
+        event.preventDefault()
         break;
       case 38:
         setCurrentIndex((prevIndex) =>
@@ -249,7 +232,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
     }
     onSubmit(searchTerm);
     setFocus(false);
-    setTyped(false);
   };
 
 
@@ -277,7 +259,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
           >
             <div
               tabIndex={0}
-              className="flex items-start w-full"
+              className={`${onFocus ? 'popout' : ''} flex items-start w-full`}
               onKeyDown={handleKeyDown}
               ref={searchBoxRef}
             >
@@ -293,9 +275,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
                   <input
                     ref={inputRef}
                     {...getInputProps()}
-                    onKeyDown={(e) => {
-                      e.code === "Enter" ? setTyped(false) : setTyped(true);
-                    }}
                     inputMode="search"
                     placeholder="Search for topics, authors or resources..."
                     className="search_box_view-input 2xl:text-xl text-custom-primary-text font-medium placeholder:text-custom-secondary-text search-box py-1.5 md:py-3 md:text-base placeholder:text-[14px] md:placeholder:text-base h-full w-full border-none outline-none bg-transparent"
@@ -309,7 +288,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       {" /"}
                     </p>
                   )}
-                  {onFocus && typed && searchInput && (
+                  {onFocus && !!searchInput.trim() && (
                     <CloseIconOutlined
                       className="cursor-pointer w-[8px] md:w-auto"
                       onClick={onClearInput}
@@ -321,7 +300,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                 <div
                   className={`${
                     isContainerOpen ? "flex" : "hidden"
-                  } flex-col border gap-4 md:gap-6 2xl:gap-8 absolute max-h-[40vh] text-left overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full bg-custom-background rounded-b-2xl`}
+                  } flex-col border gap-4 md:gap-6 2xl:gap-8 absolute max-h-[50svh] text-left overflow-y-auto top-11.5 border-t-0 border-custom-stroke z-[60] py-2.5 px-3 md:px-6 md:py-7 w-full bg-custom-background rounded-b-2xl`}
                 >
                   {/* Each search */}
                   {defaultSearchTags.map((tagType) => (
@@ -371,13 +350,10 @@ function SearchBoxView(props: SearchBoxViewProps) {
                         <li
                           key={sug.suggestion}
                           tabIndex={0}
-                          ref={currentIndex === index ? currentItemRef : null}
+                          data-navigated={currentIndex === index}
                           onClick={() => onSelectSuggestion(sug)}
-                          onKeyDown={(e) =>
-                            e.code === "Enter" && onSelectSuggestion(sug)
-                          }
                           className={`
-                          focus:bg-custom-hover-state
+                          data-[navigated='true']:bg-custom-hover-state
                           outline-none cursor-pointer text-custom-primary-text text-sm md:text-base py-3.5 px-4 md:px-6 md:py-4 hover:bg-custom-hover-state`}
                         >
                           {removeMarkdownCharacters(sug.suggestion)}

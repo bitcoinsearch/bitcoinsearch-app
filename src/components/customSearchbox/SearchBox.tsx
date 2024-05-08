@@ -73,7 +73,6 @@ const SearchBoxContainer = (
     );
     setSearchTerm(value, options);
   };
-  const handleOnSelectAutocomplete = () => {};
 
   const useAutocomplete = !!autocompleteSuggestions;
   const autocompletedSuggestionsCount = Object.entries(
@@ -91,7 +90,7 @@ const SearchBoxContainer = (
       autocompletedSuggestionsCount: autocompletedSuggestionsCount,
       isFocused: state.isFocused,
       onChange: (value: string) => handleChange(value),
-      onSelectAutocomplete: handleOnSelectAutocomplete,
+      onSelectAutocomplete,
       onSubmit: onSubmit,
       useAutocomplete: useAutocomplete,
     },
