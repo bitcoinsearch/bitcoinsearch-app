@@ -1,5 +1,4 @@
-import GithubIcon from "../svgs/GithubIcon";
-import { FaDiscord } from "react-icons/fa";
+import { FaDiscord, FaGithub } from "react-icons/fa";
 
 const Separator = ({ className }: { className?: string }) => (
   <div
@@ -14,7 +13,7 @@ const GithubLink = () => (
     rel="noreferrer"
     className="focus:outline-none"
   >
-    <GithubIcon className="w-8 h-8 2xl:w-14 2xl:h-14" />
+    <FaGithub className="text-[24px] md:text-[40px]" />
   </a>
 );
 
@@ -25,7 +24,7 @@ const DiscordLink = () => (
     rel="noreferrer"
     className="focus:outline-none"
   >
-    <FaDiscord className="text-[38px]"/>
+    <FaDiscord className="text-[28px] md:text-[48px]"/>
   </a>
 );
 
@@ -42,7 +41,7 @@ const StatsLink = () => (
 
 const ContactSocials = () => {
   return (
-    <div className="flex items-center gap-1 md:gap-2 lg:gap-3">
+    <div className="flex items-center gap-2 md:gap-4 lg:gap-4">
       <GithubLink />
       <DiscordLink />
     </div>

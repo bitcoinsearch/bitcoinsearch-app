@@ -108,7 +108,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     (onFocus && !searchInput.trim());
 
   const isAutoCompleteContainerOpen =
-  onFocus && !!searchInput.trim() && !!allAutocompletedItemsCount
+  onFocus && (searchInput.trim().length > 2) && !!allAutocompletedItemsCount
   
   const isShortcutVisible = !onFocus;
   const suggestions = autocompletedSuggestions?.documents || [];
