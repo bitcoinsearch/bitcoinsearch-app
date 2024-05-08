@@ -100,7 +100,7 @@ function CustomMultiCheckboxFacet({
 
         <div
           data-is-open={isOpen}
-          className="group/container font-medium data-[is-open='false']:hidden mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-stroke rounded-xl"
+          className="scroller group/container font-medium data-[is-open='false']:hidden mt-2 max-h-[300px] py-[6px] overflow-auto border border-custom-stroke rounded-xl"
           ref={multiCheckboxRef}
         >
           {options.length < 1 && (

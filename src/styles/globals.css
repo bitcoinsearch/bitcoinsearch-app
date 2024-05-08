@@ -70,37 +70,44 @@ html {
   font-family: "Geist Sans", sans-serif;
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-    -ms-overflow-style: none; /* for IE, Edge */
-    scrollbar-width: none; /* for Firefox */
-}
-*:hover {
-  -ms-overflow-style: auto; /* for IE, Edge */
-  scrollbar-width: thin; /* for Firefox */
+.scroller{
+  --scrollbar-color-thumb: #aaa;
+  --scrollbar-color-track: rgba(60,60,60,0.05);
+  --scrollbar-width: auto;
+  --scrollbar-width-legacy: 10px;
 }
 
-*::-webkit-scrollbar {
-  display: none; /* for WebKit browsers */
-  width: 7px;
+.dark .scroller {
+  --scrollbar-color-thumb: #777;
+  --scrollbar-color-track: rgba(60,60,60,0.1);
 }
 
-*:hover::-webkit-scrollbar {
-  display: block; /* for WebKit browsers */
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .scroller {
+    scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+    scrollbar-width: var(--scrollbar-width);
+  }
 }
 
-*::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 5px;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: #555;
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .scroller::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  .scroller::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroller:hover::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color-thumb);
+  }
+  .scroller:hover::-webkit-scrollbar-track {
+    background: var(--scrollbar-color-track);
+  }
+  .scroller::-webkit-scrollbar {
+    max-width: var(--scrollbar-width-legacy);
+    max-height: var(--scrollbar-width-legacy);
+  }
 }
 
 .dark {

@@ -147,7 +147,7 @@ const Result = ({ result }: ResultProps) => {
           {parsedBody}
         </p>
       </div>
-      <div className="flex flex-col gap-4 lg:flex-row lg:justify-between xl:gap-12 lg:items-center">
+      <div className="pointer-events-none flex flex-col gap-4 lg:flex-row lg:justify-between xl:gap-12 lg:items-center">
         {dateString && (
           <div className="pointer-events-none flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
             <div className="flex w-full items-center gap-2 font-mona font-medium text-custom-secondary-text">
@@ -158,7 +158,7 @@ const Result = ({ result }: ResultProps) => {
             </div>
           </div>
         )}
-        <div className={`pointer-events-auto flex overflow-hidden`}>
+        <div className={`pointer-events-auto flex overflow-hidden no-scroll`}>
           {getResultTags().map((field, idx) => {
             if (result[field])
               return (

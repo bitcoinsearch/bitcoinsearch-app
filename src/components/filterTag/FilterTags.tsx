@@ -91,7 +91,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       )}
       <div
         ref={containerRef}
-        className={`flex max-w-full gap-2 overflow-scroll no-scrollbar ${isLengthOver ? "pr-16" : ""}`}
+        className={`flex max-w-full gap-2 overflow-auto scroller ${isLengthOver ? "pr-16" : ""}`}
       >
         {formattedOptions?.map((a, idx) => (
           <Button
