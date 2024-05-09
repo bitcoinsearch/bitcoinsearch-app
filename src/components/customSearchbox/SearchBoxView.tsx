@@ -274,7 +274,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       <p className="text-sm md:text-base font-semibold">
                         {tagType.headline}
                       </p>
-                      <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      <div className="flex flex-wrap gap-2 h-[34px] md:h-[40px] overflow-clip">
                         {tagType.tags.map((tag) => (
                           <div
                             key={tag}
