@@ -39,18 +39,11 @@ const FormModal = ({ formOpen, closeForm }) => {
   const url = getFormURL();
 
   const submitToSheet = async (data: FormData): Promise<any> => {
-    // const response = await fetch(url, {
-    //   method: "POST",
-    //   body: data,
-    // });
-    // return response.json();
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        res({
-          result: "failed",
-        });
-      }, 3000);
+    const response = await fetch(url, {
+      method: "POST",
+      body: data,
     });
+    return response.json();
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -209,7 +202,7 @@ const FormModal = ({ formOpen, closeForm }) => {
                   </button>
                   <button
                     className="flex justify-center items-center gap-2 py-3 w-full font-bold mx-auto text-sm text-white lg:text-base bg-custom-accent disabled:bg-custom-hover-state disabled:cursor-not-allowed disabled:text-[#CCBAA3] rounded-[10px]"
-                    disabled={!formIsComplete}
+                    disabled={!formIsComplete || formState.loading}
                     type="submit"
                   >
                     <span>Submit Source</span>
