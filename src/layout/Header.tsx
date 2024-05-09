@@ -48,7 +48,7 @@ const Header = ({ openForm }) => {
           )}
         </button>
         {Boolean(numberOfAppliedFilters) && (
-          <div className="absolute -top-1 -right-1 rounded-full w-4 h-4 text-[11px] font-black leading-none">
+          <div className="absolute -top-1 -right-1 rounded-full w-4 h-4 text-[11px] font-black bg-custom-accent leading-none">
             <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               {numberOfAppliedFilters}
             </span>
