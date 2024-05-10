@@ -2,7 +2,7 @@
   "labels": {
     "https://bitcointalk.org/": "Bitcointalk",
     "https://bitcoin.stackexchange.com": "Bitcoin StackExchange",
-    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin Dev mailing list",
+    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin Dev mailing list archive",
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "LN Dev mailing list",
     "https://btctranscripts.com/": "BTC Transcripts",
     "https://bitcoinops.org/en/": "Bitcoin Optech",
@@ -60,7 +60,7 @@
     "https://coindesk.com": "CoinDesk",
     "https://reddit.com": "Reddit",
     "https://delvingbitcoin.org/": "Delving Bitcoin",
-    "https://gnusha.org/pi/bitcoindev/": "Bitcoin Dev (Gnusha)"
+    "https://gnusha.org/pi/bitcoindev/": "Bitcoin Dev mailing list active"
   },
   "icon": {
     "https://bitcointalk.org": "/domain_favicons/bitcointalk.svg",

@@ -118,7 +118,7 @@ const Result = ({ result }: ResultProps) => {
           isDark={isDark}
           numbersOfRetry={0}
         />
-        <div className="font-geist font-medium flex flex-col gap-[2px] lg:flex-row lg:items-center lg:gap-2 2xl:gap-4 justify-center">
+        <div className="font-geist leading-none font-medium flex flex-wrap flex-col gap-y-[2px] lg:flex-row lg:items-center lg:gap-x-2 2xl:gap-x-4">
           <p className="capitalize text-sm lg:text-base leading-none">{siteName}</p>
           <div className="hidden lg:block w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
           <a
