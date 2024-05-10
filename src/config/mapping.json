@@ -60,7 +60,8 @@
     "https://coindesk.com": "CoinDesk",
     "https://reddit.com": "Reddit",
     "https://delvingbitcoin.org/": "Delving Bitcoin",
-    "https://gnusha.org/pi/bitcoindev/": "Bitcoin Dev mailing list active"
+    "https://gnusha.org/pi/bitcoindev/": "Bitcoin Dev mailing list active",
+    "https://mailing-list.bitcoindevs.xyz/": "Bitcoin Dev mailing list"
   },
   "icon": {
     "https://bitcointalk.org": "/domain_favicons/bitcointalk.svg",
