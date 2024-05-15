@@ -65,7 +65,7 @@ const useURLManager = () => {
 
   const addSort = (sortField: string, value: string) => {
     urlParams.set(appendSortName(sortField), value);
-    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true });
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true });
   };
 
   const removeSort = (sortField: string) => {
@@ -73,20 +73,20 @@ const useURLManager = () => {
     const newUrl = urlParams.toString()
       ? `${router.pathname}?${urlParams.toString()}`
       : router.pathname;
-    router.push(newUrl, undefined, { shallow: true });
+    router.push(newUrl, undefined, { shallow: true, scroll: true });
   };
 
   const addFilter = ({filterType, filterValue, multiSelect = true}: FilterProp) => {
     const params = addFilterFromParams({filterType, filterValue, multiSelect})
     if (params !== null) {
-      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: isMobile });
+      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: true });
     }
   };
   
   const removeFilter = ({ filterType, filterValue, multiSelect = true }: FilterProp) => {
     const params = removeFilterFromParams({ filterType, filterValue, multiSelect })
     if (params !== null) {
-      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true, scroll: isMobile });
+      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true, scroll: true });
     }
   };
 
@@ -109,7 +109,7 @@ const useURLManager = () => {
 
     removePageQueryParams();
 
-    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true });
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true });
   };
 
   const removeFilterTypes = (filterTypes: FacetKeys[]) => {
@@ -121,12 +121,12 @@ const useURLManager = () => {
       urlParams.delete(appendedFilterName)
       removedFilter = true
     })
-    removedFilter && router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true })
+    removedFilter && router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true })
   }
 
   const setResultsSize = (size: number) => {
     urlParams.set(URLSearchParamsKeyword.SIZE, size.toString())
-    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true })
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true })
   }
 
   return {
