@@ -122,26 +122,26 @@ function CustomMultiCheckboxFacet({
                   data-current-navigated={
                     option.label === currentNavigateCheckbox
                   }
-                  className="flex justify-between py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
+                  className="flex gap-1 py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
                   onClick={() => (checked ? onRemove(value) : onSelect(value))}
                   role="button"
                   aria-label={`${checked? 'uncheck' : 'check'} filter ${label}:${option.label}`}
                 >
                   <div
-                    className="selectable-option flex items-center gap-3"
+                    className="selectable-option flex grow items-center gap-3"
                     id={`example_facet_${label}${option.label}`}
                   >
                     <Image
                       data-transaction-name={`facet - ${label}`}
-                      className="group-data-[selected=false]/checkOption:invisible w-[12px] 2xl:w-[16px]"
+                      className="shrink-0 group-data-[selected=false]/checkOption:invisible w-[12px] 2xl:w-[16px]"
                       src={LightningIcon}
                       alt="bolt icon"
                     />
-                    <span className="capitalize text-sm 2xl:text-base group-data-[selected=true]/checkOption:font-bold">
+                    <span className="grow capitalize text-sm 2xl:text-base group-data-[selected=true]/checkOption:font-bold">
                       {option.label}
                     </span>
                   </div>
-                  <span className="group-data-[selected=true]/checkOption:font-medium">
+                  <span className="shrink-0 group-data-[selected=true]/checkOption:font-medium">
                     {numberFormat.format(option.count)}
                   </span>
                 </div>

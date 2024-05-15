@@ -72,7 +72,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
                   })
                 }
               >
-                <span className="text-sm font-semibold 2xl:text-sm">
+                <span className="capitalize text-sm font-semibold 2xl:text-sm">
                   {getFilterValueDisplay(filter.value, filter.field)}
                 </span>
                 <Image
