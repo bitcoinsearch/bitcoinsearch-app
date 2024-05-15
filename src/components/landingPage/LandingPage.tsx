@@ -28,7 +28,7 @@ export const LandingPage = () => {
           height={18.67}
         />
       </Link>
-      <div className="bg-gradient-to-b from-[#E58525] flex flex-col items-center w-full px-4 md:px-10 xl:px-20 min-h-screen">
+      <div className="landing-gradient flex flex-col items-center w-full px-4 md:px-10 xl:px-20">
         <div className=" flex flex-col gap-10 md:gap-16 lg:gap-24 pt-[80px] w-full max-w-[1600px] items-center">
           <section
             className="flex flex-col items-center text-custom-primary-text dark:text-custom-black text-center max-w-full md:max-w-[1200px] w-full"
@@ -82,8 +82,8 @@ export const LandingPage = () => {
             </div>
           </section>
 
-          <div className="bg-custom-background w-full md:max-h-[576px] rounded-[30px] p-4 md:pr-0 md:pl-5 lg:pl-20 flex flex-col gap-5 md:flex-row items-center md:justify-between mb-[-250px] mt-5 lg:mt-16">
-            <section className="flex flex-col items-center md:items-start text-center md:text-start gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text mt-0 lg:mt-16">
+          <div className="bg-custom-background w-full md:max-h-[576px] rounded-[30px] p-4 md:pr-0 md:pl-5 lg:pl-20 flex flex-col gap-5 md:flex-row items-center md:justify-between mt-5 lg:mt-16">
+            <section className="flex flex-col items-center md:items-start text-center md:text-start gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text mt-5 lg:mt-16">
               <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
                 Treasure Trove of Technical Bitcoin Resources
               </h3>
@@ -107,7 +107,7 @@ export const LandingPage = () => {
         </div>
       </div>
 
-      <div className="w-full rounded-[30px] flex flex-col-reverse md:flex-row gap-6 md:gap-10 xl:gap-[140px] items-center px-4 py-4 md:py-0 md:px-10 xl:px-20 max-w-[1600px] mt-[220px] md:mt-[150px] lg:mt-[250px] xl:mt-[400px]">
+      <div className="w-full rounded-[30px] flex flex-col-reverse md:flex-row gap-6 md:gap-10 xl:gap-[100px] justify-between items-center px-4 py-4 md:py-0 md:px-10 xl:px-20 max-w-[1600px] xl:mt-[100px]">
         <section className="relative w-full md:h-[577px] h-[250px] max-h-[576px] max-w-[766px]">
           <Image
             src={
@@ -132,7 +132,7 @@ export const LandingPage = () => {
         </section>
       </div>
 
-      <div className="w-full rounded-[30px] flex flex-col md:flex-row justify-between mt-0 xl:mt-[100px] items-center px-4 py-4 md:py-0 md:px-10 lg:px-20  max-w-[1600px] gap-6">
+      <div className="w-full rounded-[30px] flex flex-col md:flex-row gap-6 justify-between items-center px-4 py-4 md:py-0 md:px-10 lg:px-20 max-w-[1600px] mt-0 xl:mt-[100px]">
         <section className="flex items-center md:items-start flex-col max-w-full md:max-w-[48%] gap-5 md:gap-8 lg:gap-12 text-custom-primary-text text-center md:text-start py-4 md:py-0">
           <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
             Credible Sources
