@@ -166,6 +166,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     }
   }
 
+  // handle focus on input
   // quirks with mobile to dismiss keyboard
   useEffect(() => {
     const input = inputRef.current
@@ -173,6 +174,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     const handleClickOutside = (event: MouseEvent) => {
       const hasChildFocus = searchBoxRef.current ? searchBoxRef?.current.querySelector(':active') !== null : false
       if (!hasChildFocus) {
+        input.blur() // focus stuck on input after kbd dismiss, ensure input loses focus
         setFocus(false)
       }
     };
