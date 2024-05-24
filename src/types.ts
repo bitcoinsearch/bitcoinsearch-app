@@ -46,6 +46,7 @@ export type EsSearchResult = {
     tags?: string[];
     transcript_by?: string;
     summary?: string;
+    thread_url?: string;
     type?: "question" | "reply" | "original_post" | "newsletter";
   };
 };

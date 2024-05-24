@@ -1,7 +1,14 @@
 import { EsSearchResult } from "@/types";
 import { getDomainLabel } from "./mapping-helper";
 
-export const generateLocator = (raw_domain: string, url: string, title: string) => {
+type GenerateLocatorArgs = {
+  raw_domain: string;
+  url: string;
+  title: string;
+  thread_url?: string;
+}
+
+export const generateLocator = ({raw_domain, url, title, thread_url}: GenerateLocatorArgs) => {
   const label = getDomainLabel(raw_domain, true);
   switch (raw_domain) {
     case "https://bitcointalk.org": {
@@ -10,6 +17,10 @@ export const generateLocator = (raw_domain: string, url: string, title: string) 
     }
     case "https://bitcoin.stackexchange.com": {
       const id = locatorForBitcoinStackExchange(url) ?? title;
+      return appendIdWithDomain(id, label);
+    }
+    case "https://delvingbitcoin.org/": {
+      const id = locatorForDelvingBitcoin(thread_url) ?? title;
       return appendIdWithDomain(id, label);
     }
     default:
@@ -23,12 +34,16 @@ export const locatorForBitcoinTalk = (url: string) => {
   return topicId || null;
 };
 
-export const locatorForBitcoinStackExchange = (url) => {
+export const locatorForBitcoinStackExchange = (url: string) => {
   const urlPath = new URL(url)?.pathname;
   const id = urlPath && urlPath?.split("questions")[1];
   if (!id) return null;
   return id;
 };
+
+export const locatorForDelvingBitcoin = (url: string) => {
+  return url
+}
 
 export const locatorForMailingList = (url: string) => {
   // TODO: write a more robust regex pattern matching for id

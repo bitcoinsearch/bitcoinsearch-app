@@ -88,7 +88,8 @@
     "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/",
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/",
     "https://bitcointalk.org",
-    "https://bitcoin.stackexchange.com"
+    "https://bitcoin.stackexchange.com",
+    "https://delvingbitcoin.org/"
   ],
   "tldrLists": [
     "https://lists.linuxfoundation.org/pipermail/bitcoin-dev",

@@ -27,7 +27,7 @@ const CustomResults = ({ clickThroughTags, shouldTrackClickThrough }) => {
     if (groupedDomains.includes(raw_domain)) {
       const idx = formattedResults.length;
 
-      const locatorId = generateLocator(raw_domain, result.url, result.title);
+      const locatorId = generateLocator({raw_domain, url:result.url, title:result.title, thread_url:result?.thread_url});
       const isSimilarIdx = similarity[locatorId];
 
       if (isSimilarIdx !== undefined) {
