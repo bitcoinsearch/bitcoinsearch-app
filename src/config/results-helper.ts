@@ -11,7 +11,7 @@ type GenerateLocatorArgs = {
 export const generateLocator = ({raw_domain, url, title, thread_url}: GenerateLocatorArgs) => {
   const label = getDomainLabel(raw_domain, true);
   switch (raw_domain) {
-    case "https://bitcointalk.org": {
+    case "https://bitcointalk.org/": {
       const id = locatorForBitcoinTalk(url) ?? title;
       return appendIdWithDomain(id, label);
     }
@@ -19,12 +19,13 @@ export const generateLocator = ({raw_domain, url, title, thread_url}: GenerateLo
       const id = locatorForBitcoinStackExchange(url) ?? title;
       return appendIdWithDomain(id, label);
     }
-    case "https://delvingbitcoin.org/": {
-      const id = locatorForDelvingBitcoin(thread_url) ?? title;
-      return appendIdWithDomain(id, label);
-    }
+
     default:
-      return appendIdWithDomain(title, label);
+      let id = title
+      if (thread_url) {
+        id = locathorForThreads(thread_url)
+      }
+      return appendIdWithDomain(id, label);
   }
 };
 
@@ -41,8 +42,8 @@ export const locatorForBitcoinStackExchange = (url: string) => {
   return id;
 };
 
-export const locatorForDelvingBitcoin = (url: string) => {
-  return url
+export const locathorForThreads = (thread_url: string) => {
+  return thread_url;
 }
 
 export const locatorForMailingList = (url: string) => {
