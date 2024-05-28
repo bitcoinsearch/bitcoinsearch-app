@@ -1,36 +1,93 @@
 import useURLManager from "@/service/URLManager/useURLManager";
 import { FacetKeys } from "@/types";
 import { Button } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ArrowLeft from "../svgs/ArrowLeft";
 import ArrowRight from "../svgs/ArrowRight";
-
 
 type FilterTagProps = {
   field: FacetKeys;
   options: string[] | string;
 };
 
+const scrollPadding = 10;
+
 const FilterTags = ({ field, options }: FilterTagProps) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(null);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const scrollRight =
-    (containerRef.current?.scrollWidth || 0) -
-    (containerRef.current?.clientWidth || 0);
+  const [startX, setStartX] = useState({
+    page: 0,
+    scrollLeft: 0,
+  });
+
+  const [isScrollable, setIsScrollable] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef?.current;
+    if (!container) return;
+
+    // Add data attributes to the container to determine if the left and right arrows should be shown
+    const handleArrowVisibility = () => {
+      if (!container) return;
+      try {
+        container.dataset.showLeftArrow = (container.scrollLeft > scrollPadding).toString();
+  
+        container.dataset.showRightArrow = (
+          container.scrollLeft + container.clientWidth + scrollPadding <
+          containerRef.current.scrollWidth
+        ).toString();
+      } catch (e) {
+        container.dataset.showLeftArrow = false.toString();
+        container.dataset.showRightArrow = false.toString();
+      }
+    };
+
+    const handleScroll = () => {
+      handleArrowVisibility()
+    }
+
+    const handleResize = () => {
+      if (!container) return;
+      handleArrowVisibility()
+      try {
+        setIsScrollable(container.scrollWidth > container.clientWidth);
+      } catch (e) {
+        setIsScrollable(false);
+      }
+    };
+
+    // call handleArrowVisibility and setIsScrollable on mount
+    handleArrowVisibility();
+    if (container.scrollWidth > container.clientWidth) {
+      setIsScrollable(true);
+    }
+
+    container.addEventListener("scroll", () => {
+      handleScroll();
+    });
+    window.addEventListener("resize", () => handleResize())
+
+    return () => {
+      if (container.scrollWidth > container.clientWidth) {
+        container.removeEventListener("scroll", () => handleScroll());
+      }
+      window.removeEventListener("resize", () => handleScroll())
+    };
+  }, []);
 
   const handleMouseDown = (event) => {
     setIsDragging(true);
-    setStartX(event.pageX);
-    setScrollLeft(containerRef.current.scrollLeft);
+    setStartX({
+      page: event.pageX,
+      scrollLeft: containerRef.current.scrollLeft,
+    });
   };
 
   const handleMouseMove = (event) => {
     if (!isDragging) return;
     const x = event.pageX;
-    const scrollOffset = (x - startX) * 2;
-    containerRef.current.scrollLeft = scrollLeft - scrollOffset;
+    const scrollOffset = (x - startX.page) * 2;
+    containerRef.current.scrollLeft = startX.scrollLeft - scrollOffset;
   };
 
   const handleMouseUp = () => {
@@ -39,7 +96,6 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
 
   const handleArrowClick = (scrollOffset) => {
     const newScrollLeft = containerRef.current.scrollLeft + scrollOffset;
-    setScrollLeft(newScrollLeft);
     containerRef.current.scrollTo({
       left: newScrollLeft,
       behavior: "smooth", // Use smooth scrolling behavior
@@ -72,7 +128,7 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       selected: Boolean(filterForField?.some((el) => el === option)),
     };
   });
-  const isLengthOver = formattedOptions.length > 4;
+
   return (
     <div
       className="flex relative overflow-hidden w-full"
@@ -81,17 +137,11 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      {scrollLeft > 0 && isLengthOver &&  (
-        <div
-          onClick={() => handleArrowClick(-200)}
-          className="cursor-pointer flex z-10 items-center justify-center h-full  w-[60px] bg-shadow-left absolute left-0 top-0"
-        >
-          <ArrowLeft className="text-black dark:text-custom-primary-text" />
-        </div>
-      )}
       <div
         ref={containerRef}
-        className={`flex max-w-full gap-2 overflow-auto scroller ${isLengthOver ? "pr-16" : ""}`}
+        className={`flex max-w-full gap-2 overflow-auto no-scrollbar peer/facet ${
+          isScrollable ? "px-1" : ""
+        }`}
       >
         {formattedOptions?.map((a, idx) => (
           <Button
@@ -103,23 +153,31 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
               a.selected
                 ? "!bg-custom-hover-state !border-custom-accent"
                 : "!bg-custom-background"
-              }`}
+            }`}
             onClick={() => handleToggleFilter(a)}
-            aria-label={`${a.selected? 'unselect' : 'select'} filter ${field}:${a.value}`}
+            aria-label={`${
+              a.selected ? "unselect" : "select"
+            } filter ${field}:${a.value}`}
           >
             {a.value}
           </Button>
         ))}
       </div>
-      {scrollLeft < scrollRight + 1 && isLengthOver && (
-        <div
-          onClick={() => handleArrowClick(200)}
-          className="flex items-center justify-center h-full w-5  lg:w-[60px] bg-shadow-right absolute right-0 top-0 text-white"
-        >
-          {" "}
-          <ArrowRight className="cursor-pointer text-black dark:text-custom-primary-text" />{" "}
-        </div>
-      )}
+
+      <div
+        onClick={() => handleArrowClick(-200)}
+        className="hidden peer-data-[show-left-arrow=true]/facet:flex cursor-pointer items-center pl-2 justify-start h-full w-8 bg-shadow-left absolute left-0 top-0"
+      >
+        <ArrowLeft className="text-black dark:text-custom-primary-text" />
+      </div>
+
+      <div
+        onClick={() => handleArrowClick(200)}
+        className="hidden peer-data-[show-right-arrow=true]/facet:flex cursor-pointer items-center pr-2 justify-end h-full w-8 bg-shadow-right absolute right-0 top-0"
+      >
+        {" "}
+        <ArrowRight className="text-black dark:text-custom-primary-text" />{" "}
+      </div>
     </div>
   );
 };
