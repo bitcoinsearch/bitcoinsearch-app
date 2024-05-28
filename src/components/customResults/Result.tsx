@@ -138,7 +138,7 @@ const Result = ({ result }: ResultProps) => {
           <a
             href={mappedUrl}
             target="_blank"
-            className="pointer-events-auto group-hover/heading:text-custom-accent cursor-pointer hover:underline"
+            className="pointer-events-auto md:group-hover/heading:text-custom-accent cursor-pointer hover:underline"
           >
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
@@ -149,7 +149,7 @@ const Result = ({ result }: ResultProps) => {
       </div>
       <div className="pointer-events-none flex flex-col gap-4 md:flex-row md:justify-between xl:gap-12 lg:items-center">
         {dateString && (
-          <div className="pointer-events-none flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
+          <div className="pointer-events-none flex shrink-0 gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
             <div className="flex w-full items-center gap-2 font-mona font-medium text-custom-secondary-text">
               <DateIcon className="flex-shrink-0" />
               <p className="text-[12px] mb-[-2px] whitespace-nowrap lg:text-sm 2xl:text-base leading-none">
