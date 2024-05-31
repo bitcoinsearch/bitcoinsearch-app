@@ -106,7 +106,7 @@ export const App = () => {
             !results.length && !noResult && "-mt-40"
           }`}
         >
-          <HomeTextBanner className={`header ${results.length && "pt-10"}`} />
+          <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center" />
           <Layout
             header={<Header openForm={openForm} />}
             sideContent={<SideBar />}
