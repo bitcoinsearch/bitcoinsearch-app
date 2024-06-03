@@ -97,14 +97,13 @@ const MenuSwitcher = () => {
         </Tooltip>
       </button>
       <div className="relative">
-        {open ? (
-          <div
-            ref={popoverRef}
-            className="absolute top-0 right-0 mt-3 md:mt-4"
-          >
-            <AppMenu />
-          </div>
-        ): null}
+        <div
+          data-is-open={open}
+          ref={popoverRef}
+          className="hidden data-[is-open=true]:block absolute top-0 right-0 mt-3 md:mt-4"
+        >
+          <AppMenu />
+        </div>
       </div>
     </div>
   );
