@@ -71,7 +71,7 @@ const MenuSwitcher = () => {
     <div className="relative flex flex-col">
       <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)} className="">
         <Tooltip
-          color="var(--primary-text)"
+          color="#fafafa"
           hasArrow
           label="All Tools by the Bitcoin Dev Project"
           className="bg-custom-black text-custom-primary-text text-center text-sm font-medium"
