@@ -3,7 +3,6 @@ import { SVGProps } from "react";
 const SearchIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="20"
-    height="auto"
     viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

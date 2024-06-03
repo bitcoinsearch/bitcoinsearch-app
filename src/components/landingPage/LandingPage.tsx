@@ -59,6 +59,7 @@ export const LandingPage = () => {
                 }
                 alt="google search image"
                 fill
+                sizes="(min-width: 1200px) 784px, 50vw"
                 data-light-lg={!isMobile && !isDark}
                 className="object-contain transform hover:scale-[1.3] hover:translate-x-[6px] origin-left ease-in-out duration-300 hover:z-30"
               />
@@ -77,6 +78,7 @@ export const LandingPage = () => {
                 }
                 alt="bitcoin search image"
                 fill
+                sizes="(min-width: 1200px) 784px, 50vw"
                 className="object-contain transform hover:scale-[1.3] hover:translate-x-[-6px] origin-right ease-in-out duration-300 hover:z-30"
               />
             </div>
@@ -100,6 +102,7 @@ export const LandingPage = () => {
                 }
                 alt="trasure trove chart"
                 fill
+                sizes="(min-width: 1200px) 784px, 70vw"
                 className="object-contain"
               />
             </section>
@@ -117,6 +120,7 @@ export const LandingPage = () => {
             }
             alt="filter image"
             fill
+            sizes="(min-width: 1200px) 784px, 70vw"
             className="object-contain"
           />
         </section>
@@ -152,6 +156,7 @@ export const LandingPage = () => {
             }
             alt="treasure trove chart"
             fill
+            sizes="(min-width: 1200px) 784px, 70vw"
             className="object-contain"
           />
         </section>

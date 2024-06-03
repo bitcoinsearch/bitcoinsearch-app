@@ -9,6 +9,7 @@ import { SortingViewProps } from "./types";
 import Image from "next/image";
 import SidebarSection from "../SidebarSection";
 import SortIcon from "@/components/svgs/SortIcon";
+import LightningIcon from "public/lightning_icon_filled.svg";
 
 const SortingView = ({
   onChange,
@@ -66,10 +67,8 @@ const SortingView = ({
                 >
                   <div className="w-full px-5 py-[6px] flex gap-2 font-medium text-sm 2xl:text-base group-data-[selected=false]:hover:bg-custom-hover-state">
                     <Image
-                      className="group-data-[selected=false]:invisible"
-                      src="./lightning_icon_filled.svg"
-                      height={16}
-                      width={16}
+                      className="group-data-[selected=false]:invisible w-[12px] 2xl:w-[16px] h-auto"
+                      src={LightningIcon}
                       alt=""
                     />
                     <span className="group-data-[selected=true]:text-custom-accent group-data-[selected=true]:font-bold">

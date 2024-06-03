@@ -133,7 +133,7 @@ function CustomMultiCheckboxFacet({
                   >
                     <Image
                       data-transaction-name={`facet - ${label}`}
-                      className="shrink-0 group-data-[selected=false]/checkOption:invisible w-[12px] 2xl:w-[16px]"
+                      className="shrink-0 group-data-[selected=false]/checkOption:invisible w-[12px] 2xl:w-[16px] h-auto"
                       src={LightningIcon}
                       alt="bolt icon"
                     />

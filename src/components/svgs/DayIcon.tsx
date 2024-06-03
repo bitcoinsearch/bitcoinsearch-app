@@ -5,7 +5,6 @@ const DayIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     color="#F7931A"
     width="12"
-    height="auto"
     viewBox="0 0 16 16"
     fill="none"
     {...props}

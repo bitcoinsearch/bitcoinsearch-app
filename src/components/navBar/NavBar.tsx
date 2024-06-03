@@ -100,7 +100,7 @@ const MenuSwitcher = () => {
         {open ? (
           <div
             ref={popoverRef}
-            className="absolute top-0 right-0 mt-3 md:mt-5 xl:mt-5"
+            className="absolute top-0 right-0 mt-3 md:mt-4"
           >
             <AppMenu />
           </div>
@@ -157,7 +157,7 @@ const NavBar = () => {
             />
           </div>
         )}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <ThemeSwitcher />
           <MenuSwitcher />
         </div>
