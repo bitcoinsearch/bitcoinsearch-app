@@ -5,7 +5,7 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import CustomResults from "@/components/customResults/CustomResults";
 import BodyFooter from "@/components/footer/BodyFooter";
-import ResultFooter from "@/components/footer/ResultFooter";
+import Footer from "@/components/footer/Footer";
 import FormModal from "@/components/formModal/FormModal";
 import { LandingPage } from "@/components/landingPage/LandingPage";
 import LoadingBar from "@/components/loadingBar/LoadingBar";
@@ -97,7 +97,7 @@ export const App = () => {
   const results = queryResult.data?.hits?.hits ?? [];
 
   return (
-    <div className={`${isHomePage && "relative"} bg-custom-background`}>
+    <div className={`${isHomePage && "relative"} bg-custom-background text-custom-primary-text`}>
       <main id="main" className="min-h-[95vh] flex w-full items-center">
         <NavBar />
         {isLoading && <LoadingBar />}
@@ -122,7 +122,7 @@ export const App = () => {
       <section
         className={`${(isLoading || !hasQueryString || noResult) && "hidden"}`}
       >
-        <ResultFooter />
+        <Footer />
       </section>
     </div>
   );

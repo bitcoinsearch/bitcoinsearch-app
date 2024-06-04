@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ResultFooter from "../footer/ResultFooter";
+import Footer from "@/components/footer/Footer";
 import { useTheme } from "@/context/Theme";
 import TreasureChartLight from "public/landing/light/treasure-trove-chart.webp"
 import TreasureChartDark from "public/landing/dark/treasure-trove-chart.webp"
@@ -192,7 +192,7 @@ export const LandingPage = () => {
           <span className="leading-none">Start searching now</span>
         </button>
       </div>
-      <ResultFooter />
+      <Footer />
     </main>
   );
 };

@@ -48,9 +48,9 @@ const ContactSocials = () => {
   );
 };
 
-const ResultFooter = () => {
+const Footer = () => {
   return (
-    <footer className="bg-custom-background bottom-0 text-left md:text-center w-full border-t border-custom-stroke text-xs md:text-base 2xl:text-xl leading-normal dark:text-custom-primary-text">
+    <footer className="text-custom-primary-text bg-custom-background bottom-0 text-left md:text-center w-full border-t border-custom-stroke text-xs md:text-base 2xl:text-xl leading-normal dark:text-custom-primary-text">
       <div className="flex flex-col md:flex-row gap-y-5 items-center justify-between p-5 md:p-7 2xl:p-10 w-full max-w-[1920px] m-auto">
         <div className="hidden md:flex">
           <ContactSocials />
@@ -98,4 +98,4 @@ const ResultFooter = () => {
   );
 };
 
-export default ResultFooter;
+export default Footer;
