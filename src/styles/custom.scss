@@ -145,9 +145,10 @@
 }
 body {
   &:has(*[data-freeze-body="true"]) {
-    position: fixed;
     overflow: hidden;
     pointer-events: none;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -168,9 +169,10 @@ body {
 
   body {
     &:has(*[data-freeze-body-mobile="true"]) {
-      position: fixed;
       overflow: hidden;
       pointer-events: none;
+      width: 100%;
+      height: 100%;
     }
   }
 }

@@ -324,7 +324,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
                       }
                       className={`${
                         autoCompleteHeight.current ? "" : "fallback-height"
-                      } md:max-h-[40vh] overflow-scroll`}
+                      } md:max-h-[40vh] overflow-auto`}
                     >
                       {suggestions.map((sug, index) => (
                         <li
