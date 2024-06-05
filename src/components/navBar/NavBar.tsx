@@ -90,7 +90,7 @@ const MenuSwitcher = () => {
                 : "bg-custom-background"
             }`}
           >
-            <div>
+            <div data-freeze-body={open}>
               <AppsIcon className="md:w-7" />
             </div>
           </div>
@@ -124,7 +124,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navBar fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-20 ${
+      className={`navBar pointer-events-auto fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-20 ${
         hiddenHomeFacet ? "bg-custom-hover-state shadow-md" : ""
       }`}
     >

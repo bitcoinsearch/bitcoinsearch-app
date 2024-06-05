@@ -1,53 +1,72 @@
 @import "./reset.css";
 
 :root {
-    --primary-blue: #3a86ff;
-    --secondary-blue: #a2d2ff;
-    --primary-orange: #FF9900;
-    --number-of-lines: 4;
-    --number-of-lines-mobile: 5;
+  --primary-blue: #3a86ff;
+  --secondary-blue: #a2d2ff;
+  --primary-orange: #ff9900;
+  --number-of-lines: 4;
+  --number-of-lines-mobile: 5;
 }
 
 @media screen and (max-width: 768px) {
-    #main {
-        &:has(form[data-input-focus='true']) .navBar {
-            display: none !important;
-        }
-    }
-    .popout {
-        position: absolute;
-        top: 4px;
-        left: 0;
-        padding-inline: 4px;
-        z-index: 99;
+  #main {
+    &:has(form[data-input-focus="true"]) .navBar {
+      display: none !important;
     }
   }
+  .popout {
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    padding: 4px;
+    z-index: 99;
+    animation: "glow-in";
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    
+    .fallback-height {
+      max-height: clamp(35vh, 200px, 80vh);
+    }
+  }
+}
 
-.btc-search { 
-    .sui-layout-sidebar-toggle {
-        display: none;
+@keyframes glow-in {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.8);
     }
-    .sui-layout-body:after {
-        display: none;
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
+}
+
+.btc-search {
+  .sui-layout-sidebar-toggle {
+    display: none;
+  }
+  .sui-layout-body:after {
+    display: none;
+  }
 }
 
 .btc-search .sui-facet-view-more {
   color: red;
 }
 
-
 .paging-info {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
 }
 .paging-info strong {
-    text-align: right;
+  text-align: right;
 }
 .paging-info p {
-    margin: 0;
-    padding: 4px 0;
+  margin: 0;
+  padding: 4px 0;
 }
 
 .home-facet-container {
@@ -65,38 +84,94 @@
 }
 
 .home-facet-tag {
-    transform: scale(0.4);
-    opacity: 0;
-    animation-name: bubble-in;
-    animation-duration: 350ms;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
-    -webkit-tap-highlight-color: transparent;
-    @media (hover:none) {
-        &:hover {
-            background-color: auto;
-            color: auto;
-        }
+  transform: scale(0.4);
+  opacity: 0;
+  animation-name: bubble-in;
+  animation-duration: 350ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+  -webkit-tap-highlight-color: transparent;
+  @media (hover: none) {
+    &:hover {
+      background-color: auto;
+      color: auto;
     }
-    @media (pointer:fine) {
-        &:hover {
-            background-color: var(--chakra-colors-gray-600);
-            color: var(--chakra-colors-gray-100);
-        }
+  }
+  @media (pointer: fine) {
+    &:hover {
+      background-color: var(--chakra-colors-gray-600);
+      color: var(--chakra-colors-gray-100);
     }
+  }
 }
 
 @keyframes bubble-in {
-    80% {
-        transform: scale(1.1);
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+  80% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .landing-gradient {
-    background-image: linear-gradient(to bottom, #E58525 0%, #E58525 15%, transparent 80%);
+  background-image: linear-gradient(
+    to bottom,
+    #e58525 0%,
+    #e58525 15%,
+    transparent 80%
+  );
+}
+
+// styling for non-interactive body
+// this is a hack to make the body non-interactive
+// IMPORTANT: elements oustide the element with data-freeze-body that needs interactivity must have the class "pointer-events-auto" else it will be frozen too
+
+*[data-freeze-body="true"] {
+  pointer-events: auto;
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(128, 128, 128, 0.15);
+    background-color: rgba(var(--background), 0.15);
+  }
+}
+body {
+  &:has(*[data-freeze-body="true"]) {
+    position: fixed;
+    overflow: hidden;
+    pointer-events: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  [data-freeze-body-mobile="true"] {
+    pointer-events: auto;
+    &::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+      background-color: rgba(128, 128, 128, 0.15);
+      // background-color: rgba(var(--background), 0.15);
+    }
+  }
+
+  body {
+    &:has(*[data-freeze-body-mobile="true"]) {
+      position: fixed;
+      overflow: hidden;
+      pointer-events: none;
+    }
+  }
 }
