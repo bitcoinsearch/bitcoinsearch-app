@@ -14,6 +14,7 @@ import {
   SearchBoxContainerContext,
   SearchBoxContainerProps,
 } from "./SearchBox";
+import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 export type SearchBoxViewProps = Pick<
   SearchBoxContainerContext & SearchBoxContainerProps,
@@ -67,6 +68,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const [onFocus, setFocus] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const isMacDevice = isMac();
+  const { isHomePage } = useIsInitialStateWithoutFilter();
 
   // this height value is taken before on screen keyboard popsout
   // innerHeight has a different value after on screen keyboard is rendered on brave browser
@@ -97,7 +99,7 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchInput("");
   };
 
-  const isSelectTagsContainerOpen = onFocus && !searchInput.trim();
+  const isSelectTagsContainerOpen = onFocus && !searchInput.trim() && isHomePage;
   const isAutoCompleteContainerOpen =
     onFocus && searchInput.trim().length > 2 && !!allAutocompletedItemsCount;
   const isContainerOpen =
