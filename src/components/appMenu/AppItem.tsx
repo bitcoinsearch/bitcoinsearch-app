@@ -5,7 +5,7 @@ import Link from "next/link";
 export const AppItem = ({ href, image, name, title }: MenuApp) => (
   <Link
     href={href}
-    className="font-mona text-custom-primary-text py-3 px-8 gap-6 flex items-center hover:bg-custom-hover-state dark:hover:bg-custom-stroke"
+    className="font-mona text-custom-primary-text py-3 px-8 gap-6 flex items-center hover:bg-custom-hover-state dark:hover:bg-custom-stroke first-of-type:pt-8 last-of-type:pb-6"
     target="_blank"
     rel="noopener noreferrer"
   >
