@@ -94,19 +94,16 @@ export const App = () => {
     (hasFilters || hasQueryString) &&
     !isLoading &&
     !queryResult.data?.hits?.total["value"];
-  const results = queryResult.data?.hits?.hits ?? [];
 
   return (
-    <div className={`${isHomePage && "relative"} bg-custom-background text-custom-primary-text`}>
-      <main id="main" className="min-h-[95vh] flex w-full items-center">
-        <NavBar />
+    <div className={`${isHomePage ? "relative" : ""} bg-custom-background text-custom-primary-text`}>
+      <main id="main" className="min-h-[95dvh] flex w-full items-center pt-[60px] pb-[60px] md:pt-[88px] 2xl:pt-[122px]">
         {isLoading && <LoadingBar />}
+        <NavBar />
         <div
-          className={`App btc-search w-full ${
-            !results.length && !noResult && "-mt-40"
-          }`}
+          className={`App btc-search w-full`}
         >
-          <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center" />
+          <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center pb-[40px] md:pb-[88px] 2xl:pb-[122px]" />
           <Layout
             header={<Header openForm={openForm} />}
             sideContent={<SideBar />}

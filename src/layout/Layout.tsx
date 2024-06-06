@@ -17,7 +17,7 @@ const Layout = ({
   const { sidebarToggleManager } = useUIContext();
 
   return (
-    <div id='sectioned layout' className="bg-custom-background pt-[60px] md:pt-[88px] 2xl:pt-[122px]">
+    <div id='sectioned layout' className="bg-custom-background">
       <section
         id="searchbar-mobile-result"
         data-hidden-large={hiddenBody}
