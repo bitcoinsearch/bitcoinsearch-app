@@ -30,6 +30,15 @@ const useURLManager = () => {
     urlParams.delete(URLSearchParamsKeyword["PAGE"])
   }
 
+  const addSortParams = (sortField: string, value: string) => {
+    urlParams.set(appendSortName(sortField), value);
+    return urlParams.toString()
+  };
+  const removeSortParams = (sortField: string) => {
+    urlParams.delete(appendSortName(sortField));
+    return urlParams.toString()
+  };
+
   const addFilterFromParams = ({filterType, filterValue, multiSelect = true}: FilterProp) => {
     const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
     if (currentFilterForType.includes(filterValue)) return null;
@@ -64,16 +73,13 @@ const useURLManager = () => {
   }
 
   const addSort = (sortField: string, value: string) => {
-    urlParams.set(appendSortName(sortField), value);
-    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true });
+    const params = addSortParams(sortField, value)
+    router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: true });
   };
 
   const removeSort = (sortField: string) => {
-    urlParams.delete(appendSortName(sortField));
-    const newUrl = urlParams.toString()
-      ? `${router.pathname}?${urlParams.toString()}`
-      : router.pathname;
-    router.push(newUrl, undefined, { shallow: true, scroll: true });
+    const params = removeSortParams(sortField)
+    router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: true });
   };
 
   const addFilter = ({filterType, filterValue, multiSelect = true}: FilterProp) => {
@@ -106,22 +112,20 @@ const useURLManager = () => {
         urlParams.delete(key);
       }
     }
-
-    removePageQueryParams();
-
-    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true });
-  };
-
-  const removeFilterTypes = (filterTypes: FacetKeys[]) => {
-    let removedFilter = false
+  }
+  
+  const removeFilterTypes = ({filterTypes, sortField}: {filterTypes: FacetKeys[], sortField: string}) => {
     filterTypes.forEach((filterType) => {
       const appendedFilterName = appendFilterName(filterType)
       const currentFilterForType = urlParams.getAll(appendedFilterName)
       if (!currentFilterForType.length) return
       urlParams.delete(appendedFilterName)
-      removedFilter = true
     })
-    removedFilter && router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true })
+
+    removeSortParams(sortField)
+    removePageQueryParams()
+    const params = urlParams.toString();
+    router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true, scroll: true });
   }
 
   const setResultsSize = (size: number) => {

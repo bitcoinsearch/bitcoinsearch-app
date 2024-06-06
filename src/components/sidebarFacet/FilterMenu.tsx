@@ -33,7 +33,7 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
   const { removeFilterTypes, removeFilter } = useURLManager();
   if (!filters?.length) return null;
   const clearAllFilters = () => {
-    removeFilterTypes(["authors", "domain"]);
+    removeFilterTypes({filterTypes: ["authors", "domain"], sortField: "sort_by"});
   };
   return (
     <SidebarSection className="text-custom-primary-text">
