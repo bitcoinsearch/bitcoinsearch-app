@@ -17,6 +17,7 @@ const BodyFooter = () => {
           <button
             className="rc-pagination-jump-prev"
             onClick={() => handlePageChange(1)}
+            aria-label="jump to first page"
           />
         )}
         <Paging
@@ -29,6 +30,7 @@ const BodyFooter = () => {
           <button
             className="rc-pagination-jump-next"
             onClick={() => handlePageChange(totalPages)}
+            aria-label="jump to last page"
           />
         )}
       </div>

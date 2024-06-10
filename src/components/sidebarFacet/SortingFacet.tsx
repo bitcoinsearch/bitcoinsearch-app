@@ -18,9 +18,10 @@ type FacetProps = {
   label: string;
   view: FunctionComponent;
   sortOptions: SortOption[]
+  callback?: (x?: SortOption) => void
 }
 
-const SortingFacet = ({field, label, view, sortOptions}: FacetProps) => {
+const SortingFacet = ({field, label, view, sortOptions, callback}: FacetProps) => {
   const {getSort, addSort, removeSort } = useURLManager()
   
   const sortField = getSort(field) ?? "";
@@ -34,8 +35,14 @@ const SortingFacet = ({field, label, view, sortOptions}: FacetProps) => {
     if (x.trim()) {
       const selectedOption = sortOptions.find(option => option.value === x)
       selectedOption.value && addSort(field, selectedOption.value)
+      if (callback) {
+        callback(selectedOption)
+      }
     } else {
       removeSort(field)
+      if (callback) {
+        callback(selectedOption)
+      }
     }
 
   }

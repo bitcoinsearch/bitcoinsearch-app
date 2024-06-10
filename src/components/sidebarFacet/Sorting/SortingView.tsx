@@ -8,7 +8,8 @@ import {
 import { SortingViewProps } from "./types";
 import Image from "next/image";
 import SidebarSection from "../SidebarSection";
-import SortIcon from "public/sort_icon.svg";
+import SortIcon from "@/components/svgs/SortIcon";
+import LightningIcon from "public/lightning_icon_filled.svg";
 
 const SortingView = ({
   onChange,
@@ -20,11 +21,7 @@ const SortingView = ({
   return (
     <SidebarSection className="text-custom-primary-text">
       <label className="flex gap-2 mb-4 2xl:mb-6 items-center">
-        <Image
-          src={SortIcon}
-          alt={label}
-          className="w-[20px] h-[20px] 2xl:w-[25px]"
-        />
+        <SortIcon className="w-[20px] h-[20px] 2xl:w-[25px]" />
         <p className="2xl:text-lg font-bold">{label}</p>
       </label>
       <FormControl>
@@ -39,6 +36,7 @@ const SortingView = ({
             as="button"
             style={{ width: "100%" }}
             className="group/menuBtn"
+            aria-label="open sort menu"
           >
             <div className="w-full flex bg-custom-background px-4 py-3 border-[1px] border-custom-stroke items-center justify-between rounded-xl">
               <p className="text-sm 2xl:text-base font-bold text-custom-primary-text ">
@@ -65,13 +63,12 @@ const SortingView = ({
                   className="group"
                   p={0}
                   m={0}
+                  aria-label={`sort by ${item.label}`}
                 >
                   <div className="w-full px-5 py-[6px] flex gap-2 font-medium text-sm 2xl:text-base group-data-[selected=false]:hover:bg-custom-hover-state">
                     <Image
-                      className="group-data-[selected=false]:invisible"
-                      src="./lightning_icon_filled.svg"
-                      height={16}
-                      width={16}
+                      className="group-data-[selected=false]:invisible w-[12px] 2xl:w-[16px] h-auto"
+                      src={LightningIcon}
                       alt=""
                     />
                     <span className="group-data-[selected=true]:text-custom-accent group-data-[selected=true]:font-bold">

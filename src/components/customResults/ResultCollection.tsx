@@ -21,15 +21,13 @@ const ResultCollection = ({
   const [initialResult, ...otherResults] = result;
 
   return (
-    <div className="results-collection">
+    <div className="results-collection group/other" data-expanded={isExpanded}>
       {initialResult && <Result result={initialResult} {...resultProps} />}
       {otherResults.length ? (
         <>
-          <div>
+          <div className="lg:px-3">
             <button
-              className={`other-results-dropdown ${
-                isExpanded ? "expanded" : ""
-              }`}
+              className={`other-results-dropdown text-custom-accent group-data-[expanded=true]/other:bg-custom-accent hover:bg-custom-accent hover:text-custom-white group-data-[expanded=true]/other:text-custom-white`}
               onClick={() => setIsExpanded(!isExpanded)}
             >
               <TiArrowSortedDown
@@ -38,7 +36,7 @@ const ResultCollection = ({
               {isExpanded ? (
                 <HiOutlineRectangleStack />
               ) : (
-                <span>{` + ${otherResults.length} ${
+                <span className="font-">{` + ${otherResults.length} ${
                   otherResults.length > 1 ? "results " : "result "
                 }`}</span>
               )}

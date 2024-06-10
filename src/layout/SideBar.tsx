@@ -11,8 +11,25 @@ import ResultSize from "@/components/sidebarFacet/ResultSize";
 import Image from "next/image";
 import FilterMenu from "@/components/sidebarFacet/FilterMenu";
 import ShowFilterResultsMobile from "@/components/sidebarFacet/ShowFilterResultsMobile";
+import useUIContext from "@/hooks/useUIContext";
 
 const SideBar = () => {
+  const { sidebarToggleManager } = useUIContext();
+  const isMobile = window
+    ? window.matchMedia("(max-width: 600px)").matches
+    : false;
+
+  const sortCallback = () => {
+    if (isMobile) {
+      sidebarToggleManager.updater(false);
+    }
+  };
+  const facetCallback = () => {
+    if (isMobile) {
+      sidebarToggleManager.updater(false);
+    }
+  };
+
   return (
     <div className="w-full md:w-[300px] bg-custom-background">
       <div className="hidden lg:block">
@@ -34,6 +51,7 @@ const SideBar = () => {
             value: "created_at:asc",
           },
         ]}
+        callback={sortCallback}
       />
       {getFacetFields().map((field) => (
         <Facet
@@ -42,6 +60,7 @@ const SideBar = () => {
           isFilterable={getFacetWithSearch().includes(field)}
           label={field}
           view={CustomMultiCheckboxFacet}
+          callback={facetCallback}
         />
       ))}
       <ShowFilterResultsMobile />

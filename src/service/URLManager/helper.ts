@@ -1,13 +1,13 @@
-import { urlParamsPrefix } from "@/config/config";
+import { URLSearchParamsKeyword } from "@/config/config";
 import { getFacetFields, getSortFields } from "@/config/config-helper";
 import { Facet } from "@/types";
 
 export const appendFilterName = (filterType: string) => {
-  return `${urlParamsPrefix.FILTER}_${filterType}`;
+  return `${URLSearchParamsKeyword.FILTER}_${filterType}`;
 };
 
 export const appendSortName = (sortField: string) => {
-  return `${urlParamsPrefix.SORT}_${sortField}`;
+  return `${URLSearchParamsKeyword.SORT}_${sortField}`;
 };
 
 export function generateFilterQuery(searchParams: string) {

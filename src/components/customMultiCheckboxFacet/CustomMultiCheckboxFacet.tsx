@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import mapping from "../../config/mapping.json";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
 import styles from "./styles.module.scss";
 import appendClassName from "../../utils/elastic-search-ui-functions";
-import { deriveNameFromUrl } from "@/config/mapping-helper";
 import SidebarSection from "../sidebarFacet/SidebarSection";
 import Image from "next/image";
 import { FacetKeys } from "@/types";
@@ -11,15 +9,19 @@ import useUIContext from "@/hooks/useUIContext";
 import LightningIcon from "public/lightning_icon_filled.svg";
 import UpArrow from "public/up_arrow.svg";
 import { useDisclosure } from "@chakra-ui/react";
+import AuthorIcon from "../svgs/AuthorIcon";
+import SourceIcon from "../svgs/SourceIcon";
+import SearchIcon from "../svgs/SearchIcon";
+import PlusIcon from '../svgs/PlusIcon';
 
 const facetMapping = {
   authors: {
     display: "Authors",
-    icon: "./author_icon.svg",
+    icon: <AuthorIcon />,
   },
   domain: {
     display: "Sources",
-    icon: "./source_icon.svg",
+    icon: <SourceIcon />,
   },
 };
 
@@ -38,23 +40,6 @@ function CustomMultiCheckboxFacet({
   const { isOpen, onToggle, onOpen, onClose } = useDisclosure({
     defaultIsOpen: true,
   });
-  // This function was modified to add the mapping of names to links using mapping?.labels[filterValue]
-  function getFilterValueDisplay(filterValue, label) {
-    if (filterValue === undefined || filterValue === null) {
-      return "";
-    }
-    if (Object.prototype.hasOwnProperty.call(filterValue, "name")) {
-      return filterValue.name;
-    }
-    if (label === "domain") {
-      if (mapping?.labels[filterValue]) {
-        return mapping?.labels[filterValue];
-      } else {
-        return deriveNameFromUrl(filterValue);
-      }
-    }
-    return String(filterValue);
-  }
 
   const searchRef = useRef<HTMLInputElement>();
   const multiCheckboxRef = useRef<HTMLDivElement>();
@@ -101,13 +86,7 @@ function CustomMultiCheckboxFacet({
               ref={searchRef}
             />
             <span className="absolute top-1/2 -translate-y-1/2 left-[18px]">
-              <Image
-                src="./search_icon.svg"
-                width={18}
-                height={18}
-                alt="search"
-                className=""
-              />
+              <SearchIcon className="stroke-custom-secondary-text w-[16px] h-[16px]" />
             </span>
             <span
               data-is-open={isOpen}
@@ -121,7 +100,7 @@ function CustomMultiCheckboxFacet({
 
         <div
           data-is-open={isOpen}
-          className="group/container font-medium data-[is-open='false']:hidden mt-2 max-h-[300px] py-[6px] overflow-scroll border border-custom-stroke rounded-xl"
+          className="scroller group/container font-medium data-[is-open='false']:hidden mt-2 max-h-[300px] py-[6px] overflow-auto border border-custom-stroke rounded-xl"
           ref={multiCheckboxRef}
         >
           {options.length < 1 && (
@@ -132,37 +111,37 @@ function CustomMultiCheckboxFacet({
           {options?.map((option) => {
             const checked = option.selected;
             const value = option.value;
-            const valueDisplay = getFilterValueDisplay(option.value, label);
             return (
               <label
-                key={valueDisplay}
-                htmlFor={`example_facet_${label}${valueDisplay}`}
-                data-checkbox={valueDisplay}
+                key={option.label}
+                htmlFor={`example_facet_${label}${option.label}`}
+                data-checkbox={option.label}
               >
                 <div
                   data-selected={checked}
                   data-current-navigated={
-                    valueDisplay === currentNavigateCheckbox
+                    option.label === currentNavigateCheckbox
                   }
-                  className="flex justify-between py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
+                  className="flex gap-1 py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
                   onClick={() => (checked ? onRemove(value) : onSelect(value))}
                   role="button"
+                  aria-label={`${checked? 'uncheck' : 'check'} filter ${label}:${option.label}`}
                 >
                   <div
-                    className="selectable-option flex items-center gap-3"
-                    id={`example_facet_${label}${valueDisplay}`}
+                    className="selectable-option flex grow items-center gap-3"
+                    id={`example_facet_${label}${option.label}`}
                   >
                     <Image
                       data-transaction-name={`facet - ${label}`}
-                      className="group-data-[selected=false]/checkOption:invisible w-[12px] 2xl:w-[16px]"
+                      className="shrink-0 group-data-[selected=false]/checkOption:invisible w-[12px] 2xl:w-[16px] h-auto"
                       src={LightningIcon}
                       alt="bolt icon"
                     />
-                    <span className="text-sm 2xl:text-base group-data-[selected=true]/checkOption:font-bold">
-                      {valueDisplay}
+                    <span className="grow capitalize text-sm 2xl:text-base group-data-[selected=true]/checkOption:font-bold">
+                      {option.label}
                     </span>
                   </div>
-                  <span className="group-data-[selected=true]/checkOption:font-medium">
+                  <span className="shrink-0 group-data-[selected=true]/checkOption:font-medium">
                     {numberFormat.format(option.count)}
                   </span>
                 </div>
@@ -180,13 +159,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
   return (
     <div className="flex justify-between mb-4 2xl:mb-6">
       <div className="flex gap-2 items-center">
-        <Image
-          src={facetMapping[label]["icon"]}
-          width={20}
-          height={20}
-          alt={label}
-          className="w-[18px] 2xl:w-[20px]"
-        />
+        {facetMapping[label].icon}
         <span className="text-base 2xl:text-lg font-bold">
           {facetMapping[label]["display"]}
         </span>
@@ -201,12 +174,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
             Suggest a source
           </span>
           <span className="p-[6px] bg-custom-primary-text group-hover/source:bg-custom-accent  rounded-md">
-            <Image
-              src="./plus_icon.svg"
-              width={10}
-              height={10}
-              alt="suggest a source"
-            />
+            <PlusIcon className="text-custom-background" />
           </span>
         </div>
       )}

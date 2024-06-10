@@ -5,7 +5,7 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import CustomPagingInfo from "@/components/customPagingInfo/CustomPagingInfo";
 import CustomResults from "@/components/customResults/CustomResults";
 import BodyFooter from "@/components/footer/BodyFooter";
-import ResultFooter from "@/components/footer/ResultFooter";
+import Footer from "@/components/footer/Footer";
 import FormModal from "@/components/formModal/FormModal";
 import { LandingPage } from "@/components/landingPage/LandingPage";
 import LoadingBar from "@/components/loadingBar/LoadingBar";
@@ -18,33 +18,64 @@ import useSearchQuery from "@/hooks/useSearchQuery";
 import useUIContext from "@/hooks/useUIContext";
 import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
-import { generateFilterQuery } from "@/service/URLManager/helper";
-import Image from "next/image";
+import { generateFilterQuery, generateSortFields } from "@/service/URLManager/helper";
 import { useRouter } from "next/router";
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
+import { buildQueryCall } from "@/service/api/search/searchCall";
+import HomeTextBanner from "@/components/landingPage/HomeTextBanner";
 
-const HomeTextBanner = ({ className }: { className: string }) => {
-  const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
+const queryClient = new QueryClient()
 
-  if (hiddenHomeFacet) return null;
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
 
-  return (
-    <div className={className}>
-      <Image
-        src="/btc-main.png"
-        className="logo mx-auto max-w-[200px] md:max-w-xs lg:max-w-lg 2xl:max-w-xl"
-        alt="bitcoin logo"
-        width={459}
-        height={69}
-        priority
-      />
-      <p className="text-custom-primary-text leading-normal text-sm  sm:text-base lg:text-2xl xl:text-2xl">
-        Search the depths of bitcoin’s technical ecosystem
-      </p>
-    </div>
-  );
+  const protocol = context.req.headers['x-forwarded-proto'] || 'http'; // Check if behind a proxy
+  const host = context.req.headers.host;
+  const fetchUrl = `${protocol}://${host}/api/elasticSearchProxy/search`
+  const resolvedUrl = context.resolvedUrl.slice(1)
+  const urlParams = new URLSearchParams(resolvedUrl)
+  const queryString = urlParams.get(URLSearchParamsKeyword.SEARCH) ?? "";
+  const pageQuery = urlParams.get(URLSearchParamsKeyword.PAGE);
+  const sizeQuery = urlParams.get(URLSearchParamsKeyword.SIZE);
+
+  const filterFields = generateFilterQuery(resolvedUrl)
+  const sortFields = generateSortFields(resolvedUrl)
+
+  if (!queryString.trim() && !filterFields.length) {
+    return {
+      props: {
+        data: null,
+        options: null
+      }
+    }
+  }
+
+  const page = pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0
+  const size = sizeQuery ? (parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]) : defaultParam[URLSearchParamsKeyword.SIZE]
+
+  const options = {
+    queryString,
+    size,
+    page,
+    filterFields,
+    sortFields,
+  }
+
+  const res = await buildQueryCall(options, fetchUrl)
+
+  await queryClient.prefetchQuery(["query", queryString, size, filterFields, page, sortFields], () => res)
+  const dehydratedState = dehydrate(queryClient)
+  return {
+    props: {
+      dehydratedState
+    }
+  }
 };
 
-export default function App() {
+export const App = () => {
   useSearchFocusHotkey();
 
   const { isHomePage } = useIsInitialStateWithoutFilter();
@@ -63,20 +94,16 @@ export default function App() {
     (hasFilters || hasQueryString) &&
     !isLoading &&
     !queryResult.data?.hits?.total["value"];
-  const results = queryResult.data?.hits?.hits ?? [];
 
   return (
-    <div className={`${isHomePage && "relative"} bg-custom-background`}>
-      <main className="min-h-[95vh] flex w-full items-center">
-        <NavBar />
+    <div className={`${isHomePage ? "relative" : ""} bg-custom-background text-custom-primary-text`}>
+      <main id="main" className="min-h-[95dvh] flex w-full items-center pt-[60px] pb-[60px] md:pt-[88px] 2xl:pt-[122px]">
         {isLoading && <LoadingBar />}
+        <NavBar />
         <div
-          className={`App btc-search w-full ${
-            !results.length && !noResult && "-mt-40"
-          }`}
+          className={`App btc-search w-full`}
         >
-          <HomeTextBanner className={`header ${results.length && "pt-10"}`} />
-          <div className="pt-12"></div>
+          <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center pb-[40px] md:pb-[88px] 2xl:pb-[122px]" />
           <Layout
             header={<Header openForm={openForm} />}
             sideContent={<SideBar />}
@@ -92,8 +119,10 @@ export default function App() {
       <section
         className={`${(isLoading || !hasQueryString || noResult) && "hidden"}`}
       >
-        <ResultFooter />
+        <Footer />
       </section>
     </div>
   );
 }
+
+export default App;

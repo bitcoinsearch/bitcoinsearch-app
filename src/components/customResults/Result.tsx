@@ -1,14 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import { getDomainFavicon, getMapping } from "@/config/mapping-helper";
-import { getSiteName, getUrlForCombinedSummary } from "@/utils/tldr";
+import {
+  getDomainFavicon,
+  getMapping,
+  getDomainName,
+} from "@/config/mapping-helper";
+import { getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import DateIcon from "../svgs/DateIcon";
 import ResultFavicon from "./ResultFavicon";
+import { useTheme } from "@/context/Theme";
 
 const htmlToReactParser = new (Parser as any)();
 const { tldrLists, combinedSummaryTag } = getMapping();
@@ -70,61 +75,90 @@ const Result = ({ result }: ResultProps) => {
   const sanitizedBody = sanitizeHtml(
     getBodyData(result).replaceAll("\n", "")
   ).trim();
+
+  const strippedUrl = mappedUrl.replace(/^(https?:\/\/)/i, "");
   const truncatedUrl =
-    mappedUrl.length > TruncateLinkInChar
-      ? mappedUrl.substring(0, TruncateLinkInChar) + "..."
-      : mappedUrl;
+    strippedUrl.length > TruncateLinkInChar
+      ? strippedUrl.substring(0, TruncateLinkInChar) + "..."
+      : strippedUrl;
   const truncatedBody =
     sanitizedBody.length > TruncateLengthInChar
       ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
       : sanitizedBody;
   const parsedBody = htmlToReactParser.parse(truncatedBody);
-  const siteName = getSiteName(mappedUrl);
+  const siteName = getDomainName(domain);
+
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // e.stopPropagation()
+    if (e.target === containerRef?.current) {
+      const link = linkRef.current;
+      link && link.click();
+    }
+  };
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className=" group/heading flex   flex-col gap-2 2xl:gap-4 px-1 py-2 lg:p-5 hover:shadow-lg hover:rounded-xl cursor-pointer  max-w-full lg:max-w-2xl 2xl:max-w-4xl">
-      <div className="flex gap-2 2xl:gap-4 items-center text-[8px] lg:text-xs 2xl:text-base  text-custom-secondary-text font-medium">
+    <div
+      role="link"
+      ref={containerRef}
+      className="group/heading flex flex-col gap-[12px] 2xl:gap-4 px-1 py-2 lg:p-5 lg:hover:shadow-lg hover:rounded-xl max-w-full lg:max-w-2xl 2xl:max-w-4xl"
+      onClick={handleCardClick}
+    >
+      <div className="flex gap-2 2xl:gap-4 items-center lg:text-xs 2xl:text-base text-custom-otherLight font-medium">
         <ResultFavicon
-          key={siteName}
-          src={getDomainFavicon(mappedUrl)}
+          key={`${siteName}-dark:${isDark}`}
+          src={getDomainFavicon(domain, isDark)}
           alt={`${siteName}-favicon`}
+          domain={domain}
+          isDark={isDark}
+          numbersOfRetry={0}
         />
-        <p className="capitalize">{siteName}</p>
-        <div className=" w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
-        <a
-          className=""
-          href={mappedUrl}
-          data-umami-event="URL Clicked"
-          data-umami-event-src={mappedUrl}
-        >
-          {truncatedUrl}
-        </a>
+        <div className="font-geist leading-none font-medium flex flex-wrap flex-col gap-y-[2px] lg:flex-row lg:items-center lg:gap-x-2 2xl:gap-x-4">
+          <a href={domain} className="capitalize text-sm lg:text-base leading-none hover:underline">{siteName}</a>
+          <div className="hidden lg:block w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
+          <a
+            target="_blank"
+            className="text-[12px] lg:text-base leading-none"
+            href={mappedUrl}
+            data-umami-event="URL Clicked"
+            data-umami-event-src={mappedUrl}
+            ref={linkRef}
+          >
+            {truncatedUrl}
+          </a>
+        </div>
       </div>
-      <div className="flex flex-col gap-2 lg:gap-5 ">
+      <div className="font-mona pointer-events-none flex flex-col gap-2 lg:gap-5 ">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
           <a
             href={mappedUrl}
-            className="group-hover/heading:text-custom-accent cursor-pointer hover:underline"
+            target="_blank"
+            className="pointer-events-auto md:group-hover/heading:text-custom-accent cursor-pointer hover:underline"
           >
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
         </h2>
-        <p className="text-sm   lg:text-[0.843rem] 2xl:text-lg text-custom-primary-text">
+        <p className="text-sm lg:text-base 2xl:text-lg text-custom-secondary-text">
           {parsedBody}
         </p>
       </div>
-      <div className="flex justify-between gap-3 xl:gap-12 items-center">
-        <div className="flex gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
-          {dateString && (
-            <div className="flex w-full items-center gap-2">
-              <DateIcon />
-              <p className="text-[8px] whitespace-nowrap lg:text-xs 2xl:text-base">
+      <div className="pointer-events-none flex flex-col gap-4 md:flex-row md:justify-between xl:gap-12 lg:items-center">
+        {dateString && (
+          <div className="pointer-events-none flex shrink-0 gap-2 lg:gap-16 text-base font-semibold text-custom-primary-text">
+            <div className="flex w-full items-center gap-2 font-mona font-medium text-custom-secondary-text">
+              <DateIcon className="flex-shrink-0" />
+              <p className="text-[12px] mb-[-2px] whitespace-nowrap lg:text-sm 2xl:text-base leading-none">
                 {dateString}
               </p>
             </div>
-          )}
-        </div>
-        <div className={`flex overflow-hidden`}>
+          </div>
+        )}
+        <div className={`md:ml-auto pointer-events-auto flex overflow-hidden`}>
           {getResultTags().map((field, idx) => {
             if (result[field])
               return (

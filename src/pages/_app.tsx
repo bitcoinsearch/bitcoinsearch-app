@@ -12,7 +12,7 @@ import "../components/footer/footer.scss";
 import "../components/loadingBar/loadingBar.scss";
 import "../components/noResultsCard/noResults.scss";
 import { ChakraProvider } from "@chakra-ui/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SearchQueryProvider } from "@/context/SearchQueryContext";
 import {
   buildAutocompleteQueryConfig,
@@ -28,6 +28,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { UIContextProvider } from "@/context/UIContext";
 import { ThemeProvider } from "@/context/Theme";
+import Metadata from "@/layout/Metadata";
 
 const queryClient = new QueryClient();
 
@@ -52,53 +53,23 @@ const config: SearchDriverOptions = {
 
 export default function App({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <SearchQueryProvider>
-          <SearchProvider config={config}>
-            <UIContextProvider>
-              <ThemeProvider>
-                <Head>
-                  <meta charSet="utf-8" />
-                  <link rel="shortcut icon" href="./favicon.ico" />
-                  <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                  />
-                  <title>Bitcoin Search</title>
-                  <link rel="manifest" href="./manifest.json" />
-                  <link
-                    rel="preload"
-                    href="./font/Mona-Sans.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin=""
-                  />
-                  <meta name="twitter:card" content="summary_large_image" />
-                  <meta
-                    name="twitter:image"
-                    content="https://bitcoinsearch.xyz/btc_book_2_1.jpg?v1"
-                  />
-                  <meta
-                    name="twitter:title"
-                    content="Technical ₿itcoin Search"
-                  />
-                  <meta
-                    name="twitter:description"
-                    content="The bitcoin technical search we deserve"
-                  />
-                </Head>
-                <Script
-                  async
-                  src="https://visits.bitcoindevs.xyz/script.js"
-                  data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"
-                />
-                <Component {...pageProps} />
-              </ThemeProvider>
-            </UIContextProvider>
-          </SearchProvider>
-        </SearchQueryProvider>
-      </QueryClientProvider>
-    </ChakraProvider>
+    <>
+      <Metadata />
+      <ChakraProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <SearchQueryProvider>
+              <SearchProvider config={config}>
+                <UIContextProvider>
+                  <ThemeProvider>
+                    <Component {...pageProps} />
+                  </ThemeProvider>
+                </UIContextProvider>
+              </SearchProvider>
+            </SearchQueryProvider>
+          </Hydrate>
+        </QueryClientProvider>
+      </ChakraProvider>
+    </>
   );
 }

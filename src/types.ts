@@ -1,3 +1,4 @@
+import { AggregationsAggregate, SearchResponse } from "@elastic/elasticsearch/lib/api/types";
 const AUTHOR = "authors" as const;
 const DOMAIN = "domain" as const;
 const TAGS = "tags" as const;
@@ -45,8 +46,11 @@ export type EsSearchResult = {
     tags?: string[];
     transcript_by?: string;
     summary?: string;
+    thread_url?: string;
     type?: "question" | "reply" | "original_post" | "newsletter";
   };
 };
 
 export type BodyType = (typeof bodyType)[keyof typeof bodyType];
+
+export type EsSearchResponse = SearchResponse<unknown, Record<string, AggregationsAggregate>>

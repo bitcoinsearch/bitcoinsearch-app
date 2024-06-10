@@ -1,10 +1,17 @@
 import { EsSearchResult } from "@/types";
 import { getDomainLabel } from "./mapping-helper";
 
-export const generateLocator = (raw_domain: string, url: string, title: string) => {
+type GenerateLocatorArgs = {
+  raw_domain: string;
+  url: string;
+  title: string;
+  thread_url?: string;
+}
+
+export const generateLocator = ({raw_domain, url, title, thread_url}: GenerateLocatorArgs) => {
   const label = getDomainLabel(raw_domain, true);
   switch (raw_domain) {
-    case "https://bitcointalk.org": {
+    case "https://bitcointalk.org/": {
       const id = locatorForBitcoinTalk(url) ?? title;
       return appendIdWithDomain(id, label);
     }
@@ -12,8 +19,13 @@ export const generateLocator = (raw_domain: string, url: string, title: string) 
       const id = locatorForBitcoinStackExchange(url) ?? title;
       return appendIdWithDomain(id, label);
     }
+
     default:
-      return appendIdWithDomain(title, label);
+      let id = title
+      if (thread_url) {
+        id = locathorForThreads(thread_url)
+      }
+      return appendIdWithDomain(id, label);
   }
 };
 
@@ -23,12 +35,16 @@ export const locatorForBitcoinTalk = (url: string) => {
   return topicId || null;
 };
 
-export const locatorForBitcoinStackExchange = (url) => {
+export const locatorForBitcoinStackExchange = (url: string) => {
   const urlPath = new URL(url)?.pathname;
   const id = urlPath && urlPath?.split("questions")[1];
   if (!id) return null;
   return id;
 };
+
+export const locathorForThreads = (thread_url: string) => {
+  return thread_url;
+}
 
 export const locatorForMailingList = (url: string) => {
   // TODO: write a more robust regex pattern matching for id

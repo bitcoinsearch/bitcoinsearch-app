@@ -6,11 +6,17 @@ import { URLSearchParamsKeyword } from '@/config/config'
 type FilterProp = {
   filterType: FacetKeys;
   filterValue: string;
+  multiSelect?: boolean;
 }
 
 const useURLManager = () => {
   const router = useRouter();
   const urlParams = new URLSearchParams(router.asPath.slice(1));
+  const isMobile = window ? window.matchMedia("(max-width: 600px)").matches : false
+
+  const getSearchTerm = () => {
+    return urlParams.get("search");
+  };
 
   const getFilter = (filterType: FacetKeys) => {
     return urlParams.getAll(appendFilterName(filterType));
@@ -20,48 +26,82 @@ const useURLManager = () => {
     return urlParams.get(appendSortName(sortField));
   };
 
-  const addSort = (sortField: string, value: string) => {
+  const removePageQueryParams = () => {
+    urlParams.delete(URLSearchParamsKeyword["PAGE"])
+  }
+
+  const addSortParams = (sortField: string, value: string) => {
     urlParams.set(appendSortName(sortField), value);
-    router.push(router.pathname + "?" + urlParams.toString());
+    return urlParams.toString()
   };
-
-  const removeSort = (sortField: string) => {
+  const removeSortParams = (sortField: string) => {
     urlParams.delete(appendSortName(sortField));
-    const newUrl = urlParams.toString()
-      ? `${router.pathname}?${urlParams.toString()}`
-      : router.pathname;
-    router.push(newUrl);
+    return urlParams.toString()
   };
 
-  const getSearchTerm = () => {
-    return urlParams.get("search");
-  };
-
-  const addFilter = ({filterType, filterValue}: FilterProp) => {
+  const addFilterFromParams = ({filterType, filterValue, multiSelect = true}: FilterProp) => {
     const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
-    if (currentFilterForType.includes(filterValue)) return;
-    removePageQuery();
-    urlParams.append(appendFilterName(filterType), filterValue);
-    router.push(router.pathname + "?" + urlParams.toString());
+    if (currentFilterForType.includes(filterValue)) return null;
+    removePageQueryParams();
+    if (multiSelect) {
+      urlParams.append(appendFilterName(filterType), filterValue);
+    } else {
+      urlParams.set(appendFilterName(filterType), filterValue)
+    }
+    return urlParams.toString()
   };
 
-  const removeFilter = ({ filterType, filterValue }) => {
+  const removeFilterFromParams = ({ filterType, filterValue, multiSelect = true }: FilterProp) => {
     const appendedFilterName = appendFilterName(filterType);
     const currentFilterForType = urlParams.getAll(appendedFilterName);
-    if (currentFilterForType.length) {
-      removePageQuery();
-      const filterValueIndex = currentFilterForType.findIndex(
-        (value) => value === filterValue
-      );
-      if (filterValueIndex !== -1) {
-        currentFilterForType.splice(filterValueIndex, 1);
-
-        urlParams.delete(appendedFilterName);
+    if (!currentFilterForType.length) return null
+    
+    const filterValueIndex = currentFilterForType.findIndex(
+      (value) => value === filterValue
+    );
+    if (filterValueIndex !== -1) {
+      removePageQueryParams();
+      currentFilterForType.splice(filterValueIndex, 1);
+      urlParams.delete(appendedFilterName);
+      if (multiSelect) {
         for (let i = 0; i < currentFilterForType.length; i++) {
           urlParams.append(appendedFilterName, currentFilterForType[i]);
         }
-        router.push(router.pathname + "?" + urlParams.toString());
       }
+      return urlParams.toString()
+    }
+  }
+
+  const addSort = (sortField: string, value: string) => {
+    const params = addSortParams(sortField, value)
+    router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: true });
+  };
+
+  const removeSort = (sortField: string) => {
+    const params = removeSortParams(sortField)
+    router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: true });
+  };
+
+  const addFilter = ({filterType, filterValue, multiSelect = true}: FilterProp) => {
+    const params = addFilterFromParams({filterType, filterValue, multiSelect})
+    if (params !== null) {
+      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true,  scroll: true });
+    }
+  };
+  
+  const removeFilter = ({ filterType, filterValue, multiSelect = true }: FilterProp) => {
+    const params = removeFilterFromParams({ filterType, filterValue, multiSelect })
+    if (params !== null) {
+      router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true, scroll: true });
+    }
+  };
+
+  const toggleFilter = ({filterType, filterValue, multiSelect = true}: FilterProp) => {
+    const currentFilterForType = urlParams.getAll(appendFilterName(filterType))
+    if (currentFilterForType.includes(filterValue)) {
+      removeFilter({filterType, filterValue, multiSelect})
+    } else {
+      addFilter({filterType, filterValue, multiSelect})
     }
   };
 
@@ -72,31 +112,25 @@ const useURLManager = () => {
         urlParams.delete(key);
       }
     }
-
-    removePageQuery();
-
-    router.push(router.pathname + "?" + urlParams.toString());
-  };
-
-  const removeFilterTypes = (filterTypes: FacetKeys[]) => {
-    let removedFilter = false
+  }
+  
+  const removeFilterTypes = ({filterTypes, sortField}: {filterTypes: FacetKeys[], sortField: string}) => {
     filterTypes.forEach((filterType) => {
       const appendedFilterName = appendFilterName(filterType)
       const currentFilterForType = urlParams.getAll(appendedFilterName)
       if (!currentFilterForType.length) return
       urlParams.delete(appendedFilterName)
-      removedFilter = true
     })
-    removedFilter && router.push(router.pathname + "?" + urlParams.toString())
-  }
 
-  const removePageQuery = () => {
-    urlParams.delete(URLSearchParamsKeyword["PAGE"])
+    removeSortParams(sortField)
+    removePageQueryParams()
+    const params = urlParams.toString();
+    router.push(router.pathname + `${params ? "?"+params : params}`, undefined, { shallow: true, scroll: true });
   }
 
   const setResultsSize = (size: number) => {
     urlParams.set(URLSearchParamsKeyword.SIZE, size.toString())
-    router.push(router.pathname + "?" + urlParams.toString())
+    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true, scroll: true })
   }
 
   return {
@@ -108,6 +142,7 @@ const useURLManager = () => {
     getSort,
     addSort,
     removeSort, setResultsSize,
+    toggleFilter
   };
 };
 

@@ -5,8 +5,8 @@ import { AppMenu } from "../appMenu";
 import AppsIcon from "../svgs/AppsIcon";
 import DayIcon from "../svgs/DayIcon";
 import NightIcon from "../svgs/NightIcon";
-import { SearchBox } from "@elastic/react-search-ui";
-import SearchBoxView from "../customSearchboxView/SearchBoxView";
+import SearchBox from "@/components/customSearchbox/SearchBox";
+import SearchBoxView from "@/components/customSearchbox/SearchBoxView";
 import Link from "next/link";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
@@ -25,7 +25,7 @@ function ThemeSwitcher() {
           onClick={toggleTheme}
           className={`${switchStyle} ${isLight ? "bg-custom-hover-state" : ""}`}
         >
-          <DayIcon className="text-custom-accent dark:text-custom-primary-text" />
+          <DayIcon className="md:w-4 text-custom-accent dark:text-custom-primary-text" />
         </button>
         <button
           onClick={toggleTheme}
@@ -33,7 +33,7 @@ function ThemeSwitcher() {
             !isLight ? "bg-custom-hover-state" : ""
           }`}
         >
-          <NightIcon className="text-custom-accent dark:text-custom-primary-text" />
+          <NightIcon svgProps={{className:"text-custom-primary-text md:w-4"}} pathProps={{className: "dark:fill-custom-primary-text text-custom-secondary-text"}}/>
         </button>
       </div>
       <div
@@ -68,37 +68,44 @@ const MenuSwitcher = () => {
   }, []);
 
   return (
-    <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)} className="group">
-      <Tooltip
-        hasArrow
-        label="All Tools by the Bitcoin Dev Project"
-        className="bg-custom-lightGrey dark:bg-custom-hover-state text-white dark:text-custom-primary-text text-center text-sm"
-        padding="16px"
-        borderRadius="8px"
-        maxW="157px"
-        mx="4px"
-      >
-        <div
-          className={`flex flex-col rounded-lg border border-custom-brightOrange-100 dark:border-custom-stroke  w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
-            open
-              ? "bg-custom-hover-state shadow-custom-sm"
-              : "bg-custom-background"
-          }`}
+    <div className="relative flex flex-col">
+      <button ref={buttonRef} onClick={() => setIsOpen((v) => !v)} className="">
+        <Tooltip
+          color="#fafafa"
+          hasArrow
+          label="All Tools by the Bitcoin Dev Project"
+          className="bg-custom-black text-custom-primary-text text-center text-sm font-medium"
+          padding="16px"
+          borderRadius="8px"
+          maxW="180px"
+          mx="4px"
+          isDisabled={open}
+          bgColor="var(--black)"
+          placement="bottom-end"
         >
-          <div>
-            <AppsIcon />
-          </div>
-          {open && (
-            <div
-              ref={popoverRef}
-              className="absolute top-0 right-0 mt-16 md:mt-20 xl:mt-24 mr-3 md:mr-5 2xl:mr-7"
-            >
-              <AppMenu />
+          <div
+            className={`flex flex-col rounded-lg border border-custom-brightOrange-100 dark:border-custom-stroke  w-9 h-9 2xl:w-12 2xl:h-12 items-center justify-center transition-[background-color] duration-200 ${
+              open
+                ? "bg-custom-hover-state shadow-custom-sm"
+                : "bg-custom-background"
+            }`}
+          >
+            <div data-freeze-body={open}>
+              <AppsIcon className="md:w-7" />
             </div>
-          )}
+          </div>
+        </Tooltip>
+      </button>
+      <div className="relative">
+        <div
+          data-is-open={open}
+          ref={popoverRef}
+          className="hidden data-[is-open=true]:block absolute top-0 right-0 mt-3 md:mt-4"
+        >
+          <AppMenu />
         </div>
-      </Tooltip>
-    </button>
+      </div>
+    </div>
   );
 };
 
@@ -109,16 +116,15 @@ const NavBar = () => {
     makeQuery(input);
   };
   const handleAutoCompleteSelect = (
-    selection,
-    autoCompleteData,
-    defaultFunction
+    selection
   ) => {
     if (!selection.suggestion) return;
     makeQuery(removeMarkdownCharacters(selection.suggestion));
   };
+
   return (
     <nav
-      className={`fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-20 ${
+      className={`navBar pointer-events-auto fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-20 ${
         hiddenHomeFacet ? "bg-custom-hover-state shadow-md" : ""
       }`}
     >
@@ -150,7 +156,7 @@ const NavBar = () => {
             />
           </div>
         )}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <ThemeSwitcher />
           <MenuSwitcher />
         </div>

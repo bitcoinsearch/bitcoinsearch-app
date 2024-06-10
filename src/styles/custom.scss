@@ -1,336 +1,72 @@
 @import "./reset.css";
 
 :root {
-    --primary-blue: #3a86ff;
-    --secondary-blue: #a2d2ff;
-    --primary-orange: #FF9900;
-    --number-of-lines: 4;
-    --number-of-lines-mobile: 5;
+  --primary-blue: #3a86ff;
+  --secondary-blue: #a2d2ff;
+  --primary-orange: #ff9900;
+  --number-of-lines: 4;
+  --number-of-lines-mobile: 5;
 }
 
-.btc-search {
-    height: 100%; 
- }
-
-/* We selectedivly override base styles to create a red theme */
-.btc-search .sui-search-box__submit {
-  background: none;
-  background-color: #FF9900;
-  margin-left: 0;
-  border-radius: 0 12px 12px 0;
-  padding: 13px 25px;
-}
-
-.btc-search .sui-layout-sidebar{
-    width: 30%;
-}
-
-.btc-search .sui-layout-main {
-    width: 100%;
-}
-.btc-search .sui-layout-main-footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 10px;
-}
-
-.btc-search {
-    .sui-sorting {
-        margin-top: 2rem;
+@media screen and (max-width: 768px) {
+  #main {
+    &:has(form[data-input-focus="true"]) .navBar {
+      display: none !important;
     }
-    .sui-select {
-        color: #4f4f4f;
-    }
-    .sui-select__control {
-        background-color: white;
-        box-shadow: 0px 3px 4px 0px var(--chakra-colors-blackAlpha-300);
-        border: none;
-        &--is-focused {
-            border: none;
-        }
-    }
-    .sui-select__single-value {
-        font-weight: 400;
-    }
-    .sui-select__option {
-        &--is-selected {
-            background-color: var(--primary-blue);
-            color: white;
-            font-weight: 500;
-        }
-    }
-    .sui-select__dropdown-indicator {
-        color: #4f4f4f;
-    }
-}
-
-.search-box-with-contribute {
-    display: grid;
-    grid-template-columns: 75% auto;
-    width: 100%;
-    place-content: center;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    user-select: none;
-
-    &:has(.sui-search-box__text-input:focus) {
-        .search-box__keybindings {
-            transform: translateY(-50%);
-            opacity: 0;
-        }
-    }
-
-    .search-box__info {
-        grid-column: 1/3;
-        display: flex;
-        gap: 10px;
-        justify-content: space-between;
-        margin: 5px;
-    }
-
-    .search-box__keybindings {
-        display: none;
-        color: var(--chakra-colors-gray-400);
-        font-size: 14px;
-        gap: 10px;
-        align-items: center;
-        line-height: 1;
-        transform: translateY(0);
-        opacity: 1;
-        transition: all ease-in 0.2s;
-
-        span:first-of-type {
-            font-size: 14px;
-        }
-
-        @media screen and (min-width: 640px) {
-            display: flex;
-        }
-        kbd {
-            background-color: #fff;
-            border-radius: 3px;
-            border: 1px solid #b4b4b4;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
-            display: inline-block;
-            font-weight: 700;
-            line-height: 1;
-            padding: 2px 6px;
-            white-space: nowrap;
-
-            &:first-of-type {
-                font-size: 1em;
-            }
-        }
-    }
-
-    .search-box__contribute-wrapper {
-        margin-left: auto;
-        span {
-            display: block;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--chakra-colors-gray-400);
-            transition: all ease-in-out 100ms;
-
-            &:hover {
-                color: var(--chakra-colors-gray-600);
-            }
-            &:active {
-                transform: translateY(1px);
-                color: var(--chakra-colors-purple-500);
-            }
-        }
-    }
-    @media screen and (min-width: 640px) {
-        grid-template-columns: 50% auto;
-    }
-}
-
-
-@media only screen and (max-width: 1200px) {
-    .btc-search {
-        .sui-layout-sidebar {
-            display: none;
-        }
+  }
+  .popout {
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    padding: 4px;
+    z-index: 99;
+    animation: "glow-in";
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
     
-        .sui-layout-main {
-            padding: 32px;
-        }
+    .fallback-height {
+      max-height: clamp(35vh, 200px, 80vh);
+    }
+  }
+}
+
+@keyframes glow-in {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
-@media only screen and (max-width: 640px) {
-    .btc-search {
-        .header {
-            font-weight: 300;
-            font-size: small;
-            gap: 0.4rem;
-
-        }
-        .sui-layout-header{
-            padding: 12px 12px;  
-            width: 100%;  
-        }
-        .url-display { 
-            font-size: 12px;
-            overflow: hidden;
-        }
-        .sui-layout-main {
-            padding: 0px;
-        }
-    }
-}
-
-.btc-search { 
-    .sui-layout-sidebar-toggle {
-        display: none;
-    }
-    .sui-layout-body:after {
-        display: none;
-    }
+.btc-search {
+  .sui-layout-sidebar-toggle {
+    display: none;
+  }
+  .sui-layout-body:after {
+    display: none;
+  }
 }
 
 .btc-search .sui-facet-view-more {
   color: red;
 }
 
-.header {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    text-align: center;
-    margin-bottom: auto;
-    color: #3a56e4;
-    font-weight:400;
-}
-
-.header .description {
-    font-weight: bold;
-}
-
-.sui-layout-header {
-    border-bottom: 0px;
-    margin: auto 0;
-
-    &:focus {
-        border-bottom: 0px;
-    }
-}
-
-.sui-search-box__text-input {
-    border-radius: 35px 0px 0px 35px;
-    border-right: none;
-    color: #121212;
-}
-
-#profileimage {
-    border-radius: 50px;
-    width: 32px;
-    height: 32px;
-    position: absolute;
-    right: 40px;
-    bottom: 12px;
-}
-
-#optionsbar {
-    width: 100%;
-    height: 50px;
-    border-width: 0px;
-    border-bottom: 1px;
-    border-color: lightgray;
-    border-style: solid;
-    display: flex;
-    align-items: flex-end;
-    font-family: 'Arial';
-    font-size: 13px;
-    color: rgb(112, 112, 112);
-    padding-top: 64px;
-}
-
-#optionsmenu1 {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    padding: 0px;
-    margin: 0px;
-    margin-left: 150px;
-}
-
-#optionsmenu1 li {
-    padding: 0px 10px 15px 20px;
-}
-
-#optionsmenuactive {
-    color: #4285F4;
-    font-weight: bold;
-    position: relative;
-    z-index: -1;
-}
-
-.pagelist {
-    list-style: none;
-    color: rgb(29, 135, 255);
-    display: flex;
-    flex-direction: row;
-    font-size: 12px;
-    margin-bottom: 30px;
-    margin-left: 100px;
-}
-
-.pagelistprevious::before {
-    content: '<';
-    display: block;
-    position: absolute;
-    right: 12px;
-    top: -35px;
-    color: rgb(29, 135, 255);
-    font-size: 20px;
-    transform: scale(0.7, 1.2);
-}
-
-.pagelistfirst {
-    margin-left: 20px;
-    font-size: 13px;
-}
-
-.pagelistnumber::before, .pagelistfirst::before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -2px;
-    top: -21px;
-    border-radius: 50px;
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    z-index: 3;
-}
-
-.pagelistnumber::after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -6px;
-    top: -25px;
-    border-radius: 50px;
-    width: 18px;
-    height: 18px;
-    background-color: rgb(255, 196, 0);
-    z-index: 2;
-}
-
 .paging-info {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
 }
 .paging-info strong {
-    text-align: right;
+  text-align: right;
 }
 .paging-info p {
-    margin: 0;
-    padding: 4px 0;
+  margin: 0;
+  padding: 4px 0;
 }
 
 .home-facet-container {
@@ -348,34 +84,95 @@
 }
 
 .home-facet-tag {
-    transform: scale(0.4);
-    opacity: 0;
-    animation-name: bubble-in;
-    animation-duration: 350ms;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
-    -webkit-tap-highlight-color: transparent;
-    @media (hover:none) {
-        &:hover {
-            background-color: auto;
-            color: auto;
-        }
+  transform: scale(0.4);
+  opacity: 0;
+  animation-name: bubble-in;
+  animation-duration: 350ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+  -webkit-tap-highlight-color: transparent;
+  @media (hover: none) {
+    &:hover {
+      background-color: auto;
+      color: auto;
     }
-    @media (pointer:fine) {
-        &:hover {
-            background-color: var(--chakra-colors-gray-600);
-            color: var(--chakra-colors-gray-100);
-        }
+  }
+  @media (pointer: fine) {
+    &:hover {
+      background-color: var(--chakra-colors-gray-600);
+      color: var(--chakra-colors-gray-100);
     }
+  }
 }
 
 @keyframes bubble-in {
-    80% {
-        transform: scale(1.1);
-        opacity: 0.5;
+  80% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.landing-gradient {
+  background-image: linear-gradient(
+    to bottom,
+    #e58525 0%,
+    #e58525 15%,
+    transparent 80%
+  );
+}
+
+// styling for non-interactive body
+// this is a hack to make the body non-interactive
+// IMPORTANT: elements oustide the element with data-freeze-body that needs interactivity must have the class "pointer-events-auto" else it will be frozen too
+
+*[data-freeze-body="true"] {
+  pointer-events: auto;
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(128, 128, 128, 0.15);
+    background-color: rgba(var(--background), 0.15);
+  }
+}
+body {
+  &:has(*[data-freeze-body="true"]) {
+    overflow: hidden;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  [data-freeze-body-mobile="true"] {
+    pointer-events: auto;
+    &::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+      background-color: rgba(128, 128, 128, 0.15);
     }
-    100% {
-        transform: scale(1);
-        opacity: 1;
+  }
+
+  body {
+    &:has(*[data-freeze-body-mobile="true"]) {
+      overflow: hidden;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
     }
+  }
 }

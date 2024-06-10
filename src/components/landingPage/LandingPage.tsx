@@ -1,12 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ResultFooter from "../footer/ResultFooter";
+import Footer from "@/components/footer/Footer";
 import { useTheme } from "@/context/Theme";
 import TreasureChartLight from "public/landing/light/treasure-trove-chart.webp"
 import TreasureChartDark from "public/landing/dark/treasure-trove-chart.webp"
 import SourcesLight from "public/landing/light/sources-image.webp"
 import SourcesDark from "public/landing/dark/sources-image.webp"
+import SearchIcon from "../svgs/SearchIcon";
 
 export const LandingPage = () => {
   const { theme } = useTheme();
@@ -17,7 +18,7 @@ export const LandingPage = () => {
     <main className="bg-custom-background flex flex-col items-center">
       <Link
         href="/#why-use-bitcoin"
-        className="border-[1.4px] border-custom-accent p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] z-[1] bg-custom-background"
+        className="relative border-[1.4px] border-custom-accent p-[10px] rounded-[50%] h-12 w-12 flex items-center justify-center mb-[-24px] bg-custom-background"
       >
         <Image
           src="/svg/down-arrow.svg"
@@ -27,7 +28,7 @@ export const LandingPage = () => {
           height={18.67}
         />
       </Link>
-      <div className="bg-gradient-to-b from-[#E58525] flex flex-col items-center w-full px-4 md:px-10 xl:px-20 min-h-screen">
+      <div className="landing-gradient flex flex-col items-center w-full px-4 md:px-10 xl:px-20">
         <div className=" flex flex-col gap-10 md:gap-16 lg:gap-24 pt-[80px] w-full max-w-[1600px] items-center">
           <section
             className="flex flex-col items-center text-custom-primary-text dark:text-custom-black text-center max-w-full md:max-w-[1200px] w-full"
@@ -58,8 +59,9 @@ export const LandingPage = () => {
                 }
                 alt="google search image"
                 fill
+                sizes="(min-width: 1200px) 784px, 50vw"
                 data-light-lg={!isMobile && !isDark}
-                className="data-[light-lg]:scale-[1.05] data-[light-lg]:hover:scale-[1.47] object-contain transform hover:scale-[1.4] hover:translate-x-6 hover:origin-left hover:ease-in-out hover:duration-300 hover:z-30"
+                className="object-contain transform hover:scale-[1.3] hover:translate-x-[6px] origin-left ease-in-out duration-300 hover:z-30"
               />
             </div>
 
@@ -74,22 +76,16 @@ export const LandingPage = () => {
                     ? "/landing/dark/bitcoin-search-image.webp"
                     : "/landing/light/bitcoin-search-image.webp"
                 }
-                alt="google search image"
+                alt="bitcoin search image"
                 fill
-                className="object-contain transform hover:scale-[1.4] hover:translate-x-[-6px] hover:origin-right hover:ease-in-out hover:duration-300 hover:z-30"
+                sizes="(min-width: 1200px) 784px, 50vw"
+                className="object-contain transform hover:scale-[1.3] hover:translate-x-[-6px] origin-right ease-in-out duration-300 hover:z-30"
               />
             </div>
           </section>
 
-          <div className="bg-custom-background w-full md:max-h-[576px] rounded-[30px] p-4 md:pr-0 md:pl-5 lg:pl-20 flex flex-col gap-5 md:flex-row items-center md:justify-between mb-[-250px] mt-5 lg:mt-16">
-            <section className="flex flex-col items-center md:items-start text-center md:text-start gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text mt-0 lg:mt-16">
-              <Image
-                src={"/svg/treasure-icon.svg"}
-                alt="treasure icon"
-                height={70}
-                width={70}
-                className=" h-10 w-10 md:h-16 md:w-16"
-              />
+          <div className="bg-custom-background w-full md:max-h-[576px] rounded-[30px] p-4 md:pr-0 md:pl-5 lg:pl-20 flex flex-col gap-5 md:flex-row items-center md:justify-between mt-5 lg:mt-16">
+            <section className="flex flex-col items-center md:items-start text-center md:text-start gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text mt-5 lg:mt-16">
               <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
                 Treasure Trove of Technical Bitcoin Resources
               </h3>
@@ -106,6 +102,7 @@ export const LandingPage = () => {
                 }
                 alt="trasure trove chart"
                 fill
+                sizes="(min-width: 1200px) 784px, 70vw"
                 className="object-contain"
               />
             </section>
@@ -113,7 +110,7 @@ export const LandingPage = () => {
         </div>
       </div>
 
-      <div className="w-full rounded-[30px] flex flex-col-reverse md:flex-row gap-6 md:gap-10 xl:gap-[140px] items-center px-4 py-4 md:py-0 md:px-10 xl:px-20 max-w-[1600px] mt-[220px] md:mt-[150px] lg:mt-[250px] xl:mt-[400px]">
+      <div className="w-full rounded-[30px] flex flex-col-reverse md:flex-row gap-6 md:gap-10 xl:gap-[100px] justify-between items-center px-4 py-4 md:py-0 md:px-10 xl:px-20 max-w-[1600px] xl:mt-[100px]">
         <section className="relative w-full md:h-[577px] h-[250px] max-h-[576px] max-w-[766px]">
           <Image
             src={
@@ -123,18 +120,12 @@ export const LandingPage = () => {
             }
             alt="filter image"
             fill
+            sizes="(min-width: 1200px) 784px, 70vw"
             className="object-contain"
           />
         </section>
 
         <section className="flex flex-col gap-5 md:gap-8 lg:gap-12 max-w-full md:max-w-[48%] text-custom-primary-text items-center md:items-start text-center md:text-start p-4 md:p-0">
-          <Image
-            src={"/svg/rounded-checkmark.svg"}
-            alt="treasure icon"
-            height={70}
-            width={70}
-            className=" h-10 w-10 md:h-16 md:w-16"
-          />
           <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
             Up-to-Date Information
           </h3>
@@ -145,14 +136,8 @@ export const LandingPage = () => {
         </section>
       </div>
 
-      <div className="w-full rounded-[30px] flex flex-col md:flex-row justify-between mt-0 xl:mt-[100px] items-center px-4 py-4 md:py-0 md:px-10 lg:px-20  max-w-[1600px] gap-6">
+      <div className="w-full rounded-[30px] flex flex-col md:flex-row gap-6 justify-between items-center px-4 py-4 md:py-0 md:px-10 lg:px-20 max-w-[1600px] mt-0 xl:mt-[100px]">
         <section className="flex items-center md:items-start flex-col max-w-full md:max-w-[48%] gap-5 md:gap-8 lg:gap-12 text-custom-primary-text text-center md:text-start py-4 md:py-0">
-          <Image
-            src={"/svg/award-checkmark.svg"}
-            alt="treasure icon"
-            height={70}
-            width={70}
-          />
           <h3 className="text-xl md:text-4xl lg:text-[42px] xl:text-[56px] font-medium md:font-bold leading-[130%] md:leading-[120%]">
             Credible Sources
           </h3>
@@ -171,6 +156,7 @@ export const LandingPage = () => {
             }
             alt="treasure trove chart"
             fill
+            sizes="(min-width: 1200px) 784px, 70vw"
             className="object-contain"
           />
         </section>
@@ -178,10 +164,11 @@ export const LandingPage = () => {
 
       <div className="py-[50px] md:py-[122px]">
         <button
+          aria-label="scroll to top"
           onClick={() => {
             window.scrollTo({ top: 0 });
           }}
-          className=" rounded-2xl bg-transparent border border-custom-accent gap-3 lg:gap-6  py-[18px] lg:py-9 px-4 lg:px-8 text-custom-accent hover:bg-custom-accent hover:text-white flex items-center justify-center text-[18px] lg:text-[32px] font-semibold"
+          className="rounded-2xl bg-transparent border border-custom-accent gap-3 lg:gap-6 py-[18px] lg:py-6 3xl:py-9 px-4 lg:px-5 3xl:px-8 text-custom-accent hover:bg-custom-accent hover:text-white flex items-center justify-center text-[18px] lg:text-2xl 3xl:text-[32px] font-semibold"
         >
           <svg
             width="28"
@@ -194,22 +181,18 @@ export const LandingPage = () => {
             <path
               d="M12.6667 23.3334C18.5577 23.3334 23.3334 18.5577 23.3334 12.6667C23.3334 6.77563 18.5577 2 12.6667 2C6.77563 2 2 6.77563 2 12.6667C2 18.5577 6.77563 23.3334 12.6667 23.3334Z"
               stroke="currentColor"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="4"
             />
             <path
               d="M25.9999 26.0009L20.2666 20.2676"
               stroke="currentColor"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="4"
             />
           </svg>
-          Start searching now
+          <span className="leading-none">Start searching now</span>
         </button>
       </div>
-      <ResultFooter />
+      <Footer />
     </main>
   );
 };

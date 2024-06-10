@@ -1,9 +1,10 @@
 import { getConfig } from "@/config/config-helper";
 import { getMapping } from "@/config/mapping-helper";
 const baseUrl = getConfig().tldrBaseUrl
+const mapping = getMapping()
 
 export const getUrlForCombinedSummary = (url: string, id: string) => {
-  const baseLink = getMapping().tldrMappingUrl
+  const baseLink = mapping.tldrMappingUrl
   const strippedLink = url.split(baseLink)[1].split("/")
 
   try {
@@ -13,7 +14,7 @@ export const getUrlForCombinedSummary = (url: string, id: string) => {
     // separate month and year from year_month string with the right tldr mapping
     const [year, month] = year_month.split("-").map((i, index) => {
       if (index === 0) return i
-      else return getMapping().tldrMappingMonths?.[i] ?? ""
+      else return mapping.tldrMappingMonths?.[i] ?? ""
     })
   
     if (!month || !year || !list || !id) {
@@ -26,10 +27,3 @@ export const getUrlForCombinedSummary = (url: string, id: string) => {
     return url
   }
 };
-
-export const getSiteName = (url:string)=>{
-  // Regex finds the site name e.g google.com will return google
-  const siteName = (typeof url === "string" ) ? url.match(/(?:https?:\/\/)?(?:www\.)?([^./]+)\.(?:com|org|nl|co\.uk)/) : ""
-  return siteName ? siteName[1] : ""
-  
-}

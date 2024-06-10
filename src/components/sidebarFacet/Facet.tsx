@@ -1,7 +1,8 @@
 import useSearchQuery from '@/hooks/useSearchQuery';
+import useUIContext from '@/hooks/useUIContext';
 import useURLManager from '@/service/URLManager/useURLManager';
 import { FacetKeys } from '@/types'
-import { matchCharactersWithRegex } from '@/utils/facet';
+import { getFilterValueDisplay, matchCharactersWithRegex } from '@/utils/facet';
 import React, { FunctionComponent, useMemo, useState } from 'react'
 
 type ViewProps = Omit<FacetProps, "view" | "isFilterable"> & {
@@ -18,6 +19,7 @@ type FacetProps = {
   isFilterable: boolean;
   label: string;
   view: FunctionComponent
+  callback?: (x?: any) => void
 }
 type FacetAggregateBucketItem = {
   key: string;
@@ -31,7 +33,7 @@ type FacetList = {
   selected: boolean
 }
 
-const Facet = ({field, isFilterable, label, view}: FacetProps) => {
+const Facet = ({field, isFilterable, label, view, callback}: FacetProps) => {
   // const [itemsToShow, setItemsToShow] = useState<number>(10)
   const [searchTermFacet, setSearchTermFacet] = useState("")
   const { searchQuery, queryResult: { data } } = useSearchQuery()
@@ -47,13 +49,13 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
       value: item.key,
       count: item.doc_count,
       selected,
+      label: getFilterValueDisplay(item.key, field)
     })
   })
 
   const options = useMemo(() => {
-    return baseOptions.filter(item => searchTermFacet.trim() ? matchCharactersWithRegex(item.value, searchTermFacet) : true)
+    return baseOptions.filter(item => searchTermFacet.trim() ? (matchCharactersWithRegex(item.label, searchTermFacet)) : true)
   }, [searchTermFacet, baseOptions])
-
 
   const onSearch = (val: string) => {
     setSearchTermFacet(val)
@@ -61,9 +63,11 @@ const Facet = ({field, isFilterable, label, view}: FacetProps) => {
 
   const onRemove = (value: string) => {
     removeFilter({filterType: field, filterValue: value})
+    callback && callback(value)
   }
   const onSelect = (value: string) => {
     addFilter({filterType: field, filterValue: value})
+    callback && callback(value)
   }
 
   const searchPlaceholder = `Filter ${label}`

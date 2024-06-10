@@ -1,12 +1,10 @@
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { UseQueryResult } from "@tanstack/react-query";
+import React, { createContext, useCallback, useMemo } from "react";
 import { useRouter } from "next/router"
 import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
-import { AggregationsAggregate, SearchResponse } from "@elastic/elasticsearch/lib/api/types";
 import { useSearch } from "@/service/api/search/useSearch";
-import { getFacetFields, getSortFields } from "@/config/config-helper";
-import { appendFilterName, generateFilterQuery, generateSortFields } from "@/service/URLManager/helper";
-import { Facet } from "@/types";
+import { generateFilterQuery, generateSortFields } from "@/service/URLManager/helper";
+import { EsSearchResponse, Facet } from "@/types";
 
 export type QueryObject = Record<string, string>
 
@@ -18,7 +16,7 @@ export type PagingInfoType = {
 
 export type SearchQueryContextType = {
   searchQuery: string,
-  queryResult: UseQueryResult<SearchResponse<unknown, Record<string, AggregationsAggregate>>, unknown>,
+  queryResult: UseQueryResult<EsSearchResponse>,
   makeQuery: (queryString: string) => void,
   handlePageChange: (page: number) => void,
   pagingInfo: PagingInfoType,
@@ -93,7 +91,6 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     filterFields,
     sortFields,
   })
-  
 
   // Function to initiate a new search with the given queryString
   const makeQuery = (queryString: string) => {

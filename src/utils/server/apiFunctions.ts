@@ -1,3 +1,4 @@
+import { aggregatorSize } from "@/config/config";
 import type { Facet, SearchQuery } from "@/types";
 
 const FIELDS_TO_SEARCH = ["authors", "title", "body"];
@@ -27,24 +28,27 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
       authors: {
         terms: {
           field: 'authors.keyword',
-          size: 15
+          size: aggregatorSize
         }
       },
       domains: {
         terms: {
           field: 'domain.keyword',
-          size: 15
+          size: aggregatorSize
         }
       },
       tags: {
         terms: {
           field: 'tags.keyword',
-          size: 15
+          size: aggregatorSize
         }
       }
     },
     size, // Number of search results to return
     from, // Offset for pagination (calculated from page number)
+    _source: {
+      excludes: ['summary_vector_embeddings']
+    }
   }
 
   // Construct and add the full-text search clause
