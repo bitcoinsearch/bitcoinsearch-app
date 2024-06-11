@@ -97,13 +97,13 @@ export const App = () => {
 
   return (
     <div className={`${isHomePage ? "relative" : ""} bg-custom-background text-custom-primary-text`}>
-      <main id="main" className="min-h-[95dvh] flex w-full items-center pt-[60px] pb-[60px] md:pt-[88px] 2xl:pt-[122px]">
+      <main id="main" className="min-h-[95dvh] flex w-full items-center pt-[60px] pb-[60px] md:pt-[76px]">
         {isLoading && <LoadingBar />}
         <NavBar />
         <div
           className={`App btc-search w-full`}
         >
-          <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center pb-[40px] md:pb-[88px] 2xl:pb-[122px]" />
+          <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center pb-[40px] md:pb-[88px]" />
           <Layout
             header={<Header openForm={openForm} />}
             sideContent={<SideBar />}

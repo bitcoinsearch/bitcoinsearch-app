@@ -50,6 +50,7 @@ const FormModal = ({ formOpen, closeForm }) => {
     e.preventDefault();
     const data = new FormData();
     data.append("URL", urlState.value);
+    emailState.isValid && data.append("Email", emailState.value.trim())
     setFormState((prev) => ({ ...prev, loading: true }));
 
     submitToSheet(data)
@@ -76,25 +77,27 @@ const FormModal = ({ formOpen, closeForm }) => {
     closeForm();
   };
 
-  const formIsComplete = !!(emailState.value.trim() && urlState.value.trim()) && urlState.isValid && emailState.isValid;;
+  const formIsComplete = urlState.isValid && emailState.isValid;;
+
+  const validateUrl = (url: string) => {
+    const isValid = urlRegex.test(url);
+    return isValid
+  };
+  const validateEmail = (email: string) => {
+    // empty string email is valid
+    const isValid = email ? emailRegex.test(email) : true;
+    return isValid
+  };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setUrlState((prev) => ({ ...prev, value }));
-    validateUrl(value);
+    const isValid = validateUrl(value);
+    setUrlState({ value, isValid });
   };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setEmailState((prev) => ({ ...prev, value }));
-    validateEmail(value);
-  };
-  const validateUrl = (url: string) => {
-    const isValid = urlRegex.test(url);
-    url.trim() && setUrlState((prev) => ({ ...prev, isValid }));
-  };
-  const validateEmail = (email: string) => {
-    const isValid = emailRegex.test(email);
-    email.trim() && setEmailState((prev) => ({ ...prev, isValid }));
+    const isValid = validateEmail(value);
+    setEmailState({ value, isValid });
   };
 
   return (
@@ -170,7 +173,8 @@ const FormModal = ({ formOpen, closeForm }) => {
                     className="ml-1 text-sm lg:text-base font-semibold"
                     htmlFor="form-email"
                   >
-                    Your Email
+                    <span>Your Email </span>
+                    <span className="text-gray-500 font-normal text-sm">(optional)</span>
                   </label>
                   <input
                     id="form-email"
@@ -178,7 +182,6 @@ const FormModal = ({ formOpen, closeForm }) => {
                     placeholder=""
                     onChange={handleEmailChange}
                     value={emailState.value}
-                    required
                     className="bg-custom-background px-2 py-2 lg:py-[10px] border-[1px] border-custom-stroke rounded-[10px] focus:border-custom-accent focus:outline-none"
                   />
                   <div className="ml-1 text-[11px] lg:text-sm font-medium">
@@ -193,7 +196,7 @@ const FormModal = ({ formOpen, closeForm }) => {
                 </FormControl>
                 <div className="flex gap-2 lg:gap-4 text-custom-primary-text">
                   <button
-                    className="py-3 w-full font-bold mx-auto text-sm lg:text-base bg-custom-otherLight rounded-[10px]"
+                    className="text-custom-black dark:text-white py-3 w-full font-bold mx-auto text-sm lg:text-base bg-custom-otherLight rounded-[10px]"
                     disabled={formState.loading}
                     type="reset"
                     onClick={resetAndCloseForm}
