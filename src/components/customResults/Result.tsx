@@ -5,18 +5,16 @@ import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
 import {
   getDomainFavicon,
-  getMapping,
   getDomainName,
 } from "@/config/mapping-helper";
-import { getUrlForCombinedSummary } from "@/utils/tldr";
 import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import DateIcon from "../svgs/DateIcon";
 import ResultFavicon from "./ResultFavicon";
 import { useTheme } from "@/context/Theme";
+import { remapUrl } from "@/utils/documents";
 
 const htmlToReactParser = new (Parser as any)();
-const { tldrLists, combinedSummaryTag } = getMapping();
 
 type ResultProps = {
   result: EsSearchResult["_source"];
@@ -29,11 +27,7 @@ const Result = ({ result }: ResultProps) => {
   let dateString = null;
   const { url, title, body, domain, id } = result;
 
-  const isTldrCombinedSummary =
-    tldrLists.includes(domain) && title.includes(combinedSummaryTag);
-  const mappedUrl = isTldrCombinedSummary
-    ? getUrlForCombinedSummary(url, id)
-    : url;
+  const mappedUrl = remapUrl({url, domain})
 
   const createdDate = result.created_at;
   if (createdDate) {
