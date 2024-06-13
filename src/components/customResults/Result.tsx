@@ -58,8 +58,6 @@ const Result = ({ result }: ResultProps) => {
         return result?.summary ?? body;
       case "html":
         return body;
-      case "combined-summary":
-        return body;
       default: {
         try {
           return JSON.parse(`[${body}]`)
@@ -72,9 +70,7 @@ const Result = ({ result }: ResultProps) => {
     }
   };
 
-  const sanitizedBody = sanitizeHtml(
-    getBodyData(result).replaceAll("\n", "")
-  ).trim();
+  const sanitizedBody = sanitizeHtml(getBodyData(result)).trim();
 
   const strippedUrl = mappedUrl.replace(/^(https?:\/\/)/i, "");
   const truncatedUrl =
@@ -119,7 +115,12 @@ const Result = ({ result }: ResultProps) => {
           numbersOfRetry={0}
         />
         <div className="font-geist leading-none font-medium flex flex-wrap flex-col gap-y-[2px] lg:flex-row lg:items-center lg:gap-x-2 2xl:gap-x-4">
-          <a href={domain} className="capitalize text-sm lg:text-base leading-none hover:underline">{siteName}</a>
+          <a
+            href={domain}
+            className="capitalize text-sm lg:text-base leading-none hover:underline"
+          >
+            {siteName}
+          </a>
           <div className="hidden lg:block w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
           <a
             target="_blank"
