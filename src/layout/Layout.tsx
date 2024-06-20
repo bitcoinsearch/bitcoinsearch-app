@@ -21,7 +21,8 @@ const Layout = ({
       <section
         id="searchbar-mobile-result"
         data-hidden-large={hiddenBody}
-        className="data-[hidden-large='false']:md:hidden px-4 pb-5 pt-5 md:pt-0"
+        // hidden body conditional for this styling is temporary, refactor search(header) into hero in next version
+        className={`data-[hidden-large='false']:md:hidden px-4 pt-5 md:pt-0 ${hiddenBody ? 'pb-[60px] md:pb-[76px] 2xl:pb-[122px]' : 'pb-5'} `}
       >
         {header}
       </section>

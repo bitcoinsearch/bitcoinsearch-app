@@ -97,7 +97,7 @@ export const App = () => {
 
   return (
     <div className={`${isHomePage ? "relative" : ""} bg-custom-background text-custom-primary-text`}>
-      <main id="main" className="min-h-[95dvh] flex w-full items-center pt-[60px] pb-[60px] md:pb-[76px] 2xl:pb-[122px] md:pt-[76px] 2xl:pt-[122px]">
+      <main id="main" className="min-h-[95dvh] flex w-full items-center pt-[60px] md:pt-[76px] 2xl:pt-[122px]">
         {isLoading && <LoadingBar />}
         <NavBar />
         <div
@@ -117,7 +117,7 @@ export const App = () => {
       </main>
       {NoResults && isHomePage && <LandingPage />}
       <section
-        className={`${(isLoading || !hasQueryString || noResult) && "hidden"}`}
+        className={`${(noResult) && "hidden"}`}
       >
         <Footer />
       </section>
