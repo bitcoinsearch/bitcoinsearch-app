@@ -192,7 +192,6 @@ export const LandingPage = () => {
           <span className="leading-none">Start searching now</span>
         </button>
       </div>
-      <Footer />
     </main>
   );
 };
