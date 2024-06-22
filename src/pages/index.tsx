@@ -18,7 +18,10 @@ import useSearchQuery from "@/hooks/useSearchQuery";
 import useUIContext from "@/hooks/useUIContext";
 import Header from "@/layout/Header";
 import SideBar from "@/layout/SideBar";
-import { generateFilterQuery, generateSortFields } from "@/service/URLManager/helper";
+import {
+  generateFilterQuery,
+  generateSortFields,
+} from "@/service/URLManager/helper";
 import { useRouter } from "next/router";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
@@ -26,35 +29,36 @@ import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
 import { buildQueryCall } from "@/service/api/search/searchCall";
 import HomeTextBanner from "@/components/landingPage/HomeTextBanner";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-
-  const protocol = context.req.headers['x-forwarded-proto'] || 'http'; // Check if behind a proxy
+  const protocol = context.req.headers["x-forwarded-proto"] || "http"; // Check if behind a proxy
   const host = context.req.headers.host;
-  const fetchUrl = `${protocol}://${host}/api/elasticSearchProxy/search`
-  const resolvedUrl = context.resolvedUrl.slice(1)
-  const urlParams = new URLSearchParams(resolvedUrl)
+  const fetchUrl = `${protocol}://${host}/api/elasticSearchProxy/search`;
+  const resolvedUrl = context.resolvedUrl.slice(1);
+  const urlParams = new URLSearchParams(resolvedUrl);
   const queryString = urlParams.get(URLSearchParamsKeyword.SEARCH) ?? "";
   const pageQuery = urlParams.get(URLSearchParamsKeyword.PAGE);
   const sizeQuery = urlParams.get(URLSearchParamsKeyword.SIZE);
 
-  const filterFields = generateFilterQuery(resolvedUrl)
-  const sortFields = generateSortFields(resolvedUrl)
+  const filterFields = generateFilterQuery(resolvedUrl);
+  const sortFields = generateSortFields(resolvedUrl);
 
   if (!queryString.trim() && !filterFields.length) {
     return {
       props: {
         data: null,
-        options: null
-      }
-    }
+        options: null,
+      },
+    };
   }
 
-  const page = pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0
-  const size = sizeQuery ? (parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]) : defaultParam[URLSearchParamsKeyword.SIZE]
+  const page = pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0;
+  const size = sizeQuery
+    ? parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]
+    : defaultParam[URLSearchParamsKeyword.SIZE];
 
   const options = {
     queryString,
@@ -62,17 +66,20 @@ export const getServerSideProps: GetServerSideProps = async (
     page,
     filterFields,
     sortFields,
-  }
+  };
 
-  const res = await buildQueryCall(options, fetchUrl)
+  const res = await buildQueryCall(options, fetchUrl);
 
-  await queryClient.prefetchQuery(["query", queryString, size, filterFields, page, sortFields], () => res)
-  const dehydratedState = dehydrate(queryClient)
+  await queryClient.prefetchQuery(
+    ["query", queryString, size, filterFields, page, sortFields],
+    () => res
+  );
+  const dehydratedState = dehydrate(queryClient);
   return {
     props: {
-      dehydratedState
-    }
-  }
+      dehydratedState,
+    },
+  };
 };
 
 export const App = () => {
@@ -96,13 +103,18 @@ export const App = () => {
     !queryResult.data?.hits?.total["value"];
 
   return (
-    <div className={`${isHomePage ? "relative" : ""} bg-custom-background text-custom-primary-text`}>
-      <main id="main" className="min-h-[95dvh] flex w-full items-center pt-[60px] md:pt-[76px] 2xl:pt-[122px]">
+    <div
+      className={`${
+        isHomePage ? "relative" : ""
+      } bg-custom-background text-custom-primary-text`}
+    >
+      <main
+        id="main"
+        className="min-h-[95dvh] flex w-full items-center pt-[60px] md:pt-[76px] 2xl:pt-[122px]"
+      >
         {isLoading && <LoadingBar />}
         <NavBar />
-        <div
-          className={`App btc-search w-full`}
-        >
+        <div className={`App btc-search w-full`}>
           <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center pb-[40px] md:pb-[88px]" />
           <Layout
             header={<Header openForm={openForm} />}
@@ -116,13 +128,11 @@ export const App = () => {
         </div>
       </main>
       {NoResults && isHomePage && <LandingPage />}
-      <section
-        className={`${(noResult) && "hidden"}`}
-      >
+      <section>
         <Footer />
       </section>
     </div>
   );
-}
+};
 
 export default App;
