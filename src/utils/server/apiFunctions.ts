@@ -21,6 +21,13 @@ export const buildQuery = ({queryString, size, from, filterFields, sortFields}: 
         must: [],
         should:[],
         filter: [],
+        must_not: [
+          {
+              "term": {
+                  "type.keyword": "combined-summary"
+              }
+          }
+        ]
       }
     },
     sort: [],
