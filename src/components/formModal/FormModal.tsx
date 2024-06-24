@@ -80,6 +80,8 @@ const FormModal = ({ formOpen, closeForm }) => {
   const formIsComplete = urlState.isValid && emailState.isValid;;
 
   const validateUrl = (url: string) => {
+    // if no url is provided, it is valid (removes error state). The required attribute ensures a blank url is not submitted
+    if (!url) return true;
     const isValid = urlRegex.test(url);
     return isValid
   };
