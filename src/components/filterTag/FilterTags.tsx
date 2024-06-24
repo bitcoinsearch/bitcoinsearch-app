@@ -30,8 +30,10 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
     const handleArrowVisibility = () => {
       if (!container) return;
       try {
-        container.dataset.showLeftArrow = (container.scrollLeft > scrollPadding).toString();
-  
+        container.dataset.showLeftArrow = (
+          container.scrollLeft > scrollPadding
+        ).toString();
+
         container.dataset.showRightArrow = (
           container.scrollLeft + container.clientWidth + scrollPadding <
           containerRef.current.scrollWidth
@@ -43,12 +45,12 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
     };
 
     const handleScroll = () => {
-      handleArrowVisibility()
-    }
+      handleArrowVisibility();
+    };
 
     const handleResize = () => {
       if (!container) return;
-      handleArrowVisibility()
+      handleArrowVisibility();
       try {
         setIsScrollable(container.scrollWidth > container.clientWidth);
       } catch (e) {
@@ -65,13 +67,13 @@ const FilterTags = ({ field, options }: FilterTagProps) => {
     container.addEventListener("scroll", () => {
       handleScroll();
     });
-    window.addEventListener("resize", () => handleResize())
+    window.addEventListener("resize", () => handleResize());
 
     return () => {
       if (container.scrollWidth > container.clientWidth) {
         container.removeEventListener("scroll", () => handleScroll());
       }
-      window.removeEventListener("resize", () => handleScroll())
+      window.removeEventListener("resize", () => handleScroll());
     };
   }, []);
 

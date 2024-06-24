@@ -24,7 +24,7 @@ const DiscordLink = () => (
     rel="noreferrer"
     className="focus:outline-none"
   >
-    <FaDiscord className="text-[28px] md:text-[48px]"/>
+    <FaDiscord className="text-[28px] md:text-[48px]" />
   </a>
 );
 

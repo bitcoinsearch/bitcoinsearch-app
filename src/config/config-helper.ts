@@ -1,4 +1,7 @@
-import { SearchResponse, SearchResponseBody } from "@elastic/elasticsearch/lib/api/types";
+import {
+  SearchResponse,
+  SearchResponseBody,
+} from "@elastic/elasticsearch/lib/api/types";
 import config from "./engine.json";
 import { FacetKeys } from "@/types";
 
@@ -59,7 +62,7 @@ export function getUrlField() {
 // }
 
 export function getFacetFields() {
-  return getConfig().facets as FacetKeys[] || [];
+  return (getConfig().facets as FacetKeys[]) || [];
 }
 
 export function getSortFields() {
@@ -153,7 +156,7 @@ export function buildSearchOptionsFromConfig() {
 
   const searchOptions = {
     result_fields: [],
-    search_fields: []
+    search_fields: [],
   };
   searchOptions.result_fields = resultFields;
   searchOptions.search_fields = searchFields;
@@ -164,7 +167,6 @@ export function buildFacetConfigFromConfig() {
   const config = getConfig();
 
   const facets = (config.facets || []).reduce((acc, n) => {
-    
     acc[n] = {
       type: "value",
       size: 100,

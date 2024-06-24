@@ -54,7 +54,7 @@ export const fetchDomainFavicon = (domain_url: string): Promise<string> => {
     });
 };
 
-export const deriveNameFromUrl = (domain_url: string, ) => {
+export const deriveNameFromUrl = (domain_url: string) => {
   try {
     let title;
     const newUrl = new URL(domain_url);
@@ -91,7 +91,7 @@ export const getDomainName = (domain: string) => {
   if (mappedDomainName) return mappedDomainName;
 
   const fullDomainName = deriveNameFromUrl(domain);
-  if (fullDomainName) return fullDomainName
+  if (fullDomainName) return fullDomainName;
 
   // Regex finds the site name e.g google.com will return google
   const siteName =

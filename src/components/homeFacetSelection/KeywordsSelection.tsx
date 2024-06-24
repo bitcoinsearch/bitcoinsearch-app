@@ -18,7 +18,10 @@ const KeywordsSearchSelection = ({}) => {
   const searchTerm = getSearchTerm();
   const topKeywords = getTopKeywords();
 
-  const handleToggleKeyword = (filter: {count: number, value: string}, isSelected: boolean) => {
+  const handleToggleKeyword = (
+    filter: { count: number; value: string },
+    isSelected: boolean
+  ) => {
     if (isLoading) return;
     if (!isSelected) {
       makeQuery(filter.value);
@@ -63,4 +66,4 @@ const KeywordsSearchSelection = ({}) => {
   );
 };
 
-export default KeywordsSearchSelection
+export default KeywordsSearchSelection;

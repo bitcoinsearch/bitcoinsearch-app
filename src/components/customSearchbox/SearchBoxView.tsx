@@ -99,7 +99,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchInput("");
   };
 
-  const isSelectTagsContainerOpen = onFocus && !searchInput.trim() && isHomePage;
+  const isSelectTagsContainerOpen =
+    onFocus && !searchInput.trim() && isHomePage;
   const isAutoCompleteContainerOpen =
     onFocus && searchInput.trim().length > 2 && !!allAutocompletedItemsCount;
   const isContainerOpen =

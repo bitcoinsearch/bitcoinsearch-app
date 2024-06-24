@@ -17,7 +17,7 @@ const ResultCollection = ({
   ...resultProps
 }: ResultCollectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   const [initialResult, ...otherResults] = result;
 
   return (

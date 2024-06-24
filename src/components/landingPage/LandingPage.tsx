@@ -3,16 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/footer/Footer";
 import { useTheme } from "@/context/Theme";
-import TreasureChartLight from "public/landing/light/treasure-trove-chart.webp"
-import TreasureChartDark from "public/landing/dark/treasure-trove-chart.webp"
-import SourcesLight from "public/landing/light/sources-image.webp"
-import SourcesDark from "public/landing/dark/sources-image.webp"
+import TreasureChartLight from "public/landing/light/treasure-trove-chart.webp";
+import TreasureChartDark from "public/landing/dark/treasure-trove-chart.webp";
+import SourcesLight from "public/landing/light/sources-image.webp";
+import SourcesDark from "public/landing/dark/sources-image.webp";
 import SearchIcon from "../svgs/SearchIcon";
 
 export const LandingPage = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
-  const isMobile = window.matchMedia("(max-width: 600px)").matches
+  const isMobile = window.matchMedia("(max-width: 600px)").matches;
 
   return (
     <main className="bg-custom-background flex flex-col items-center">
@@ -95,11 +95,7 @@ export const LandingPage = () => {
             </section>
             <section className="relative w-full md:h-[577px] h-[200px]">
               <Image
-                src={
-                  isDark
-                    ? TreasureChartDark
-                    : TreasureChartLight
-                }
+                src={isDark ? TreasureChartDark : TreasureChartLight}
                 alt="trasure trove chart"
                 fill
                 sizes="(min-width: 1200px) 784px, 70vw"
@@ -149,11 +145,7 @@ export const LandingPage = () => {
         </section>
         <section className="relative w-full max-w-[766px] md:h-[400px] lg:h-[577px] h-[260px] max-h-[576px]">
           <Image
-            src={
-              isDark
-                ? SourcesDark
-                : SourcesLight
-            }
+            src={isDark ? SourcesDark : SourcesLight}
             alt="treasure trove chart"
             fill
             sizes="(min-width: 1200px) 784px, 70vw"

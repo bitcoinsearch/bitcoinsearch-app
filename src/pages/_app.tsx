@@ -12,7 +12,11 @@ import "../components/footer/footer.scss";
 import "../components/loadingBar/loadingBar.scss";
 import "../components/noResultsCard/noResults.scss";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { SearchQueryProvider } from "@/context/SearchQueryContext";
 import {
   buildAutocompleteQueryConfig,
