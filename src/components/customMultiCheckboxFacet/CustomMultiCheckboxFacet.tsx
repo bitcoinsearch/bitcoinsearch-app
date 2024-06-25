@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
-import styles from "./styles.module.scss";
 import appendClassName from "../../utils/elastic-search-ui-functions";
 import SidebarSection from "../sidebarFacet/SidebarSection";
 import Image from "next/image";
@@ -44,7 +43,7 @@ function CustomMultiCheckboxFacet({
   const searchRef = useRef<HTMLInputElement>();
   const multiCheckboxRef = useRef<HTMLDivElement>();
 
-  const { currentNavigateCheckbox, toggleRefocus } = useCheckboxNavigate({
+  const { currentNavigateCheckbox } = useCheckboxNavigate({
     checkboxContainer: multiCheckboxRef,
     searchEl: searchRef,
     options,

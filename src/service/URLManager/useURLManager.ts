@@ -12,9 +12,6 @@ type FilterProp = {
 const useURLManager = () => {
   const router = useRouter();
   const urlParams = new URLSearchParams(router.asPath.slice(1));
-  const isMobile = window
-    ? window.matchMedia("(max-width: 600px)").matches
-    : false;
 
   const getSearchTerm = () => {
     return urlParams.get("search");

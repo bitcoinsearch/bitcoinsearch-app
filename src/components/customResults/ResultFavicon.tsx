@@ -1,4 +1,3 @@
-import { useTheme } from "@/context/Theme";
 import Image from "next/image";
 import React, { useCallback, useState } from "react";
 
@@ -29,6 +28,7 @@ const ResultFavicon = ({
       ? "/domain_favicons/default_dark.png"
       : "/domain_favicons/default_light.png";
     setSrc(fallbackUrl ?? defaultFallback);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fallbackUrl, numbersOfRetry, retryCount]);
 
   return (

@@ -1,7 +1,7 @@
 import ResultSize from "@/components/sidebarFacet/ResultSize";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 import useUIContext from "@/hooks/useUIContext";
-import React, { useState } from "react";
+import React from "react";
 
 type LayoutProps = Record<string, React.ReactNode>;
 

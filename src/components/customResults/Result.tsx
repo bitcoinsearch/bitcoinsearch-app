@@ -22,7 +22,7 @@ type ResultProps = {
 
 const Result = ({ result }: ResultProps) => {
   let dateString = null;
-  const { url, title, body, domain, id } = result;
+  const { url, title, body, domain } = result;
 
   const mappedUrl = remapUrl({ url, domain });
 

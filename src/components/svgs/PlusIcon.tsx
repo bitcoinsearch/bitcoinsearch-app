@@ -1,9 +1,6 @@
 import * as React from "react";
-import { useTheme } from "@/context/Theme";
 
 const PlusIcon = (props: React.SVGProps<SVGSVGElement>) => {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
   return (
     <svg
       width="12"

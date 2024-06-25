@@ -1,5 +1,4 @@
 import useSearchQuery from "@/hooks/useSearchQuery";
-import useUIContext from "@/hooks/useUIContext";
 import useURLManager from "@/service/URLManager/useURLManager";
 import { FacetKeys } from "@/types";
 import { getFilterValueDisplay, matchCharactersWithRegex } from "@/utils/facet";
@@ -37,7 +36,6 @@ const Facet = ({ field, isFilterable, label, view, callback }: FacetProps) => {
   // const [itemsToShow, setItemsToShow] = useState<number>(10)
   const [searchTermFacet, setSearchTermFacet] = useState("");
   const {
-    searchQuery,
     queryResult: { data },
   } = useSearchQuery();
   // temporary conditional

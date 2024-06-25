@@ -2,14 +2,9 @@ import { Button, Container, Heading } from "@chakra-ui/react";
 import React, { useLayoutEffect, useRef } from "react";
 import { getTopAuthors } from "../../config/config-helper";
 import useURLManager from "@/service/URLManager/useURLManager";
-import useSearchQuery from "@/hooks/useSearchQuery";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
 const InitialFacetSection = ({ field = "authors" as const }) => {
-  const {
-    queryResult: { data },
-    searchQuery,
-  } = useSearchQuery();
   const {
     getFilter,
     addFilter: addFilterNew,

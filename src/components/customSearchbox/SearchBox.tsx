@@ -1,12 +1,11 @@
-import React, { Component, useState } from "react";
-import { WithSearch, withSearch } from "@elastic/react-search-ui";
+import React from "react";
+import { WithSearch } from "@elastic/react-search-ui";
 import {
   AutocompleteResult,
   AutocompleteSuggestion,
   SearchContextState,
 } from "@elastic/search-ui";
 import { SearchBoxViewProps } from "./SearchBoxView";
-import useSearchQuery from "@/hooks/useSearchQuery";
 
 export type SearchBoxContainerContext = Pick<
   SearchContextState,
@@ -28,9 +27,9 @@ export type SearchBoxContainerProps = {
 const SearchBoxContainer = (
   props: SearchBoxContainerContext & SearchBoxContainerProps
 ) => {
-  const [state, setState] = useState({
-    isFocused: false,
-  });
+  // const [state, setState] = useState({
+  //   isFocused: false,
+  // });
 
   const _a = props;
   const {
@@ -44,17 +43,17 @@ const SearchBoxContainer = (
     onSelectAutocomplete,
     onSubmit,
     view,
-    debounceLength,
+    // debounceLength,
     ...rest
   } = _a;
 
-  const handleFocus = () => {
-    setState((prev) => ({ ...prev, isFocused: true }));
-  };
-  const handleBlur = () => {
-    setState((prev) => ({ ...prev, isFocused: false }));
-  };
-  const completeSuggestion = (term: string) => {};
+  // const handleFocus = () => {
+  //   setState((prev) => ({ ...prev, isFocused: true }));
+  // };
+  // const handleBlur = () => {
+  //   setState((prev) => ({ ...prev, isFocused: false }));
+  // };
+  // const completeSuggestion = (term: string) => {};
 
   const handleChange = (value: string) => {
     const options = Object.assign(
@@ -88,7 +87,6 @@ const SearchBoxContainer = (
       autocompletedSuggestions: autocompletedSuggestions,
       className,
       autocompletedSuggestionsCount: autocompletedSuggestionsCount,
-      isFocused: state.isFocused,
       onChange: (value: string) => handleChange(value),
       onSelectAutocomplete,
       onSubmit: onSubmit,

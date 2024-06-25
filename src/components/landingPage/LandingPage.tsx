@@ -1,13 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "@/components/footer/Footer";
 import { useTheme } from "@/context/Theme";
 import TreasureChartLight from "public/landing/light/treasure-trove-chart.webp";
 import TreasureChartDark from "public/landing/dark/treasure-trove-chart.webp";
 import SourcesLight from "public/landing/light/sources-image.webp";
 import SourcesDark from "public/landing/dark/sources-image.webp";
-import SearchIcon from "../svgs/SearchIcon";
 
 export const LandingPage = () => {
   const { theme } = useTheme();

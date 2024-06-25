@@ -1,7 +1,3 @@
-import {
-  SearchResponse,
-  SearchResponseBody,
-} from "@elastic/elasticsearch/lib/api/types";
 import config from "./engine.json";
 import { FacetKeys } from "@/types";
 

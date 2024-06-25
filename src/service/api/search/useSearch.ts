@@ -13,7 +13,7 @@ export const useSearch = ({
   filterFields,
   sortFields,
 }: SearchQuery) => {
-  const hasFilters = Boolean(filterFields.length);
+  // const hasFilters = Boolean(filterFields.length);
   const queryResult = useQuery({
     queryKey: ["query", queryString, size, filterFields, page, sortFields],
     queryFn: () =>

@@ -1,5 +1,5 @@
 import { Button, Container, Heading } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { getTopKeywords } from "../../config/config-helper";
 import useSearchQuery from "@/hooks/useSearchQuery";
 import useURLManager from "@/service/URLManager/useURLManager";
@@ -7,8 +7,7 @@ import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilt
 
 const KeywordsSearchSelection = ({}) => {
   const {
-    queryResult: { data, isLoading },
-    searchQuery,
+    queryResult: { isLoading },
     makeQuery,
   } = useSearchQuery();
   const { getSearchTerm } = useURLManager();

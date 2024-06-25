@@ -117,7 +117,7 @@ const MenuSwitcher = () => {
 
 const NavBar = () => {
   const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
-  const { makeQuery, filterFields } = useSearchQuery();
+  const { makeQuery } = useSearchQuery();
   const handleSubmit = (input: string) => {
     makeQuery(input);
   };

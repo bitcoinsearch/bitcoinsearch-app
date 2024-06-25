@@ -7,7 +7,7 @@ import {
   ModalOverlay,
   Spinner,
 } from "@chakra-ui/react";
-import React, { FormEvent, useState, useTransition } from "react";
+import React, { FormEvent, useState } from "react";
 import { getFormURL } from "../../config/config-helper";
 import CircleCheck from "public/circle-tick.svg";
 import Image from "next/image";

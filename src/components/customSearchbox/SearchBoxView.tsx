@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Downshift from "downshift";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -23,7 +24,6 @@ export type SearchBoxViewProps = Pick<
   | "autocompletedSuggestions"
   | "autocompletedResults"
 > & {
-  isFocused: boolean;
   className?: string;
   allAutocompletedItemsCount: number;
   autocompletedSuggestionsCount: any;
@@ -40,7 +40,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const {
     className,
     allAutocompletedItemsCount,
-    isFocused,
     inputProps = { className: "" },
     onChange,
     onSelectAutocomplete,
@@ -152,12 +151,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const handleOnFocus = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!autoCompleteHeight.current) {
       autoCompleteHeight.current = window.innerHeight / 2 - paddingHeightMobile;
-      console.log(
-        "autoCompleteHeight",
-        autoCompleteHeight.current,
-        "window.innerHeight",
-        window.innerHeight
-      );
     }
     setFocus(true);
   };

@@ -1,5 +1,3 @@
-import { PagingInfo } from "@elastic/react-search-ui";
-
 import React from "react";
 import useIsInitialStateWithoutFilter from "../../hooks/useIsInitialStateWithoutFilter";
 import useSearchQuery from "../../hooks/useSearchQuery";

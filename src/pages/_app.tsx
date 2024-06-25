@@ -20,16 +20,12 @@ import {
 import { SearchQueryProvider } from "@/context/SearchQueryContext";
 import {
   buildAutocompleteQueryConfig,
-  buildFacetConfigFromConfig,
-  buildSearchOptionsFromConfig,
   getConfig,
 } from "@/config/config-helper";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
 import theme from "@/chakra/chakra-theme";
 import { SearchDriverOptions } from "@elastic/search-ui";
-import Head from "next/head";
-import Script from "next/script";
 import { UIContextProvider } from "@/context/UIContext";
 import { ThemeProvider } from "@/context/Theme";
 import Metadata from "@/layout/Metadata";

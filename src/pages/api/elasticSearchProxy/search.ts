@@ -2,8 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "@/config/elasticsearch";
 import { buildQuery } from "@/utils/server/apiFunctions";
 // import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
-import fs from "fs";
-import { Facet } from "@/types";
 
 export default async function handler(
   req: NextApiRequest,
