@@ -11,6 +11,7 @@ import React, { FormEvent, useState } from "react";
 import { getFormURL } from "../../config/config-helper";
 import CircleCheck from "public/circle-tick.svg";
 import Image from "next/image";
+import { useRouter } from 'next/router';
 
 const defaultFieldState = {
   value: "",
@@ -21,7 +22,8 @@ const urlRegex =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 const emailRegex = /^\S+@\S+\.\S+$/;
 
-const FormModal = ({ formOpen, closeForm }) => {
+const FormModal = ({ formOpen, closeForm, noResult }) => {
+  const router = useRouter()
   const [urlState, setUrlState] = useState({
     value: "",
     isValid: true,
@@ -46,6 +48,12 @@ const FormModal = ({ formOpen, closeForm }) => {
     return response.json();
   };
 
+  const clearQueryState = () => {
+    setUrlState((url) => ({ ...url, value: "" }))
+    router.query = {}
+    router.push('/');
+  }
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const data = new FormData();
@@ -57,6 +65,7 @@ const FormModal = ({ formOpen, closeForm }) => {
       .then((res) => {
         if (res.result === "success") {
           setFormState({ loading: false, error: "", success: true });
+          noResult ? clearQueryState() : setUrlState(( url ) => ({ ...url, value: "" }))
         } else {
           throw Error(res.result);
         }
@@ -176,7 +185,7 @@ const FormModal = ({ formOpen, closeForm }) => {
                         Please enter the full URL, including http:// or https://
                       </p>
                     ) : (
-                      <p className="text-red-400">Invalid Url</p>
+                      <p className="text-red-400">Invalid URL</p>
                     )}
                   </div>
                 </FormControl>
