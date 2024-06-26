@@ -124,7 +124,11 @@ export const App = () => {
             bodyFooter={<BodyFooter />}
           />
           {noResult && <NoResults openForm={openForm} />}
-          <FormModal formOpen={isOpen} closeForm={closeForm} />
+          <FormModal
+            formOpen={isOpen}
+            closeForm={closeForm}
+            noResult={noResult}
+          />
         </div>
       </main>
       {NoResults && isHomePage && <LandingPage />}
