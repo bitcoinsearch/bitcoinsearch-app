@@ -23,7 +23,7 @@ import {
   generateSortFields,
 } from "@/service/URLManager/helper";
 import { useRouter } from "next/router";
-import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
 import { buildQueryCall } from "@/service/api/search/searchCall";
@@ -87,7 +87,7 @@ export const App = () => {
 
   const { isHomePage } = useIsInitialStateWithoutFilter();
   const { isOpen, closeForm, openForm } = useUIContext();
-  const { searchQuery, queryResult, makeQuery, pagingInfo } = useSearchQuery();
+  const { searchQuery, queryResult, pagingInfo } = useSearchQuery();
   useScrollTop({ current: pagingInfo.current });
   const router = useRouter();
 

@@ -9,11 +9,11 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'sans': ['ui-sans-serif', 'system-ui'],
-      'serif': ['ui-serif', 'Georgia'],
-      'mono': ['ui-monospace', 'SFMono-Regular'],
-      'geist': ['"Geist Sans"', 'sans-serif'],
-      'mona': ['"Mona Sans"', 'sans-serif'],
+      sans: ["ui-sans-serif", "system-ui"],
+      serif: ["ui-serif", "Georgia"],
+      mono: ["ui-monospace", "SFMono-Regular"],
+      geist: ['"Geist Sans"', "sans-serif"],
+      mona: ['"Mona Sans"', "sans-serif"],
     },
     extend: {
       boxShadow: {
@@ -22,10 +22,10 @@ module.exports = {
       colors: {
         custom: {
           background: "var(--background)",
-          "hover-primary":"var(--hover-primary)",
+          "hover-primary": "var(--hover-primary)",
           "hover-state": "var(--hover-state)",
           stroke: "var(--stroke)",
-          button:"var(--button)",
+          button: "var(--button)",
           "secondary-text": "var(--secondary-text)",
           "primary-text": "var(--primary-text)",
           accent: "var(--accent)",
@@ -37,13 +37,13 @@ module.exports = {
             200: "#ED8936",
             300: "#FAA739",
           },
-          otherLight: "var(--other-light-text)"
+          otherLight: "var(--other-light-text)",
         },
       },
       backgroundImage: {
         gradient: "var(--gradient)",
-        "shadow-left":"var(--shadow-left)",
-        "shadow-right":"var(--shadow-right)",
+        "shadow-left": "var(--shadow-left)",
+        "shadow-right": "var(--shadow-right)",
       },
     },
   },

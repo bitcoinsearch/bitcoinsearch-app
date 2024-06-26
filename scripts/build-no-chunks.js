@@ -8,8 +8,8 @@ let config = defaults.__get__("config");
 
 config.optimization.splitChunks = {
   cacheGroups: {
-    default: false
-  }
+    default: false,
+  },
 };
 
 config.optimization.runtimeChunk = false;

@@ -7,7 +7,7 @@ import {
   ModalOverlay,
   Spinner,
 } from "@chakra-ui/react";
-import React, { FormEvent, useState, useTransition } from "react";
+import React, { FormEvent, useState } from "react";
 import { getFormURL } from "../../config/config-helper";
 import CircleCheck from "public/circle-tick.svg";
 import Image from "next/image";
@@ -50,7 +50,7 @@ const FormModal = ({ formOpen, closeForm }) => {
     e.preventDefault();
     const data = new FormData();
     data.append("URL", urlState.value);
-    emailState.isValid && data.append("Email", emailState.value.trim())
+    emailState.isValid && data.append("Email", emailState.value.trim());
     setFormState((prev) => ({ ...prev, loading: true }));
 
     submitToSheet(data)
@@ -77,18 +77,18 @@ const FormModal = ({ formOpen, closeForm }) => {
     closeForm();
   };
 
-  const formIsComplete = urlState.isValid && emailState.isValid;;
+  const formIsComplete = urlState.isValid && emailState.isValid;
 
   const validateUrl = (url: string) => {
     // if no url is provided, it is valid (removes error state). The required attribute ensures a blank url is not submitted
     if (!url) return true;
     const isValid = urlRegex.test(url);
-    return isValid
+    return isValid;
   };
   const validateEmail = (email: string) => {
     // empty string email is valid
     const isValid = email ? emailRegex.test(email) : true;
-    return isValid
+    return isValid;
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,9 +133,19 @@ const FormModal = ({ formOpen, closeForm }) => {
               </div>
             ) : formState?.error ? (
               <>
-                <p className="text-red-400 font-semibold text-center mb-5">Submission Failed</p>
-                <div role="button" onClick={() => setFormState({ loading: false, success: false, error: "" })} className="flex mt-10 py-3 justify-center gap-2 bg-custom-accent rounded-lg">
-                  <p className="font-bold w-fit text-custom-background">Try again!</p>
+                <p className="text-red-400 font-semibold text-center mb-5">
+                  Submission Failed
+                </p>
+                <div
+                  role="button"
+                  onClick={() =>
+                    setFormState({ loading: false, success: false, error: "" })
+                  }
+                  className="flex mt-10 py-3 justify-center gap-2 bg-custom-accent rounded-lg"
+                >
+                  <p className="font-bold w-fit text-custom-background">
+                    Try again!
+                  </p>
                 </div>
               </>
             ) : (
@@ -176,7 +186,9 @@ const FormModal = ({ formOpen, closeForm }) => {
                     htmlFor="form-email"
                   >
                     <span>Your Email </span>
-                    <span className="text-gray-500 font-normal text-sm">(optional)</span>
+                    <span className="text-gray-500 font-normal text-sm">
+                      (optional)
+                    </span>
                   </label>
                   <input
                     id="form-email"

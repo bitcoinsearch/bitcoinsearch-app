@@ -1,11 +1,10 @@
-import { useTheme } from "@/context/Theme";
 import Image from "next/image";
 import React, { useCallback, useState } from "react";
 
 type ResultFaviconProps = React.ComponentProps<typeof Image> & {
   fallbackUrl?: string;
   numbersOfRetry?: number;
-  domain: string
+  domain: string;
   isDark: boolean;
 };
 
@@ -25,8 +24,11 @@ const ResultFavicon = ({
       setRetryCount((count) => count + 1);
       return;
     }
-    const defaultFallback = isDark? "/domain_favicons/default_dark.png" : "/domain_favicons/default_light.png"
+    const defaultFallback = isDark
+      ? "/domain_favicons/default_dark.png"
+      : "/domain_favicons/default_light.png";
     setSrc(fallbackUrl ?? defaultFallback);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fallbackUrl, numbersOfRetry, retryCount]);
 
   return (

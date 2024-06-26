@@ -2,7 +2,6 @@ import Head from "next/head";
 import Script from "next/script";
 import React from "react";
 
-
 const Metadata = () => {
   return (
     <>
@@ -12,7 +11,10 @@ const Metadata = () => {
           name="description"
           content="Search the depths of bitcoin's technical ecosystem"
         ></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"></meta>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        ></meta>
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <meta
           property="og:image"
@@ -37,7 +39,11 @@ const Metadata = () => {
           crossOrigin=""
         />
       </Head>
-      <Script async src="https://visits.bitcoindevs.xyz/script.js" data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"></Script>
+      <Script
+        async
+        src="https://visits.bitcoindevs.xyz/script.js"
+        data-website-id="84277a9b-dc29-4401-a83e-15683c9d5c53"
+      ></Script>
     </>
   );
 };

@@ -1,4 +1,7 @@
-import { AggregationsAggregate, SearchResponse } from "@elastic/elasticsearch/lib/api/types";
+import {
+  AggregationsAggregate,
+  SearchResponse,
+} from "@elastic/elasticsearch/lib/api/types";
 const AUTHOR = "authors" as const;
 const DOMAIN = "domain" as const;
 const TAGS = "tags" as const;
@@ -11,11 +14,11 @@ export type Facet = {
 };
 
 const bodyType = {
-  "markdown": "markdown",
-  "raw": "raw",
-  "html": "html",
+  markdown: "markdown",
+  raw: "raw",
+  html: "html",
   "combined-summary": "combined-summary",
-} as const
+} as const;
 
 export type SortOption = "asc" | "desc";
 
@@ -53,4 +56,7 @@ export type EsSearchResult = {
 
 export type BodyType = (typeof bodyType)[keyof typeof bodyType];
 
-export type EsSearchResponse = SearchResponse<unknown, Record<string, AggregationsAggregate>>
+export type EsSearchResponse = SearchResponse<
+  unknown,
+  Record<string, AggregationsAggregate>
+>;

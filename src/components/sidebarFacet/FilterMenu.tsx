@@ -9,7 +9,7 @@ import useURLManager from "@/service/URLManager/useURLManager";
 import CrossIcon from "public/cross_icon.svg";
 import DarkCrossIcon from "public/dark_cross_icon.svg";
 import FilterMenuIcon from "../svgs/FilterMenuIcon";
-import { useTheme } from '@/context/Theme';
+import { useTheme } from "@/context/Theme";
 
 const FilterMenu = () => {
   const { filterFields } = useSearchQuery();
@@ -28,12 +28,15 @@ const FilterMenu = () => {
 };
 
 const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
   const isDark = theme === "dark";
   const { removeFilterTypes, removeFilter } = useURLManager();
   if (!filters?.length) return null;
   const clearAllFilters = () => {
-    removeFilterTypes({filterTypes: ["authors", "domain"], sortField: "sort_by"});
+    removeFilterTypes({
+      filterTypes: ["authors", "domain"],
+      sortField: "sort_by",
+    });
   };
   return (
     <SidebarSection className="text-custom-primary-text">

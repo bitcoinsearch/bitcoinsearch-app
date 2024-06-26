@@ -33,7 +33,13 @@ function ThemeSwitcher() {
             !isLight ? "bg-custom-hover-state" : ""
           }`}
         >
-          <NightIcon svgProps={{className:"text-custom-primary-text md:w-4"}} pathProps={{className: "dark:fill-custom-primary-text text-custom-secondary-text"}}/>
+          <NightIcon
+            svgProps={{ className: "text-custom-primary-text md:w-4" }}
+            pathProps={{
+              className:
+                "dark:fill-custom-primary-text text-custom-secondary-text",
+            }}
+          />
         </button>
       </div>
       <div
@@ -111,13 +117,11 @@ const MenuSwitcher = () => {
 
 const NavBar = () => {
   const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
-  const { makeQuery, filterFields } = useSearchQuery();
+  const { makeQuery } = useSearchQuery();
   const handleSubmit = (input: string) => {
     makeQuery(input);
   };
-  const handleAutoCompleteSelect = (
-    selection
-  ) => {
+  const handleAutoCompleteSelect = (selection) => {
     if (!selection.suggestion) return;
     makeQuery(removeMarkdownCharacters(selection.suggestion));
   };

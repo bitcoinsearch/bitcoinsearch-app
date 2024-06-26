@@ -23,4 +23,4 @@ const HomeTextBanner = ({ className }: { className: string }) => {
   );
 };
 
-export default HomeTextBanner
+export default HomeTextBanner;

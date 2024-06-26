@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { parseYoutubeId } from "../../utils/views";
-import Image from "next/image";
 
 export const Thumbnail = ({ url }) => {
   if (!url) return null;

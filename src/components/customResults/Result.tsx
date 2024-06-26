@@ -3,10 +3,7 @@ import { getResultTags } from "@/config/config-helper";
 import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
-import {
-  getDomainFavicon,
-  getDomainName,
-} from "@/config/mapping-helper";
+import { getDomainFavicon, getDomainName } from "@/config/mapping-helper";
 import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import DateIcon from "../svgs/DateIcon";
@@ -25,9 +22,9 @@ type ResultProps = {
 
 const Result = ({ result }: ResultProps) => {
   let dateString = null;
-  const { url, title, body, domain, id } = result;
+  const { url, title, body, domain } = result;
 
-  const mappedUrl = remapUrl({url, domain})
+  const mappedUrl = remapUrl({ url, domain });
 
   const createdDate = result.created_at;
   if (createdDate) {

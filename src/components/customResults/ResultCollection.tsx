@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import Result from "./Result";
 import { TiArrowSortedDown } from "react-icons/ti";
@@ -17,7 +17,7 @@ const ResultCollection = ({
   ...resultProps
 }: ResultCollectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   const [initialResult, ...otherResults] = result;
 
   return (

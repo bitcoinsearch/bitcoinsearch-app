@@ -7,20 +7,22 @@ import { buildQueryCall } from "./searchCall";
  * Utilizes React Query's `useQuery` to manage fetching, caching, and updating of search results.
  */
 export const useSearch = ({
-  queryString, size, page, filterFields, sortFields
+  queryString,
+  size,
+  page,
+  filterFields,
+  sortFields,
 }: SearchQuery) => {
-  const hasFilters = Boolean(filterFields.length)
   const queryResult = useQuery({
     queryKey: ["query", queryString, size, filterFields, page, sortFields],
-    queryFn: () => buildQueryCall({queryString, size, page, filterFields, sortFields}),
+    queryFn: () =>
+      buildQueryCall({ queryString, size, page, filterFields, sortFields }),
     cacheTime: Infinity,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
     enabled: true,
-    // enabled: !!queryString?.trim() || hasFilters,
   });
 
-  return queryResult
-}
-
+  return queryResult;
+};

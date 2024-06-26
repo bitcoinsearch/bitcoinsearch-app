@@ -1,3 +1,19 @@
 {
-  "extends": ["next", "next/core-web-vitals"]
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": ["next/core-web-vitals", "next", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "warn",
+    "react/prop-types": ["off"],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-unused-vars": [
+      "warn",
+      { "vars": "all", "args": "none", "ignoreRestSiblings": false }
+    ],
+    "eol-last": ["warn", "always"],
+    "react/react-in-jsx-scope": "off"
+  }
 }
