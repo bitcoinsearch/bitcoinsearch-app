@@ -11,7 +11,7 @@ import React, { FormEvent, useState } from "react";
 import { getFormURL } from "../../config/config-helper";
 import CircleCheck from "public/circle-tick.svg";
 import Image from "next/image";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 const defaultFieldState = {
   value: "",
@@ -23,7 +23,7 @@ const urlRegex =
 const emailRegex = /^\S+@\S+\.\S+$/;
 
 const FormModal = ({ formOpen, closeForm, noResult }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [urlState, setUrlState] = useState({
     value: "",
     isValid: true,
@@ -49,10 +49,10 @@ const FormModal = ({ formOpen, closeForm, noResult }) => {
   };
 
   const clearQueryState = () => {
-    setUrlState((url) => ({ ...url, value: "" }))
-    router.query = {}
-    router.push('/');
-  }
+    setUrlState((url) => ({ ...url, value: "" }));
+    router.query = {};
+    router.push("/");
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -65,7 +65,9 @@ const FormModal = ({ formOpen, closeForm, noResult }) => {
       .then((res) => {
         if (res.result === "success") {
           setFormState({ loading: false, error: "", success: true });
-          noResult ? clearQueryState() : setUrlState(( url ) => ({ ...url, value: "" }))
+          noResult
+            ? clearQueryState()
+            : setUrlState((url) => ({ ...url, value: "" }));
         } else {
           throw Error(res.result);
         }
