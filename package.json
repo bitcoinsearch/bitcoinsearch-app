@@ -8,7 +8,9 @@
     "build": "GENERATE_SOURCEMAP=false next build",
     "start": "GENERATE_SOURCEMAP=false next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "prettier:check": "prettier --check . --ignore-path .gitignore",
+    "prettier:fix": "prettier --write . --ignore-path .gitignore"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.0.0",
