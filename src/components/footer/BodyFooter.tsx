@@ -12,7 +12,7 @@ const BodyFooter = () => {
   const totalPages = Math.ceil(totalResults / resultsPerPage);
   return (
     <div className="footer-container py-2 xl:p-4 gap-8 xl:gap-20 flex flex-col items-start justify-center max-w-full overflow-hidden">
-      <div className="flex">
+      <div className="flex w-full max-w-lg xl:max-w-xl 2xl:max-w-2xl">
         {current !== 1 && (
           <button
             className="rc-pagination-jump-prev"
@@ -25,6 +25,7 @@ const BodyFooter = () => {
           totalPages={totalPages}
           current={current}
           resultsPerPage={resultsPerPage}
+          className="flex justify-between"
         />
         {current !== totalPages && (
           <button
