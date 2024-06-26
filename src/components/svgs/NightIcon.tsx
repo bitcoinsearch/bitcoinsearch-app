@@ -1,7 +1,13 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const NightIcon = ({svgProps, pathProps}: {svgProps: SVGProps<SVGSVGElement>, pathProps?: SVGProps<SVGPathElement>}) => (
+const NightIcon = ({
+  svgProps,
+  pathProps,
+}: {
+  svgProps: SVGProps<SVGSVGElement>;
+  pathProps?: SVGProps<SVGPathElement>;
+}) => (
   <svg
     color="#292929"
     width="12"

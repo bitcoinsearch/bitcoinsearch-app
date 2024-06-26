@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import useCheckboxNavigate from "../../hooks/useCheckboxNavigate";
-import styles from "./styles.module.scss";
 import appendClassName from "../../utils/elastic-search-ui-functions";
 import SidebarSection from "../sidebarFacet/SidebarSection";
 import Image from "next/image";
@@ -12,7 +11,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import AuthorIcon from "../svgs/AuthorIcon";
 import SourceIcon from "../svgs/SourceIcon";
 import SearchIcon from "../svgs/SearchIcon";
-import PlusIcon from '../svgs/PlusIcon';
+import PlusIcon from "../svgs/PlusIcon";
 
 const facetMapping = {
   authors: {
@@ -44,7 +43,7 @@ function CustomMultiCheckboxFacet({
   const searchRef = useRef<HTMLInputElement>();
   const multiCheckboxRef = useRef<HTMLDivElement>();
 
-  const { currentNavigateCheckbox, toggleRefocus } = useCheckboxNavigate({
+  const { currentNavigateCheckbox } = useCheckboxNavigate({
     checkboxContainer: multiCheckboxRef,
     searchEl: searchRef,
     options,
@@ -125,7 +124,9 @@ function CustomMultiCheckboxFacet({
                   className="flex gap-1 py-1 2xl:py-2 px-[14px] group/checkOption data-[current-navigated=true]:bg-custom-hover-state group-hover/container:data-[current-navigated=true]:bg-transparent group-hover/container:data-[current-navigated=true]:hover:bg-custom-hover-state data-[selected=true]:text-custom-accent hover:bg-custom-hover-state"
                   onClick={() => (checked ? onRemove(value) : onSelect(value))}
                   role="button"
-                  aria-label={`${checked? 'uncheck' : 'check'} filter ${label}:${option.label}`}
+                  aria-label={`${
+                    checked ? "uncheck" : "check"
+                  } filter ${label}:${option.label}`}
                 >
                   <div
                     className="selectable-option flex grow items-center gap-3"

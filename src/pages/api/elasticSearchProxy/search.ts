@@ -1,15 +1,17 @@
-
 import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "@/config/elasticsearch";
 import { buildQuery } from "@/utils/server/apiFunctions";
 // import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
-import fs from 'fs';
-import { Facet } from "@/types";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: 'Invalid request method. The endpoint only supports POST requests.' });
+    return res.status(405).json({
+      error:
+        "Invalid request method. The endpoint only supports POST requests.",
+    });
   }
 
   let queryString = req.body.queryString as string;
@@ -19,7 +21,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   let sortFields = req.body.sortFields;
 
   const from = page * size;
-  let searchQuery = buildQuery({queryString, filterFields, sortFields, from, size });
+  let searchQuery = buildQuery({
+    queryString,
+    filterFields,
+    sortFields,
+    from,
+    size,
+  });
 
   try {
     // Call the search method
@@ -27,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       index: process.env.INDEX,
       ...searchQuery,
     });
-    
+
     return res.status(200).json({
       success: true,
       data: {

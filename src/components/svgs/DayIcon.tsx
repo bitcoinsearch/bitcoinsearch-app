@@ -2,13 +2,7 @@ import * as React from "react";
 import { SVGProps } from "react";
 
 const DayIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    color="#F7931A"
-    width="12"
-    viewBox="0 0 16 16"
-    fill="none"
-    {...props}
-  >
+  <svg color="#F7931A" width="12" viewBox="0 0 16 16" fill="none" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"

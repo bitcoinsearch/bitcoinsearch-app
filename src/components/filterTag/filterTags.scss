@@ -1,4 +1,3 @@
-
 @mixin result-container {
   display: inline-flex;
   flex-wrap: wrap;
@@ -16,28 +15,26 @@
 
 @mixin default-result-tag {
   -webkit-tap-highlight-color: transparent;
-  @media (hover:none) {
-      &:hover {
-          background-color: auto;
-          color: auto;
-      }
+  @media (hover: none) {
+    &:hover {
+      background-color: auto;
+      color: auto;
+    }
   }
-  @media (pointer:fine) {
-      &:hover {
-          background-color: var(--chakra-colors-gray-600);
-          color: var(--chakra-colors-gray-100);
-      }
+  @media (pointer: fine) {
+    &:hover {
+      background-color: var(--chakra-colors-gray-600);
+      color: var(--chakra-colors-gray-100);
+    }
   }
 }
 
 .authors-result-container {
   @include result-container;
-
 }
 .tags-result-container {
   @include result-container;
 }
-
 
 .authors-result-tag {
   @include default-result-tag;

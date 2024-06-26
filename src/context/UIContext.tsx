@@ -1,4 +1,3 @@
-
 import React, { createContext, useState } from "react";
 
 export type UIContextType = {
@@ -7,41 +6,46 @@ export type UIContextType = {
   isOpen: boolean;
   sidebarToggleManager: {
     state: boolean;
-    updater: (x?:boolean) => void;
-  }
-}
+    updater: (x?: boolean) => void;
+  };
+};
 
 export const UIContext = createContext<UIContextType | null>(null);
 
-export const UIContextProvider = ({ children }: { children: React.ReactNode}) => {
-
+export const UIContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [isSBToggleOpen, setIsSBToggleOpen] = useState(false)
+  const [isSBToggleOpen, setIsSBToggleOpen] = useState(false);
 
   const openForm = () => {
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
 
   const closeForm = () => {
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   const toggleSB = (SBControlBool?: boolean) => {
     if (SBControlBool !== undefined) {
-      setIsSBToggleOpen(SBControlBool)
-      return
+      setIsSBToggleOpen(SBControlBool);
+      return;
     }
-    setIsSBToggleOpen(prev => !prev)
-  }
+    setIsSBToggleOpen((prev) => !prev);
+  };
 
   const sidebarToggleManager = {
     state: isSBToggleOpen,
-    updater: toggleSB
-  }
+    updater: toggleSB,
+  };
 
   return (
-    <UIContext.Provider value={{ openForm, closeForm, isOpen, sidebarToggleManager }} >
+    <UIContext.Provider
+      value={{ openForm, closeForm, isOpen, sidebarToggleManager }}
+    >
       {children}
     </UIContext.Provider>
   );

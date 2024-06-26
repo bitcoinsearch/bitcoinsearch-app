@@ -1,14 +1,10 @@
-import { Sorting } from "@elastic/react-search-ui-views";
-
 import React from "react";
 import CustomMultiCheckboxFacet from "../components/customMultiCheckboxFacet/CustomMultiCheckboxFacet";
 import { getFacetFields, getFacetWithSearch } from "../config/config-helper";
-import useIsInitialStateWithoutFilter from "../hooks/useIsInitialStateWithoutFilter";
 import Facet from "@/components/sidebarFacet/Facet";
 import SortingFacet from "@/components/sidebarFacet/SortingFacet";
 import SortingView from "@/components/sidebarFacet/Sorting/SortingView";
 import ResultSize from "@/components/sidebarFacet/ResultSize";
-import Image from "next/image";
 import FilterMenu from "@/components/sidebarFacet/FilterMenu";
 import ShowFilterResultsMobile from "@/components/sidebarFacet/ShowFilterResultsMobile";
 import useUIContext from "@/hooks/useUIContext";

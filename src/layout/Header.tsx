@@ -38,7 +38,9 @@ const Header = ({ openForm }) => {
         className="relative data-[has-results='false']:hidden md:hidden peer-data-[input-focus='true']/search:hidden"
       >
         <button
-          onClick={() => sidebarToggleManager.updater(!sidebarToggleManager.state)}
+          onClick={() =>
+            sidebarToggleManager.updater(!sidebarToggleManager.state)
+          }
           className="flex items-center justify-center bg-transparent min-h-[48px] w-[48px] border border-custom-stroke rounded-xl"
         >
           {sidebarToggleManager.state ? (

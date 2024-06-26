@@ -6,9 +6,14 @@ type GenerateLocatorArgs = {
   url: string;
   title: string;
   thread_url?: string;
-}
+};
 
-export const generateLocator = ({raw_domain, url, title, thread_url}: GenerateLocatorArgs) => {
+export const generateLocator = ({
+  raw_domain,
+  url,
+  title,
+  thread_url,
+}: GenerateLocatorArgs) => {
   const label = getDomainLabel(raw_domain, true);
   switch (raw_domain) {
     case "https://bitcointalk.org/": {
@@ -21,9 +26,9 @@ export const generateLocator = ({raw_domain, url, title, thread_url}: GenerateLo
     }
 
     default:
-      let id = title
+      let id = title;
       if (thread_url) {
-        id = locathorForThreads(thread_url)
+        id = locathorForThreads(thread_url);
       }
       return appendIdWithDomain(id, label);
   }
@@ -44,7 +49,7 @@ export const locatorForBitcoinStackExchange = (url: string) => {
 
 export const locathorForThreads = (thread_url: string) => {
   return thread_url;
-}
+};
 
 export const locatorForMailingList = (url: string) => {
   // TODO: write a more robust regex pattern matching for id
@@ -57,7 +62,10 @@ const appendIdWithDomain = (id, label) => {
   return `${id}_${label}`;
 };
 
-export const sortGroupedResults = (groupedIndices: Set<number>, results: Array<Array<EsSearchResult["_source"]>>) => {
+export const sortGroupedResults = (
+  groupedIndices: Set<number>,
+  results: Array<Array<EsSearchResult["_source"]>>
+) => {
   if (groupedIndices.size) {
     groupedIndices.forEach((idx) => {
       const domain = results[idx][0]?.domain;
@@ -78,19 +86,17 @@ export const sortGroupedResults = (groupedIndices: Set<number>, results: Array<A
   }
 };
 
-const domainSorting = (domain: EsSearchResult["_source"]["domain"], prev: EsSearchResult["_source"], next: EsSearchResult["_source"]) => {
+const domainSorting = (
+  domain: EsSearchResult["_source"]["domain"],
+  prev: EsSearchResult["_source"],
+  next: EsSearchResult["_source"]
+) => {
   if (!prev?.url || !next?.url) return 0;
   switch (domain) {
     case "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/":
-      return (
-        locatorForMailingList(next.url) -
-        locatorForMailingList(prev.url)
-      );
+      return locatorForMailingList(next.url) - locatorForMailingList(prev.url);
     case "https://lists.linuxfoundation.org/pipermail/lightning-dev/":
-      return (
-        locatorForMailingList(next.url) -
-        locatorForMailingList(prev.url)
-      );
+      return locatorForMailingList(next.url) - locatorForMailingList(prev.url);
     default:
       return 0;
   }

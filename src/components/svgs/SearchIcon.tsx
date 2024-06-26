@@ -19,5 +19,5 @@ const SearchIcon = (props: SVGProps<SVGSVGElement>) => (
       strokeWidth={2}
     />
   </svg>
-)
+);
 export default SearchIcon;

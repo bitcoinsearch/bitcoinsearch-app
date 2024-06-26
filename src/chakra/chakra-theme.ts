@@ -33,7 +33,7 @@ const theme = extendTheme({
   colors,
   components: {
     Button,
-    Menu
+    Menu,
   },
 });
 

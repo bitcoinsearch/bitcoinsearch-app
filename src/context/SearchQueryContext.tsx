@@ -1,30 +1,35 @@
 import { UseQueryResult } from "@tanstack/react-query";
 import React, { createContext, useCallback, useMemo } from "react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { URLSearchParamsKeyword, defaultParam } from "@/config/config";
 import { useSearch } from "@/service/api/search/useSearch";
-import { generateFilterQuery, generateSortFields } from "@/service/URLManager/helper";
+import {
+  generateFilterQuery,
+  generateSortFields,
+} from "@/service/URLManager/helper";
 import { EsSearchResponse, Facet } from "@/types";
 
-export type QueryObject = Record<string, string>
+export type QueryObject = Record<string, string>;
 
 export type PagingInfoType = {
-  resultsPerPage: number,
-  current: number,
-  totalResults: number | null
-}
+  resultsPerPage: number;
+  current: number;
+  totalResults: number | null;
+};
 
 export type SearchQueryContextType = {
-  searchQuery: string,
-  queryResult: UseQueryResult<EsSearchResponse>,
-  makeQuery: (queryString: string) => void,
-  handlePageChange: (page: number) => void,
-  pagingInfo: PagingInfoType,
-  filterFields: Facet[]
-}
+  searchQuery: string;
+  queryResult: UseQueryResult<EsSearchResponse>;
+  makeQuery: (queryString: string) => void;
+  handlePageChange: (page: number) => void;
+  pagingInfo: PagingInfoType;
+  filterFields: Facet[];
+};
 
 // Create a context for sharing search-related data and methods across components
-export const SearchQueryContext = createContext<SearchQueryContextType | null>(null);
+export const SearchQueryContext = createContext<SearchQueryContextType | null>(
+  null
+);
 
 /**
  * React context provider designed to encapsulate and manage the state and logic associated with search functionality.
@@ -48,7 +53,11 @@ export const SearchQueryContext = createContext<SearchQueryContextType | null>(n
  * and seamless integration with React Query for data fetching, making it a central piece of the application's search functionality.
  */
 
-export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) => {
+export const SearchQueryProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   // Extract search parameters from the URL
   const router = useRouter();
   const searchParams = router.query;
@@ -57,31 +66,38 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
   const sizeQuery = searchParams[URLSearchParamsKeyword.SIZE] as string;
 
   // Generate filter and sort criteria from the URL path
-  const filterFields = generateFilterQuery(router.asPath.slice(1))
-  const sortFields = generateSortFields(router.asPath.slice(1))
+  const filterFields = generateFilterQuery(router.asPath.slice(1));
+  const sortFields = generateSortFields(router.asPath.slice(1));
 
-  // dynamic representation of the query parameters present in the current URL 
+  // dynamic representation of the query parameters present in the current URL
   const urlParams = useMemo(() => {
-    return new URLSearchParams(router.asPath.slice(1))
-  }, [router])
+    return new URLSearchParams(router.asPath.slice(1));
+  }, [router]);
 
   // Memoize derived state from URL search parameters
   const searchQuery = useMemo(() => {
-    return rawSearchQuery ?? ""
-  }, [rawSearchQuery])
+    return rawSearchQuery ?? "";
+  }, [rawSearchQuery]);
 
   const page = useMemo(() => {
-    return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0
-  }, [pageQuery])
+    return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0;
+  }, [pageQuery]);
 
-  const resultsPerPage = sizeQuery ? (parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]) : defaultParam[URLSearchParamsKeyword.SIZE]
-  
-  const setSearchParams = useCallback((queryObject: QueryObject) => {
-    Object.keys(queryObject).map(objectKey => {
-      urlParams.set(objectKey, queryObject[objectKey])
-    })
-    router.push(router.pathname + "?" + urlParams.toString(), undefined, { shallow: true })
-  }, [router, urlParams])
+  const resultsPerPage = sizeQuery
+    ? parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]
+    : defaultParam[URLSearchParamsKeyword.SIZE];
+
+  const setSearchParams = useCallback(
+    (queryObject: QueryObject) => {
+      Object.keys(queryObject).map((objectKey) => {
+        urlParams.set(objectKey, queryObject[objectKey]);
+      });
+      router.push(router.pathname + "?" + urlParams.toString(), undefined, {
+        shallow: true,
+      });
+    },
+    [router, urlParams]
+  );
 
   // Use custom search hook with current search criteria
   const queryResult = useSearch({
@@ -90,30 +106,42 @@ export const SearchQueryProvider = ({ children }: { children: React.ReactNode}) 
     page,
     filterFields,
     sortFields,
-  })
+  });
 
   // Function to initiate a new search with the given queryString
   const makeQuery = (queryString: string) => {
-    router.query = {}
-    urlParams.delete(URLSearchParamsKeyword.PAGE) // new search query resets the user back to the first page of results
-    urlParams.set(URLSearchParamsKeyword.SEARCH, queryString.trim()) // new search query
-    router.push(`${router.pathname}?${urlParams.toString()}`, undefined, { shallow: true })
+    router.query = {};
+    urlParams.delete(URLSearchParamsKeyword.PAGE); // new search query resets the user back to the first page of results
+    urlParams.set(URLSearchParamsKeyword.SEARCH, queryString.trim()); // new search query
+    router.push(`${router.pathname}?${urlParams.toString()}`, undefined, {
+      shallow: true,
+    });
   };
 
   // Function to handle page changes in pagination
   const handlePageChange = (page: number) => {
-    setSearchParams({page: JSON.stringify(page)})
-  }
+    setSearchParams({ page: JSON.stringify(page) });
+  };
 
   // Compile paging information from search results and current state
   const pagingInfo = {
     resultsPerPage,
     current: page + 1, // Adjust for zero-based index
-    totalResults: queryResult.data?.hits?.total["value"] as unknown as number ?? null
-  }
+    totalResults:
+      (queryResult.data?.hits?.total["value"] as unknown as number) ?? null,
+  };
 
   return (
-    <SearchQueryContext.Provider value={{ searchQuery, queryResult, makeQuery, handlePageChange, pagingInfo, filterFields }} >
+    <SearchQueryContext.Provider
+      value={{
+        searchQuery,
+        queryResult,
+        makeQuery,
+        handlePageChange,
+        pagingInfo,
+        filterFields,
+      }}
+    >
       {children}
     </SearchQueryContext.Provider>
   );

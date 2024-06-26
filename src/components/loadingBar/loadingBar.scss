@@ -23,7 +23,6 @@
   animation: searching 3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
 }
 @keyframes searching {
-
   50% {
     background-color: var(--chakra-colors-gray-400);
     // opacity: 0.3;

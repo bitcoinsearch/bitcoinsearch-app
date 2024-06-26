@@ -23,7 +23,6 @@ export type SearchBoxViewProps = Pick<
   | "autocompletedSuggestions"
   | "autocompletedResults"
 > & {
-  isFocused: boolean;
   className?: string;
   allAutocompletedItemsCount: number;
   autocompletedSuggestionsCount: any;
@@ -38,27 +37,32 @@ const paddingHeightMobile = 16;
 
 function SearchBoxView(props: SearchBoxViewProps) {
   const {
+    // NOTE: These are explicitly de-structured but not used so that they are
+    // not passed through to the input with the 'rest' parameter
+
+    // eslint-disable-next-line no-unused-vars
     className,
     allAutocompletedItemsCount,
-    isFocused,
+    // eslint-disable-next-line no-unused-vars
     inputProps = { className: "" },
     onChange,
     onSelectAutocomplete,
     onSubmit,
+    // eslint-disable-next-line no-unused-vars
     useAutocomplete,
-    // NOTE: These are explicitly de-structured but not used so that they are
-    // not passed through to the input with the 'rest' parameter
 
+    // eslint-disable-next-line no-unused-vars
     autocompletedResults,
 
     autocompletedSuggestions,
 
+    // eslint-disable-next-line no-unused-vars
     autocompletedSuggestionsCount,
 
     ...rest
   } = props;
 
-  const { searchQuery, makeQuery, queryResult } = useSearchQuery();
+  const { searchQuery, makeQuery } = useSearchQuery();
 
   const inputRef = useRef<HTMLInputElement | null>();
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -99,7 +103,8 @@ function SearchBoxView(props: SearchBoxViewProps) {
     setSearchInput("");
   };
 
-  const isSelectTagsContainerOpen = onFocus && !searchInput.trim() && isHomePage;
+  const isSelectTagsContainerOpen =
+    onFocus && !searchInput.trim() && isHomePage;
   const isAutoCompleteContainerOpen =
     onFocus && searchInput.trim().length > 2 && !!allAutocompletedItemsCount;
   const isContainerOpen =
@@ -151,12 +156,6 @@ function SearchBoxView(props: SearchBoxViewProps) {
   const handleOnFocus = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!autoCompleteHeight.current) {
       autoCompleteHeight.current = window.innerHeight / 2 - paddingHeightMobile;
-      console.log(
-        "autoCompleteHeight",
-        autoCompleteHeight.current,
-        "window.innerHeight",
-        window.innerHeight
-      );
     }
     setFocus(true);
   };

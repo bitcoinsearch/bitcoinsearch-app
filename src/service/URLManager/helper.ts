@@ -28,7 +28,7 @@ export function generateSortFields(searchParams: string) {
   getSortFields().map((field) => {
     const name = appendSortName(field);
     urlParams.getAll(name).forEach((value) => {
-      const pair = getSortPairFromValue(value)
+      const pair = getSortPairFromValue(value);
       pair && sortList.push(pair);
     });
   });

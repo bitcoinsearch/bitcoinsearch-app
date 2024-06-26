@@ -2,20 +2,20 @@ import { Button, Container, Heading } from "@chakra-ui/react";
 import React, { useLayoutEffect, useRef } from "react";
 import { getTopAuthors } from "../../config/config-helper";
 import useURLManager from "@/service/URLManager/useURLManager";
-import useSearchQuery from "@/hooks/useSearchQuery";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 
-const InitialFacetSection = ({
-  field = "authors" as const,
-}) => {
-  const { queryResult: { data }, searchQuery} = useSearchQuery()
-  const { getFilter, addFilter: addFilterNew, removeFilter: removeFilterNew } = useURLManager();
+const InitialFacetSection = ({ field = "authors" as const }) => {
+  const {
+    getFilter,
+    addFilter: addFilterNew,
+    removeFilter: removeFilterNew,
+  } = useURLManager();
   const { hiddenHomeFacet } = useIsInitialStateWithoutFilter();
-  
+
   const filterForField = () => {
     return getFilter(field);
   };
-  
+
   const topAuthors = getTopAuthors();
 
   const initRender = useRef(true);
@@ -29,10 +29,10 @@ const InitialFacetSection = ({
   }, []);
 
   const onRemove = (value) => {
-    removeFilterNew({filterType: field, filterValue: value});
+    removeFilterNew({ filterType: field, filterValue: value });
   };
   const onAdd = (value) => {
-    addFilterNew({filterType: field, filterValue: value});
+    addFilterNew({ filterType: field, filterValue: value });
   };
   const handleToggleFilter = (filter, isSelected: boolean) => {
     // if (isLoading) return;
