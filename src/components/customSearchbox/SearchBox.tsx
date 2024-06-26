@@ -27,10 +27,6 @@ export type SearchBoxContainerProps = {
 const SearchBoxContainer = (
   props: SearchBoxContainerContext & SearchBoxContainerProps
 ) => {
-  // const [state, setState] = useState({
-  //   isFocused: false,
-  // });
-
   const _a = props;
   const {
     autocompleteMinimumCharacters,
@@ -43,17 +39,8 @@ const SearchBoxContainer = (
     onSelectAutocomplete,
     onSubmit,
     view,
-    // debounceLength,
     ...rest
   } = _a;
-
-  // const handleFocus = () => {
-  //   setState((prev) => ({ ...prev, isFocused: true }));
-  // };
-  // const handleBlur = () => {
-  //   setState((prev) => ({ ...prev, isFocused: false }));
-  // };
-  // const completeSuggestion = (term: string) => {};
 
   const handleChange = (value: string) => {
     const options = Object.assign(

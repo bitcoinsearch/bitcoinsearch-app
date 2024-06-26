@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Downshift from "downshift";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -38,26 +37,32 @@ const paddingHeightMobile = 16;
 
 function SearchBoxView(props: SearchBoxViewProps) {
   const {
+    // NOTE: These are explicitly de-structured but not used so that they are
+    // not passed through to the input with the 'rest' parameter
+
+    // eslint-disable-next-line no-unused-vars
     className,
     allAutocompletedItemsCount,
+    // eslint-disable-next-line no-unused-vars
     inputProps = { className: "" },
     onChange,
     onSelectAutocomplete,
     onSubmit,
+    // eslint-disable-next-line no-unused-vars
     useAutocomplete,
-    // NOTE: These are explicitly de-structured but not used so that they are
-    // not passed through to the input with the 'rest' parameter
 
+    // eslint-disable-next-line no-unused-vars
     autocompletedResults,
 
     autocompletedSuggestions,
 
+    // eslint-disable-next-line no-unused-vars
     autocompletedSuggestionsCount,
 
     ...rest
   } = props;
 
-  const { searchQuery, makeQuery, queryResult } = useSearchQuery();
+  const { searchQuery, makeQuery } = useSearchQuery();
 
   const inputRef = useRef<HTMLInputElement | null>();
   const [currentIndex, setCurrentIndex] = useState(-1);

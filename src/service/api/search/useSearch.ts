@@ -13,7 +13,6 @@ export const useSearch = ({
   filterFields,
   sortFields,
 }: SearchQuery) => {
-  // const hasFilters = Boolean(filterFields.length);
   const queryResult = useQuery({
     queryKey: ["query", queryString, size, filterFields, page, sortFields],
     queryFn: () =>
@@ -23,7 +22,6 @@ export const useSearch = ({
     refetchOnWindowFocus: false,
     keepPreviousData: true,
     enabled: true,
-    // enabled: !!queryString?.trim() || hasFilters,
   });
 
   return queryResult;
