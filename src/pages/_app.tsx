@@ -29,6 +29,7 @@ import { SearchDriverOptions } from "@elastic/search-ui";
 import { UIContextProvider } from "@/context/UIContext";
 import { ThemeProvider } from "@/context/Theme";
 import Metadata from "@/layout/Metadata";
+import ErrorBoundary from "@/components/errorBoundary/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
@@ -56,19 +57,21 @@ export default function App({ Component, pageProps }) {
     <>
       <Metadata />
       <ChakraProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <SearchQueryProvider>
-              <SearchProvider config={config}>
-                <UIContextProvider>
-                  <ThemeProvider>
-                    <Component {...pageProps} />
-                  </ThemeProvider>
-                </UIContextProvider>
-              </SearchProvider>
-            </SearchQueryProvider>
-          </Hydrate>
-        </QueryClientProvider>
+        <ErrorBoundary>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <SearchQueryProvider>
+                <SearchProvider config={config}>
+                  <UIContextProvider>
+                    <ThemeProvider>
+                      <Component {...pageProps} />
+                    </ThemeProvider>
+                  </UIContextProvider>
+                </SearchProvider>
+              </SearchQueryProvider>
+            </Hydrate>
+          </QueryClientProvider>
+        </ErrorBoundary>
       </ChakraProvider>
     </>
   );
