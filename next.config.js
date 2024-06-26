@@ -11,12 +11,12 @@ const nextConfig = {
   images: {
     // domain mapping is not an exhaustive list of all the domains we have
     // domains,
-    // allow favicon from any indexed domain for now 
+    // allow favicon from any indexed domain for now
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**"
-      }
+        hostname: "**",
+      },
     ],
   },
 };

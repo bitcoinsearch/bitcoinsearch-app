@@ -25,7 +25,7 @@
     animation-duration: 200ms;
     animation-fill-mode: forwards;
     animation-timing-function: ease-in-out;
-    
+
     .fallback-height {
       max-height: clamp(35vh, 200px, 80vh);
     }
@@ -33,14 +33,14 @@
 }
 
 @keyframes glow-in {
-    0% {
-        opacity: 0;
-        transform: translateY(100px) scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .btc-search {

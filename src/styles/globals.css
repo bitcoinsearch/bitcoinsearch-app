@@ -18,8 +18,8 @@
   }
   /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
 
@@ -28,7 +28,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --background: #fafafa;
-  --hover-primary: #F5F5F5;
+  --hover-primary: #f5f5f5;
   --button: #333333;
   --hover-state: #fff0e0;
   --stroke: #bfbfbf;
@@ -40,9 +40,16 @@
   --other-light-text: #999999;
   --accent: #f7931a;
   --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
-  --shadow-left:linear-gradient(90deg, #FAFAFA 50.33%, rgba(250, 250, 250, 0) 100%);
-  --shadow-right:linear-gradient(270deg, #FAFAFA 50.33%, rgba(250, 250, 250, 0) 100%);
-
+  --shadow-left: linear-gradient(
+    90deg,
+    #fafafa 50.33%,
+    rgba(250, 250, 250, 0) 100%
+  );
+  --shadow-right: linear-gradient(
+    270deg,
+    #fafafa 50.33%,
+    rgba(250, 250, 250, 0) 100%
+  );
 }
 
 @media (prefers-color-scheme: dark) {
@@ -70,16 +77,16 @@ html {
   font-family: "Geist Sans", sans-serif;
 }
 
-.scroller{
+.scroller {
   --scrollbar-color-thumb: #aaa;
-  --scrollbar-color-track: rgba(60,60,60,0.05);
+  --scrollbar-color-track: rgba(60, 60, 60, 0.05);
   --scrollbar-width: auto;
   --scrollbar-width-legacy: 10px;
 }
 
 .dark .scroller {
   --scrollbar-color-thumb: #777;
-  --scrollbar-color-track: rgba(60,60,60,0.1);
+  --scrollbar-color-track: rgba(60, 60, 60, 0.1);
 }
 
 /* Modern browsers with `scrollbar-*` support */
@@ -114,19 +121,27 @@ html {
   background: var(--background);
   --background: #1c1c1e;
   --hover-state: #2c2c2e;
-  --button:#8E8E93;
+  --button: #8e8e93;
   --stroke: #3a3a3c;
   --secondary-text: #999999;
   /* --secondary-text: #636366; */
-  --primary-text: #A4A4A8;
+  --primary-text: #a4a4a8;
   /* --primary-text: #8e8e93; */
   --black: #292929;
   --other-light-text: #636366;
   /* --other-light-text: #48484a; */
   --accent: #f7931a;
-  --hover-primary: #2C2C2E;
+  --hover-primary: #2c2c2e;
   --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
 
-  --shadow-right:linear-gradient(270deg, #1C1C1F 50.33%, rgba(28, 28, 31, 0) 100%);
-  --shadow-left:linear-gradient(90deg, #1C1C1F 50.33%, rgba(28, 28, 31, 0) 100%);
+  --shadow-right: linear-gradient(
+    270deg,
+    #1c1c1f 50.33%,
+    rgba(28, 28, 31, 0) 100%
+  );
+  --shadow-left: linear-gradient(
+    90deg,
+    #1c1c1f 50.33%,
+    rgba(28, 28, 31, 0) 100%
+  );
 }
