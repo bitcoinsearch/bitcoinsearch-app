@@ -12,7 +12,7 @@ export default function Custom404() {
       >
         <NavBar />
         <div className={`App btc-search w-full`}>
-          <div className="flex flex-col items-center justify-center gap-y-2 w-full h-full">
+          <div className="flex flex-col items-center justify-center gap-y-6 w-full h-full">
             <h1 className="md:text-4xl font-bold text-center">
               404 - Page Not Found
             </h1>
@@ -22,7 +22,7 @@ export default function Custom404() {
             </p>
             <Link
               href="/"
-              className="text-custom-brightOrange-200 underline underline-offset-2"
+              className="flex justify-center items-center gap-2 py-2 px-3 font-bold mx-auto text-sm text-white lg:text-base bg-custom-accent disabled:bg-custom-hover-state disabled:cursor-not-allowed disabled:text-[#CCBAA3] rounded-[10px]"
             >
               Go to Homepage
             </Link>

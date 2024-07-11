@@ -16,6 +16,8 @@ export const defaultSearchTags = [
     type: "domain",
     filter: true,
     tags: [
+      "https://delvingbitcoin.org/",
+      "https://github.com/bitcoin/bips",
       "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/",
       "https://bitcoin.stackexchange.com",
       "https://lists.linuxfoundation.org/pipermail/lightning-dev/",

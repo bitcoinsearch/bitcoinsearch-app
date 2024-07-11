@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.log({ error, errorInfo });
+    console.error({ error, errorInfo });
     this.setState({ hasError: true });
   }
 
@@ -37,7 +37,7 @@ class ErrorBoundary extends React.Component<Props, State> {
               href="/"
               className="rounded-2xl bg-transparent border border-custom-accent gap-3 lg:gap-6 py-[18px] lg:py-6 3xl:py-9 px-4 lg:px-5 3xl:px-8 text-custom-accent hover:bg-custom-accent hover:text-white flex items-center justify-center text-[18px] lg:text-2xl 3xl:text-[32px] font-semibold w-fit"
             >
-              Go back home
+              Go to Homepage
             </Link>
           </div>
         </section>
