@@ -172,7 +172,7 @@ export const SideBarHeader = ({ label }: { label: FacetKeys }) => {
           onClick={openForm}
         >
           <span className="group-hover/source:underline underline-offset-4 text-sm font-medium">
-            Suggest a source
+            Suggest a Source
           </span>
           <span className="p-[6px] bg-custom-primary-text group-hover/source:bg-custom-accent  rounded-md">
             <PlusIcon className="text-custom-background" />

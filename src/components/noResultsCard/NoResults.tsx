@@ -21,7 +21,7 @@ const NoResults = ({ openForm }: { openForm: () => void }) => {
           onClick={openForm}
           className="flex justify-center items-center gap-2 py-2 px-3 font-bold mx-auto text-sm text-white lg:text-base bg-custom-accent disabled:bg-custom-hover-state disabled:cursor-not-allowed disabled:text-[#CCBAA3] rounded-[10px]"
         >
-          <span>Suggest a source</span>
+          <span>Suggest a Source</span>
         </button>
       </div>
     </div>
