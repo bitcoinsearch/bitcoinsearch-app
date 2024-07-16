@@ -10,6 +10,7 @@ import DateIcon from "../svgs/DateIcon";
 import ResultFavicon from "./ResultFavicon";
 import { useTheme } from "@/context/Theme";
 import { remapUrl } from "@/utils/documents";
+import useSearchQuery from "@/hooks/useSearchQuery";
 
 const htmlToReactParser = new (Parser as any)();
 
@@ -23,6 +24,7 @@ type ResultProps = {
 const Result = ({ result }: ResultProps) => {
   let dateString = null;
   const { url, title, body, domain } = result;
+  const { searchQuery } = useSearchQuery();
 
   const mappedUrl = remapUrl({ url, domain });
 
@@ -117,7 +119,7 @@ const Result = ({ result }: ResultProps) => {
             target="_blank"
             className="text-[12px] lg:text-base leading-none"
             href={mappedUrl}
-            data-umami-event="URL Clicked"
+            data-umami-event={`${searchQuery}, ${mappedUrl}`}
             data-umami-event-src={mappedUrl}
             ref={linkRef}
           >
@@ -131,6 +133,7 @@ const Result = ({ result }: ResultProps) => {
             href={mappedUrl}
             target="_blank"
             className="pointer-events-auto md:group-hover/heading:text-custom-accent cursor-pointer hover:underline"
+            data-umami-event={`${searchQuery}, ${mappedUrl}`}
           >
             {htmlToReactParser.parse(sanitizeHtml(title))}
           </a>
