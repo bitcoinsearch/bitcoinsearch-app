@@ -2,10 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: "Mona Sans";
+    src: url("../../public/font/Mona-Sans.woff2")
+        format("woff2 supports variations"),
+      url("../../public/font/Mona-Sans.woff2") format("woff2-variations");
+    font-weight: 200 300 400 500 600 700 800 900;
+  }
+}
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --background: #fafafa;
+  --hover-primary: #f5f5f5;
+  --button: #333333;
+  --hover-state: #fff0e0;
+  --stroke: #bfbfbf;
+  --secondary-text: #636366;
+  /* --secondary-text: #999999; */
+  --primary-text: #292929;
+  --black: #292929;
+  /* --other-light-text: #D9D9D9; */
+  --other-light-text: #999999;
+  --accent: #f7931a;
+  --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
+  --shadow-left: linear-gradient(
+    90deg,
+    #fafafa 50.33%,
+    rgba(250, 250, 250, 0) 100%
+  );
+  --shadow-right: linear-gradient(
+    270deg,
+    #fafafa 50.33%,
+    rgba(250, 250, 250, 0) 100%
+  );
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +61,7 @@
 }
 
 body {
+  font-family: "Geist Sans", sans-serif !important;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,4 +69,79 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 24px;
+  font-family: "Geist Sans", sans-serif;
+}
+
+.scroller {
+  --scrollbar-color-thumb: #aaa;
+  --scrollbar-color-track: rgba(60, 60, 60, 0.05);
+  --scrollbar-width: auto;
+  --scrollbar-width-legacy: 10px;
+}
+
+.dark .scroller {
+  --scrollbar-color-thumb: #777;
+  --scrollbar-color-track: rgba(60, 60, 60, 0.1);
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .scroller {
+    scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+    scrollbar-width: var(--scrollbar-width);
+  }
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .scroller::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  .scroller::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroller:hover::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color-thumb);
+  }
+  .scroller:hover::-webkit-scrollbar-track {
+    background: var(--scrollbar-color-track);
+  }
+  .scroller::-webkit-scrollbar {
+    max-width: var(--scrollbar-width-legacy);
+    max-height: var(--scrollbar-width-legacy);
+  }
+}
+
+.dark {
+  background: var(--background);
+  --background: #1c1c1e;
+  --hover-state: #2c2c2e;
+  --button: #8e8e93;
+  --stroke: #3a3a3c;
+  --secondary-text: #999999;
+  /* --secondary-text: #636366; */
+  --primary-text: #a4a4a8;
+  /* --primary-text: #8e8e93; */
+  --black: #292929;
+  --other-light-text: #636366;
+  /* --other-light-text: #48484a; */
+  --accent: #f7931a;
+  --hover-primary: #2c2c2e;
+  --gradient: linear-gradient(92.78deg, #e8782b 0%, #f6a73f 101.1%);
+
+  --shadow-right: linear-gradient(
+    270deg,
+    #1c1c1f 50.33%,
+    rgba(28, 28, 31, 0) 100%
+  );
+  --shadow-left: linear-gradient(
+    90deg,
+    #1c1c1f 50.33%,
+    rgba(28, 28, 31, 0) 100%
+  );
 }

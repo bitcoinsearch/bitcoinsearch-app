@@ -1,17 +1,14 @@
-BTC TECHNICAL MATERIALS SEARCH
+![bitcoin-search-home](https://github.com/bitcoinsearch/bitcoinsearch-app/assets/18506343/65833946-63a2-400e-9e91-023f96cac9b2)
 
-This project will serve as a search engine for searching Bitcoin technical related materials. It will aggregate all Bitcoin related materials and performs search on those materials instead of going through thousands of unrelated Google search results. 
+# Welcome to Bitcoin Search
 
-It will classify materials according to:
+## Features
 
-- Relevance
-- Domains
-- Tags
-- Authors
+- **Elasticsearch Integration**: Directly interfaces with Elasticsearch, leveraging the dataset curated and indexed by the [scraper](https://github.com/bitcoinsearch/scraper). This integration facilitates robust full-text search capabilities, supporting complex queries, filters (authors, domains), and sorting options.
+- **URL-Driven Search State**: Manages the search state through URL parameters using NextJS's router, enabling shareable search URLs and intuitive user navigation.
+- **Proxy Server for Security**: Implements a [server-side proxy layer](src/pages/api/elasticSearchProxy/search.ts) for Elasticsearch queries, abstracting away direct access to the Elasticsearch cluster and enriching queries with necessary filters and parameters.
 
----
-
-## Getting started 
+## Getting started
 
 The search engine is built using NextJS and connects to elasticsearch
 

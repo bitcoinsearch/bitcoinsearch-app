@@ -1,10 +1,10 @@
 {
   "labels": {
-    "https://bitcointalk.org": "Bitcointalk",
+    "https://bitcointalk.org/": "Bitcointalk",
     "https://bitcoin.stackexchange.com": "Bitcoin StackExchange",
-    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin dev mailing list",
-    "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "LN dev mailing list",
-    "https://btctranscripts.com/": "BTC transcripts",
+    "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/": "Bitcoin Dev mailing list archive",
+    "https://lists.linuxfoundation.org/pipermail/lightning-dev/": "LN Dev mailing list",
+    "https://btctranscripts.com/": "BTC Transcripts",
     "https://bitcoinops.org/en/": "Bitcoin Optech",
     "https://bitcoincore.org": "Bitcoin Core",
     "https://github.com/bitcoin/bips": "Bitcoin BIPs",
@@ -35,23 +35,23 @@
     "https://petertodd.org": "Peter Todd Blog",
     "https://bitcoin-dev.blog": "Bitcoin Dev blog",
     "https://blog.muun.com": "Muun Blog",
-    "https://github.com/bitcoinbook/bitcoinbook": "Mastering Lightning",
+    "https://github.com/bitcoinbook/bitcoinbook": "Mastering Bitcoin",
     "https://blog.keys.casa": "Casa Blog",
     "https://burakkeceli.medium.com": "Burak Blog",
     "https://lightningdevkit.org": "Lightning Dev Kit Docs",
     "https://abytesjourney.com": "A Byte's Journey",
     "https://fanismichalakis.fr": "Fanis Michalakis",
-    "https://lightning.engineering": "Lightning Labs Blog",
+    "https://lightning.engineering": "Lightning Labs",
     "https://fjahr.com": "Fabian Jahr Blog",
     "https://blog.lightning.engineering": "Lightning Labs Blog",
     "https://derpturkey.com": "Derp Turkey",
     "https://insights.deribit.com": "Deribit Blogs",
     "https://eklitzke.org": "Evan Klitzke Blog",
-    "https://old.reddit.com": "Reddit",
+    "https://old.reddit.com": "Old Reddit",
     "https://gist.github.com": "GitHub Gists",
     "https://bip324.com": "BIP324",
     "https://r6.ca": "Russell O'Connor Blog",
-    "https://erisian.com.au": "AJ Towns BLog",
+    "https://erisian.com.au": "AJ Towns Blog",
     "https://suredbits.com": "Suredbits",
     "https://en.bitcoin.it": "Bitcoin Wiki",
     "https://blog.chainside.net": "Chainside",
@@ -59,13 +59,35 @@
     "https://linkedin.com": "LinkedIn",
     "https://coindesk.com": "CoinDesk",
     "https://reddit.com": "Reddit",
-    "https://delvingbitcoin.org/": "Delving Bitcoin"
+    "https://delvingbitcoin.org/": "Delving Bitcoin",
+    "https://gnusha.org/pi/bitcoindev/": "Bitcoin Dev mailing list active",
+    "https://mailing-list.bitcoindevs.xyz/bitcoindev/": "Bitcoin Dev mailing list"
+  },
+  "icon": {
+    "https://bitcointalk.org": "/domain_favicons/bitcointalk.svg",
+    "https://github.com": {
+      "light": "/domain_favicons/github/light.png",
+      "dark": "/domain_favicons/github/dark.png"
+    },
+    "https://gist.github.com": {
+      "light": "/domain_favicons/github/light.png",
+      "dark": "/domain_favicons/github/dark.png"
+    },
+    "https://lists.linuxfoundation.org": {
+      "light": "/domain_favicons/mailing_list/light.png",
+      "dark": "/domain_favicons/mailing_list/dark.png"
+    },
+    "https://medium.com": {
+      "light": "/domain_favicons/medium/light.png",
+      "dark": "/domain_favicons/medium/dark.png"
+    },
+    "https://delvingbitcoin.org": "/domain_favicons/delving.png"
   },
   "media": ["https://btctranscripts.com/"],
   "collection": [
     "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/",
     "https://lists.linuxfoundation.org/pipermail/lightning-dev/",
-    "https://bitcointalk.org",
+    "https://bitcointalk.org/",
     "https://bitcoin.stackexchange.com"
   ],
   "tldrLists": [

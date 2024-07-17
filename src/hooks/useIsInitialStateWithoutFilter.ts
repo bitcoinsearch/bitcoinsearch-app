@@ -7,22 +7,25 @@ const useIsInitialStateWithoutFilter = () => {
   let hiddenHomeFacet = true;
 
   const { searchQuery, queryResult } = useSearchQuery();
-  const router = useRouter()
+  const router = useRouter();
 
-  const hasFilters = generateFilterQuery(router.asPath.slice(1)).length
-  
+  const hasFilters = generateFilterQuery(router.asPath.slice(1)).length;
+  let isHomePage = Object.keys(router.query).length === 0;
+
   const resultLength = queryResult.data?.hits?.total["value"];
-  
+
   // visible if
   if (
-    resultLength && (searchQuery || hasFilters)
+    resultLength &&
+    (searchQuery || hasFilters)
+    // resultLength
   ) {
     hiddenBody = false;
   } else {
-    hiddenHomeFacet = false
+    hiddenHomeFacet = false;
   }
 
-  return { hiddenBody, hiddenHomeFacet };
+  return { hiddenBody, hiddenHomeFacet, isHomePage };
 };
 
 export default useIsInitialStateWithoutFilter;

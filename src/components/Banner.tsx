@@ -31,7 +31,7 @@ const Banner = () => {
         <div className="flex gap-2 items-center">
           <span>{`Development in 2024 `}</span>
           <Link href="https://learning.chaincode.com/#FOSS" target="_blank">
-            <span className="uppercase text-[#ED8936] underline whitespace-nowrap">{`Apply Today!`}</span>
+            <span className="uppercase text-custom-brightOrange-200 underline whitespace-nowrap">{`Apply Today!`}</span>
           </Link>
         </div>
       </div>

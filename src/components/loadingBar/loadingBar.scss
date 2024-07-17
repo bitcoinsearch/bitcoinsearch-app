@@ -1,5 +1,7 @@
 .loading-container {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   align-self: flex-start;
   display: flex;
@@ -21,7 +23,6 @@
   animation: searching 3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
 }
 @keyframes searching {
-
   50% {
     background-color: var(--chakra-colors-gray-400);
     // opacity: 0.3;

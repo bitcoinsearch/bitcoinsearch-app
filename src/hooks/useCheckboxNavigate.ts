@@ -5,9 +5,13 @@ type ChekboxNavigateProps = {
   checkboxContainer: React.MutableRefObject<HTMLDivElement>;
   searchEl: React.MutableRefObject<HTMLInputElement>;
   options: any[];
-}
+};
 
-const useCheckboxNavigate = ({checkboxContainer, searchEl, options}: ChekboxNavigateProps) => {
+const useCheckboxNavigate = ({
+  checkboxContainer,
+  searchEl,
+  options,
+}: ChekboxNavigateProps) => {
   const checkboxNavIndex = useRef<number>(null);
   // const savedNavIndex = useRef(0);
   const [currentNavigateCheckbox, setcurrentNavigateCheckbox] = useState("");
@@ -21,7 +25,8 @@ const useCheckboxNavigate = ({checkboxContainer, searchEl, options}: ChekboxNavi
   useEffect(() => {
     const multiCheckboxWrapper = checkboxContainer.current;
     const multiCheckboxList =
-      multiCheckboxWrapper && Array.from(multiCheckboxWrapper?.children) as HTMLElement[];
+      multiCheckboxWrapper &&
+      (Array.from(multiCheckboxWrapper?.children) as HTMLElement[]);
     const searchInput = searchEl.current;
     // focus back to search when options changes
     if (refocus.current) {
@@ -75,12 +80,14 @@ const useCheckboxNavigate = ({checkboxContainer, searchEl, options}: ChekboxNavi
           // Enter
           e.preventDefault();
           const input = multiCheckboxList[currentCheckboxNavIndex]
-            ? multiCheckboxList[currentCheckboxNavIndex].querySelector("input")
+            ? multiCheckboxList[currentCheckboxNavIndex].querySelector(
+                '[role="button"]'
+              )
             : null;
           if (input) {
             // savedNavIndex.current =
             //   multiCheckboxList[currentCheckboxNavIndex].dataset?.checkbox;
-            input.click();
+            (input as HTMLButtonElement).click();
           }
           break;
         }
