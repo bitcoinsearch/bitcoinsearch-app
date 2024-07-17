@@ -32,7 +32,7 @@ export const defaultSearchTags = [
     tags: [
       "Ava Chow",
       "Anthony Towns",
-      "Greg Maxwell",
+      "Gregory Maxwell",
       "Matt Corallo",
       "Pieter Wuille",
     ],
