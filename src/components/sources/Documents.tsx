@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { FaEye } from "react-icons/fa";
+
 import { useSourceDocuments } from "@/hooks/useSourceDocuments";
+import { useDocumentContent } from "@/hooks/useDocumentContent";
 import { formatTimeAgo } from "@/utils/dateUtils";
+import DocumentModal from "./DocumentModal";
 
 interface SourceDocumentsProps {
   domain: string;
@@ -19,12 +23,25 @@ const Documents: React.FC<SourceDocumentsProps> = ({ domain }) => {
   const [page, setPage] = useState(1);
   const { sourceDocuments, total, isLoading, isError, error } =
     useSourceDocuments(domain, page);
+  const [selectedDocumentUrl, setSelectedDocumentUrl] = useState<string | null>(
+    null
+  );
+  const {
+    documentContent,
+    isLoading: isContentLoading,
+    isError: isContentError,
+    error: contentError,
+  } = useDocumentContent(selectedDocumentUrl);
 
   if (isLoading) return <div>Loading source documents...</div>;
   if (isError)
     return <div>Error loading source documents: {error.message}</div>;
 
   const totalPages = Math.ceil(total / 10);
+
+  const handleViewDocument = (url: string) => {
+    setSelectedDocumentUrl(url);
+  };
 
   return (
     <div className="mt-4">
@@ -42,6 +59,7 @@ const Documents: React.FC<SourceDocumentsProps> = ({ domain }) => {
               <th className="px-4 py-2 border-b border-custom-stroke whitespace-nowrap">
                 Indexed At
               </th>
+              <th className="w-10 px-2 py-2 border-b border-custom-stroke"></th>
             </tr>
           </thead>
           <tbody>
@@ -80,6 +98,15 @@ const Documents: React.FC<SourceDocumentsProps> = ({ domain }) => {
                     </span>
                   </div>
                 </td>
+                <td className="w-10 px-2 py-2 border-b border-custom-stroke text-center">
+                  <button
+                    onClick={() => handleViewDocument(doc.url)}
+                    className="text-custom-accent hover:text-custom-accent-dark"
+                    title="View document"
+                  >
+                    <FaEye className="w-5 h-5 inline-block" />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -104,6 +131,14 @@ const Documents: React.FC<SourceDocumentsProps> = ({ domain }) => {
           Next
         </button>
       </div>
+      <DocumentModal
+        isOpen={!!selectedDocumentUrl}
+        onClose={() => setSelectedDocumentUrl(null)}
+        document={documentContent}
+        isLoading={isContentLoading}
+        isError={isContentError}
+        error={contentError?.message}
+      />
     </div>
   );
 };
