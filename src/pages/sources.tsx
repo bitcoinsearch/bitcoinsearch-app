@@ -1,27 +1,11 @@
 import React, { useState, useMemo } from "react";
+
 import NavBar from "@/components/navBar/NavBar";
 import Footer from "@/components/footer/Footer";
+import Documents from "@/components/sources/Documents";
 import { useSources } from "@/hooks/useSources";
+import { formatTimeAgo } from "@/utils/dateUtils";
 import { Source } from "@/types";
-
-const formatTimeAgo = (date: string | number) => {
-  const now = new Date();
-  const past = new Date(date);
-  const diffTime = Math.abs(now.getTime() - past.getTime());
-  const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-  if (diffHours < 24) {
-    if (diffHours === 0) return "Less than an hour ago";
-    if (diffHours === 1) return "1 hour ago";
-    return `${diffHours} hours ago`;
-  }
-  if (diffDays === 1) return "Yesterday";
-  if (diffDays < 7) return `${diffDays} days ago`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-  if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-  return `${Math.floor(diffDays / 365)} years ago`;
-};
 
 const SourcesPage: React.FC = () => {
   const { sources, isLoading, isError, error } = useSources();
@@ -29,6 +13,11 @@ const SourcesPage: React.FC = () => {
     key: keyof Source;
     direction: "ascending" | "descending";
   } | null>(null);
+  const [expandedSource, setExpandedSource] = useState<string | null>(null);
+
+  const toggleExpand = (domain: string) => {
+    setExpandedSource(expandedSource === domain ? null : domain);
+  };
 
   const sortedSources = useMemo(() => {
     if (!sources) return [];
@@ -80,6 +69,7 @@ const SourcesPage: React.FC = () => {
             <table className="min-w-full border border-custom-stroke">
               <thead>
                 <tr className="bg-custom-hover-state dark:bg-custom-hover-primary">
+                  <th className="px-4 py-2 border-b border-custom-stroke"></th>
                   <th
                     className="px-4 py-2 border-b border-custom-stroke cursor-pointer"
                     onClick={() => sortBy("domain")}
@@ -102,29 +92,54 @@ const SourcesPage: React.FC = () => {
               </thead>
               <tbody>
                 {sortedSources.map((source, index) => (
-                  <tr
-                    key={index}
-                    className={
-                      index % 2 === 0
-                        ? "bg-custom-hover-state dark:bg-custom-hover-primary"
-                        : "bg-custom-background"
-                    }
-                  >
-                    <td className="px-4 py-2 border-b border-custom-stroke">
-                      {source.domain}
-                    </td>
-                    <td className="px-4 py-2 border-b border-custom-stroke">
-                      <div className="group relative inline-block">
-                        <span>{formatTimeAgo(source.lastScraped)}</span>
-                        <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2 py-1 text-sm bg-custom-black text-custom-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-10">
-                          {new Date(source.lastScraped).toLocaleString()}
+                  <React.Fragment key={index}>
+                    <tr
+                      className={`${
+                        index % 2 === 0
+                          ? "bg-custom-hover-state dark:bg-custom-hover-primary"
+                          : "bg-custom-background"
+                      } cursor-pointer hover:bg-custom-hover-state dark:hover:bg-custom-hover-primary`}
+                      onClick={() => toggleExpand(source.domain)}
+                    >
+                      <td className="px-4 py-2 border-b border-custom-stroke">
+                        <span className="text-lg">
+                          {expandedSource === source.domain ? "▼" : "▶"}
                         </span>
-                      </div>
-                    </td>
-                    <td className="px-4 py-2 border-b border-custom-stroke">
-                      {source.documentCount}
-                    </td>
-                  </tr>
+                      </td>
+                      <td className="px-4 py-2 border-b border-custom-stroke">
+                        <a
+                          href={source.domain}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-custom-accent hover:underline"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {source.domain}
+                        </a>
+                      </td>
+                      <td className="px-4 py-2 border-b border-custom-stroke">
+                        <div className="group relative inline-block">
+                          <span>{formatTimeAgo(source.lastScraped)}</span>
+                          <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2 py-1 text-sm bg-custom-black text-custom-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-10">
+                            {new Date(source.lastScraped).toLocaleString()}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-2 border-b border-custom-stroke">
+                        {source.documentCount}
+                      </td>
+                    </tr>
+                    {expandedSource === source.domain && (
+                      <tr>
+                        <td
+                          colSpan={4}
+                          className="px-4 py-2 border-b border-custom-stroke"
+                        >
+                          <Documents domain={source.domain} />
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>
