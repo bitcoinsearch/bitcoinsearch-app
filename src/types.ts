@@ -60,3 +60,11 @@ export type EsSearchResponse = SearchResponse<
   unknown,
   Record<string, AggregationsAggregate>
 >;
+
+export interface Source {
+  domain: string;
+  lastScraped: string;
+  documentCount: number;
+}
+
+export type EsSourcesResponse = Source[];
