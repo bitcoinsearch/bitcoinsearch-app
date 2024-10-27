@@ -19,6 +19,7 @@ export const buildQueryCall: BuildQuery = async (
 
   const jsonBody = JSON.stringify(body);
 
+
   return fetch(url ?? "/api/elasticSearchProxy/search", {
     method: "POST",
     headers: {

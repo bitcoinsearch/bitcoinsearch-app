@@ -1,7 +1,7 @@
 import { aggregatorSize } from "@/config/config";
 import type { Facet, SearchQuery } from "@/types";
 
-const FIELDS_TO_SEARCH = ["authors", "title", "body"];
+const FIELDS_TO_SEARCH = ["title", "body", "authors"];
 
 // Omitting 'page' from SearchQuery as 'from' is used for Elasticsearch pagination
 type BuildQueryForElaSticClient = Omit<SearchQuery, "page"> & {
@@ -65,10 +65,11 @@ export const buildQuery = ({
 
   // Construct and add the full-text search clause
   let shouldClause = buildShouldQueryClause(queryString);
+  let mustClause = buildMustQueryClause(queryString);
   if (!queryString) {
     baseQuery.query.bool.should.push(shouldClause);
   } else {
-    baseQuery.query.bool.must.push(shouldClause);
+    baseQuery.query.bool.must.push(mustClause);
   }
 
   // Add filter clauses for each specified filter field
@@ -91,7 +92,21 @@ export const buildQuery = ({
 };
 
 // Helper to build the should query clause for full-text search
-const buildShouldQueryClause = (queryString: string) => {
+const buildMustQueryClause = (queryString: string) => {
+
+  let shouldQueryClause = {
+    multi_match: {
+      query: queryString,
+      fields: FIELDS_TO_SEARCH,
+      "fuzziness": 0,
+      "minimum_should_match": "75%",
+    },
+  };
+
+  return shouldQueryClause;
+};
+
+const buildShouldQueryClause = (queryString: string): any => {
   let shouldQueryClause = {
     multi_match: {
       query: queryString,
@@ -101,6 +116,7 @@ const buildShouldQueryClause = (queryString: string) => {
 
   return shouldQueryClause;
 };
+
 
 // Helper to build filter query clauses based on facets
 const buildFilterQueryClause = ({ field, value }: Facet) => {
