@@ -93,13 +93,12 @@ export const buildQuery = ({
 
 // Helper to build the should query clause for full-text search
 const buildMustQueryClause = (queryString: string) => {
-
   let shouldQueryClause = {
     multi_match: {
       query: queryString,
       fields: FIELDS_TO_SEARCH,
-      "fuzziness": 0,
-      "minimum_should_match": "75%",
+      fuzziness: 0,
+      minimum_should_match: "75%",
     },
   };
 
@@ -116,7 +115,6 @@ const buildShouldQueryClause = (queryString: string): any => {
 
   return shouldQueryClause;
 };
-
 
 // Helper to build filter query clauses based on facets
 const buildFilterQueryClause = ({ field, value }: Facet) => {

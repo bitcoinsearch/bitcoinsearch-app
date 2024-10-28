@@ -104,8 +104,9 @@ export const App = () => {
 
   return (
     <div
-      className={`${isHomePage ? "relative" : ""
-        } bg-custom-background text-custom-primary-text`}
+      className={`${
+        isHomePage ? "relative" : ""
+      } bg-custom-background text-custom-primary-text`}
     >
       <main
         id="main"
