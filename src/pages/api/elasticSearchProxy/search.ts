@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import client from "@/config/elasticsearch";
+import { client } from "@/config/elasticsearch";
 import { buildQuery } from "@/utils/server/apiFunctions";
 // import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
 

@@ -15,4 +15,4 @@ if (process.env.CLOUD_ID && process.env.API_KEY) {
   });
 }
 
-export default client;
+export { client };
