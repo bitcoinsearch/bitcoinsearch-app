@@ -78,13 +78,12 @@ export const SearchQueryProvider = ({
   const searchQuery = useMemo(() => {
     return rawSearchQuery ?? "";
   }, [rawSearchQuery]);
-
   const page = useMemo(() => {
-    return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0;
+    return pageQuery ? parseInt(pageQuery) - 1 : 0;
   }, [pageQuery]);
 
   const resultsPerPage = sizeQuery
-    ? parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]
+    ? parseInt(sizeQuery) || defaultParam[URLSearchParamsKeyword.SIZE]
     : defaultParam[URLSearchParamsKeyword.SIZE];
 
   const setSearchParams = useCallback(
