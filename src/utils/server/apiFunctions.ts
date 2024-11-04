@@ -1,7 +1,7 @@
 import { aggregatorSize } from "@/config/config";
 import type { Facet, SearchQuery } from "@/types";
 
-const FIELDS_TO_SEARCH = ["title", "body", "authors"];
+const FIELDS_TO_SEARCH = ["title^3", "body", "authors"];
 
 // Omitting 'page' from SearchQuery as 'from' is used for Elasticsearch pagination
 type BuildQueryForElaSticClient = Omit<SearchQuery, "page"> & {
