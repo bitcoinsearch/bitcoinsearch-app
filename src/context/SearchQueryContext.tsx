@@ -80,7 +80,17 @@ export const SearchQueryProvider = ({
   }, [rawSearchQuery]);
 
   const page = useMemo(() => {
-    return pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0;
+    // Handle empty or invalid input
+    if (!pageQuery) {
+      return 0;
+    }
+
+    // Convert to number and validate
+    const parsedPage = Number(pageQuery);
+    const isValidPage = !isNaN(parsedPage) && parsedPage > 0;
+
+    // Convert from 1-based to 0-based index, or default to 0
+    return isValidPage ? parsedPage - 1 : 0;
   }, [pageQuery]);
 
   const resultsPerPage = sizeQuery
