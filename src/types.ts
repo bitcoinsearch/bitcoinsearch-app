@@ -61,10 +61,28 @@ export type EsSearchResponse = SearchResponse<
   Record<string, AggregationsAggregate>
 >;
 
+export const ViewMode = {
+  FLAT: "flat",
+  THREADED: "threaded",
+  SUMMARIES: "summaries",
+} as const;
+
+export type ViewModeType = (typeof ViewMode)[keyof typeof ViewMode];
+
 export interface Source {
   domain: string;
-  lastScraped: string;
   documentCount: number;
+  lastScraped: string;
+  hasSummaries: boolean;
+  hasThreads: boolean;
+}
+
+export interface Document {
+  title: string;
+  url: string;
+  indexed_at: string;
+  thread_url?: string;
+  type?: string;
 }
 
 export type EsSourcesResponse = Source[];
