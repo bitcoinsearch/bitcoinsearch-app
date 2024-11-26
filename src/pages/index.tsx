@@ -103,39 +103,41 @@ export const App = () => {
     !queryResult.data?.hits?.total["value"];
 
   return (
-    <div
-      className={`${
-        isHomePage ? "relative" : ""
-      } bg-custom-background text-custom-primary-text`}
-    >
-      <main
-        id="main"
-        className="min-h-[95dvh] flex w-full items-center pt-[60px] md:pt-[76px] 2xl:pt-[122px]"
+    <>
+      <div
+        className={`${
+          isHomePage ? "relative" : ""
+        } bg-custom-background text-custom-primary-text`}
       >
-        {isLoading && <LoadingBar />}
-        <NavBar />
-        <div className={`App btc-search w-full`}>
-          <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center pb-[40px] md:pb-[88px]" />
-          <Layout
-            header={<Header openForm={openForm} />}
-            sideContent={<SideBar />}
-            bodyContent={<CustomResults shouldTrackClickThrough={true} />}
-            bodyHeader={<CustomPagingInfo />}
-            bodyFooter={<BodyFooter />}
-          />
-          {noResult && <NoResults openForm={openForm} />}
-          <FormModal
-            formOpen={isOpen}
-            closeForm={closeForm}
-            noResult={noResult}
-          />
-        </div>
-      </main>
-      {NoResults && isHomePage && <LandingPage />}
-      <section>
-        <Footer />
-      </section>
-    </div>
+        <main
+          id="main"
+          className="min-h-[95dvh] flex w-full items-center pt-[60px] md:pt-[76px] 2xl:pt-[122px]"
+        >
+          {isLoading && <LoadingBar />}
+          <NavBar />
+          <div className={`App btc-search w-full`}>
+            <HomeTextBanner className="flex flex-col gap-[1.25rem] text-center pb-[40px] md:pb-[88px]" />
+            <Layout
+              header={<Header openForm={openForm} />}
+              sideContent={<SideBar />}
+              bodyContent={<CustomResults shouldTrackClickThrough={true} />}
+              bodyHeader={<CustomPagingInfo />}
+              bodyFooter={<BodyFooter />}
+            />
+            {noResult && <NoResults openForm={openForm} />}
+            <FormModal
+              formOpen={isOpen}
+              closeForm={closeForm}
+              noResult={noResult}
+            />
+          </div>
+        </main>
+        {NoResults && isHomePage && <LandingPage />}
+        <section>
+          <Footer />
+        </section>
+      </div>
+    </>
   );
 };
 
