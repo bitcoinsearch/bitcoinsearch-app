@@ -8,6 +8,10 @@ const BossBanner = () => {
         linkText="APPLY TODAY"
         linkTo="https://learning.chaincode.com/#BOSS"
         hasBoss
+        styles={{
+          container: "data-[has-heading='true']:h-auto",
+          bannerInfoContainer: "py-2",
+        }}
       />
     </div>
   );
