@@ -12,6 +12,7 @@ import useSearchQuery from "@/hooks/useSearchQuery";
 import { removeMarkdownCharacters } from "@/utils/elastic-search-ui-functions";
 import { useTheme } from "@/context/Theme";
 import { Tooltip } from "@chakra-ui/react";
+import BossBanner from "../Banner";
 
 function ThemeSwitcher() {
   const { theme, toggleTheme } = useTheme();
@@ -128,10 +129,11 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navBar pointer-events-auto fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-20 ${
+      className={`navBar pointer-events-auto fixed top-0  text-left md:text-center w-full text-xs md:text-base 2xl:text-xl leading-normal z-40 ${
         hiddenHomeFacet ? "bg-custom-hover-state shadow-md" : ""
       }`}
     >
+      {!hiddenHomeFacet && <BossBanner />}
       <div
         className={`flex items-center justify-between p-3 md:p-5 2xl:p-7 w-full max-w-[1920px] m-auto ${
           !hiddenHomeFacet ? "flex-row-reverse" : ""

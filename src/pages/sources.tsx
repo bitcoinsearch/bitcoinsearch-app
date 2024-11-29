@@ -135,7 +135,11 @@ const SourcesPage: React.FC = () => {
                           colSpan={4}
                           className="px-4 py-2 border-b border-custom-stroke"
                         >
-                          <Documents domain={source.domain} />
+                          <Documents
+                            domain={source.domain}
+                            hasSummaries={source.hasSummaries}
+                            hasThreads={source.hasThreads}
+                          />
                         </td>
                       </tr>
                     )}

@@ -7,6 +7,12 @@ interface DomainAggregationBucket {
   last_indexed: {
     value: number;
   };
+  has_summaries: {
+    doc_count: number;
+  };
+  has_threads: {
+    doc_count: number;
+  };
 }
 
 export default async function handler(
@@ -37,6 +43,20 @@ export default async function handler(
                   field: "indexed_at",
                 },
               },
+              has_summaries: {
+                filter: {
+                  term: {
+                    "type.keyword": "combined-summary",
+                  },
+                },
+              },
+              has_threads: {
+                filter: {
+                  exists: {
+                    field: "thread_url",
+                  },
+                },
+              },
             },
           },
         },
@@ -53,6 +73,8 @@ export default async function handler(
       domain: bucket.key,
       documentCount: bucket.doc_count,
       lastScraped: bucket.last_indexed.value || null,
+      hasSummaries: bucket.has_summaries.doc_count > 0,
+      hasThreads: bucket.has_threads.doc_count > 0,
     }));
 
     return res.status(200).json({

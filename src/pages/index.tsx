@@ -55,10 +55,10 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   }
 
-  const page = pageQuery ? parseInt(pageQuery) - 1 ?? 0 : 0;
-  const size = sizeQuery
-    ? parseInt(sizeQuery) ?? defaultParam[URLSearchParamsKeyword.SIZE]
-    : defaultParam[URLSearchParamsKeyword.SIZE];
+  const defaultPage = 0;
+  const page = pageQuery ? parseInt(pageQuery) - 1 : defaultPage;
+  const defaultSize = defaultParam[URLSearchParamsKeyword.SIZE];
+  const size = sizeQuery ? parseInt(sizeQuery) || defaultSize : defaultSize;
 
   const options = {
     queryString,
