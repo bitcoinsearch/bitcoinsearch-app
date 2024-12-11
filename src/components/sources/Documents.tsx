@@ -27,7 +27,7 @@ const Documents: React.FC<SourceDocumentsProps> = ({
   const { sourceDocuments, total, isLoading, isError, error } =
     useSourceDocuments(domain, page, viewMode, threadsPage);
 
-  const [selectedDocumentUrl, setSelectedDocumentUrl] = useState<string | null>(
+  const [selectedDocumentId, setSelectedDocumentId] = useState<string | null>(
     null
   );
   const {
@@ -35,7 +35,7 @@ const Documents: React.FC<SourceDocumentsProps> = ({
     isLoading: isContentLoading,
     isError: isContentError,
     error: contentError,
-  } = useDocumentContent(selectedDocumentUrl);
+  } = useDocumentContent(selectedDocumentId);
 
   if (isLoading) return <div>Loading source documents...</div>;
   if (isError)
@@ -67,8 +67,8 @@ const Documents: React.FC<SourceDocumentsProps> = ({
     setExpandedThreads(newExpanded);
   };
 
-  const handleViewDocument = (url: string) => {
-    setSelectedDocumentUrl(url);
+  const handleViewDocument = (id: string) => {
+    setSelectedDocumentId(id);
   };
 
   // Group documents by thread_url for threaded view
@@ -128,8 +128,8 @@ const Documents: React.FC<SourceDocumentsProps> = ({
       />
 
       <DocumentModal
-        isOpen={!!selectedDocumentUrl}
-        onClose={() => setSelectedDocumentUrl(null)}
+        isOpen={!!selectedDocumentId}
+        onClose={() => setSelectedDocumentId(null)}
         document={documentContent}
         isLoading={isContentLoading}
         isError={isContentError}

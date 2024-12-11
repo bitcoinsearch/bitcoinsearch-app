@@ -128,7 +128,7 @@ export default async function handler(
           }),
           size: 1000,
           sort: [{ indexed_at: "desc" }],
-          _source: ["title", "url", "indexed_at", "thread_url", "type"],
+          _source: ["id", "title", "url", "indexed_at", "thread_url", "type"],
         },
       });
 
@@ -150,7 +150,7 @@ export default async function handler(
           from,
           size,
           query: createQuery(),
-          _source: ["title", "url", "indexed_at", "thread_url", "type"],
+          _source: ["id", "title", "url", "indexed_at", "thread_url", "type"],
           sort: [{ indexed_at: "desc" }],
         },
       });

@@ -12,11 +12,11 @@ export default async function handler(
     });
   }
 
-  const { url } = req.body;
+  const { id } = req.body;
 
-  if (!url) {
+  if (!id) {
     return res.status(400).json({
-      error: "URL is required",
+      error: "Document ID is required",
     });
   }
 
@@ -25,7 +25,7 @@ export default async function handler(
       index: process.env.INDEX,
       body: {
         query: {
-          term: { "url.keyword": url },
+          term: { _id: id },
         },
         size: 1,
       },

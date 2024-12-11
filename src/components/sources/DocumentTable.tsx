@@ -6,7 +6,7 @@ import { Document } from "@/types";
 interface DocumentTableProps {
   documents: Document[];
   domain: string;
-  onViewDocument: (url: string) => void;
+  onViewDocument: (id: string) => void;
 }
 
 const DocumentTable: React.FC<DocumentTableProps> = ({
@@ -38,7 +38,7 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
       <tbody>
         {documents?.map((doc, index) => (
           <tr
-            key={doc.url}
+            key={doc.id}
             className={
               index % 2 === 0
                 ? "bg-custom-hover-state dark:bg-custom-hover-primary"
@@ -73,7 +73,7 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
             </td>
             <td className="w-10 px-2 py-2 border-b border-custom-stroke text-center">
               <button
-                onClick={() => onViewDocument(doc.url)}
+                onClick={() => onViewDocument(doc.id)}
                 className="text-custom-accent hover:text-custom-accent-dark"
                 title="View document"
               >

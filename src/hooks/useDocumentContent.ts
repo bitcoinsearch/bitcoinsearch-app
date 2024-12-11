@@ -7,24 +7,24 @@ interface DocumentContent {
   indexed_at: string;
 }
 
-const fetchDocumentContent = async (url: string): Promise<DocumentContent> => {
+const fetchDocumentContent = async (id: string): Promise<DocumentContent> => {
   const response = await fetch("/api/elasticSearchProxy/getDocumentContent", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ url }),
+    body: JSON.stringify({ id }),
   });
   const data = await response.json();
   if (!data.success) throw new Error(data.message);
   return data.data;
 };
 
-export const useDocumentContent = (url: string) => {
+export const useDocumentContent = (id: string | null) => {
   const { data, isLoading, isError, error } = useQuery<DocumentContent, Error>({
-    queryKey: ["documentContent", url],
-    queryFn: () => fetchDocumentContent(url),
-    enabled: !!url,
+    queryKey: ["documentContent", id],
+    queryFn: () => fetchDocumentContent(id),
+    enabled: !!id,
     cacheTime: Infinity,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
