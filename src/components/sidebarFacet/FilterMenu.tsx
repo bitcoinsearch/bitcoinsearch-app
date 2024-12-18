@@ -1,4 +1,4 @@
-import { Facet } from "@/types";
+import { Facet, FacetKeys } from "@/types";
 import Image from "next/image";
 import React from "react";
 import SidebarSection from "./SidebarSection";
@@ -70,13 +70,13 @@ const AppliedFilters = ({ filters }: { filters: Facet[] }) => {
                 role="button"
                 onClick={() =>
                   removeFilter({
-                    filterType: filter.field,
-                    filterValue: filter.value,
+                    filterType: filter.field as FacetKeys,
+                    filterValue: filter.value as string,
                   })
                 }
               >
                 <span className="capitalize text-sm font-semibold 2xl:text-sm">
-                  {getFilterValueDisplay(filter.value, filter.field)}
+                  {getFilterValueDisplay(filter.value as string, filter.field)}
                 </span>
                 <Image
                   src={isDark ? DarkCrossIcon : CrossIcon}

@@ -9,12 +9,25 @@ export const buildQueryCall: BuildQuery = async (
   { queryString, size, page, filterFields, sortFields },
   url
 ) => {
+  const appFilterFields = [
+    ...filterFields,
+    // Application-specific filters
+    { field: "type", value: "combined-summary", operation: "exclude" },
+  ];
+
+  const aggregations = [
+    { field: "authors" },
+    { field: "domain" },
+    { field: "tags" },
+  ];
+
   const body = {
     queryString,
     size,
     page,
-    filterFields,
+    filterFields: appFilterFields,
     sortFields,
+    aggregationFields: aggregations,
   };
 
   const jsonBody = JSON.stringify(body);

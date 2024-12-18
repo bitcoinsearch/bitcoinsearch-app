@@ -1,5 +1,10 @@
+import type {
+  QueryDslQueryContainer,
+  SearchRequest,
+} from "@elastic/elasticsearch/lib/api/types";
+
 import { aggregatorSize } from "@/config/config";
-import type { Facet, SearchQuery } from "@/types";
+import type { AggregationField, Facet, SearchQuery } from "@/types";
 
 const FIELDS_TO_SEARCH = ["authors", "title", "body"];
 
@@ -18,64 +23,48 @@ export const buildQuery = ({
   from,
   filterFields,
   sortFields,
+  aggregationFields = [],
 }: BuildQueryForElaSticClient) => {
   // Initialize the base structure of the Elasticsearch query
-  let baseQuery = {
+  let baseQuery: SearchRequest = {
     query: {
       bool: {
         must: [],
         should: [],
         filter: [],
-        must_not: [
-          {
-            term: {
-              "type.keyword": "combined-summary",
-            },
-          },
-        ],
+        must_not: [],
       },
     },
     sort: [],
-    aggs: {
-      authors: {
-        terms: {
-          field: "authors.keyword",
-          size: aggregatorSize,
-        },
-      },
-      domains: {
-        terms: {
-          field: "domain.keyword",
-          size: aggregatorSize,
-        },
-      },
-      tags: {
-        terms: {
-          field: "tags.keyword",
-          size: aggregatorSize,
-        },
-      },
-    },
+    aggs: {},
     size, // Number of search results to return
     from, // Offset for pagination (calculated from page number)
     _source: {
-      excludes: ["summary_vector_embeddings"],
+      excludes: ["summary_vector_embeddings", "body_formatted"],
     },
   };
 
-  // Construct and add the full-text search clause
-  let shouldClause = buildShouldQueryClause(queryString);
-  if (!queryString) {
-    baseQuery.query.bool.should.push(shouldClause);
-  } else {
-    baseQuery.query.bool.must.push(shouldClause);
+  // Construct and add the full-text search query if provided
+  if (queryString) {
+    (baseQuery.query.bool.must as QueryDslQueryContainer[]).push(
+      buildShouldQueryClause(queryString)
+    );
   }
 
-  // Add filter clauses for each specified filter field
-  if (filterFields && filterFields.length) {
-    for (let facet of filterFields) {
-      let mustClause = buildFilterQueryClause(facet);
-      baseQuery.query.bool.must.push(mustClause);
+  // Handle filters with exclusions and array values
+  if (filterFields?.length) {
+    for (const filter of filterFields) {
+      const filterClause = buildFilterQueryClause(filter);
+
+      if (filter.operation === "exclude") {
+        (baseQuery.query.bool.must_not as QueryDslQueryContainer[]).push(
+          filterClause
+        );
+      } else {
+        (baseQuery.query.bool.must as QueryDslQueryContainer[]).push(
+          filterClause
+        );
+      }
     }
   }
 
@@ -83,10 +72,12 @@ export const buildQuery = ({
   if (sortFields && sortFields.length) {
     for (let field of sortFields) {
       const sortClause = buildSortClause(field);
-      baseQuery.sort.push(sortClause);
+      (baseQuery.sort as QueryDslQueryContainer[]).push(sortClause);
     }
   }
 
+  // Add aggregations
+  baseQuery.aggs = buildAggregations(aggregationFields);
   return baseQuery;
 };
 
@@ -103,14 +94,23 @@ const buildShouldQueryClause = (queryString: string) => {
 };
 
 // Helper to build filter query clauses based on facets
-const buildFilterQueryClause = ({ field, value }: Facet) => {
-  let filterQueryClause = {
-    term: {
-      [`${field}.keyword`]: { value },
-    },
-  };
+const buildFilterQueryClause = (filter: Facet): QueryDslQueryContainer => {
+  if (Array.isArray(filter.value)) {
+    // Handle OR logic for array values
+    return {
+      bool: {
+        should: filter.value.map((value) => ({
+          term: { [`${filter.field}.keyword`]: value },
+        })),
+        minimum_should_match: 1,
+      },
+    };
+  }
 
-  return filterQueryClause;
+  // Handle non-array values
+  return {
+    term: { [`${filter.field}.keyword`]: filter.value },
+  };
 };
 
 // Helper to build sort clauses for sorting results
@@ -118,4 +118,26 @@ const buildSortClause = ({ field, value }: { field: any; value: any }) => {
   return {
     [field]: value,
   };
+};
+
+// Helper to build aggregations
+const buildAggregations = (fields: AggregationField[]) => {
+  const aggs = {};
+
+  fields.forEach((aggregation) => {
+    // Create the base terms aggregation
+    aggs[aggregation.field] = {
+      terms: {
+        field: `${aggregation.field}.keyword`,
+        size: aggregation.size || aggregatorSize,
+      },
+    };
+
+    // If there are sub-aggregations, add them directly to the terms agg
+    if (aggregation.subAggregations) {
+      aggs[aggregation.field].aggs = aggregation.subAggregations;
+    }
+  });
+
+  return aggs;
 };
