@@ -5,7 +5,6 @@ import { ThreadedTable } from "./ThreadedTable";
 
 interface DocumentTableProps {
   documents: Document[];
-  filterField: string;
   onViewDocument: (url: string) => void;
   viewType: ViewModeType;
   expandedThreads: Set<string>;
@@ -14,7 +13,6 @@ interface DocumentTableProps {
 
 export const DocumentTable: React.FC<DocumentTableProps> = ({
   documents,
-  filterField,
   onViewDocument,
   viewType,
   expandedThreads,
@@ -47,18 +45,11 @@ export const DocumentTable: React.FC<DocumentTableProps> = ({
         expandedThreads={expandedThreads}
         onToggleThread={onToggleThread}
         onViewDocument={onViewDocument}
-        filterField={filterField}
       />
     );
   }
 
-  return (
-    <FlatTable
-      documents={documents}
-      onViewDocument={onViewDocument}
-      filterField={filterField}
-    />
-  );
+  return <FlatTable documents={documents} onViewDocument={onViewDocument} />;
 };
 
 export default DocumentTable;

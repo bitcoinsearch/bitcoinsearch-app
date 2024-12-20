@@ -96,6 +96,7 @@ export interface Source {
 }
 
 export interface Document {
+  id: string;
   title: string;
   url: string;
   indexed_at: string;

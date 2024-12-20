@@ -26,7 +26,7 @@ const Documents: React.FC<DocumentsProps> = ({
   const [expandedThreads, setExpandedThreads] = useState<Set<string>>(
     new Set()
   );
-  const [selectedDocumentUrl, setSelectedDocumentUrl] = useState<string | null>(
+  const [selectedDocumentId, setSelectedDocumentId] = useState<string | null>(
     null
   );
 
@@ -105,8 +105,7 @@ const Documents: React.FC<DocumentsProps> = ({
       <div className="overflow-x-auto mt-4">
         <DocumentTable
           documents={documents}
-          filterField={filterField}
-          onViewDocument={setSelectedDocumentUrl}
+          onViewDocument={setSelectedDocumentId}
           viewType={viewType}
           expandedThreads={expandedThreads}
           onToggleThread={handleToggleThread}
@@ -120,9 +119,9 @@ const Documents: React.FC<DocumentsProps> = ({
       />
 
       <DocumentModal
-        isOpen={!!selectedDocumentUrl}
-        onClose={() => setSelectedDocumentUrl(null)}
-        url={selectedDocumentUrl}
+        isOpen={!!selectedDocumentId}
+        onClose={() => setSelectedDocumentId(null)}
+        id={selectedDocumentId}
       />
     </div>
   );

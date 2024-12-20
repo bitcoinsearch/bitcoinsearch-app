@@ -1,14 +1,12 @@
 import React from "react";
 import { FaChevronDown, FaChevronRight, FaRegFileAlt } from "react-icons/fa";
 import { formatTimeAgo } from "@/utils/dateUtils";
-import { Document } from "@/types";
+import { FlatTableProps } from "./types";
 
-interface ThreadRowProps {
+interface ThreadRowProps extends FlatTableProps {
   threadUrl: string;
-  documents: Document[];
   isExpanded: boolean;
   onToggle: () => void;
-  onViewDocument: (url: string) => void;
   index: number;
 }
 
@@ -111,7 +109,7 @@ export const ThreadRow: React.FC<ThreadRowProps> = ({
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            onViewDocument(doc.url);
+                            onViewDocument(doc.id);
                           }}
                           className="text-custom-accent hover:text-custom-accent-dark"
                           title="View document"

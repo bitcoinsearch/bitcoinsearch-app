@@ -6,16 +6,13 @@ export interface ThreadGroup {
   documents: Document[];
 }
 
-export interface BaseTableProps {
-  onViewDocument: (url: string) => void;
-  filterField: string;
-}
-
-export interface FlatTableProps extends BaseTableProps {
+export interface FlatTableProps {
+  onViewDocument: (id: string) => void;
   documents: Document[];
 }
 
-export interface ThreadedTableProps extends BaseTableProps {
+export interface ThreadedTableProps {
+  onViewDocument: (id: string) => void;
   threadGroups: ThreadGroup[];
   expandedThreads: Set<string>;
   onToggleThread: (threadUrl: string) => void;
