@@ -7,7 +7,7 @@ export interface ThreadGroup {
 }
 
 export interface BaseTableProps {
-  onViewDocument: (url: string) => void;
+  onViewDocument: (id: string) => void;
   filterField: string;
 }
 

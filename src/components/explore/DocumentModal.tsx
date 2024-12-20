@@ -18,7 +18,7 @@ import { useDocumentContent } from "@/hooks/useDocumentContent";
 interface DocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  url: string | null;
+  id: string | null;
 }
 
 const formatValue = (value: any): string => {
@@ -84,10 +84,10 @@ const RenderObject = ({ object }: { object: Record<string, any> }) => {
 const DocumentModal: React.FC<DocumentModalProps> = ({
   isOpen,
   onClose,
-  url,
+  id,
 }) => {
   const { documentContent, isLoading, isError, error } = useDocumentContent(
-    url || ""
+    id || ""
   );
 
   return (
