@@ -1,17 +1,10 @@
 import React from "react";
-import { FaEye } from "react-icons/fa";
+import { FaRegFileAlt } from "react-icons/fa";
 import { formatTimeAgo } from "@/utils/dateUtils";
-import { Document } from "@/types";
+import type { FlatTableProps } from "./types";
 
-interface DocumentTableProps {
-  documents: Document[];
-  domain: string;
-  onViewDocument: (url: string) => void;
-}
-
-const DocumentTable: React.FC<DocumentTableProps> = ({
+export const FlatTable: React.FC<FlatTableProps> = ({
   documents,
-  domain,
   onViewDocument,
 }) => {
   const trimUrl = (url: string, domain: string): string => {
@@ -36,9 +29,9 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
         </tr>
       </thead>
       <tbody>
-        {documents?.map((doc, index) => (
+        {documents.map((doc, index) => (
           <tr
-            key={doc.url}
+            key={doc.id}
             className={
               index % 2 === 0
                 ? "bg-custom-hover-state dark:bg-custom-hover-primary"
@@ -59,7 +52,7 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
                   className="text-custom-accent hover:underline"
                   title={doc.url}
                 >
-                  {doc.url && trimUrl(doc.url, domain)}
+                  {doc.url && trimUrl(doc.url, doc.domain)}
                 </a>
               </div>
             </td>
@@ -73,11 +66,11 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
             </td>
             <td className="w-10 px-2 py-2 border-b border-custom-stroke text-center">
               <button
-                onClick={() => onViewDocument(doc.url)}
+                onClick={() => onViewDocument(doc.id)}
                 className="text-custom-accent hover:text-custom-accent-dark"
                 title="View document"
               >
-                <FaEye className="w-5 h-5 inline-block" />
+                <FaRegFileAlt className="w-5 h-5 inline-block" />
               </button>
             </td>
           </tr>
@@ -86,5 +79,3 @@ const DocumentTable: React.FC<DocumentTableProps> = ({
     </table>
   );
 };
-
-export default DocumentTable;
