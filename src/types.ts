@@ -100,6 +100,7 @@ export interface Document {
   url: string;
   indexed_at: string;
   thread_url?: string;
+  domain: string;
   type?: string;
 }
 
