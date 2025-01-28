@@ -20,6 +20,7 @@ const fetchDocuments = async (
   filterValue: string,
   viewType: ViewModeType,
   page: number,
+  index: string,
   threadUrls?: string[]
 ): Promise<DocumentsResponse> => {
   // Base filters that apply to all view modes
@@ -44,6 +45,7 @@ const fetchDocuments = async (
     size: viewType === ViewMode.THREADED ? 1000 : DOCUMENTS_PER_PAGE,
     page: viewType === ViewMode.THREADED ? 0 : page - 1,
     sortFields: [{ field: "indexed_at", value: "desc" }],
+    index,
   };
 
   const response = await fetch("/api/elasticSearchProxy/search", {
@@ -79,6 +81,7 @@ export const useExploreDocuments = (
   filterValue: string,
   viewType: ViewModeType,
   page: number,
+  index: string,
   threadUrls?: string[]
 ) => {
   return useQuery<DocumentsResponse, Error>({
@@ -88,10 +91,18 @@ export const useExploreDocuments = (
       filterValue,
       viewType,
       page,
+      index,
       threadUrls,
     ],
     queryFn: () =>
-      fetchDocuments(filterField, filterValue, viewType, page, threadUrls),
+      fetchDocuments(
+        filterField,
+        filterValue,
+        viewType,
+        page,
+        index,
+        threadUrls
+      ),
     // Only fetch if we're not in threaded view, or if we have thread URLs in threaded view
     enabled: viewType === ViewMode.THREADED ? !!threadUrls?.length : true,
     cacheTime: Infinity,

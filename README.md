@@ -18,6 +18,7 @@ The `.env` looks like:
 API_KEY="0000000000000000000164dbb81fbea0a98f09eae1ff2a51493cb3a633523891=="
 CLOUD_ID="Deployment_name:0000000000000000000365ff7535528e43b5c6793e840c2b2a0a38e1648c930f"
 INDEX="index-name"
+COREDEV_INDEX="coredev-index-name"
 ```
 
 ## Installation

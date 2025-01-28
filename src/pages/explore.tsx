@@ -4,6 +4,7 @@ import Documents from "@/components/explore/Documents";
 import NavBar from "@/components/navBar/NavBar";
 import Footer from "@/components/footer/Footer";
 import { useExplore } from "@/hooks/useExplore";
+import IndexSelector from "@/components/explore/IndexSelector";
 
 interface ExplorerField {
   key: string;
@@ -28,9 +29,13 @@ const EXPLORER_CONFIGS: Record<string, ExplorerField> = {
 const ExplorePage = () => {
   const [activeType, setActiveType] = useState("sources");
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<string>("main");
 
   const config = EXPLORER_CONFIGS[activeType];
-  const { data, isLoading, isError, error } = useExplore(config.key);
+  const { data, isLoading, isError, error } = useExplore(
+    config.key,
+    selectedIndex
+  );
 
   const toggleExpand = (value: string) => {
     setExpandedItem(expandedItem === value ? null : value);
@@ -40,8 +45,15 @@ const ExplorePage = () => {
     <div className="min-h-screen flex flex-col bg-custom-background text-custom-primary-text">
       <NavBar />
       <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-16">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Explore Data</h1>
+        <div className="flex flex-col gap-4 mb-6">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold">Explore Data</h1>
+            <IndexSelector
+              selectedIndex={selectedIndex}
+              onIndexChange={setSelectedIndex}
+            />
+          </div>
+
           <div className="flex space-x-1 bg-custom-hover-state dark:bg-custom-hover-primary rounded-lg p-1">
             {Object.entries(EXPLORER_CONFIGS).map(([id, { displayName }]) => (
               <button
@@ -122,6 +134,7 @@ const ExplorePage = () => {
                             filterField={config.key}
                             filterValue={item.value}
                             features={item.features}
+                            selectedIndex={selectedIndex}
                           />
                         </td>
                       </tr>

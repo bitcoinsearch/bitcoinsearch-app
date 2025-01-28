@@ -22,7 +22,8 @@ const THREADS_PER_PAGE = 10;
 const fetchThreadsData = async (
   filterField: string,
   filterValue: string,
-  page: number
+  page: number,
+  index: string
 ): Promise<ThreadsData> => {
   const response = await fetch("/api/elasticSearchProxy/search", {
     method: "POST",
@@ -31,6 +32,7 @@ const fetchThreadsData = async (
       queryString: "",
       size: 0,
       page: 0,
+      index,
       filterFields: [
         { field: filterField, value: filterValue },
         // Exclude summary documents from thread view
@@ -75,11 +77,12 @@ export const useExploreThreads = (
   filterField: string,
   filterValue: string,
   page: number,
-  enabled: boolean = true
+  enabled: boolean = true,
+  index: string
 ) => {
   const query = useQuery<ThreadsData, Error>({
-    queryKey: ["exploreThreads", filterField, filterValue, page],
-    queryFn: () => fetchThreadsData(filterField, filterValue, page),
+    queryKey: ["exploreThreads", filterField, filterValue, page, index],
+    queryFn: () => fetchThreadsData(filterField, filterValue, page, index),
     enabled,
     cacheTime: Infinity,
     staleTime: Infinity,

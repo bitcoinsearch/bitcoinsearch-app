@@ -31,7 +31,8 @@ interface ExplorerResponse {
  * - "tags" for exploring different topics
  */
 const fetchExploreData = async (
-  exploreType: string
+  exploreType: string,
+  index: string
 ): Promise<ExplorerResponse> => {
   // We use Elasticsearch aggregations to efficiently compute statistics
   // without retrieving individual documents
@@ -42,6 +43,7 @@ const fetchExploreData = async (
       queryString: "",
       size: 0, // We don't need individual documents, only aggregations
       page: 0,
+      index,
       aggregationFields: [
         {
           field: exploreType,
@@ -88,10 +90,10 @@ const fetchExploreData = async (
  * Hook that provides data for the explorer view's main listing.
  * Used to populate the main table showing available sources, authors, or tags.
  */
-export const useExplore = (exploreType: string) => {
+export const useExplore = (exploreType: string, index: string) => {
   return useQuery<ExplorerResponse, Error>({
-    queryKey: ["explore", exploreType],
-    queryFn: () => fetchExploreData(exploreType),
+    queryKey: ["explore", exploreType, index],
+    queryFn: () => fetchExploreData(exploreType, index),
     cacheTime: Infinity,
     staleTime: Infinity,
     refetchOnWindowFocus: false,

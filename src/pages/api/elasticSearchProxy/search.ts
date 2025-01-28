@@ -20,7 +20,7 @@ export default async function handler(
     filterFields,
     sortFields,
     aggregationFields,
-    index = "default",
+    index = "main",
   } = req.body;
 
   // Select index based on parameter

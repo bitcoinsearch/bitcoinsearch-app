@@ -12,7 +12,7 @@ export default async function handler(
     });
   }
 
-  const { id } = req.body;
+  const { id, index = "main" } = req.body;
 
   if (!id) {
     return res.status(400).json({
@@ -20,12 +20,23 @@ export default async function handler(
     });
   }
 
+  // Select index based on parameter
+  const selectedIndex =
+    index === "coredev" ? process.env.COREDEV_INDEX : process.env.INDEX;
+
   try {
     const result = await client.search({
-      index: process.env.INDEX,
+      index: selectedIndex,
       body: {
+        // This query handles two different indexing patterns across our ES indexes:
+        // - In index A: document's _id matches its content 'id' field
+        // - In index B: document's _id is auto-generated, separate from content 'id'
+        // TODO: Standardize indexing approach across indexes to simplify this query.
+        // When re-indexing, ensure _id consistently matches document's id field.
         query: {
-          term: { _id: id },
+          bool: {
+            should: [{ term: { "id.keyword": id } }, { ids: { values: [id] } }],
+          },
         },
         size: 1,
       },

@@ -14,12 +14,14 @@ interface DocumentsProps {
     hasSummaries: boolean;
     hasThreads: boolean;
   };
+  selectedIndex: string;
 }
 
 const Documents: React.FC<DocumentsProps> = ({
   filterField,
   filterValue,
   features,
+  selectedIndex,
 }) => {
   const [viewType, setViewType] = useState<ViewModeType>(ViewMode.FLAT);
   const [page, setPage] = useState(1);
@@ -39,7 +41,8 @@ const Documents: React.FC<DocumentsProps> = ({
     filterField,
     filterValue,
     page,
-    viewType === ViewMode.THREADED
+    viewType === ViewMode.THREADED,
+    selectedIndex
   );
 
   // Get documents data
@@ -53,6 +56,7 @@ const Documents: React.FC<DocumentsProps> = ({
     filterValue,
     viewType,
     page,
+    selectedIndex,
     viewType === ViewMode.THREADED
       ? paginatedThreads.map((t) => t.key)
       : undefined
@@ -122,6 +126,7 @@ const Documents: React.FC<DocumentsProps> = ({
         isOpen={!!selectedDocumentId}
         onClose={() => setSelectedDocumentId(null)}
         id={selectedDocumentId}
+        selectedIndex={selectedIndex}
       />
     </div>
   );

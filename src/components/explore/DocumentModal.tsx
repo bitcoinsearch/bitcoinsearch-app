@@ -19,6 +19,7 @@ interface DocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
   id: string | null;
+  selectedIndex: string;
 }
 
 const formatValue = (value: any): string => {
@@ -85,9 +86,11 @@ const DocumentModal: React.FC<DocumentModalProps> = ({
   isOpen,
   onClose,
   id,
+  selectedIndex,
 }) => {
   const { documentContent, isLoading, isError, error } = useDocumentContent(
-    id || ""
+    id || "",
+    selectedIndex
   );
 
   return (
