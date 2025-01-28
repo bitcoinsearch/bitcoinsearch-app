@@ -5,6 +5,7 @@ import NavBar from "@/components/navBar/NavBar";
 import Footer from "@/components/footer/Footer";
 import { useExplore } from "@/hooks/useExplore";
 import IndexSelector from "@/components/explore/IndexSelector";
+import { IndexType } from "@/config/config";
 
 interface ExplorerField {
   key: string;
@@ -29,7 +30,7 @@ const EXPLORER_CONFIGS: Record<string, ExplorerField> = {
 const ExplorePage = () => {
   const [activeType, setActiveType] = useState("sources");
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<string>("main");
+  const [selectedIndex, setSelectedIndex] = useState<IndexType>("main");
 
   const config = EXPLORER_CONFIGS[activeType];
   const { data, isLoading, isError, error } = useExplore(

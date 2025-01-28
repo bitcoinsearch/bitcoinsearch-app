@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "@/config/elasticsearch";
 import { buildQuery } from "@/utils/server/apiFunctions";
+import { getIndexConfig, IndexType } from "@/config/config";
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,9 +24,8 @@ export default async function handler(
     index = "main",
   } = req.body;
 
-  // Select index based on parameter
-  const selectedIndex =
-    index === "coredev" ? process.env.COREDEV_INDEX : process.env.INDEX;
+  // Get the actual index name from our config
+  const indexConfig = getIndexConfig(index as IndexType);
 
   const from = page * size;
   let searchQuery = buildQuery({
@@ -38,9 +38,8 @@ export default async function handler(
   });
 
   try {
-    // Call the search method
     const result = await client.search({
-      index: selectedIndex,
+      index: indexConfig.indexName,
       ...searchQuery,
     });
 

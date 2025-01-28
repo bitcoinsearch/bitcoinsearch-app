@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "@/config/elasticsearch";
+import { getIndexConfig, IndexType } from "@/config/config";
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,13 +21,12 @@ export default async function handler(
     });
   }
 
-  // Select index based on parameter
-  const selectedIndex =
-    index === "coredev" ? process.env.COREDEV_INDEX : process.env.INDEX;
+  // Get the actual index name from our config
+  const indexConfig = getIndexConfig(index as IndexType);
 
   try {
     const result = await client.search({
-      index: selectedIndex,
+      index: indexConfig.indexName,
       body: {
         // This query handles two different indexing patterns across our ES indexes:
         // - In index A: document's _id matches its content 'id' field
