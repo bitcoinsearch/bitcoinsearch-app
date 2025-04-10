@@ -13,14 +13,13 @@ import {
   Box,
   VStack,
 } from "@chakra-ui/react";
+import { useDocumentContent } from "@/hooks/useDocumentContent";
 
 interface DocumentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  document: Record<string, any> | null;
-  isLoading: boolean;
-  isError: boolean;
-  error?: string;
+  id: string | null;
+  selectedIndex: string;
 }
 
 const formatValue = (value: any): string => {
@@ -86,35 +85,40 @@ const RenderObject = ({ object }: { object: Record<string, any> }) => {
 const DocumentModal: React.FC<DocumentModalProps> = ({
   isOpen,
   onClose,
-  document,
-  isLoading,
-  isError,
-  error,
+  id,
+  selectedIndex,
 }) => {
+  const { documentContent, isLoading, isError, error } = useDocumentContent(
+    id || "",
+    selectedIndex
+  );
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{document?.title || "Document Details"}</ModalHeader>
+        <ModalHeader>
+          {documentContent?.title || "Document Details"}
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           {isLoading && <Text>Loading document content...</Text>}
           {isError && (
-            <Text color="red.500">Error loading document: {error}</Text>
+            <Text color="red.500">Error loading document: {error.message}</Text>
           )}
-          {!isLoading && !isError && document && (
+          {!isLoading && !isError && documentContent && (
             <VStack align="stretch" spacing={4}>
-              {document.url && (
+              {documentContent.url && (
                 <Link
-                  href={document.url}
+                  href={documentContent.url}
                   isExternal
                   color="blue.500"
                   _hover={{ textDecoration: "underline" }}
                 >
-                  {document.url}
+                  {documentContent.url}
                 </Link>
               )}
-              <RenderObject object={document} />
+              <RenderObject object={documentContent} />
             </VStack>
           )}
         </ModalBody>

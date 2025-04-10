@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "@/config/elasticsearch";
 import { buildQuery } from "@/utils/server/apiFunctions";
-// import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
+import { getIndexConfig, IndexType } from "@/config/config";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,11 +14,18 @@ export default async function handler(
     });
   }
 
-  let queryString = req.body.queryString as string;
-  let size = req.body.size;
-  let page = req.body.page;
-  let filterFields = req.body.filterFields;
-  let sortFields = req.body.sortFields;
+  const {
+    queryString,
+    size,
+    page,
+    filterFields,
+    sortFields,
+    aggregationFields,
+    index = "main",
+  } = req.body;
+
+  // Get the actual index name from our config
+  const indexConfig = getIndexConfig(index as IndexType);
 
   const from = page * size;
   let searchQuery = buildQuery({
@@ -27,12 +34,12 @@ export default async function handler(
     sortFields,
     from,
     size,
+    aggregationFields,
   });
 
   try {
-    // Call the search method
     const result = await client.search({
-      index: process.env.INDEX,
+      index: indexConfig.indexName,
       ...searchQuery,
     });
 

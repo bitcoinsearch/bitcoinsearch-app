@@ -1,16 +1,23 @@
 import {
   AggregationsAggregate,
+  AggregationsAggregationContainer,
   SearchResponse,
 } from "@elastic/elasticsearch/lib/api/types";
-const AUTHOR = "authors" as const;
-const DOMAIN = "domain" as const;
-const TAGS = "tags" as const;
 
-export type FacetKeys = typeof AUTHOR | typeof DOMAIN | typeof TAGS;
+export const FACETS = {
+  AUTHOR: "authors",
+  DOMAIN: "domain",
+  TAGS: "tags",
+} as const;
+
+export type FacetKeys = (typeof FACETS)[keyof typeof FACETS];
+
+export type FilterOperation = "include" | "exclude";
 
 export type Facet = {
-  field: FacetKeys;
-  value: string;
+  field: string;
+  value: string | string[];
+  operation?: FilterOperation;
 };
 
 const bodyType = {
@@ -20,14 +27,25 @@ const bodyType = {
   "combined-summary": "combined-summary",
 } as const;
 
-export type SortOption = "asc" | "desc";
+type SortOption = {
+  field: string;
+  value: "asc" | "desc";
+};
+
+export interface AggregationField {
+  field: string;
+  size?: number;
+  subAggregations?: Record<string, AggregationsAggregationContainer>; // Raw ES aggregation config
+}
 
 export type SearchQuery = {
   queryString: string;
   size: number;
   page: number;
   filterFields: Facet[];
-  sortFields: any[];
+  sortFields: SortOption[];
+  aggregationFields?: AggregationField[];
+  index?: string;
 };
 
 export type EsSearchResult = {
@@ -78,10 +96,12 @@ export interface Source {
 }
 
 export interface Document {
+  id: string;
   title: string;
   url: string;
   indexed_at: string;
   thread_url?: string;
+  domain: string;
   type?: string;
 }
 

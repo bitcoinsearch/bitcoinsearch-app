@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "@/config/elasticsearch";
+import { getIndexConfig, IndexType } from "@/config/config";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,20 +13,30 @@ export default async function handler(
     });
   }
 
-  const { url } = req.body;
+  const { id, index = "main" } = req.body;
 
-  if (!url) {
+  if (!id) {
     return res.status(400).json({
-      error: "URL is required",
+      error: "Document ID is required",
     });
   }
 
+  // Get the actual index name from our config
+  const indexConfig = getIndexConfig(index as IndexType);
+
   try {
     const result = await client.search({
-      index: process.env.INDEX,
+      index: indexConfig.indexName,
       body: {
+        // This query handles two different indexing patterns across our ES indexes:
+        // - In index A: document's _id matches its content 'id' field
+        // - In index B: document's _id is auto-generated, separate from content 'id'
+        // TODO: Standardize indexing approach across indexes to simplify this query.
+        // When re-indexing, ensure _id consistently matches document's id field.
         query: {
-          term: { "url.keyword": url },
+          bool: {
+            should: [{ term: { "id.keyword": id } }, { ids: { values: [id] } }],
+          },
         },
         size: 1,
       },
