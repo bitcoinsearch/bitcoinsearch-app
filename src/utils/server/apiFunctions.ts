@@ -1,7 +1,8 @@
 import { aggregatorSize } from "@/config/config";
 import type { Facet, SearchQuery } from "@/types";
+import { externalSources } from "../dummy";
 
-const FIELDS_TO_SEARCH = ["authors", "title", "body"];
+const FIELDS_TO_SEARCH = ["authors", "title", "body", "domains"];
 
 // Omitting 'page' from SearchQuery as 'from' is used for Elasticsearch pagination
 type BuildQueryForElaSticClient = Omit<SearchQuery, "page"> & {
@@ -18,6 +19,7 @@ export const buildQuery = ({
   from,
   filterFields,
   sortFields,
+  utmSource,
 }: BuildQueryForElaSticClient) => {
   // Initialize the base structure of the Elasticsearch query
   let baseQuery = {
@@ -65,17 +67,20 @@ export const buildQuery = ({
 
   // Construct and add the full-text search clause
   let shouldClause = buildShouldQueryClause(queryString);
-  if (!queryString) {
+  if (!queryString || externalSources.includes(utmSource)) {
     baseQuery.query.bool.should.push(shouldClause);
   } else {
     baseQuery.query.bool.must.push(shouldClause);
   }
-
   // Add filter clauses for each specified filter field
   if (filterFields && filterFields.length) {
     for (let facet of filterFields) {
-      let mustClause = buildFilterQueryClause(facet);
-      baseQuery.query.bool.must.push(mustClause);
+      let filterClause = buildFilterQueryClause(facet);
+      if (facet.field === "domain" && externalSources.includes(utmSource)) {
+        baseQuery.query.bool.must.push(shouldClause); // OR logic
+      } else {
+        baseQuery.query.bool.should.push(filterClause); //  AND logic
+      }
     }
   }
 
@@ -86,7 +91,6 @@ export const buildQuery = ({
       baseQuery.sort.push(sortClause);
     }
   }
-
   return baseQuery;
 };
 
