@@ -42,6 +42,8 @@ export const getServerSideProps: GetServerSideProps = async (
   const queryString = urlParams.get(URLSearchParamsKeyword.SEARCH) ?? "";
   const pageQuery = urlParams.get(URLSearchParamsKeyword.PAGE);
   const sizeQuery = urlParams.get(URLSearchParamsKeyword.SIZE);
+  // To track where traffic is coming from e.g tldr
+  const utmSource = urlParams.get(URLSearchParamsKeyword.SOURCE) ?? "";
 
   const filterFields = generateFilterQuery(resolvedUrl);
   const sortFields = generateSortFields(resolvedUrl);
@@ -66,12 +68,13 @@ export const getServerSideProps: GetServerSideProps = async (
     page,
     filterFields,
     sortFields,
+    utmSource,
   };
 
   const res = await buildQueryCall(options, fetchUrl);
 
   await queryClient.prefetchQuery(
-    ["query", queryString, size, filterFields, page, sortFields],
+    ["query", queryString, size, filterFields, page, sortFields, utmSource],
     () => res
   );
   const dehydratedState = dehydrate(queryClient);

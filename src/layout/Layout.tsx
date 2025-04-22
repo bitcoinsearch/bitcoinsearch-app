@@ -1,6 +1,7 @@
 import ResultSize from "@/components/sidebarFacet/ResultSize";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 import useUIContext from "@/hooks/useUIContext";
+import { useRouter } from "next/router";
 import React from "react";
 
 type LayoutProps = Record<string, React.ReactNode>;
@@ -15,6 +16,9 @@ const Layout = ({
   const { hiddenBody } = useIsInitialStateWithoutFilter();
 
   const { sidebarToggleManager } = useUIContext();
+
+  const utmSource = useRouter().query?.utm_source || "";
+  const isFromTLDR = utmSource.includes("tldr.bitcoinsearch.xyz");
 
   return (
     <div id="sectioned layout" className="bg-custom-background">
@@ -37,6 +41,7 @@ const Layout = ({
             id="sidebar"
             className='font-mona hidden flex-shrink-0 py-0 px-6 lg:py-10 lg:px-16 border-r-[1px] border-r-custom-stroke -translate-x-full w-full md:w-auto md:h-auto md:relative md:block md:translate-x-0 group-data-[sb-open="true"]:block group-data-[sb-open="true"]:bg-custom-background group-data-[sb-open="true"]:translate-x-0'
           >
+            {isFromTLDR && <a href={`https://${utmSource}`}>Back to TLDR</a>}
             {sideContent}
           </section>
           <section
