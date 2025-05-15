@@ -1,6 +1,7 @@
 import { aggregatorSize } from "@/config/config";
 import type { Facet, SearchQuery } from "@/types";
 import { externalSources } from "../dummy";
+import fs from "fs";
 
 const FIELDS_TO_SEARCH = ["authors", "title", "body", "domains"];
 
@@ -67,22 +68,28 @@ export const buildQuery = ({
 
   // Construct and add the full-text search clause
   let shouldClause = buildShouldQueryClause(queryString);
-  if (!queryString || externalSources.includes(utmSource)) {
+  if (!queryString) {
     baseQuery.query.bool.should.push(shouldClause);
   } else {
     baseQuery.query.bool.must.push(shouldClause);
   }
-  // Add filter clauses for each specified filter field
-  if (filterFields && filterFields.length) {
-    for (let facet of filterFields) {
-      let filterClause = buildFilterQueryClause(facet);
-      if (facet.field === "domain" && externalSources.includes(utmSource)) {
-        baseQuery.query.bool.must.push(shouldClause); // OR logic
-      } else {
-        baseQuery.query.bool.should.push(filterClause); //  AND logic
+  if (externalSources.includes(utmSource)) {
+    if (filterFields && filterFields.length) {
+      for (let facet of filterFields) {
+        if (facet.field === "domain") {
+          buildDomainQueryClause(baseQuery, facet.value);
+        }
+      }
+    }
+  } else {
+    if (filterFields && filterFields.length) {
+      for (let facet of filterFields) {
+        let mustClause = buildFilterQueryClause(facet);
+        baseQuery.query.bool.must.push(mustClause);
       }
     }
   }
+  // Add filter clauses for each specified filter field
 
   // Add sorting clauses for each specified sort field
   if (sortFields && sortFields.length) {
@@ -115,6 +122,13 @@ const buildFilterQueryClause = ({ field, value }: Facet) => {
   };
 
   return filterQueryClause;
+};
+
+const buildDomainQueryClause = (baseQuery, value) => {
+  if (!baseQuery.query.bool.filter.length) {
+    baseQuery.query.bool.filter.push({ terms: { "domain.keyword": [] } });
+  }
+  baseQuery.query.bool.filter[0].terms["domain.keyword"].push(value);
 };
 
 // Helper to build sort clauses for sorting results

@@ -71,6 +71,7 @@ export const getServerSideProps: GetServerSideProps = async (
     utmSource,
   };
 
+  console.log(utmSource, "source from client", options);
   const res = await buildQueryCall(options, fetchUrl);
 
   await queryClient.prefetchQuery(
