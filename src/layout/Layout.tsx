@@ -2,7 +2,8 @@ import ResultSize from "@/components/sidebarFacet/ResultSize";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 import useUIContext from "@/hooks/useUIContext";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
+import { FiExternalLink } from "react-icons/fi";
 
 type LayoutProps = Record<string, React.ReactNode>;
 
@@ -14,11 +15,15 @@ const Layout = ({
   bodyFooter,
 }: LayoutProps) => {
   const { hiddenBody } = useIsInitialStateWithoutFilter();
-
   const { sidebarToggleManager } = useUIContext();
+  const router = useRouter();
+  const utmSource = router.query?.utm_source || "";
+  const isFromTLDR =
+    typeof utmSource === "string" &&
+    utmSource.includes("tldr.bitcoinsearch.xyz");
 
-  const utmSource = useRouter().query?.utm_source || "";
-  const isFromTLDR = utmSource.includes("tldr.bitcoinsearch.xyz");
+  // State for controlling visibility of the floating button and banner
+  const [showFloating, setShowFloating] = useState(true);
 
   return (
     <div id="sectioned layout" className="bg-custom-background">
@@ -41,7 +46,6 @@ const Layout = ({
             id="sidebar"
             className='font-mona hidden flex-shrink-0 py-0 px-6 lg:py-10 lg:px-16 border-r-[1px] border-r-custom-stroke -translate-x-full w-full md:w-auto md:h-auto md:relative md:block md:translate-x-0 group-data-[sb-open="true"]:block group-data-[sb-open="true"]:bg-custom-background group-data-[sb-open="true"]:translate-x-0'
           >
-            {isFromTLDR && <a href={`https://${utmSource}`}>Back to TLDR</a>}
             {sideContent}
           </section>
           <section
@@ -57,6 +61,28 @@ const Layout = ({
             {bodyContent}
             {bodyFooter}
           </section>
+        </div>
+      )}
+
+      {isFromTLDR && showFloating && (
+        <div className="fixed bottom-5 left-5 z-50">
+          <div className="relative group">
+            <a
+              href={`https://${utmSource}`}
+              className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-white bg-custom-accent rounded-full shadow-lg hover:bg-orange-600 transition-all"
+              aria-label="Return to TLDR"
+            >
+              <FiExternalLink className="text-white" />
+              <span>Back to TLDR</span>
+            </a>
+            <button
+              onClick={() => setShowFloating(false)}
+              className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-custom-black text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label="Close button"
+            >
+              ×
+            </button>
+          </div>
         </div>
       )}
     </div>
