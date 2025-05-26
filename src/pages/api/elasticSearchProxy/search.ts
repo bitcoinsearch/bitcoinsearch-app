@@ -21,7 +21,6 @@ export default async function handler(
   let sortFields = req.body.sortFields;
   let utmSource = req.body.utmSource ?? "";
 
-  console.log(utmSource, "test");
   const from = page * size;
   let searchQuery = buildQuery({
     queryString,
