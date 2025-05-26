@@ -1,7 +1,6 @@
 import { aggregatorSize } from "@/config/config";
 import type { Facet, SearchQuery } from "@/types";
 import { externalSources } from "../dummy";
-import fs from "fs";
 
 const FIELDS_TO_SEARCH = ["authors", "title", "body", "domains"];
 

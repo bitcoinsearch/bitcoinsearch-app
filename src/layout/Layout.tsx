@@ -18,6 +18,8 @@ const Layout = ({
   const { sidebarToggleManager } = useUIContext();
   const router = useRouter();
   const utmSource = router.query?.utm_source || "";
+  const isValidSource = utmSource === "tldr.bitcoinsearch.xyz";
+
   const isFromTLDR =
     typeof utmSource === "string" &&
     utmSource.includes("tldr.bitcoinsearch.xyz");
@@ -68,7 +70,7 @@ const Layout = ({
         <div className="fixed bottom-5 left-5 z-50">
           <div className="relative group">
             <a
-              href={`https://${utmSource}`}
+              href={isValidSource ? `https://${utmSource}` : null}
               className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-white bg-custom-accent rounded-full shadow-lg hover:bg-orange-600 transition-all"
               aria-label="Return to TLDR"
             >

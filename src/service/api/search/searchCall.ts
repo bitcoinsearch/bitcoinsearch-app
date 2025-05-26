@@ -9,7 +9,6 @@ export const buildQueryCall: BuildQuery = async (
   { queryString, size, page, filterFields, sortFields, utmSource },
   url
 ) => {
-  console.log(utmSource, "from buildQueryCall");
   const body = {
     queryString,
     size,
@@ -20,7 +19,6 @@ export const buildQueryCall: BuildQuery = async (
   };
 
   const jsonBody = JSON.stringify(body);
-  console.log(jsonBody, utmSource);
   return fetch(url ?? "/api/elasticSearchProxy/search", {
     method: "POST",
     headers: {
