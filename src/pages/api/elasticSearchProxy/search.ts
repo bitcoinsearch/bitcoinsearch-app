@@ -19,6 +19,7 @@ export default async function handler(
   let page = req.body.page;
   let filterFields = req.body.filterFields;
   let sortFields = req.body.sortFields;
+  let utmSource = req.body.utmSource ?? "";
 
   const from = page * size;
   let searchQuery = buildQuery({
@@ -27,8 +28,8 @@ export default async function handler(
     sortFields,
     from,
     size,
+    utmSource,
   });
-
   try {
     // Call the search method
     const result = await client.search({

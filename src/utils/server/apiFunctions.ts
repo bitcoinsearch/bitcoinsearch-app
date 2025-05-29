@@ -1,7 +1,8 @@
 import { aggregatorSize } from "@/config/config";
 import type { Facet, SearchQuery } from "@/types";
+import { externalSources } from "../dummy";
 
-const FIELDS_TO_SEARCH = ["authors", "title", "body"];
+const FIELDS_TO_SEARCH = ["authors", "title", "body", "domains"];
 
 // Omitting 'page' from SearchQuery as 'from' is used for Elasticsearch pagination
 type BuildQueryForElaSticClient = Omit<SearchQuery, "page"> & {
@@ -18,6 +19,7 @@ export const buildQuery = ({
   from,
   filterFields,
   sortFields,
+  utmSource,
 }: BuildQueryForElaSticClient) => {
   // Initialize the base structure of the Elasticsearch query
   let baseQuery = {
@@ -70,14 +72,23 @@ export const buildQuery = ({
   } else {
     baseQuery.query.bool.must.push(shouldClause);
   }
-
-  // Add filter clauses for each specified filter field
-  if (filterFields && filterFields.length) {
-    for (let facet of filterFields) {
-      let mustClause = buildFilterQueryClause(facet);
-      baseQuery.query.bool.must.push(mustClause);
+  if (externalSources.includes(utmSource)) {
+    if (filterFields && filterFields.length) {
+      for (let facet of filterFields) {
+        if (facet.field === "domain") {
+          buildDomainQueryClause(baseQuery, facet.value);
+        }
+      }
+    }
+  } else {
+    if (filterFields && filterFields.length) {
+      for (let facet of filterFields) {
+        let mustClause = buildFilterQueryClause(facet);
+        baseQuery.query.bool.must.push(mustClause);
+      }
     }
   }
+  // Add filter clauses for each specified filter field
 
   // Add sorting clauses for each specified sort field
   if (sortFields && sortFields.length) {
@@ -86,7 +97,6 @@ export const buildQuery = ({
       baseQuery.sort.push(sortClause);
     }
   }
-
   return baseQuery;
 };
 
@@ -111,6 +121,13 @@ const buildFilterQueryClause = ({ field, value }: Facet) => {
   };
 
   return filterQueryClause;
+};
+
+const buildDomainQueryClause = (baseQuery, value) => {
+  if (!baseQuery.query.bool.filter.length) {
+    baseQuery.query.bool.filter.push({ terms: { "domain.keyword": [] } });
+  }
+  baseQuery.query.bool.filter[0].terms["domain.keyword"].push(value);
 };
 
 // Helper to build sort clauses for sorting results

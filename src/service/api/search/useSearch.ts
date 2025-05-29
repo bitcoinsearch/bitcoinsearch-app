@@ -12,11 +12,27 @@ export const useSearch = ({
   page,
   filterFields,
   sortFields,
+  utmSource,
 }: SearchQuery) => {
   const queryResult = useQuery({
-    queryKey: ["query", queryString, size, filterFields, page, sortFields],
+    queryKey: [
+      "query",
+      queryString,
+      size,
+      filterFields,
+      page,
+      sortFields,
+      utmSource,
+    ],
     queryFn: () =>
-      buildQueryCall({ queryString, size, page, filterFields, sortFields }),
+      buildQueryCall({
+        queryString,
+        size,
+        page,
+        filterFields,
+        sortFields,
+        utmSource,
+      }),
     cacheTime: Infinity,
     staleTime: Infinity,
     refetchOnWindowFocus: false,

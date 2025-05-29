@@ -4,6 +4,7 @@ export const URLSearchParamsKeyword = {
   SIZE: "size",
   FILTER: "filter",
   SORT: "sort",
+  SOURCE: "utm_source",
 } as const;
 
 export const defaultParam = {

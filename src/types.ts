@@ -28,6 +28,7 @@ export type SearchQuery = {
   page: number;
   filterFields: Facet[];
   sortFields: any[];
+  utmSource?: string;
 };
 
 export type EsSearchResult = {
