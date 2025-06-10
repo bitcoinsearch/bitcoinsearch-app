@@ -1,7 +1,9 @@
 import ResultSize from "@/components/sidebarFacet/ResultSize";
 import useIsInitialStateWithoutFilter from "@/hooks/useIsInitialStateWithoutFilter";
 import useUIContext from "@/hooks/useUIContext";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { FiExternalLink } from "react-icons/fi";
 
 type LayoutProps = Record<string, React.ReactNode>;
 
@@ -13,8 +15,17 @@ const Layout = ({
   bodyFooter,
 }: LayoutProps) => {
   const { hiddenBody } = useIsInitialStateWithoutFilter();
-
   const { sidebarToggleManager } = useUIContext();
+  const router = useRouter();
+  const utmSource = router.query?.utm_source || "";
+  const isValidSource = utmSource === "tldr.bitcoinsearch.xyz";
+
+  const isFromTLDR =
+    typeof utmSource === "string" &&
+    utmSource.includes("tldr.bitcoinsearch.xyz");
+
+  // State for controlling visibility of the floating button and banner
+  const [showFloating, setShowFloating] = useState(true);
 
   return (
     <div id="sectioned layout" className="bg-custom-background">
@@ -52,6 +63,28 @@ const Layout = ({
             {bodyContent}
             {bodyFooter}
           </section>
+        </div>
+      )}
+
+      {isFromTLDR && showFloating && (
+        <div className="fixed bottom-5 left-5 z-50">
+          <div className="relative group">
+            <a
+              href={isValidSource ? `https://${utmSource}` : null}
+              className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-white bg-custom-accent rounded-full shadow-lg hover:bg-orange-600 transition-all"
+              aria-label="Return to TLDR"
+            >
+              <FiExternalLink className="text-white" />
+              <span>Back to TLDR</span>
+            </a>
+            <button
+              onClick={() => setShowFloating(false)}
+              className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-custom-black text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label="Close button"
+            >
+              ×
+            </button>
+          </div>
         </div>
       )}
     </div>

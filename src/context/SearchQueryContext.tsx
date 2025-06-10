@@ -64,6 +64,7 @@ export const SearchQueryProvider = ({
   const rawSearchQuery = searchParams[URLSearchParamsKeyword.SEARCH] as string;
   const pageQuery = searchParams[URLSearchParamsKeyword.PAGE] as string;
   const sizeQuery = searchParams[URLSearchParamsKeyword.SIZE] as string;
+  const utmSource = searchParams[URLSearchParamsKeyword.SOURCE] as string;
 
   // Generate filter and sort criteria from the URL path
   const filterFields = generateFilterQuery(router.asPath.slice(1));
@@ -116,6 +117,7 @@ export const SearchQueryProvider = ({
     page,
     filterFields,
     sortFields,
+    utmSource,
   });
 
   // Function to initiate a new search with the given queryString

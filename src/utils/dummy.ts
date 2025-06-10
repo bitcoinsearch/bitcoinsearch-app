@@ -38,3 +38,5 @@ export const defaultSearchTags = [
     ],
   },
 ];
+
+export const externalSources = ["tldr.bitcoinsearch.xyz"];

@@ -1,12 +1,12 @@
 import { EsSearchResponse, SearchQuery } from "@/types";
 
 type BuildQuery = (
-  { queryString, size, page, filterFields, sortFields }: SearchQuery,
+  { queryString, size, page, filterFields, sortFields, utmSource }: SearchQuery,
   url?: string
 ) => Promise<EsSearchResponse>;
 
 export const buildQueryCall: BuildQuery = async (
-  { queryString, size, page, filterFields, sortFields },
+  { queryString, size, page, filterFields, sortFields, utmSource },
   url
 ) => {
   const body = {
@@ -15,10 +15,10 @@ export const buildQueryCall: BuildQuery = async (
     page,
     filterFields,
     sortFields,
+    utmSource,
   };
 
   const jsonBody = JSON.stringify(body);
-
   return fetch(url ?? "/api/elasticSearchProxy/search", {
     method: "POST",
     headers: {
