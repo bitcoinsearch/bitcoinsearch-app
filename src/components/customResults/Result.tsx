@@ -10,6 +10,8 @@ import DateIcon from "../svgs/DateIcon";
 import ResultFavicon from "./ResultFavicon";
 import { useTheme } from "@/context/Theme";
 import { remapUrl } from "@/utils/documents";
+import { getOnlyDomainPath } from "@/config/tldr-redirect-helpers";
+import { on } from "events";
 
 const htmlToReactParser = new (Parser as any)();
 
@@ -89,6 +91,9 @@ const Result = ({ result }: ResultProps) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const onlyDomainPath = getOnlyDomainPath(domain, mappedUrl, htmlToReactParser.parse(sanitizeHtml(title)));
+
+  const tldrUrl = `http://localhost:3001/redirect/${onlyDomainPath}`;
   return (
     <div
       role="link"
@@ -116,7 +121,7 @@ const Result = ({ result }: ResultProps) => {
           <a
             target="_blank"
             className="text-[12px] lg:text-base leading-none"
-            href={mappedUrl}
+            href={onlyDomainPath ? tldrUrl : mappedUrl}
             data-umami-event="URL Clicked"
             data-umami-event-src={mappedUrl}
             ref={linkRef}
@@ -128,7 +133,7 @@ const Result = ({ result }: ResultProps) => {
       <div className="font-mona pointer-events-none flex flex-col gap-2 lg:gap-5 ">
         <h2 className="text-sm lg:text-base 2xl:text-[1.375rem] text-custom-primary-text font-semibold">
           <a
-            href={mappedUrl}
+            href={onlyDomainPath ? tldrUrl : mappedUrl}
             target="_blank"
             className="pointer-events-auto md:group-hover/heading:text-custom-accent cursor-pointer hover:underline"
           >
