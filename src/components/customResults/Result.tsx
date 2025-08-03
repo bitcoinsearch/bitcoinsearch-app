@@ -11,7 +11,7 @@ import ResultFavicon from "./ResultFavicon";
 import { useTheme } from "@/context/Theme";
 import { remapUrl } from "@/utils/documents";
 import { getOnlyDomainPath } from "@/config/tldr-redirect-helpers";
-import { on } from "events";
+import { externalHost } from "@/utils/dummy";
 
 const htmlToReactParser = new (Parser as any)();
 
@@ -91,9 +91,14 @@ const Result = ({ result }: ResultProps) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const onlyDomainPath = getOnlyDomainPath(domain, mappedUrl, htmlToReactParser.parse(sanitizeHtml(title)));
+  const onlyDomainPath = getOnlyDomainPath(
+    domain,
+    mappedUrl,
+    htmlToReactParser.parse(sanitizeHtml(title)),
+    createdDate
+  );
 
-  const tldrUrl = `http://localhost:3001/redirect/${onlyDomainPath}`;
+  const tldrUrl = `${externalHost}/redirect/${onlyDomainPath}`;
   return (
     <div
       role="link"
