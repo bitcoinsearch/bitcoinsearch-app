@@ -16,3 +16,17 @@ export const formatTimeAgo = (date: string | number) => {
   if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
   return `${Math.floor(diffDays / 365)} years ago`;
 };
+
+export const formatFolderDate = (createdDate: Date) => {
+  let dateString: string | null = null;
+  if (createdDate) {
+    const date = new Date(createdDate);
+    const [month, year] = [
+      date.toLocaleString("default", { month: "long" }),
+      date.getFullYear(),
+    ];
+    dateString = `${month}_${year}`;
+  }
+
+  return dateString;
+};

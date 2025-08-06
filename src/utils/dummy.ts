@@ -40,3 +40,4 @@ export const defaultSearchTags = [
 ];
 
 export const externalSources = ["tldr.bitcoinsearch.xyz"];
+export const externalHost = process.env.NEXT_PUBLIC_TLDR;
