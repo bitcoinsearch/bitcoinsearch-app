@@ -9,7 +9,8 @@ const Separator = ({ className }: { className?: string }) => (
 
 const NostrIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width={31}
+    width={"100%"}
+    height={"100%"}
     viewBox="0 0 31 31"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +35,24 @@ const GithubLink = () => (
   </a>
 );
 
+const LinkedInIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={"100%"}
+    height={"100%"}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
+    <rect x={2} y={9} width={4} height={12} />
+    <circle cx={4} cy={4} r={2} />
+  </svg>
+);
 const DiscordLink = () => (
   <a
     href="https://discord.gg/EAy9XMufbY"
@@ -61,7 +80,18 @@ const NostrLink = () => (
     rel="noreferrer"
     className="focus:outline-none"
   >
-    <NostrIcon className="text-[28px] md:text-[48px]" />
+    <NostrIcon className="text-[28px] md:text-[48px] max-w-[21px] md:max-w-[41px]" />
+  </a>
+);
+
+const LinkedInLink = () => (
+  <a
+    href="https://www.linkedin.com/company/bitcoin-dev-project/"
+    target="_blank"
+    rel="noreferrer"
+    className="focus:outline-none "
+  >
+    <LinkedInIcon className="text-[28px] md:text-[48px] max-w-[28px] md:max-w-[48px]" />
   </a>
 );
 
@@ -83,6 +113,7 @@ const ContactSocials = () => {
       <DiscordLink />
       <XLink />
       <NostrLink />
+      <LinkedInLink />
     </div>
   );
 };
