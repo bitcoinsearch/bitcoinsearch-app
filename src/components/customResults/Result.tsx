@@ -4,7 +4,7 @@ import FilterTags from "../filterTag/FilterTags";
 import sanitizeHtml from "sanitize-html";
 import { Parser } from "html-to-react";
 import { getDomainFavicon, getDomainName } from "@/config/mapping-helper";
-import { TruncateLengthInChar, TruncateLinkInChar } from "@/config/config";
+import { TruncateLengthInChar } from "@/config/config";
 import { EsSearchResult } from "@/types";
 import DateIcon from "../svgs/DateIcon";
 import ResultFavicon from "./ResultFavicon";
@@ -65,11 +65,6 @@ const Result = ({ result }: ResultProps) => {
 
   const sanitizedBody = sanitizeHtml(getBodyData(result)).trim();
 
-  const strippedUrl = mappedUrl.replace(/^(https?:\/\/)/i, "");
-  const truncatedUrl =
-    strippedUrl.length > TruncateLinkInChar
-      ? strippedUrl.substring(0, TruncateLinkInChar) + "..."
-      : strippedUrl;
   const truncatedBody =
     sanitizedBody.length > TruncateLengthInChar
       ? sanitizedBody.substring(0, TruncateLengthInChar) + " ..."
@@ -121,17 +116,6 @@ const Result = ({ result }: ResultProps) => {
             className="capitalize text-sm lg:text-base leading-none hover:underline"
           >
             {siteName}
-          </a>
-          <div className="hidden lg:block w-[2px] h-[2px] lg:w-[6px] lg:h-[6px] rounded-full text-custom-secondary-text bg-custom-black" />
-          <a
-            target="_blank"
-            className="text-[12px] lg:text-base leading-none"
-            href={onlyDomainPath ? tldrUrl : mappedUrl}
-            data-umami-event="URL Clicked"
-            data-umami-event-src={mappedUrl}
-            ref={linkRef}
-          >
-            {truncatedUrl}
           </a>
         </div>
       </div>
