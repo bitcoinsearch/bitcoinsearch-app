@@ -156,7 +156,7 @@ const Footer = () => {
             We&apos;d love to hear your feedback on this project
           </p>
           <a
-            href="https://cryptpad.fr/form/#/2/form/view/3P2CsohsHOkcH7C+WdtX0-tvqjBHqXnAmz5D9yx0e04/"
+            href="https://forms.gle/aLtBMjAeLZiKCFxn8"
             target="_blank"
             className="font-semibold text-white focus:outline-none px-3 py-3 md:py-4 md:px-6 bg-custom-primary-text rounded-xl dark:text-black"
           >
