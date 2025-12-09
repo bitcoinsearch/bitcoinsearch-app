@@ -5,8 +5,8 @@ const BossBanner = () => {
     <div className={`w-full bg-bdp-background sticky top-0`}>
       <Banner
         headingText="Start your career in bitcoin open source —"
-        linkText="APPLY TODAY"
-        linkTo="https://learning.chaincode.com/#BOSS"
+        linkText="APPLY TO THE ₿OSS CHALLENGE TODAY"
+        linkTo="https://bosschallenge.xyz/"
         hasBoss
         styles={{
           container: "data-[has-heading='true']:h-auto",
