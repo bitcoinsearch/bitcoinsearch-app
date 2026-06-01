@@ -1,6 +1,6 @@
 import bitcoindevs from "public/apps/bitcoin-devs.jpg";
 import transcriptsreview from "public/apps/bitcoin-transcripts-review.jpg";
-import chatbtc from "public/apps/chat-btc.jpg";
+
 import savingSatoshi from "public/apps/saving-satoshi.jpg";
 import bitcointldr from "public/apps/bitcoin-tldr.jpg";
 import bitcointranscripts from "public/apps/bitcoin-transcripts.jpg";
@@ -26,13 +26,6 @@ export const menuApps = [
     image: transcriptsreview,
     name: "Bitcoin Transcripts Review",
     title: "Review technical bitcoin transcripts and earn sats",
-  },
-  {
-    href: "https://chat.bitcoinsearch.xyz",
-    image: chatbtc,
-    name: "Chat BTC",
-    title:
-      "Interactive AI chat to learn about bitcoin technology and its history",
   },
   {
     href: "https://savingsatoshi.com",
