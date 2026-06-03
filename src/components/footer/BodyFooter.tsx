@@ -1,7 +1,6 @@
 import React from "react";
 import { Paging } from "@elastic/react-search-ui-views";
 import useSearchQuery from "../../hooks/useSearchQuery";
-import HolocatChatBtc from "./HolocatChatBtc";
 
 const BodyFooter = () => {
   const { handlePageChange, pagingInfo } = useSearchQuery();
@@ -35,8 +34,6 @@ const BodyFooter = () => {
           />
         )}
       </div>
-
-      <HolocatChatBtc />
     </div>
   );
 };
